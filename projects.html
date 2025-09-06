@@ -120,7 +120,7 @@
       width: 100%;
       background: rgba(10, 10, 10, 0.9);
       backdrop-filter: blur(20px);
-      padding: 15px 0;
+      padding: 10px 0;
       z-index: 1000;
       border-bottom: 1px solid rgba(255, 87, 34, 0.3);
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
@@ -147,18 +147,21 @@
       align-items: center;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 30px;
+      padding: 0 15px;
       position: relative;
+      flex-wrap: wrap;
     }
     .nav-logo {
-      position: absolute;
-      left: 30px;
-      font-size: 1.4em;
+      position: relative;
+      left: 0;
+      font-size: 1.2em;
       font-weight: 900;
       color: #FF5722;
       text-shadow: 0 0 15px #FF5722;
       letter-spacing: 2px;
       animation: logo-glow 2s ease-in-out infinite alternate;
+      margin-right: 15px;
+      margin-bottom: 5px;
     }
     @keyframes logo-glow {
       0% { text-shadow: 0 0 15px #FF5722, 0 0 25px #FF5722; }
@@ -166,17 +169,19 @@
     }
     .nav-links {
       display: flex;
-      gap: 50px;
+      gap: 10px;
       align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
     }
     .nav-links a {
       color: #ffffff;
       text-decoration: none;
       font-weight: 700;
-      font-size: 0.9em;
+      font-size: 0.8em;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      padding: 12px 25px;
+      letter-spacing: 1px;
+      padding: 6px 12px;
       position: relative;
       transition: all 0.4s ease;
       border: 1px solid transparent;
@@ -203,25 +208,9 @@
       box-shadow: 0 0 20px rgba(255, 87, 34, 0.4);
       transform: translateY(-3px) scale(1.05);
     }
-    /* Mobile Navigation */
+    /* Mobile Navigation - NASCOSTO */
     .mobile-menu-toggle {
       display: none;
-      background: none;
-      border: 2px solid #FF5722;
-      color: #FF5722;
-      font-size: 1.8em;
-      cursor: pointer;
-      position: absolute;
-      right: 30px;
-      padding: 8px 12px;
-      border-radius: 50%;
-      transition: all 0.3s ease;
-    }
-    .mobile-menu-toggle:hover {
-      background: #FF5722;
-      color: white;
-      transform: rotate(90deg) scale(1.1);
-      box-shadow: 0 0 15px #FF5722;
     }
     /* HERO SECTION SPETTACOLARE */
     .hero {
@@ -232,7 +221,7 @@
       align-items: center;
       padding: 0 60px;
       position: relative;
-      margin-top: 80px;
+      margin-top: 70px;
       text-align: center;
     }
     .glitch-title {
@@ -341,7 +330,7 @@
     .content-wrapper {
       background: rgba(26, 26, 26, 0.8);
       backdrop-filter: blur(15px);
-      margin: 40px;
+      margin: 20px;
       border-radius: 25px;
       overflow: hidden;
       border: 1px solid rgba(255, 87, 34, 0.3);
@@ -364,7 +353,7 @@
       100% { transform: translateX(100%); opacity: 0; }
     }
     .content-section {
-      padding: 80px 50px;
+      padding: 60px 30px;
     }
     .azienda-section {
       margin-bottom: 40px;
@@ -403,13 +392,13 @@
     }
     .project-card {
       background: rgba(255, 87, 34, 0.05);
-      padding: 35px;
+      padding: 25px;
       border-radius: 15px;
       border-left: 4px solid #FF5722;
       transition: all 0.5s ease;
       position: relative;
       overflow: hidden;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       transform: translateY(20px);
       opacity: 0;
       animation: card-enter 0.6s ease-out forwards;
@@ -443,9 +432,9 @@
     }
     .project-title {
       color: #FF5722;
-      font-size: 1.8em;
+      font-size: 1.6em;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       text-transform: uppercase;
       letter-spacing: 2px;
       display: flex;
@@ -473,25 +462,25 @@
     }
     .project-desc {
       font-family: 'Rajdhani', sans-serif;
-      font-size: 1.1em;
-      line-height: 1.7;
+      font-size: 1em;
+      line-height: 1.6;
       color: #e8e8e8;
       font-weight: 400;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     .project-details {
-      margin-top: 20px;
+      margin-top: 15px;
     }
     details {
-      margin-top: 15px;
+      margin-top: 10px;
     }
     summary {
       cursor: pointer;
       font-weight: bold;
       color: #ffa726;
       font-family: 'Rajdhani', sans-serif;
-      font-size: 1.2em;
-      padding: 10px 15px;
+      font-size: 1.1em;
+      padding: 8px 12px;
       background: rgba(255, 167, 38, 0.1);
       border-radius: 8px;
       transition: all 0.3s ease;
@@ -501,46 +490,46 @@
       color: #FF5722;
     }
     details ul {
-      margin-top: 15px;
-      padding-left: 30px;
+      margin-top: 12px;
+      padding-left: 25px;
       color: #ffd699;
       font-family: 'Rajdhani', sans-serif;
-      font-size: 1.1em;
-      line-height: 1.8;
+      font-size: 1em;
+      line-height: 1.6;
     }
     details li {
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       position: relative;
-      padding-left: 10px;
+      padding-left: 8px;
     }
     details li::before {
       content: '▶';
       position: absolute;
-      left: -15px;
+      left: -12px;
       color: #FF5722;
       font-size: 0.8em;
     }
     .rating-section {
-      margin-top: 25px;
+      margin-top: 20px;
       display: flex;
       flex-direction: column;
     }
     .rating-section label {
       font-family: 'Rajdhani', sans-serif;
-      font-size: 1.2em;
+      font-size: 1.1em;
       font-weight: 700;
       color: #FF5722;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
     .stars {
       display: flex;
       gap: 5px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     .stars span {
-      font-size: 2em;
+      font-size: 1.8em;
       cursor: pointer;
       color: #ffcc00;
       transition: all 0.2s ease;
@@ -553,11 +542,11 @@
     .project-btn {
       background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
       color: white;
-      padding: 15px 30px;
+      padding: 12px 25px;
       border: none;
       border-radius: 30px;
       font-weight: 700;
-      font-size: 1em;
+      font-size: 0.9em;
       text-transform: uppercase;
       letter-spacing: 1px;
       font-family: 'Orbitron', monospace;
@@ -593,13 +582,14 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 30px;
+      gap: 20px;
       flex-wrap: wrap;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     .mini-slider {
       position: relative;
-      width: 300px;
+      width: 100%;
+      max-width: 300px;
       height: 200px;
       overflow: hidden;
       border-radius: 15px;
@@ -653,7 +643,7 @@
     /* FOOTER SPETTACOLARE */
     .footer-cta {
       background: linear-gradient(135deg, rgba(10,10,10,0.95) 0%, rgba(26,26,26,0.95) 100%);
-      padding: 80px 40px;
+      padding: 60px 20px;
       text-align: center;
       border-top: 2px solid rgba(255, 87, 34, 0.3);
       position: relative;
@@ -674,12 +664,12 @@
       50% { transform: scale(1.1); opacity: 1; }
     }
     .footer-title {
-      font-size: 2.5em;
+      font-size: 2em;
       font-weight: 900;
       color: #FF5722;
       text-transform: uppercase;
       letter-spacing: 4px;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
       text-shadow: 0 0 20px #FF5722;
       position: relative;
       z-index: 10;
@@ -695,8 +685,8 @@
     }
     .cta-matrix {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
       max-width: 900px;
       margin: 0 auto;
       position: relative;
@@ -705,28 +695,28 @@
     .cta-matrix .cta-primary {
       margin: 0;
       width: 100%;
-      padding: 22px 30px;
-      font-size: 1em;
+      padding: 15px 20px;
+      font-size: 0.9em;
     }
     /* TRANSLATION WIDGET ANIMATO */
     #translate-container {
       position: fixed;
-      top: 100px;
-      right: 30px;
+      top: 80px;
+      right: 15px;
       z-index: 1001;
     }
     #translate-button {
       background: linear-gradient(135deg, #FF5722, #ff8a50);
       color: white;
       border: none;
-      padding: 15px 20px;
+      padding: 10px 15px;
       border-radius: 30px;
       cursor: pointer;
       font-family: 'Orbitron', monospace;
       font-weight: 700;
       transition: all 0.4s ease;
       box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
-      font-size: 0.9em;
+      font-size: 0.8em;
       position: relative;
       overflow: hidden;
     }
@@ -750,73 +740,108 @@
     /* RESPONSIVE MIGLIORATO */
     @media (max-width: 968px) {
       .hero {
-        padding: 40px 30px;
+        padding: 30px 20px;
         height: 40vh;
+        margin-top: 70px;
       }
       .content-wrapper {
-        margin: 0 20px;
+        margin: 15px;
       }
       .content-section {
-        padding: 60px 30px;
-      }
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: rgba(10, 10, 10, 0.98);
-        backdrop-filter: blur(25px);
-        flex-direction: column;
-        padding: 30px 20px;
-        gap: 20px;
-        border-top: 1px solid rgba(255, 87, 34, 0.3);
-      }
-      .nav-links.active {
-        display: flex;
-      }
-      .mobile-menu-toggle {
-        display: block;
+        padding: 40px 20px;
       }
       .flipper-header {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
       }
       .mini-slider {
         width: 100%;
-        height: auto;
+        max-width: 100%;
+        height: 200px;
+      }
+      .project-title {
+        font-size: 1.4em;
+      }
+      .project-desc {
+        font-size: 0.95em;
+      }
+      .azienda-section label {
+        font-size: 1.1em;
+      }
+      input[type="text"] {
+        font-size: 1em;
+        padding: 12px;
+      }
+      .stars span {
+        font-size: 1.5em;
       }
     }
+    
     @media (max-width: 768px) {
       .glitch-title {
-        font-size: 2.5em;
+        font-size: 2.2em;
         letter-spacing: 2px;
       }
+      .subtitle-tech {
+        font-size: 1.1em;
+      }
       .project-card {
-        padding: 25px;
+        padding: 20px;
+        margin-bottom: 20px;
       }
       .footer-cta {
-        padding: 60px 20px;
+        padding: 50px 15px;
       }
       .cta-matrix {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 12px;
+      }
+      .cta-matrix .cta-primary {
+        padding: 12px 18px;
+        font-size: 0.85em;
+      }
+      .nav-links a {
+        font-size: 0.75em;
+        padding: 5px 10px;
       }
     }
+    
     @media (max-width: 480px) {
       .hero {
-        padding: 20px;
+        padding: 15px;
         margin-top: 70px;
         height: 35vh;
       }
       .glitch-title {
-        font-size: 2em;
+        font-size: 1.8em;
+      }
+      .subtitle-tech {
+        font-size: 1em;
       }
       .content-wrapper {
-        margin: 0 10px;
+        margin: 10px;
       }
       .content-section {
-        padding: 40px 20px;
+        padding: 30px 15px;
+      }
+      .project-card {
+        padding: 15px;
+      }
+      .project-title {
+        font-size: 1.2em;
+      }
+      .project-desc {
+        font-size: 0.9em;
+      }
+      .mini-slider {
+        height: 150px;
+      }
+      .nav-links a {
+        font-size: 0.7em;
+        padding: 4px 8px;
+      }
+      .nav-logo {
+        font-size: 1em;
       }
     }
   </style>
@@ -839,7 +864,6 @@
   <nav>
     <div class="nav-container">
       <div class="nav-logo">SC</div>
-      <button class="mobile-menu-toggle">⚡</button>
       <div class="nav-links">
         <a href="index.html">HOME</a>
         <a href="projects.html">PROGETTI</a>
@@ -909,11 +933,11 @@
           <div class="mini-slider">
             <div class="slides" id="flipper-slides">
               <img src="images/projects/im1.png" alt="Flipper Device 1" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-              <img src="images/projects/im2.png" alt="Flipper Device 2" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-              <img src="images/projects/im3.png" alt="Flipper Device 3" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-              <img src="images/projects/im4.png" alt="Flipper Device 4" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-              <img src="images/projects/im5.png" alt="Flipper Device 5" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-              <img src="images/projects/im6.png" alt="Flipper Device 6" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
+              <img src="images/projects/im2.png" alt="Flipper Device 2" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRlciIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
+              <img src="images/projects/im3.png" alt="Flipper Device 3" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRlciIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
+              <img src="images/projects/im4.png" alt="Flipper Device 4" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRlciIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
+              <img src="images/projects/im5.png" alt="Flipper Device 5" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRlciIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
+              <img src="images/projects/im6.png" alt="Flipper Device 6" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRlciIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
             </div>
             <div class="controls">
               <button id="flipper-prev">⏪</button>
@@ -1167,50 +1191,6 @@
           waitForTranslateWidget(function (select) {
             select.value = 'en';
             select.dispatchEvent(new Event('change'));
-          });
-        });
-      }
-      
-      // Mobile menu con animazioni
-      const mobileToggle = document.querySelector('.mobile-menu-toggle');
-      const navLinks = document.querySelector('.nav-links');
-      
-      if (mobileToggle && navLinks) {
-        mobileToggle.addEventListener('click', function() {
-          const isActive = navLinks.classList.contains('active');
-          
-          navLinks.classList.toggle('active');
-          
-          // Animazione icona
-          this.style.transform = isActive ? 
-            'rotate(0deg) scale(1)' : 
-            'rotate(180deg) scale(1.1)';
-          
-          this.style.background = isActive ? 'transparent' : '#FF5722';
-          this.style.color = isActive ? '#FF5722' : 'white';
-          
-          // Animazione menu items
-          if (!isActive) {
-            const menuItems = navLinks.querySelectorAll('a');
-            menuItems.forEach((item, index) => {
-              item.style.opacity = '0';
-              item.style.transform = 'translateX(-20px)';
-              setTimeout(() => {
-                item.style.transition = 'all 0.3s ease';
-                item.style.opacity = '1';
-                item.style.transform = 'translateX(0)';
-              }, index * 100);
-            });
-          }
-        });
-        
-        // Chiudi menu quando clicchi su un link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-          link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            mobileToggle.style.transform = 'rotate(0deg) scale(1)';
-            mobileToggle.style.background = 'transparent';
-            mobileToggle.style.color = '#FF5722';
           });
         });
       }
