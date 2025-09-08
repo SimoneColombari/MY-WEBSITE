@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+  <!-- Includi il file di configurazione -->
+  <script src="config.js"></script>
   <style>
     * {
       margin: 0;
@@ -1277,6 +1279,15 @@
         else return 'Molto interessato 🤩';
       }
       
+      // Aggiungi un valore numerico per l'interesse per facilitare l'analisi
+      function getInteresseValore(value) {
+        if (value < 20) return 1;
+        else if (value < 40) return 2;
+        else if (value < 60) return 3;
+        else if (value < 80) return 4;
+        else return 5;
+      }
+      
       range.addEventListener('input', () => {
         const value = parseInt(range.value);
         label.textContent = getInteresseTestuale(value);
@@ -1285,6 +1296,7 @@
       submitButton.addEventListener('click', () => {
         const value = parseInt(range.value);
         const interesseTestuale = getInteresseTestuale(value);
+        const interesseValore = getInteresseValore(value);
         const companyName = companyNameInput.value.trim();
         
         if (!companyName) {
@@ -1354,15 +1366,62 @@
           sendingFeedback.style.opacity = '1';
         }, 10);
         
-        // Invia i dati allo script Google
-        const scriptUrl = SCRIPT_URL;
+        // Verifica che SCRIPT_URL sia definita
+        if (typeof SCRIPT_URL === 'undefined') {
+          console.error("SCRIPT_URL non è definita. Assicurati di aver incluso config.js");
+          
+          // Rimuovi il messaggio di invio in corso
+          sendingFeedback.style.opacity = '0';
+          setTimeout(() => {
+            if (document.body.contains(sendingFeedback)) {
+              document.body.removeChild(sendingFeedback);
+            }
+          }, 300);
+          
+          // Mostra un messaggio di errore
+          const configErrorFeedback = document.createElement('div');
+          configErrorFeedback.textContent = 'Errore di configurazione. Contatta l\'amministratore.';
+          configErrorFeedback.style.position = 'fixed';
+          configErrorFeedback.style.bottom = '20px';
+          configErrorFeedback.style.left = '50%';
+          configErrorFeedback.style.transform = 'translateX(-50%)';
+          configErrorFeedback.style.background = 'linear-gradient(135deg, #ff4d4d 0%, #ff8080 100%)';
+          configErrorFeedback.style.color = 'white';
+          configErrorFeedback.style.padding = '10px 20px';
+          configErrorFeedback.style.borderRadius = '30px';
+          configErrorFeedback.style.fontFamily = 'Orbitron, sans-serif';
+          configErrorFeedback.style.fontWeight = '700';
+          configErrorFeedback.style.zIndex = '10000';
+          configErrorFeedback.style.boxShadow = '0 5px 15px rgba(255, 77, 77, 0.4)';
+          configErrorFeedback.style.opacity = '0';
+          configErrorFeedback.style.transition = 'opacity 0.3s ease';
+          
+          document.body.appendChild(configErrorFeedback);
+          
+          setTimeout(() => {
+            configErrorFeedback.style.opacity = '1';
+          }, 10);
+          
+          setTimeout(() => {
+            configErrorFeedback.style.opacity = '0';
+            setTimeout(() => {
+              if (document.body.contains(configErrorFeedback)) {
+                document.body.removeChild(configErrorFeedback);
+              }
+            }, 300);
+          }, 3000);
+          
+          return;
+        }
         
+        // Invia i dati allo script Google
         // Utilizziamo URLSearchParams per costruire l'URL in modo più sicuro
         const params = new URLSearchParams();
         params.append('azienda', companyName);
         params.append('interesse', interesseTestuale);
+        params.append('valore', interesseValore);
         
-        fetch(`${scriptUrl}?${params.toString()}`, {
+        fetch(`${SCRIPT_URL}?${params.toString()}`, {
           method: 'GET',
           mode: 'no-cors' // Aggiunto per problemi di CORS
         })
