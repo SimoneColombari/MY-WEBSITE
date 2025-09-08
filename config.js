@@ -1,2 +1,2 @@
 // Configurazione globale per l'URL dello script Google Apps Script
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzRZnLdp6owmexe3xX4TneTXOtYa6oAc3vXAdroFZJK26VR4BzzT_4VEYbcc5_g6AIWJA/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwthW6WMMm7ER1lEaYCeNUWtxbJBmJm_OJTfJ2djDWyZ3GHP7Hrorn2E3o0I8h7OH46/exec";
