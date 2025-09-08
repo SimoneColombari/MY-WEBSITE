@@ -424,6 +424,56 @@
       50% { width: 250px; }
     }
     
+    /* Stili per la card principale del progetto ESP3D BOX */
+    .esp3d-main-card {
+      background: linear-gradient(135deg, rgba(255, 87, 34, 0.08) 0%, rgba(255, 138, 80, 0.05) 100%);
+      border: 2px solid rgba(255, 87, 34, 0.3);
+      box-shadow: 0 15px 35px rgba(255, 87, 34, 0.2);
+      transform: translateY(0);
+      opacity: 1;
+      animation: none;
+      margin-bottom: 40px;
+    }
+
+    .esp3d-main-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      background: linear-gradient(135deg, rgba(255, 87, 34, 0.12) 0%, rgba(255, 138, 80, 0.08) 100%);
+      box-shadow: 0 20px 40px rgba(255, 87, 34, 0.3);
+      border-width: 3px;
+    }
+    
+    /* Separatore visivo tra descrizione e visualizzatore */
+    .project-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 30px 0;
+      position: relative;
+    }
+
+    .connector-line {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #FF5722, transparent);
+      flex-grow: 1;
+      max-width: 200px;
+    }
+
+    .connector-text {
+      margin: 0 20px;
+      color: #FF5722;
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 1.1em;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+      padding: 8px 16px;
+      border: 1px solid rgba(255, 87, 34, 0.3);
+      border-radius: 20px;
+      background: rgba(10, 10, 10, 0.7);
+      box-shadow: 0 0 15px rgba(255, 87, 34, 0.3);
+    }
+    
     /* VISUALIZZATORE 3D */
     .viewer-3d-container {
       background: rgba(10, 10, 10, 0.6);
@@ -449,6 +499,61 @@
       0%, 100% { opacity: 0.3; }
       50% { opacity: 0.7; }
     }
+    
+    /* Stili per il visualizzatore 3D del progetto ESP3D BOX */
+    .esp3d-viewer {
+      position: relative;
+      border: 2px solid rgba(255, 87, 34, 0.4);
+      box-shadow: 0 20px 40px rgba(255, 87, 34, 0.3);
+    }
+
+    .esp3d-viewer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(255, 87, 34, 0.08) 0%, transparent 70%);
+      animation: viewer-pulse 4s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    /* Header del visualizzatore */
+    .viewer-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 15px 20px;
+      background: linear-gradient(180deg, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.7) 100%);
+      border-bottom: 1px solid rgba(255, 87, 34, 0.3);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .viewer-title {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 1.4em;
+      color: #FF5722;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 5px;
+      text-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
+    }
+
+    .viewer-subtitle {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.9em;
+      color: #ffab40;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
     .viewer-3d {
       height: 400px;
       position: relative;
@@ -478,6 +583,44 @@
       border-radius: 10px;
       border: 1px solid rgba(255, 87, 34, 0.3);
       max-width: 80%;
+    }
+    
+    /* Badge per il visualizzatore 3D */
+    .project-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+      color: white;
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 1.2em;
+      padding: 8px 16px;
+      border-radius: 30px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 4px 15px rgba(255, 87, 34, 0.6);
+      z-index: 10;
+      animation: badge-pulse 2s infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes badge-pulse {
+      0% {
+        box-shadow: 0 4px 15px rgba(255, 87, 34, 0.6);
+        transform: scale(1);
+      }
+      100% {
+        box-shadow: 0 6px 20px rgba(255, 87, 34, 0.8);
+        transform: scale(1.05);
+      }
+    }
+    
+    /* Badge per il visualizzatore 3D - posizione modificata */
+    .esp3d-viewer .project-badge {
+      top: 70px;
+      left: 20px;
+      z-index: 11;
     }
     
     /* CONTROLLI VISUALIZZATORE */
@@ -681,6 +824,54 @@
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.2); }
     }
+    
+    /* Titolo speciale per ESP3D BOX */
+    .esp3d-title {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .esp3d-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #FF5722, #ff8a50);
+      animation: title-underline 3s infinite;
+    }
+
+    /* Animazione speciale per il titolo ESP3D BOX nella project card */
+    .esp3d-title::before {
+      content: 'ESP3D BOX';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #FF5722, #ff8a50, #FF5722);
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      z-index: -1;
+      animation: gradient-shift 3s ease infinite;
+    }
+
+    @keyframes gradient-shift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    
     .project-desc {
       font-family: 'Rajdhani', sans-serif;
       font-size: 1em;
@@ -999,6 +1190,35 @@
       .viewer-3d {
         height: 300px;
       }
+      
+      .esp3d-main-card {
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+      
+      .project-connector {
+        margin: 20px 0;
+      }
+      
+      .connector-text {
+        font-size: 0.9em;
+        padding: 6px 12px;
+        margin: 0 10px;
+      }
+      
+      .viewer-title {
+        font-size: 1.2em;
+      }
+      
+      .viewer-subtitle {
+        font-size: 0.8em;
+      }
+      
+      .esp3d-viewer .project-badge {
+        top: 60px;
+        font-size: 1em;
+        padding: 6px 12px;
+      }
     }
     
     @media (max-width: 768px) {
@@ -1073,6 +1293,35 @@
       .section-title {
         font-size: 1.8em;
       }
+      .project-badge {
+        font-size: 1em;
+        padding: 6px 12px;
+      }
+      
+      .esp3d-main-card {
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      
+      .connector-text {
+        font-size: 0.8em;
+        padding: 4px 8px;
+        margin: 0 5px;
+      }
+      
+      .viewer-title {
+        font-size: 1em;
+      }
+      
+      .viewer-subtitle {
+        font-size: 0.7em;
+      }
+      
+      .esp3d-viewer .project-badge {
+        top: 55px;
+        font-size: 0.9em;
+        padding: 4px 10px;
+      }
     }
   </style>
 </head>
@@ -1126,42 +1375,11 @@
       
       <!-- Sezione Progetti 3D -->
       <div class="projects-3d-section">
-        <h2 class="section-title">PROGETTI 3D INTERATTIVI</h2>
+        <h2 class="section-title">ESP3D BOX - PROGETTI 3D INTERATTIVI</h2>
         
-        <!-- Progetto ESP3D Box -->
-        <div class="viewer-3d-container">
-          <div class="viewer-3d">
-            <canvas id="esp3d-canvas"></canvas>
-            <div class="viewer-message" id="viewer-message">
-              Caricamento modello 3D in corso...
-            </div>
-          </div>
-          
-          <div class="viewer-controls">
-            <div class="control-row">
-              <div class="control-group">
-                <h3>Rotazione automatica</h3>
-                <label class="switch">
-                  <input type="checkbox" id="auto-rotate" checked>
-                  <span class="slider-toggle"></span>
-                </label>
-              </div>
-              <div class="control-group">
-                <h3>Zoom</h3>
-                <input type="range" min="50" max="150" value="100" class="slider" id="zoom-level">
-              </div>
-            </div>
-            <div class="control-row">
-              <div class="control-group">
-                <h3>Reset vista</h3>
-                <button class="control-btn" id="reset-view">Reset</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="project-card">
-          <div class="project-title">ESP3D Box</div>
+        <!-- Progetto ESP3D Box - Descrizione prima -->
+        <div class="project-card esp3d-main-card">
+          <div class="project-title esp3d-title">ESP3D BOX</div>
           <div class="project-desc">Scatola personalizzata per ESP32 con display integrato e controlli per progetti elettronici avanzati.</div>
           <div class="project-details">
             <details>
@@ -1185,6 +1403,50 @@
               <span data-value="5">☆</span>
             </div>
             <button class="project-btn">Invia valutazione</button>
+          </div>
+        </div>
+        
+        <!-- Separatore visivo -->
+        <div class="project-connector">
+          <div class="connector-line"></div>
+          <div class="connector-text">Visualizzazione 3D</div>
+          <div class="connector-line"></div>
+        </div>
+        
+        <!-- Progetto ESP3D Box - Visualizzatore 3D -->
+        <div class="viewer-3d-container esp3d-viewer">
+          <div class="viewer-header">
+            <div class="viewer-title">ESP3D BOX</div>
+            <div class="viewer-subtitle">Modello 3D interattivo</div>
+          </div>
+          <div class="viewer-3d">
+            <canvas id="esp3d-canvas"></canvas>
+            <div class="viewer-message" id="viewer-message">
+              Caricamento modello 3D in corso...
+            </div>
+            <div class="project-badge">ESP3D BOX</div>
+          </div>
+          
+          <div class="viewer-controls">
+            <div class="control-row">
+              <div class="control-group">
+                <h3>Rotazione automatica</h3>
+                <label class="switch">
+                  <input type="checkbox" id="auto-rotate" checked>
+                  <span class="slider-toggle"></span>
+                </label>
+              </div>
+              <div class="control-group">
+                <h3>Zoom</h3>
+                <input type="range" min="50" max="150" value="100" class="slider" id="zoom-level">
+              </div>
+            </div>
+            <div class="control-row">
+              <div class="control-group">
+                <h3>Reset vista</h3>
+                <button class="control-btn" id="reset-view">Reset</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1230,12 +1492,12 @@
           </div>
           <div class="mini-slider">
             <div class="slides" id="flipper-slides">
-              <img src="images/projects/im1.png" alt="Flipper Device 1" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRlciIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-              <img src="images/projects/im2.png" alt="Flipper Device 2" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRlciIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-              <img src="images/projects/im3.png" alt="Flipper Device 3" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRlciIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-              <img src="images/projects/im4.png" alt="Flipper Device 4" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRlciIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-              <img src="images/projects/im5.png" alt="Flipper Device 5" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRlciIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-              <img src="images/projects/im6.png" alt="Flipper Device 6" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRlciIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
+              <img src="images/projects/im1.png" alt="Flipper Device 1" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
+              <img src="images/projects/im2.png" alt="Flipper Device 2" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
+              <img src="images/projects/im3.png" alt="Flipper Device 3" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
+              <img src="images/projects/im4.png" alt="Flipper Device 4" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
+              <img src="images/projects/im5.png" alt="Flipper Device 5" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
+              <img src="images/projects/im6.png" alt="Flipper Device 6" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
             </div>
             <div class="controls">
               <button id="flipper-prev">⏪</button>
@@ -1363,7 +1625,7 @@
     
     // ANIMAZIONE CARDS CON INTERSECTION OBSERVER
     function initScrollAnimations() {
-      const cards = document.querySelectorAll('.project-card');
+      const cards = document.querySelectorAll('.project-card:not(.esp3d-main-card)');
       
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
@@ -1383,6 +1645,51 @@
         card.style.transform = 'translateY(50px)';
         observer.observe(card);
       });
+    }
+    
+    // Aggiungi un effetto di transizione quando si scorre tra la descrizione e il visualizzatore
+    function initProjectTransition() {
+      const projectCard = document.querySelector('.esp3d-main-card');
+      const viewerContainer = document.querySelector('.esp3d-viewer');
+      const connector = document.querySelector('.project-connector');
+      
+      if (!projectCard || !viewerContainer || !connector) return;
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            if (entry.target === projectCard) {
+              projectCard.style.animation = 'card-enter 0.6s ease-out forwards';
+            } else if (entry.target === connector) {
+              connector.style.opacity = '1';
+              connector.style.transform = 'translateY(0)';
+            } else if (entry.target === viewerContainer) {
+              viewerContainer.style.opacity = '1';
+              viewerContainer.style.transform = 'translateY(0)';
+            }
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+      
+      // Imposta stati iniziali
+      projectCard.style.opacity = '0';
+      projectCard.style.transform = 'translateY(50px)';
+      
+      connector.style.opacity = '0';
+      connector.style.transform = 'translateY(30px)';
+      connector.style.transition = 'all 0.6s ease';
+      
+      viewerContainer.style.opacity = '0';
+      viewerContainer.style.transform = 'translateY(50px)';
+      viewerContainer.style.transition = 'all 0.8s ease';
+      
+      // Osserva gli elementi
+      observer.observe(projectCard);
+      observer.observe(connector);
+      observer.observe(viewerContainer);
     }
     
     // EFFETTI PULSANTI AVANZATI
@@ -1488,7 +1795,7 @@
       function loadSTLModel() {
         // Mostra messaggio di caricamento
         if (messageEl) {
-          messageEl.textContent = 'Caricamento modello 3D in corso...';
+          messageEl.textContent = 'Caricamento modello ESP3D BOX in corso...';
           messageEl.style.display = 'block';
         }
         
@@ -1531,6 +1838,35 @@
             plane.position.y = -2;
             scene.add(plane);
             
+            // Aggiungi un'etichetta 3D con il nome del progetto
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = 256;
+            canvas.height = 64;
+            
+            // Sfondo trasparente
+            context.fillStyle = 'rgba(0, 0, 0, 0)';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Testo
+            context.font = 'bold 40px Orbitron';
+            context.fillStyle = '#FF5722';
+            context.textAlign = 'center';
+            context.textBaseline = 'middle';
+            context.fillText('ESP3D BOX', canvas.width / 2, canvas.height / 2);
+            
+            // Crea una texture dal canvas
+            const texture = new THREE.CanvasTexture(canvas);
+            const spriteMaterial = new THREE.SpriteMaterial({ 
+              map: texture,
+              transparent: true
+            });
+            const sprite = new THREE.Sprite(spriteMaterial);
+            sprite.scale.set(2, 0.5, 1);
+            sprite.position.y = 2.5; // Posiziona sopra il modello
+            
+            scene.add(sprite);
+            
             // Nascondi messaggio di caricamento
             if (messageEl) {
               messageEl.style.display = 'none';
@@ -1542,7 +1878,7 @@
             // Progresso del caricamento
             const percent = Math.round((xhr.loaded / xhr.total) * 100);
             if (messageEl) {
-              messageEl.textContent = `Caricamento: ${percent}%`;
+              messageEl.textContent = `Caricamento ESP3D BOX: ${percent}%`;
             }
           },
           (error) => {
@@ -1639,6 +1975,9 @@
       initTypingEffect();
       initScrollAnimations();
       initButtonEffects();
+      
+      // Inizializza la transizione del progetto
+      initProjectTransition();
       
       // Inizializza il visualizzatore 3D
       init3DViewer();
