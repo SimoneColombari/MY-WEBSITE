@@ -206,6 +206,11 @@
       box-shadow: 0 0 20px rgba(255, 87, 34, 0.4);
       transform: translateY(-3px) scale(1.05);
     }
+    .nav-links a.active {
+      color: #FF5722;
+      border-color: #FF5722;
+      background: rgba(255, 87, 34, 0.1);
+    }
     /* Mobile Navigation - NASCOSTO */
     .mobile-menu-toggle {
       display: none;
@@ -768,11 +773,12 @@
     <div class="nav-container">
       <div class="nav-logo">SC</div>
       <div class="nav-links">
-        <a href="index.html">HOME</a>
+        <a href="index.html" class="active">HOME</a>
         <a href="projects.html">PROGETTI</a>
         <a href="usa.html">USA</a>
         <a href="curriculum.html">CURRICULUM</a>
         <a href="contact.html">CONTATTI</a>
+        <a href="dashboard.html">DASHBOARD</a>
       </div>
     </div>
   </nav>
@@ -825,6 +831,7 @@
       <a href="usa.html" class="cta-primary">USA EXPERIENCE</a>
       <a href="curriculum.html" class="cta-primary">CURRICULUM VITAE</a>
       <a href="contact.html" class="cta-primary">CONNETTITI</a>
+      <a href="dashboard.html" class="cta-primary">DASHBOARD</a>
     </div>
   </footer>
   
