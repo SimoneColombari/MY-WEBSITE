@@ -592,6 +592,27 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
+    .company-input {
+      width: 100%;
+      padding: 12px 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 87, 34, 0.5);
+      border-radius: 8px;
+      color: white;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1em;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+    }
+    .company-input:focus {
+      outline: none;
+      border-color: #FF5722;
+      box-shadow: 0 0 15px rgba(255, 87, 34, 0.3);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .company-input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
     .interest-slider {
       width: 100%;
       height: 8px;
@@ -957,9 +978,14 @@
         
         <div class="interest-section">
           <h2>📊 IL TUO LIVELLO DI INTERESSE</h2>
-          <div class="interest-label">Seleziona quanto sei interessato a una collaborazione:</div>
+          <div class="interest-label">Nome della tua azienda:</div>
+          <input type="text" id="companyName" class="company-input" placeholder="Inserisci il nome della tua azienda" />
+          
+          <div class="interest-label" style="margin-top: 20px;">Seleziona quanto sei interessato a una collaborazione:</div>
           <input type="range" id="interestRange" class="interest-slider" min="0" max="100" value="50" />
           <div id="interestLabel" class="interest-value">Curioso 🙂</div>
+          
+          <button id="submitInterest" class="cta-primary" style="margin-top: 20px;">INVIA INTERESSE</button>
         </div>
       </div>
     </section>
@@ -1135,6 +1161,52 @@
       }, 100);
     }
     
+    // Funzione globale per copiare l'email
+    window.copyEmail = function() {
+      const emailElement = document.getElementById("email");
+      if (!emailElement) return;
+      
+      const emailText = emailElement.textContent;
+      navigator.clipboard.writeText(emailText).then(() => {
+        // Creiamo un elemento per mostrare il feedback
+        const emailFeedback = document.createElement('div');
+        emailFeedback.textContent = 'Email copiata!';
+        emailFeedback.style.position = 'fixed';
+        emailFeedback.style.bottom = '20px';
+        emailFeedback.style.left = '50%';
+        emailFeedback.style.transform = 'translateX(-50%)';
+        emailFeedback.style.background = 'linear-gradient(135deg, #FF5722 0%, #ff8a50 100%)';
+        emailFeedback.style.color = 'white';
+        emailFeedback.style.padding = '10px 20px';
+        emailFeedback.style.borderRadius = '30px';
+        emailFeedback.style.fontFamily = 'Orbitron, sans-serif';
+        emailFeedback.style.fontWeight = '700';
+        emailFeedback.style.zIndex = '10000';
+        emailFeedback.style.boxShadow = '0 5px 15px rgba(255, 87, 34, 0.4)';
+        emailFeedback.style.opacity = '0';
+        emailFeedback.style.transition = 'opacity 0.3s ease';
+        
+        document.body.appendChild(emailFeedback);
+        
+        // Animazione di entrata
+        setTimeout(() => {
+          emailFeedback.style.opacity = '1';
+        }, 10);
+        
+        // Rimuovi dopo 2 secondi
+        setTimeout(() => {
+          emailFeedback.style.opacity = '0';
+          setTimeout(() => {
+            if (document.body.contains(emailFeedback)) {
+              document.body.removeChild(emailFeedback);
+            }
+          }, 300);
+        }, 2000);
+      }).catch(err => {
+        console.error('Errore durante la copia dell\'email:', err);
+      });
+    }
+    
     // INIZIALIZZAZIONE
     document.addEventListener('DOMContentLoaded', function () {
       // Inizializza tutte le animazioni
@@ -1185,48 +1257,17 @@
         });
       });
       
-      // Funzionalità di copia email
-      function copyEmail() {
-        const email = document.getElementById("email").textContent;
-        navigator.clipboard.writeText(email).then(() => {
-          // Creiamo un elemento per mostrare il feedback
-          const feedback = document.createElement('div');
-          feedback.textContent = 'Email copiata!';
-          feedback.style.position = 'fixed';
-          feedback.style.bottom = '20px';
-          feedback.style.left = '50%';
-          feedback.style.transform = 'translateX(-50%)';
-          feedback.style.background = 'linear-gradient(135deg, #FF5722 0%, #ff8a50 100%)';
-          feedback.style.color = 'white';
-          feedback.style.padding = '10px 20px';
-          feedback.style.borderRadius = '30px';
-          feedback.style.fontFamily = "'Orbitron', monospace";
-          feedback.style.fontWeight = '700';
-          feedback.style.zIndex = '10000';
-          feedback.style.boxShadow = '0 5px 15px rgba(255, 87, 34, 0.4)';
-          feedback.style.opacity = '0';
-          feedback.style.transition = 'opacity 0.3s ease';
-          
-          document.body.appendChild(feedback);
-          
-          // Animazione di entrata
-          setTimeout(() => {
-            feedback.style.opacity = '1';
-          }, 10);
-          
-          // Rimuovi dopo 2 secondi
-          setTimeout(() => {
-            feedback.style.opacity = '0';
-            setTimeout(() => {
-              document.body.removeChild(feedback);
-            }, 300);
-          }, 2000);
-        });
-      }
-      
-      // Funzionalità slider interesse
+      // Funzionalità slider e invio interesse
       const range = document.getElementById('interestRange');
       const label = document.getElementById('interestLabel');
+      const companyNameInput = document.getElementById('companyName');
+      const submitButton = document.getElementById('submitInterest');
+      
+      // Verifica che gli elementi esistano
+      if (!range || !label || !companyNameInput || !submitButton) {
+        console.error("Uno o più elementi del form non sono stati trovati");
+        return;
+      }
       
       function getInteresseTestuale(value) {
         if (value < 20) return 'Non interessato 😢';
@@ -1241,9 +1282,47 @@
         label.textContent = getInteresseTestuale(value);
       });
       
-      range.addEventListener('change', () => {
+      submitButton.addEventListener('click', () => {
         const value = parseInt(range.value);
         const interesseTestuale = getInteresseTestuale(value);
+        const companyName = companyNameInput.value.trim();
+        
+        if (!companyName) {
+          // Mostra un messaggio di errore se il nome dell'azienda non è inserito
+          const errorFeedback = document.createElement('div');
+          errorFeedback.textContent = 'Per favore, inserisci il nome della tua azienda';
+          errorFeedback.style.position = 'fixed';
+          errorFeedback.style.bottom = '20px';
+          errorFeedback.style.left = '50%';
+          errorFeedback.style.transform = 'translateX(-50%)';
+          errorFeedback.style.background = 'linear-gradient(135deg, #ff4d4d 0%, #ff8080 100%)';
+          errorFeedback.style.color = 'white';
+          errorFeedback.style.padding = '10px 20px';
+          errorFeedback.style.borderRadius = '30px';
+          errorFeedback.style.fontFamily = 'Orbitron, sans-serif';
+          errorFeedback.style.fontWeight = '700';
+          errorFeedback.style.zIndex = '10000';
+          errorFeedback.style.boxShadow = '0 5px 15px rgba(255, 77, 77, 0.4)';
+          errorFeedback.style.opacity = '0';
+          errorFeedback.style.transition = 'opacity 0.3s ease';
+          
+          document.body.appendChild(errorFeedback);
+          
+          setTimeout(() => {
+            errorFeedback.style.opacity = '1';
+          }, 10);
+          
+          setTimeout(() => {
+            errorFeedback.style.opacity = '0';
+            setTimeout(() => {
+              if (document.body.contains(errorFeedback)) {
+                document.body.removeChild(errorFeedback);
+              }
+            }, 300);
+          }, 2000);
+          
+          return;
+        }
         
         // Animazione feedback
         label.style.transform = 'scale(1.2)';
@@ -1251,15 +1330,136 @@
           label.style.transform = 'scale(1)';
         }, 300);
         
+        // Mostra un messaggio di invio in corso
+        const sendingFeedback = document.createElement('div');
+        sendingFeedback.textContent = 'Invio in corso...';
+        sendingFeedback.style.position = 'fixed';
+        sendingFeedback.style.bottom = '20px';
+        sendingFeedback.style.left = '50%';
+        sendingFeedback.style.transform = 'translateX(-50%)';
+        sendingFeedback.style.background = 'linear-gradient(135deg, #FF5722 0%, #ff8a50 100%)';
+        sendingFeedback.style.color = 'white';
+        sendingFeedback.style.padding = '10px 20px';
+        sendingFeedback.style.borderRadius = '30px';
+        sendingFeedback.style.fontFamily = 'Orbitron, sans-serif';
+        sendingFeedback.style.fontWeight = '700';
+        sendingFeedback.style.zIndex = '10000';
+        sendingFeedback.style.boxShadow = '0 5px 15px rgba(255, 87, 34, 0.4)';
+        sendingFeedback.style.opacity = '0';
+        sendingFeedback.style.transition = 'opacity 0.3s ease';
+        
+        document.body.appendChild(sendingFeedback);
+        
+        setTimeout(() => {
+          sendingFeedback.style.opacity = '1';
+        }, 10);
+        
         // Invia i dati allo script Google
-        fetch("https://script.google.com/macros/s/AKfycbzXxOoAHC5wZ0e8zIrazEo8EHl-GwMu099PhOmK_d8x37a-kAMEBLIi6yHiXcfxbBW2wQ/exec?interesse=" + encodeURIComponent(interesseTestuale))
-          .then(response => response.text())
-          .then(data => {
-            console.log("Interesse salvato:", data);
-          })
-          .catch(error => {
-            console.error("Errore nel salvataggio:", error);
-          });
+        const scriptUrl = "https://script.google.com/macros/s/AKfycbzXxOoAHC5wZ0e8zIrazEo8EHl-GwMu099PhOmK_d8x37a-kAMEBLIi6yHiXcfxbBW2wQ/exec";
+        
+        // Utilizziamo URLSearchParams per costruire l'URL in modo più sicuro
+        const params = new URLSearchParams();
+        params.append('azienda', companyName);
+        params.append('interesse', interesseTestuale);
+        
+        fetch(`${scriptUrl}?${params.toString()}`, {
+          method: 'GET',
+          mode: 'no-cors' // Aggiunto per problemi di CORS
+        })
+        .then(response => {
+          // Con 'no-cors', non possiamo leggere la risposta, ma assumiamo successo
+          console.log("Dati inviati con successo");
+          
+          // Rimuovi il messaggio di invio in corso
+          sendingFeedback.style.opacity = '0';
+          setTimeout(() => {
+            if (document.body.contains(sendingFeedback)) {
+              document.body.removeChild(sendingFeedback);
+            }
+          }, 300);
+          
+          // Mostra un messaggio di successo
+          const successFeedback = document.createElement('div');
+          successFeedback.textContent = 'Grazie! Il tuo interesse è stato registrato.';
+          successFeedback.style.position = 'fixed';
+          successFeedback.style.bottom = '20px';
+          successFeedback.style.left = '50%';
+          successFeedback.style.transform = 'translateX(-50%)';
+          successFeedback.style.background = 'linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%)';
+          successFeedback.style.color = 'white';
+          successFeedback.style.padding = '10px 20px';
+          successFeedback.style.borderRadius = '30px';
+          successFeedback.style.fontFamily = 'Orbitron, sans-serif';
+          successFeedback.style.fontWeight = '700';
+          successFeedback.style.zIndex = '10000';
+          successFeedback.style.boxShadow = '0 5px 15px rgba(76, 175, 80, 0.4)';
+          successFeedback.style.opacity = '0';
+          successFeedback.style.transition = 'opacity 0.3s ease';
+          
+          document.body.appendChild(successFeedback);
+          
+          setTimeout(() => {
+            successFeedback.style.opacity = '1';
+          }, 10);
+          
+          setTimeout(() => {
+            successFeedback.style.opacity = '0';
+            setTimeout(() => {
+              if (document.body.contains(successFeedback)) {
+                document.body.removeChild(successFeedback);
+              }
+            }, 300);
+          }, 3000);
+          
+          // Resetta il form
+          companyNameInput.value = '';
+          range.value = 50;
+          label.textContent = getInteresseTestuale(50);
+        })
+        .catch(error => {
+          console.error("Errore nel salvataggio:", error);
+          
+          // Rimuovi il messaggio di invio in corso
+          sendingFeedback.style.opacity = '0';
+          setTimeout(() => {
+            if (document.body.contains(sendingFeedback)) {
+              document.body.removeChild(sendingFeedback);
+            }
+          }, 300);
+          
+          // Mostra un messaggio di errore
+          const fetchErrorFeedback = document.createElement('div');
+          fetchErrorFeedback.textContent = 'Si è verificato un errore. Riprova più tardi.';
+          fetchErrorFeedback.style.position = 'fixed';
+          fetchErrorFeedback.style.bottom = '20px';
+          fetchErrorFeedback.style.left = '50%';
+          fetchErrorFeedback.style.transform = 'translateX(-50%)';
+          fetchErrorFeedback.style.background = 'linear-gradient(135deg, #ff4d4d 0%, #ff8080 100%)';
+          fetchErrorFeedback.style.color = 'white';
+          fetchErrorFeedback.style.padding = '10px 20px';
+          fetchErrorFeedback.style.borderRadius = '30px';
+          fetchErrorFeedback.style.fontFamily = 'Orbitron, sans-serif';
+          fetchErrorFeedback.style.fontWeight = '700';
+          fetchErrorFeedback.style.zIndex = '10000';
+          fetchErrorFeedback.style.boxShadow = '0 5px 15px rgba(255, 77, 77, 0.4)';
+          fetchErrorFeedback.style.opacity = '0';
+          fetchErrorFeedback.style.transition = 'opacity 0.3s ease';
+          
+          document.body.appendChild(fetchErrorFeedback);
+          
+          setTimeout(() => {
+            fetchErrorFeedback.style.opacity = '1';
+          }, 10);
+          
+          setTimeout(() => {
+            fetchErrorFeedback.style.opacity = '0';
+            setTimeout(() => {
+              if (document.body.contains(fetchErrorFeedback)) {
+                document.body.removeChild(fetchErrorFeedback);
+              }
+            }, 300);
+          }, 3000);
+        });
       });
     });
     

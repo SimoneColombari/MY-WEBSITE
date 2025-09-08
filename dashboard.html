@@ -213,6 +213,18 @@
       border-color: #FF5722;
       background: rgba(255, 87, 34, 0.1);
     }
+    /* STILE SPECIALE PER IL LINK DASHBOARD */
+    .nav-links .nav-dashboard {
+      background: linear-gradient(135deg, rgba(255, 87, 34, 0.2), rgba(255, 138, 80, 0.1));
+      border: 1px solid rgba(255, 87, 34, 0.5);
+      box-shadow: 0 0 15px rgba(255, 87, 34, 0.3);
+    }
+    .nav-links .nav-dashboard:hover {
+      background: linear-gradient(135deg, rgba(255, 87, 34, 0.4), rgba(255, 138, 80, 0.2));
+      border-color: #FF5722;
+      box-shadow: 0 0 25px rgba(255, 87, 34, 0.6);
+      transform: translateY(-4px) scale(1.08);
+    }
     /* HERO SECTION SPETTACOLARE */
     .hero {
       height: 50vh;
@@ -402,6 +414,10 @@
       border-radius: 50%;
       animation: icon-pulse 1.5s infinite;
       box-shadow: 0 0 10px #FF5722;
+    }
+    @keyframes icon-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
     }
     .dashboard-card-value {
       font-size: 3em;
@@ -667,6 +683,31 @@
       box-shadow: 0 15px 35px rgba(255, 87, 34, 0.6);
       background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
     }
+    /* STILE SPECIALE PER IL PULSANTE DASHBOARD NEL FOOTER */
+    .cta-matrix .cta-dashboard {
+      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-matrix .cta-dashboard::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+    }
+    .cta-matrix .cta-dashboard:hover::after {
+      transform: translateX(100%);
+    }
+    .cta-matrix .cta-dashboard:hover {
+      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
+      transform: translateY(-5px) scale(1.08);
+      box-shadow: 0 15px 35px rgba(255, 87, 34, 0.7);
+    }
     /* NOTIFICHE */
     .notification {
       position: fixed;
@@ -822,7 +863,7 @@
         <a href="usa.html">USA</a>
         <a href="curriculum.html">CURRICULUM</a>
         <a href="contact.html">CONTATTI</a>
-        <a href="dashboard.html" class="active">DASHBOARD</a>
+        <a href="dashboard.html" class="active nav-dashboard">DASHBOARD</a>
       </div>
     </div>
   </nav>
@@ -900,6 +941,7 @@
       <a href="usa.html" class="cta-primary">USA EXPERIENCE</a>
       <a href="curriculum.html" class="cta-primary">CURRICULUM VITAE</a>
       <a href="contact.html" class="cta-primary">CONTATTI</a>
+      <a href="dashboard.html" class="cta-primary cta-dashboard">DASHBOARD</a>
     </div>
   </footer>
   
@@ -934,80 +976,135 @@
       }, 3000);
     }
     
-    // ID DEL GOOGLE SHEET
-    const SHEET_ID = '1BBwBGyjjEcy007I8b6FNmso5wa0_7aBfUo_qXtXhaco';
+    // URL DEL TUO SCRIPT GOOGLE APPS SCRIPT - AGGIORNATO
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwf3aNjt9pi4BpXaa48cWB-W0iMJZPFCdj_r-XBvKtMFGoJkquXODjeW1rpW3KRxOG-Yg/exec';
     
     // FUNZIONE PER CARICARE I DATI DASHBOARD
     async function loadDashboardData() {
       try {
         // Carica dati dalla dashboard
-        const dashboardResponse = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Dashboard`);
-        const dashboardText = await dashboardResponse.text();
-        const dashboardJson = JSON.parse(dashboardText.substr(47).slice(0, -2));
+        const dashboardResponse = await fetch(`${SCRIPT_URL}?action=getDashboardData`);
+        const dashboardData = await dashboardResponse.json();
         
-        // Estrai i dati
-        const dashboardRows = dashboardJson.table.rows;
-        
-        // Aggiorna le card della dashboard
-        document.getElementById('active-users').textContent = dashboardRows[0].c[1].v;
-        document.getElementById('active-users-desc').textContent = '+12% rispetto al mese scorso';
-        
-        document.getElementById('3d-projects').textContent = dashboardRows[1].c[1].v;
-        document.getElementById('3d-projects-desc').textContent = '+5 progetti in sviluppo';
-        
-        document.getElementById('partners').textContent = dashboardRows[2].c[1].v;
-        document.getElementById('partners-desc').textContent = '+3 nuovi partner questo mese';
-        
-        // Carica dati dal MoodMeter per calcolare la valutazione media
-        const moodmeterResponse = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=MoodMeter`);
-        const moodmeterText = await moodmeterResponse.text();
-        const moodmeterJson = JSON.parse(moodmeterText.substr(47).slice(0, -2));
-        
-        const moodmeterRows = moodmeterJson.table.rows;
-        let totalRating = 0;
-        let count = 0;
-        
-        // Analizza le righe del MoodMeter (saltando l'intestazione)
-        for (let i = 1; i < moodmeterRows.length; i++) {
-          const rating = moodmeterRows[i].c[3] ? moodmeterRows[i].c[3].v : 0;
-          if (rating > 0) {
-            totalRating += rating;
-            count++;
+        if (dashboardData.status === 'success') {
+          // Aggiorna le card della dashboard
+          if (dashboardData.data[0]) {
+            document.getElementById('active-users').textContent = dashboardData.data[0][1] || '0';
+            document.getElementById('active-users-desc').textContent = '+12% rispetto al mese scorso';
+          }
+          
+          if (dashboardData.data[1]) {
+            document.getElementById('3d-projects').textContent = dashboardData.data[1][1] || '0';
+            document.getElementById('3d-projects-desc').textContent = '+5 progetti in sviluppo';
+          }
+          
+          if (dashboardData.data[2]) {
+            document.getElementById('partners').textContent = dashboardData.data[2][1] || '0';
+            document.getElementById('partners-desc').textContent = '+3 nuovi partner questo mese';
           }
         }
         
-        const avgRating = count > 0 ? (totalRating / count).toFixed(1) : 0;
-        document.getElementById('avg-rating').textContent = avgRating;
-        document.getElementById('avg-rating-desc').textContent = `Basata su ${count} valutazioni`;
+        // Carica dati del Feedback per la valutazione media
+        const feedbackResponse = await fetch(`${SCRIPT_URL}?action=getFeedbackData`);
+        const feedbackData = await feedbackResponse.json();
+        
+        if (feedbackData.status === 'success') {
+          const feedbackRows = feedbackData.data;
+          let totalRating = 0;
+          let count = 0;
+          
+          // Analizza le righe del Feedback
+          for (let i = 0; i < feedbackRows.length; i++) {
+            // Assumiamo che la valutazione sia nella quarta colonna (indice 3)
+            const rating = feedbackRows[i][3] ? parseFloat(feedbackRows[i][3]) : 0;
+            if (rating > 0) {
+              totalRating += rating;
+              count++;
+            }
+          }
+          
+          const avgRating = count > 0 ? (totalRating / count).toFixed(1) : 0;
+          document.getElementById('avg-rating').textContent = avgRating;
+          document.getElementById('avg-rating-desc').textContent = `Basata su ${count} valutazioni`;
+        }
+        
+        // Carica dati del MoodMeter
+        const moodmeterResponse = await fetch(`${SCRIPT_URL}?action=getMoodMeterData`);
+        const moodmeterData = await moodmeterResponse.json();
+        
+        if (moodmeterData.status === 'success') {
+          // Analizza i dati del MoodMeter per la sezione MoodMeter
+          updateMoodMeter(moodmeterData.data);
+        }
         
         // Carica dati delle risposte mensili
-        const responsesResponse = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=RisposteMensili`);
-        const responsesText = await responsesResponse.text();
-        const responsesJson = JSON.parse(responsesText.substr(47).slice(0, -2));
+        const monthlyResponse = await fetch(`${SCRIPT_URL}?action=getMonthlyData`);
+        const monthlyData = await monthlyResponse.json();
         
-        const responsesRows = responsesJson.table.rows;
-        const monthlyData = [];
-        
-        // Analizza le righe delle risposte mensili (saltando l'intestazione)
-        for (let i = 1; i < responsesRows.length; i++) {
-          const month = responsesRows[i].c[0] ? responsesRows[i].c[0].v : '';
-          const count = responsesRows[i].c[1] ? responsesRows[i].c[1].v : 0;
+        if (monthlyData.status === 'success') {
+          const monthlyRows = monthlyData.data;
+          const chartData = [];
           
-          if (month && count > 0) {
-            monthlyData.push({ month, count });
+          // Analizza le righe delle risposte mensili
+          for (let i = 0; i < monthlyRows.length; i++) {
+            const month = monthlyRows[i][0] || '';
+            const count = monthlyRows[i][1] || 0;
+            
+            if (month && count > 0) {
+              chartData.push({ month, count });
+            }
           }
+          
+          // Aggiorna il grafico
+          updateChart(chartData);
         }
-        
-        // Aggiorna il grafico
-        updateChart(monthlyData);
-        
-        // Analizza i dati del MoodMeter per la sezione MoodMeter
-        updateMoodMeter(moodmeterRows);
         
       } catch (error) {
         console.error('Errore nel caricamento dei dati:', error);
-        showNotification('Errore nel caricamento dei dati. Riprova più tardi.');
+        showNotification('Errore nel caricamento dei dati. Utilizzo dati di esempio.');
+        
+        // Carica dati di esempio in caso di errore
+        loadSampleData();
       }
+    }
+    
+    // FUNZIONE PER CARICARE DATI DI ESEMPIO
+    function loadSampleData() {
+      // Aggiorna le card della dashboard con dati di esempio
+      document.getElementById('active-users').textContent = '1247';
+      document.getElementById('active-users-desc').textContent = '+12% rispetto al mese scorso';
+      
+      document.getElementById('3d-projects').textContent = '18';
+      document.getElementById('3d-projects-desc').textContent = '+5 progetti in sviluppo';
+      
+      document.getElementById('partners').textContent = '24';
+      document.getElementById('partners-desc').textContent = '+3 nuovi partner questo mese';
+      
+      document.getElementById('avg-rating').textContent = '4.2';
+      document.getElementById('avg-rating-desc').textContent = 'Basata su 156 valutazioni';
+      
+      // Aggiorna il grafico con dati di esempio
+      const monthlyData = [
+        { month: 'Gen', count: 45 },
+        { month: 'Feb', count: 52 },
+        { month: 'Mar', count: 38 },
+        { month: 'Apr', count: 67 },
+        { month: 'Mag', count: 73 },
+        { month: 'Giu', count: 84 }
+      ];
+      updateChart(monthlyData);
+      
+      // Aggiorna la sezione MoodMeter con dati di esempio
+      const moodmeterData = [
+        { mood: 'Coinvolto', count: 42 },
+        { mood: 'Curioso', count: 38 },
+        { mood: 'Interessato', count: 27 },
+        { mood: 'Entusiasta', count: 31 },
+        { mood: 'Confuso', count: 12 },
+        { mood: 'Deluso', count: 5 },
+        { mood: 'Neutrale', count: 19 }
+      ];
+      updateMoodMeterFromData(moodmeterData);
     }
     
     // FUNZIONE PER AGGIORNARE IL GRAFICO
@@ -1051,48 +1148,86 @@
       const moodmeterGrid = document.getElementById('moodmeter-grid');
       moodmeterGrid.innerHTML = '';
       
-      // Conta i diversi tipi di mood
-      const moodCounts = {};
+      // Conta i diversi tipi di interesse
+      const interestCounts = {};
       
-      // Analizza le righe del MoodMeter (saltando l'intestazione)
-      for (let i = 1; i < data.length; i++) {
-        const mood = data[i].c[1] ? data[i].c[1].v : '';
+      // Analizza le righe del MoodMeter
+      for (let i = 0; i < data.length; i++) {
+        // L'interesse è nella terza colonna (indice 2)
+        const interesse = data[i][2] || '';
         
-        if (mood) {
-          if (!moodCounts[mood]) {
-            moodCounts[mood] = 0;
+        if (interesse) {
+          if (!interestCounts[interesse]) {
+            interestCounts[interesse] = 0;
           }
-          moodCounts[mood]++;
+          interestCounts[interesse]++;
         }
       }
       
-      // Mappa dei mood alle emoji
-      const moodEmojis = {
-        'Coinvolto': '😃',
-        'Curioso': '🧐',
-        'Interessato': '🤔',
-        'Entusiasta': '🤩',
-        'Confuso': '😕',
-        'Deluso': '😞',
-        'Neutrale': '😐'
+      // Mappa dei tipi di interesse alle emoji
+      const interestEmojis = {
+        'Non interessato 😢': '😢',
+        'Distratto 😕': '😕',
+        'Curioso 🙂': '🙂',
+        'Coinvolto 😃': '😃',
+        'Molto interessato 🤩': '🤩'
       };
       
-      // Crea le card per ogni mood
-      Object.keys(moodCounts).forEach(mood => {
+      // Crea le card per ogni tipo di interesse
+      Object.keys(interestCounts).forEach(interesse => {
         const moodCard = document.createElement('div');
         moodCard.className = 'mood-card';
         
         const moodEmoji = document.createElement('div');
         moodEmoji.className = 'mood-emoji';
-        moodEmoji.textContent = moodEmojis[mood] || '❓';
+        moodEmoji.textContent = interestEmojis[interesse] || '❓';
         
         const moodLabel = document.createElement('div');
         moodLabel.className = 'mood-label';
-        moodLabel.textContent = mood;
+        moodLabel.textContent = interesse;
         
         const moodCount = document.createElement('div');
         moodCount.className = 'mood-count';
-        moodCount.textContent = moodCounts[mood];
+        moodCount.textContent = interestCounts[interesse];
+        
+        moodCard.appendChild(moodEmoji);
+        moodCard.appendChild(moodLabel);
+        moodCard.appendChild(moodCount);
+        
+        moodmeterGrid.appendChild(moodCard);
+      });
+    }
+    
+    // FUNZIONE PER AGGIORNARE LA SEZIONE MOODMETER DA DATI
+    function updateMoodMeterFromData(data) {
+      const moodmeterGrid = document.getElementById('moodmeter-grid');
+      moodmeterGrid.innerHTML = '';
+      
+      // Mappa dei mood alle emoji
+      const moodEmojis = {
+        'Non interessato 😢': '😢',
+        'Distratto 😕': '😕',
+        'Curioso 🙂': '🙂',
+        'Coinvolto 😃': '😃',
+        'Molto interessato 🤩': '🤩'
+      };
+      
+      // Crea le card per ogni mood
+      data.forEach(item => {
+        const moodCard = document.createElement('div');
+        moodCard.className = 'mood-card';
+        
+        const moodEmoji = document.createElement('div');
+        moodEmoji.className = 'mood-emoji';
+        moodEmoji.textContent = moodEmojis[item.mood] || '❓';
+        
+        const moodLabel = document.createElement('div');
+        moodLabel.className = 'mood-label';
+        moodLabel.textContent = item.mood;
+        
+        const moodCount = document.createElement('div');
+        moodCount.className = 'mood-count';
+        moodCount.textContent = item.count;
         
         moodCard.appendChild(moodEmoji);
         moodCard.appendChild(moodLabel);
