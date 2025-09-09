@@ -10,6 +10,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="config.js"></script> <!-- Carica il file di configurazione -->
   <style>
     * {
       margin: 0;
@@ -1580,7 +1581,7 @@
       });
     }
     
-    // ANIMAZIONE MOUSEFOLLOW PER LO SFONDO
+    // EFFETTO MOUSEFOLLOW PER LO SFONDO
     function initMouseEffects() {
       const background = document.querySelector('.animated-background');
       let mouseX = 0;
@@ -2020,8 +2021,6 @@
       });
       
       // Funzionalità di valutazione
-      const scriptUrl = SCRIPT_URL;
-      
       document.querySelectorAll('.project-card').forEach(card => {
         const stars = card.querySelectorAll('.stars span');
         let valutazione = 0;
@@ -2045,15 +2044,22 @@
             return;
           }
           
+          // Costruisci l'URL con i parametri corretti
           const url = `${scriptURL}?azienda=${encodeURIComponent(nomeAzienda)}&progetto=${encodeURIComponent(progetto)}&valutazione=${valutazione}`;
           
           fetch(url)
             .then(response => response.text())
             .then(data => {
               alert(`Valutazione per "${progetto}" inviata con successo!`);
+              // Resetta le stelle dopo l'invio
+              stars.forEach(s => {
+                s.textContent = '☆';
+              });
+              valutazione = 0;
             })
             .catch(error => {
               console.error("Errore nel salvataggio:", error);
+              alert("Si è verificato un errore durante l'invio della valutazione. Riprova più tardi.");
             });
         });
       });
