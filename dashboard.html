@@ -742,6 +742,17 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+    /* MESSAGGIO DI ERRORE */
+    .error-message {
+      color: #FF5722;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      background-color: rgba(255, 87, 34, 0.1);
+      border-left: 4px solid #FF5722;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 500;
+    }
     /* RESPONSIVE MIGLIORATO */
     @media (max-width: 968px) {
       .hero {
@@ -879,7 +890,10 @@
   <!-- Content Section -->
   <div class="content-wrapper">
     <section class="content-section">
-      <div class="dashboard-container">
+      <div class="dashboard-container" id="dashboard-container">
+        <!-- Messaggio di errore (inizialmente nascosto) -->
+        <div id="data-error" class="error-message" style="display: none;"></div>
+        
         <!-- Dashboard Cards -->
         <div class="dashboard-grid">
           <div class="dashboard-card">
@@ -986,69 +1000,106 @@
           throw new Error("SCRIPT_URL non è definita. Assicurati di aver incluso config.js");
         }
         
+        console.log("Caricamento dati da:", SCRIPT_URL);
+        
         // Carica dati delle valutazioni
         const ratingsResponse = await fetch(`${SCRIPT_URL}?action=getRatingsData`);
-        const ratingsData = await ratingsResponse.json();
+        console.log("Stato risposta valutazioni:", ratingsResponse.status);
         
-        if (ratingsData.status === 'success') {
-          // Calcola il numero totale di valutazioni
-          const totalRatings = ratingsData.data.length;
-          document.getElementById('total-ratings').textContent = totalRatings;
-          document.getElementById('total-ratings-desc').textContent = 'Valutazioni ricevute';
-          
-          // Calcola il numero di aziende uniche
-          const companies = [...new Set(ratingsData.data.map(row => row[1]))];
-          document.getElementById('partner-companies').textContent = companies.length;
-          document.getElementById('partner-companies-desc').textContent = 'Aziende partner';
-          
-          // Calcola la valutazione media
-          let totalRating = 0;
-          let validRatings = 0;
-          
-          ratingsData.data.forEach(row => {
-            const rating = parseFloat(row[3]);
-            if (!isNaN(rating)) {
-              totalRating += rating;
-              validRatings++;
-            }
-          });
-          
-          const avgRating = validRatings > 0 ? (totalRating / validRatings).toFixed(1) : 0;
-          document.getElementById('avg-rating').textContent = avgRating;
-          document.getElementById('avg-rating-desc').textContent = `${validRatings} valutazioni valide`;
-          
-          // Aggiorna il grafico delle valutazioni per progetto
-          updateProjectChart(ratingsData.data);
+        if (!ratingsResponse.ok) {
+          throw new Error(`Errore HTTP: ${ratingsResponse.status} ${ratingsResponse.statusText}`);
         }
+        
+        const ratingsData = await ratingsResponse.json();
+        console.log("Dati valutazioni:", ratingsData);
+        
+        if (ratingsData.status !== 'success') {
+          throw new Error(ratingsData.message || "Errore nei dati delle valutazioni");
+        }
+        
+        // Calcola il numero totale di valutazioni
+        const totalRatings = ratingsData.data.length;
+        document.getElementById('total-ratings').textContent = totalRatings;
+        document.getElementById('total-ratings-desc').textContent = 'Valutazioni ricevute';
+        
+        // Calcola il numero di aziende uniche
+        const companies = [...new Set(ratingsData.data.map(row => row[1]))];
+        document.getElementById('partner-companies').textContent = companies.length;
+        document.getElementById('partner-companies-desc').textContent = 'Aziende partner';
+        
+        // Calcola la valutazione media
+        let totalRating = 0;
+        let validRatings = 0;
+        
+        ratingsData.data.forEach(row => {
+          const rating = parseFloat(row[3]);
+          if (!isNaN(rating)) {
+            totalRating += rating;
+            validRatings++;
+          }
+        });
+        
+        const avgRating = validRatings > 0 ? (totalRating / validRatings).toFixed(1) : 0;
+        document.getElementById('avg-rating').textContent = avgRating;
+        document.getElementById('avg-rating-desc').textContent = `${validRatings} valutazioni valide`;
+        
+        // Aggiorna il grafico delle valutazioni per progetto
+        updateProjectChart(ratingsData.data);
         
         // Carica dati degli interessi
         const interestsResponse = await fetch(`${SCRIPT_URL}?action=getInterestsData`);
-        const interestsData = await interestsResponse.json();
+        console.log("Stato risposta interessi:", interestsResponse.status);
         
-        if (interestsData.status === 'success') {
-          // Calcola l'interesse medio
-          let totalInterest = 0;
-          let validInterests = 0;
-          
-          interestsData.data.forEach(row => {
-            const interest = parseInt(row[3]);
-            if (!isNaN(interest)) {
-              totalInterest += interest;
-              validInterests++;
-            }
-          });
-          
-          const avgInterest = validInterests > 0 ? (totalInterest / validInterests).toFixed(1) : 0;
-          document.getElementById('avg-interest').textContent = avgInterest;
-          document.getElementById('avg-interest-desc').textContent = `Su scala da 1 a 5`;
-          
-          // Aggiorna la sezione MoodMeter
-          updateMoodMeter(interestsData.data);
+        if (!interestsResponse.ok) {
+          throw new Error(`Errore HTTP: ${interestsResponse.status} ${interestsResponse.statusText}`);
+        }
+        
+        const interestsData = await interestsResponse.json();
+        console.log("Dati interessi:", interestsData);
+        
+        if (interestsData.status !== 'success') {
+          throw new Error(interestsData.message || "Errore nei dati degli interessi");
+        }
+        
+        // Calcola l'interesse medio
+        let totalInterest = 0;
+        let validInterests = 0;
+        
+        interestsData.data.forEach(row => {
+          const interest = parseInt(row[3]);
+          if (!isNaN(interest)) {
+            totalInterest += interest;
+            validInterests++;
+          }
+        });
+        
+        const avgInterest = validInterests > 0 ? (totalInterest / validInterests).toFixed(1) : 0;
+        document.getElementById('avg-interest').textContent = avgInterest;
+        document.getElementById('avg-interest-desc').textContent = `Su scala da 1 a 5`;
+        
+        // Aggiorna la sezione MoodMeter
+        updateMoodMeter(interestsData.data);
+        
+        // Nascondi eventuali messaggi di errore precedenti
+        const errorElement = document.getElementById('data-error');
+        if (errorElement) {
+          errorElement.style.display = 'none';
         }
         
       } catch (error) {
         console.error('Errore nel caricamento dei dati:', error);
-        showNotification('Errore nel caricamento dei dati. Utilizzo dati di esempio.');
+        showNotification('Errore nel caricamento dei dati: ' + error.message + '. Utilizzo dati di esempio.');
+        
+        // Mostra un messaggio di errore sulla pagina
+        let errorElement = document.getElementById('data-error');
+        if (!errorElement) {
+          errorElement = document.createElement('div');
+          errorElement.id = 'data-error';
+          errorElement.className = 'error-message';
+          document.querySelector('.dashboard-container').prepend(errorElement);
+        }
+        errorElement.textContent = 'Errore nel caricamento dei dati: ' + error.message + '. Vengono mostrati dati di esempio.';
+        errorElement.style.display = 'block';
         
         // Carica dati di esempio in caso di errore
         loadSampleData();
