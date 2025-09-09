@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+  <!-- Includi il file di configurazione -->
+  <script src="config.js"></script>
   <style>
     * {
       margin: 0;
@@ -881,27 +883,27 @@
         <!-- Dashboard Cards -->
         <div class="dashboard-grid">
           <div class="dashboard-card">
-            <h2>UTENTI ATTIVI</h2>
-            <div class="dashboard-card-value" id="active-users">
+            <h2>VALUTAZIONI TOTALI</h2>
+            <div class="dashboard-card-value" id="total-ratings">
               <div class="loading-spinner"></div>
             </div>
-            <div class="dashboard-card-description" id="active-users-desc">Caricamento...</div>
+            <div class="dashboard-card-description" id="total-ratings-desc">Caricamento...</div>
           </div>
           
           <div class="dashboard-card">
-            <h2>PROGETTI 3D</h2>
-            <div class="dashboard-card-value" id="3d-projects">
+            <h2>AZIENDE PARTNER</h2>
+            <div class="dashboard-card-value" id="partner-companies">
               <div class="loading-spinner"></div>
             </div>
-            <div class="dashboard-card-description" id="3d-projects-desc">Caricamento...</div>
+            <div class="dashboard-card-description" id="partner-companies-desc">Caricamento...</div>
           </div>
           
           <div class="dashboard-card">
-            <h2>PARTNER</h2>
-            <div class="dashboard-card-value" id="partners">
+            <h2>INTERESSE MEDIO</h2>
+            <div class="dashboard-card-value" id="avg-interest">
               <div class="loading-spinner"></div>
             </div>
-            <div class="dashboard-card-description" id="partners-desc">Caricamento...</div>
+            <div class="dashboard-card-description" id="avg-interest-desc">Caricamento...</div>
           </div>
           
           <div class="dashboard-card">
@@ -915,15 +917,15 @@
         
         <!-- Chart Section -->
         <div class="chart-container">
-          <h2 class="chart-title">RISPOSTE MENSILI</h2>
-          <div class="chart" id="monthly-chart">
+          <h2 class="chart-title">VALUTAZIONI PER PROGETTO</h2>
+          <div class="chart" id="project-chart">
             <div class="loading-spinner" style="margin: 0 auto;"></div>
           </div>
         </div>
         
         <!-- MoodMeter Section -->
         <div class="moodmeter-section">
-          <h2 class="moodmeter-title">ANALISI MOODMETER</h2>
+          <h2 class="moodmeter-title">DISTRIBUZIONE INTERESSI</h2>
           <div class="moodmeter-grid" id="moodmeter-grid">
             <div class="loading-spinner" style="margin: 0 auto;"></div>
           </div>
@@ -976,86 +978,72 @@
       }, 3000);
     }
     
-    // URL DEL TUO SCRIPT GOOGLE APPS SCRIPT - AGGIORNATO
-    const scriptUrl = SCRIPT_URL;
     // FUNZIONE PER CARICARE I DATI DASHBOARD
     async function loadDashboardData() {
       try {
-        // Carica dati dalla dashboard
-        const dashboardResponse = await fetch(`${SCRIPT_URL}?action=getDashboardData`);
-        const dashboardData = await dashboardResponse.json();
-        
-        if (dashboardData.status === 'success') {
-          // Aggiorna le card della dashboard
-          if (dashboardData.data[0]) {
-            document.getElementById('active-users').textContent = dashboardData.data[0][1] || '0';
-            document.getElementById('active-users-desc').textContent = '+12% rispetto al mese scorso';
-          }
-          
-          if (dashboardData.data[1]) {
-            document.getElementById('3d-projects').textContent = dashboardData.data[1][1] || '0';
-            document.getElementById('3d-projects-desc').textContent = '+5 progetti in sviluppo';
-          }
-          
-          if (dashboardData.data[2]) {
-            document.getElementById('partners').textContent = dashboardData.data[2][1] || '0';
-            document.getElementById('partners-desc').textContent = '+3 nuovi partner questo mese';
-          }
+        // Verifica che SCRIPT_URL sia definita
+        if (typeof SCRIPT_URL === 'undefined') {
+          throw new Error("SCRIPT_URL non è definita. Assicurati di aver incluso config.js");
         }
         
-        // Carica dati del Feedback per la valutazione media
-        const feedbackResponse = await fetch(`${SCRIPT_URL}?action=getFeedbackData`);
-        const feedbackData = await feedbackResponse.json();
+        // Carica dati delle valutazioni
+        const ratingsResponse = await fetch(`${SCRIPT_URL}?action=getRatingsData`);
+        const ratingsData = await ratingsResponse.json();
         
-        if (feedbackData.status === 'success') {
-          const feedbackRows = feedbackData.data;
+        if (ratingsData.status === 'success') {
+          // Calcola il numero totale di valutazioni
+          const totalRatings = ratingsData.data.length;
+          document.getElementById('total-ratings').textContent = totalRatings;
+          document.getElementById('total-ratings-desc').textContent = 'Valutazioni ricevute';
+          
+          // Calcola il numero di aziende uniche
+          const companies = [...new Set(ratingsData.data.map(row => row[1]))];
+          document.getElementById('partner-companies').textContent = companies.length;
+          document.getElementById('partner-companies-desc').textContent = 'Aziende partner';
+          
+          // Calcola la valutazione media
           let totalRating = 0;
-          let count = 0;
+          let validRatings = 0;
           
-          // Analizza le righe del Feedback
-          for (let i = 0; i < feedbackRows.length; i++) {
-            // Assumiamo che la valutazione sia nella quarta colonna (indice 3)
-            const rating = feedbackRows[i][3] ? parseFloat(feedbackRows[i][3]) : 0;
-            if (rating > 0) {
+          ratingsData.data.forEach(row => {
+            const rating = parseFloat(row[3]);
+            if (!isNaN(rating)) {
               totalRating += rating;
-              count++;
+              validRatings++;
             }
-          }
+          });
           
-          const avgRating = count > 0 ? (totalRating / count).toFixed(1) : 0;
+          const avgRating = validRatings > 0 ? (totalRating / validRatings).toFixed(1) : 0;
           document.getElementById('avg-rating').textContent = avgRating;
-          document.getElementById('avg-rating-desc').textContent = `Basata su ${count} valutazioni`;
-        }
-        
-        // Carica dati del MoodMeter
-        const moodmeterResponse = await fetch(`${SCRIPT_URL}?action=getMoodMeterData`);
-        const moodmeterData = await moodmeterResponse.json();
-        
-        if (moodmeterData.status === 'success') {
-          // Analizza i dati del MoodMeter per la sezione MoodMeter
-          updateMoodMeter(moodmeterData.data);
-        }
-        
-        // Carica dati delle risposte mensili
-        const monthlyResponse = await fetch(`${SCRIPT_URL}?action=getMonthlyData`);
-        const monthlyData = await monthlyResponse.json();
-        
-        if (monthlyData.status === 'success') {
-          const monthlyRows = monthlyData.data;
-          const chartData = [];
+          document.getElementById('avg-rating-desc').textContent = `${validRatings} valutazioni valide`;
           
-          // Analizza le righe delle risposte mensili
-          for (let i = 0; i < monthlyRows.length; i++) {
-            const month = monthlyRows[i][0] || '';
-            const count = monthlyRows[i][1] || 0;
-            
-            if (month && count > 0) {
-              chartData.push({ month, count });
+          // Aggiorna il grafico delle valutazioni per progetto
+          updateProjectChart(ratingsData.data);
+        }
+        
+        // Carica dati degli interessi
+        const interestsResponse = await fetch(`${SCRIPT_URL}?action=getInterestsData`);
+        const interestsData = await interestsResponse.json();
+        
+        if (interestsData.status === 'success') {
+          // Calcola l'interesse medio
+          let totalInterest = 0;
+          let validInterests = 0;
+          
+          interestsData.data.forEach(row => {
+            const interest = parseInt(row[3]);
+            if (!isNaN(interest)) {
+              totalInterest += interest;
+              validInterests++;
             }
-          }
+          });
           
-          // Aggiorna il grafico
-          updateChart(chartData);
+          const avgInterest = validInterests > 0 ? (totalInterest / validInterests).toFixed(1) : 0;
+          document.getElementById('avg-interest').textContent = avgInterest;
+          document.getElementById('avg-interest-desc').textContent = `Su scala da 1 a 5`;
+          
+          // Aggiorna la sezione MoodMeter
+          updateMoodMeter(interestsData.data);
         }
         
       } catch (error) {
@@ -1070,49 +1058,109 @@
     // FUNZIONE PER CARICARE DATI DI ESEMPIO
     function loadSampleData() {
       // Aggiorna le card della dashboard con dati di esempio
-      document.getElementById('active-users').textContent = '1247';
-      document.getElementById('active-users-desc').textContent = '+12% rispetto al mese scorso';
+      document.getElementById('total-ratings').textContent = '156';
+      document.getElementById('total-ratings-desc').textContent = 'Valutazioni ricevute';
       
-      document.getElementById('3d-projects').textContent = '18';
-      document.getElementById('3d-projects-desc').textContent = '+5 progetti in sviluppo';
+      document.getElementById('partner-companies').textContent = '24';
+      document.getElementById('partner-companies-desc').textContent = 'Aziende partner';
       
-      document.getElementById('partners').textContent = '24';
-      document.getElementById('partners-desc').textContent = '+3 nuovi partner questo mese';
+      document.getElementById('avg-interest').textContent = '3.8';
+      document.getElementById('avg-interest-desc').textContent = 'Su scala da 1 a 5';
       
       document.getElementById('avg-rating').textContent = '4.2';
       document.getElementById('avg-rating-desc').textContent = 'Basata su 156 valutazioni';
       
       // Aggiorna il grafico con dati di esempio
-      const monthlyData = [
-        { month: 'Gen', count: 45 },
-        { month: 'Feb', count: 52 },
-        { month: 'Mar', count: 38 },
-        { month: 'Apr', count: 67 },
-        { month: 'Mag', count: 73 },
-        { month: 'Giu', count: 84 }
+      const projectData = [
+        { project: 'ESP3D BOX', rating: 4.5 },
+        { project: 'Simocoloweb', rating: 4.2 },
+        { project: 'Flipper Zero', rating: 4.0 },
+        { project: 'Bruce', rating: 3.8 },
+        { project: 'ESP32', rating: 4.3 }
       ];
-      updateChart(monthlyData);
+      updateProjectChartFromData(projectData);
       
       // Aggiorna la sezione MoodMeter con dati di esempio
       const moodmeterData = [
-        { mood: 'Coinvolto', count: 42 },
-        { mood: 'Curioso', count: 38 },
-        { mood: 'Interessato', count: 27 },
-        { mood: 'Entusiasta', count: 31 },
-        { mood: 'Confuso', count: 12 },
-        { mood: 'Deluso', count: 5 },
-        { mood: 'Neutrale', count: 19 }
+        { mood: 'Non interessato 😢', count: 5 },
+        { mood: 'Distratto 😕', count: 12 },
+        { mood: 'Curioso 🙂', count: 38 },
+        { mood: 'Coinvolto 😃', count: 42 },
+        { mood: 'Molto interessato 🤩', count: 31 }
       ];
       updateMoodMeterFromData(moodmeterData);
     }
     
-    // FUNZIONE PER AGGIORNARE IL GRAFICO
-    function updateChart(data) {
-      const chartContainer = document.getElementById('monthly-chart');
+    // FUNZIONE PER AGGIORNARE IL GRAFICO DEI PROGETTI
+    function updateProjectChart(data) {
+      const chartContainer = document.getElementById('project-chart');
+      chartContainer.innerHTML = '';
+      
+      // Raggruppa le valutazioni per progetto
+      const projectRatings = {};
+      
+      data.forEach(row => {
+        const project = row[2]; // Nome del progetto
+        const rating = parseFloat(row[3]); // Valutazione
+        
+        if (project && !isNaN(rating)) {
+          if (!projectRatings[project]) {
+            projectRatings[project] = [];
+          }
+          projectRatings[project].push(rating);
+        }
+      });
+      
+      // Calcola la media delle valutazioni per progetto
+      const projectAverages = [];
+      for (const project in projectRatings) {
+        const ratings = projectRatings[project];
+        const average = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
+        projectAverages.push({ project, rating: average.toFixed(1) });
+      }
+      
+      // Ordina per valutazione media
+      projectAverages.sort((a, b) => b.rating - a.rating);
+      
+      // Trova il valore massimo per scalare le barre
+      const maxRating = Math.max(...projectAverages.map(item => item.rating));
+      
+      projectAverages.forEach(item => {
+        const barContainer = document.createElement('div');
+        barContainer.style.position = 'relative';
+        barContainer.style.height = '100%';
+        barContainer.style.display = 'flex';
+        barContainer.style.alignItems = 'flex-end';
+        barContainer.style.flex = '1';
+        
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+        // Calcola l'altezza in base al valore massimo
+        const height = maxRating > 0 ? (item.rating / maxRating) * 250 : 0;
+        bar.style.height = `${height}px`;
+        
+        const barLabel = document.createElement('div');
+        barLabel.className = 'bar-label';
+        barLabel.textContent = item.project.length > 10 ? item.project.substring(0, 10) + '...' : item.project;
+        
+        const barValue = document.createElement('div');
+        barValue.className = 'bar-value';
+        barValue.textContent = item.rating;
+        
+        bar.appendChild(barLabel);
+        bar.appendChild(barValue);
+        barContainer.appendChild(bar);
+        chartContainer.appendChild(barContainer);
+      });
+    }
+    
+    // FUNZIONE PER AGGIORNARE IL GRAFICO DEI PROGETTI DA DATI
+    function updateProjectChartFromData(data) {
+      const chartContainer = document.getElementById('project-chart');
       chartContainer.innerHTML = '';
       
       // Trova il valore massimo per scalare le barre
-      const maxCount = Math.max(...data.map(item => item.count));
+      const maxRating = Math.max(...data.map(item => item.rating));
       
       data.forEach(item => {
         const barContainer = document.createElement('div');
@@ -1120,20 +1168,21 @@
         barContainer.style.height = '100%';
         barContainer.style.display = 'flex';
         barContainer.style.alignItems = 'flex-end';
+        barContainer.style.flex = '1';
         
         const bar = document.createElement('div');
         bar.className = 'bar';
         // Calcola l'altezza in base al valore massimo
-        const height = maxCount > 0 ? (item.count / maxCount) * 250 : 0;
+        const height = maxRating > 0 ? (item.rating / maxRating) * 250 : 0;
         bar.style.height = `${height}px`;
         
         const barLabel = document.createElement('div');
         barLabel.className = 'bar-label';
-        barLabel.textContent = item.month;
+        barLabel.textContent = item.project.length > 10 ? item.project.substring(0, 10) + '...' : item.project;
         
         const barValue = document.createElement('div');
         barValue.className = 'bar-value';
-        barValue.textContent = item.count;
+        barValue.textContent = item.rating;
         
         bar.appendChild(barLabel);
         bar.appendChild(barValue);
@@ -1148,20 +1197,23 @@
       moodmeterGrid.innerHTML = '';
       
       // Conta i diversi tipi di interesse
-      const interestCounts = {};
+      const interestCounts = {
+        'Non interessato 😢': 0,
+        'Distratto 😕': 0,
+        'Curioso 🙂': 0,
+        'Coinvolto 😃': 0,
+        'Molto interessato 🤩': 0
+      };
       
-      // Analizza le righe del MoodMeter
-      for (let i = 0; i < data.length; i++) {
+      // Analizza le righe degli interessi
+      data.forEach(row => {
         // L'interesse è nella terza colonna (indice 2)
-        const interesse = data[i][2] || '';
+        const interesse = row[2] || '';
         
-        if (interesse) {
-          if (!interestCounts[interesse]) {
-            interestCounts[interesse] = 0;
-          }
+        if (interestCounts.hasOwnProperty(interesse)) {
           interestCounts[interesse]++;
         }
-      }
+      });
       
       // Mappa dei tipi di interesse alle emoji
       const interestEmojis = {
@@ -1179,7 +1231,7 @@
         
         const moodEmoji = document.createElement('div');
         moodEmoji.className = 'mood-emoji';
-        moodEmoji.textContent = interestEmojis[interesse] || '❓';
+        moodEmoji.textContent = interestEmojis[interesse];
         
         const moodLabel = document.createElement('div');
         moodLabel.className = 'mood-label';
@@ -1202,15 +1254,6 @@
       const moodmeterGrid = document.getElementById('moodmeter-grid');
       moodmeterGrid.innerHTML = '';
       
-      // Mappa dei mood alle emoji
-      const moodEmojis = {
-        'Non interessato 😢': '😢',
-        'Distratto 😕': '😕',
-        'Curioso 🙂': '🙂',
-        'Coinvolto 😃': '😃',
-        'Molto interessato 🤩': '🤩'
-      };
-      
       // Crea le card per ogni mood
       data.forEach(item => {
         const moodCard = document.createElement('div');
@@ -1218,7 +1261,7 @@
         
         const moodEmoji = document.createElement('div');
         moodEmoji.className = 'mood-emoji';
-        moodEmoji.textContent = moodEmojis[item.mood] || '❓';
+        moodEmoji.textContent = item.mood.split(' ')[0];
         
         const moodLabel = document.createElement('div');
         moodLabel.className = 'mood-label';
