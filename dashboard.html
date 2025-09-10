@@ -7,8 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
-  <!-- Includi il file di configurazione -->
-  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     * {
       margin: 0;
@@ -434,7 +433,7 @@
       color: #e8e8e8;
       margin-top: 10px;
     }
-    /* GRAFICO A BARRE */
+    /* GRAFICI */
     .chart-container {
       background: rgba(255, 87, 34, 0.05);
       padding: 30px;
@@ -486,43 +485,9 @@
       animation: icon-pulse 1.5s infinite;
       box-shadow: 0 0 10px #FF5722;
     }
-    .chart {
+    .chart-wrapper {
       height: 300px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-around;
-      padding: 0 20px;
       position: relative;
-    }
-    .bar {
-      width: 60px;
-      background: linear-gradient(to top, #FF5722, #ff8a50);
-      border-radius: 5px 5px 0 0;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-    .bar:hover {
-      transform: scaleY(1.05);
-      box-shadow: 0 0 20px rgba(255, 87, 34, 0.5);
-    }
-    .bar-label {
-      position: absolute;
-      bottom: -30px;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.9em;
-      color: #cccccc;
-    }
-    .bar-value {
-      position: absolute;
-      top: -25px;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      font-weight: 700;
-      color: #FF5722;
     }
     /* SEZIONE MOODMETER */
     .moodmeter-section {
@@ -753,6 +718,398 @@
       font-family: 'Rajdhani', sans-serif;
       font-weight: 500;
     }
+    /* LOGIN FORM */
+    .login-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .login-container {
+      background: rgba(26, 26, 26, 0.9);
+      padding: 40px;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 87, 34, 0.3);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .login-container h2 {
+      color: #FF5722;
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .login-container p {
+      color: #cccccc;
+      margin-bottom: 25px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1em;
+    }
+    .login-container input {
+      width: 100%;
+      padding: 12px 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 87, 34, 0.3);
+      border-radius: 8px;
+      color: white;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 1em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .login-container button:hover {
+      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.3);
+    }
+    /* EDIT BUTTON */
+    .edit-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255, 87, 34, 0.2);
+      border: 1px solid #FF5722;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+    .edit-btn:hover {
+      background: rgba(255, 87, 34, 0.4);
+      transform: scale(1.1);
+    }
+    .edit-btn i {
+      color: #FF5722;
+      font-size: 1.2em;
+    }
+    /* EDIT MODAL */
+    .edit-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .modal-content {
+      background: rgba(26, 26, 26, 0.95);
+      border: 1px solid rgba(255, 87, 34, 0.3);
+      border-radius: 15px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 30px;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: #FF5722;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+    .modal-title {
+      color: #FF5722;
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      color: #cccccc;
+      margin-bottom: 8px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1em;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 87, 34, 0.3);
+      border-radius: 8px;
+      color: white;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1em;
+    }
+    .btn-save {
+      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 1em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      padding: 12px 25px;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+    }
+    .btn-save:hover {
+      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.3);
+    }
+    .btn-add {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid #10b981;
+      color: #10b981;
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+    }
+    .btn-add:hover {
+      background: rgba(16, 185, 129, 0.3);
+      transform: translateY(-2px);
+    }
+    .data-item {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .data-item-info {
+      flex-grow: 1;
+    }
+    .data-item-name {
+      color: #FF5722;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    .data-item-value {
+      color: #cccccc;
+      font-family: 'Rajdhani', sans-serif;
+    }
+    .btn-delete {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid #ef4444;
+      color: #ef4444;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-delete:hover {
+      background: rgba(239, 68, 68, 0.3);
+      transform: translateY(-2px);
+    }
+    /* QUESTIONARIO */
+    .questionnaire {
+      background: rgba(255, 87, 34, 0.05);
+      padding: 30px;
+      border-radius: 15px;
+      border-left: 4px solid #FF5722;
+      margin-bottom: 40px;
+      display: none;
+    }
+    .questionnaire-title {
+      color: #FF5722;
+      font-size: 1.6em;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .question-group {
+      margin-bottom: 25px;
+    }
+    .question {
+      color: #cccccc;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+    .answer-input {
+      width: 100%;
+      padding: 10px 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 87, 34, 0.3);
+      border-radius: 8px;
+      color: white;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1em;
+      margin-bottom: 15px;
+    }
+    .btn-submit {
+      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 1em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      padding: 12px 25px;
+      transition: all 0.3s ease;
+    }
+    .btn-submit:hover {
+      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.3);
+    }
+    /* ADMIN PANEL */
+    .admin-panel {
+      background: rgba(255, 87, 34, 0.05);
+      padding: 20px;
+      border-radius: 15px;
+      border-left: 4px solid #FF5722;
+      margin-bottom: 40px;
+      text-align: center;
+      display: none;
+    }
+    .admin-panel p {
+      color: #cccccc;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1em;
+      margin-bottom: 15px;
+    }
+    .btn-admin {
+      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 1em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      padding: 10px 20px;
+      transition: all 0.3s ease;
+    }
+    .btn-admin:hover {
+      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.3);
+    }
+    /* FLOATING ACTION BUTTON */
+    .fab {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      opacity: 0.7;
+    }
+    .fab:hover {
+      transform: scale(1.1);
+      opacity: 1;
+      box-shadow: 0 6px 15px rgba(255, 87, 34, 0.5);
+    }
+    .fab i {
+      color: white;
+      font-size: 1.8em;
+    }
+    /* ADMIN OPTIONS PANEL */
+    .admin-options {
+      position: fixed;
+      bottom: 100px;
+      right: 25px;
+      background: rgba(26, 26, 26, 0.95);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 87, 34, 0.3);
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      transform: translateY(20px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .admin-options.active {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+    .admin-option {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      background: rgba(255, 87, 34, 0.1);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .admin-option:hover {
+      background: rgba(255, 87, 34, 0.2);
+      transform: translateX(-5px);
+    }
+    .admin-option:last-child {
+      margin-bottom: 0;
+    }
+    .admin-option i {
+      color: #FF5722;
+      font-size: 1.2em;
+      margin-right: 15px;
+    }
+    .admin-option span {
+      color: #cccccc;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 500;
+    }
     /* RESPONSIVE MIGLIORATO */
     @media (max-width: 968px) {
       .hero {
@@ -769,6 +1126,10 @@
       .dashboard-grid {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 20px;
+      }
+      .admin-options {
+        width: 250px;
+        right: 15px;
       }
     }
     
@@ -795,11 +1156,12 @@
         font-size: 0.75em;
         padding: 5px 10px;
       }
-      .chart {
+      .chart-wrapper {
         height: 250px;
       }
-      .bar {
-        width: 40px;
+      .admin-options {
+        width: 220px;
+        right: 15px;
       }
     }
     
@@ -849,8 +1211,27 @@
       .nav-logo {
         font-size: 1em;
       }
+      .modal-content {
+        padding: 20px;
+        width: 95%;
+      }
+      .fab {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+      }
+      .fab i {
+        font-size: 1.5em;
+      }
+      .admin-options {
+        width: 200px;
+        right: 15px;
+        bottom: 80px;
+      }
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
   <!-- Background Animato -->
@@ -864,6 +1245,19 @@
     <div class="wave"></div>
     <div class="wave"></div>
     <div class="wave"></div>
+  </div>
+  
+  <!-- Login Overlay (inizialmente nascosto) -->
+  <div class="login-overlay" id="loginOverlay" style="display: none;">
+    <div class="login-container">
+      <h2>Accesso Riservato</h2>
+      <p>Quale è il colore del tuo gatto?</p>
+      <form id="loginForm">
+        <input type="password" id="passwordInput" placeholder="Password" required>
+        <button type="submit">Accedi</button>
+      </form>
+      <div id="loginError" class="error-message" style="display: none;">Password errata</div>
+    </div>
   </div>
   
   <!-- Navigation -->
@@ -891,6 +1285,66 @@
   <div class="content-wrapper">
     <section class="content-section">
       <div class="dashboard-container" id="dashboard-container">
+        <!-- Admin Panel (nascosto) -->
+        <div class="admin-panel" id="adminPanel">
+          <p>Sei l'amministratore e vuoi modificare i dati?</p>
+          <button class="btn-admin" id="adminLoginBtn">Accedi come Amministratore</button>
+        </div>
+        
+        <!-- Questionnaire (nascosto) -->
+        <div class="questionnaire" id="questionnaire">
+          <h2 class="questionnaire-title">Aggiorna Dati Dashboard</h2>
+          <div class="question-group">
+            <div class="question">Numero valutazioni interessate:</div>
+            <input type="number" class="answer-input" id="interestedRatings" min="0" placeholder="Inserisci un numero">
+          </div>
+          <div class="question-group">
+            <div class="question">Numero valutazioni non interessate:</div>
+            <input type="number" class="answer-input" id="notInterestedRatings" min="0" placeholder="Inserisci un numero">
+          </div>
+          <div class="question-group">
+            <div class="question">Voto progetto Bruce (1-5):</div>
+            <input type="number" class="answer-input" id="bruceRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
+          </div>
+          <div class="question-group">
+            <div class="question">Voto progetto Website (1-5):</div>
+            <input type="number" class="answer-input" id="websiteRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
+          </div>
+          <div class="question-group">
+            <div class="question">Voto progetto ESP3D BOX (1-5):</div>
+            <input type="number" class="answer-input" id="esp3dRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
+          </div>
+          <div class="question-group">
+            <div class="question">Voto progetto Simocoloweb (1-5):</div>
+            <input type="number" class="answer-input" id="simocolowebRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
+          </div>
+          <div class="question-group">
+            <div class="question">Voto progetto Flipper Zero (1-5):</div>
+            <input type="number" class="answer-input" id="flipperRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
+          </div>
+          <div class="question-group">
+            <div class="question">Numero di persone molto interessate:</div>
+            <input type="number" class="answer-input" id="veryInterestedCount" min="0" placeholder="Inserisci un numero">
+          </div>
+          <div class="question-group">
+            <div class="question">Numero di persone coinvolte:</div>
+            <input type="number" class="answer-input" id="engagedCount" min="0" placeholder="Inserisci un numero">
+          </div>
+          <div class="question-group">
+            <div class="question">Numero di persone curiose:</div>
+            <input type="number" class="answer-input" id="curiousCount" min="0" placeholder="Inserisci un numero">
+          </div>
+          <div class="question-group">
+            <div class="question">Numero di persone distratte:</div>
+            <input type="number" class="answer-input" id="distractedCount" min="0" placeholder="Inserisci un numero">
+          </div>
+          <div class="question-group">
+            <div class="question">Numero di persone non interessate:</div>
+            <input type="number" class="answer-input" id="notInterestedCount" min="0" placeholder="Inserisci un numero">
+          </div>
+          <button class="btn-submit" id="submitQuestionnaire">Aggiorna Dashboard</button>
+        </div>
+        
         <!-- Messaggio di errore (inizialmente nascosto) -->
         <div id="data-error" class="error-message" style="display: none;"></div>
         
@@ -929,19 +1383,80 @@
           </div>
         </div>
         
-        <!-- Chart Section -->
+        <!-- Chart Section - Valutazioni per Progetto -->
         <div class="chart-container">
+          <div class="edit-btn" id="editChartBtn" style="display: none;">
+            <i class="fas fa-edit"></i>
+          </div>
           <h2 class="chart-title">VALUTAZIONI PER PROGETTO</h2>
-          <div class="chart" id="project-chart">
-            <div class="loading-spinner" style="margin: 0 auto;"></div>
+          <div class="chart-wrapper">
+            <canvas id="projectChart"></canvas>
+          </div>
+        </div>
+        
+        <!-- Chart Section - Andamento Temporale -->
+        <div class="chart-container">
+          <div class="edit-btn" id="editTrendChartBtn" style="display: none;">
+            <i class="fas fa-edit"></i>
+          </div>
+          <h2 class="chart-title">ANDAMENTO VALUTAZIONI NEL TEMPO</h2>
+          <div class="chart-wrapper">
+            <canvas id="trendChart"></canvas>
+          </div>
+        </div>
+        
+        <!-- Chart Section - Competenze Tecniche -->
+        <div class="chart-container">
+          <div class="edit-btn" id="editSkillsChartBtn" style="display: none;">
+            <i class="fas fa-edit"></i>
+          </div>
+          <h2 class="chart-title">COMPETENZE TECNICHE</h2>
+          <div class="chart-wrapper">
+            <canvas id="skillsChart"></canvas>
+          </div>
+        </div>
+        
+        <!-- Chart Section - Tempo per Progetto -->
+        <div class="chart-container">
+          <div class="edit-btn" id="editTimeChartBtn" style="display: none;">
+            <i class="fas fa-edit"></i>
+          </div>
+          <h2 class="chart-title">TEMPO DEDICATO PER PROGETTO (ORE)</h2>
+          <div class="chart-wrapper">
+            <canvas id="timeChart"></canvas>
+          </div>
+        </div>
+        
+        <!-- Chart Section - Interessi vs Non Interessi -->
+        <div class="chart-container">
+          <div class="edit-btn" id="editInterestChartBtn" style="display: none;">
+            <i class="fas fa-edit"></i>
+          </div>
+          <h2 class="chart-title">INTERESSATI VS NON INTERESSATI</h2>
+          <div class="chart-wrapper">
+            <canvas id="interestChart"></canvas>
+          </div>
+        </div>
+        
+        <!-- Chart Section - Correlazione Interesse-Valutazione -->
+        <div class="chart-container">
+          <div class="edit-btn" id="editCorrelationChartBtn" style="display: none;">
+            <i class="fas fa-edit"></i>
+          </div>
+          <h2 class="chart-title">CORRELAZIONE INTERESSE-VALUTAZIONE</h2>
+          <div class="chart-wrapper">
+            <canvas id="correlationChart"></canvas>
           </div>
         </div>
         
         <!-- MoodMeter Section -->
         <div class="moodmeter-section">
+          <div class="edit-btn" id="editMoodBtn" style="display: none;">
+            <i class="fas fa-edit"></i>
+          </div>
           <h2 class="moodmeter-title">DISTRIBUZIONE INTERESSI</h2>
-          <div class="moodmeter-grid" id="moodmeter-grid">
-            <div class="loading-spinner" style="margin: 0 auto;"></div>
+          <div class="chart-wrapper">
+            <canvas id="moodChart"></canvas>
           </div>
         </div>
       </div>
@@ -963,6 +1478,114 @@
   
   <!-- Notification -->
   <div class="notification" id="notification"></div>
+  
+  <!-- Floating Action Button -->
+  <div class="fab" id="fab">
+    <i class="fas fa-cog"></i>
+  </div>
+  
+  <!-- Admin Options Panel -->
+  <div class="admin-options" id="adminOptions">
+    <div class="admin-option" id="showAdminPanel">
+      <i class="fas fa-user-shield"></i>
+      <span>Area Amministratore</span>
+    </div>
+    <div class="admin-option" id="showQuestionnaire">
+      <i class="fas fa-poll"></i>
+      <span>Aggiorna Dati</span>
+    </div>
+  </div>
+  
+  <!-- Edit Chart Modal -->
+  <div class="edit-modal" id="editChartModal" style="display: none;">
+    <div class="modal-content">
+      <button class="modal-close" id="closeChartModal">&times;</button>
+      <h2 class="modal-title">Modifica Valutazioni Progetti</h2>
+      <div id="chartDataContainer">
+        <!-- Dynamic content will be inserted here -->
+      </div>
+      <button class="btn-add" id="addChartItem">+ Aggiungi Progetto</button>
+      <button class="btn-save" id="saveChartData">Salva Modifiche</button>
+    </div>
+  </div>
+  
+  <!-- Edit Trend Chart Modal -->
+  <div class="edit-modal" id="editTrendChartModal" style="display: none;">
+    <div class="modal-content">
+      <button class="modal-close" id="closeTrendChartModal">&times;</button>
+      <h2 class="modal-title">Modifica Andamento Temporale</h2>
+      <div id="trendDataContainer">
+        <!-- Dynamic content will be inserted here -->
+      </div>
+      <button class="btn-add" id="addTrendItem">+ Aggiungi Periodo</button>
+      <button class="btn-save" id="saveTrendData">Salva Modifiche</button>
+    </div>
+  </div>
+  
+  <!-- Edit Skills Chart Modal -->
+  <div class="edit-modal" id="editSkillsChartModal" style="display: none;">
+    <div class="modal-content">
+      <button class="modal-close" id="closeSkillsChartModal">&times;</button>
+      <h2 class="modal-title">Modifica Competenze Tecniche</h2>
+      <div id="skillsDataContainer">
+        <!-- Dynamic content will be inserted here -->
+      </div>
+      <button class="btn-add" id="addSkillsItem">+ Aggiungi Competenza</button>
+      <button class="btn-save" id="saveSkillsData">Salva Modifiche</button>
+    </div>
+  </div>
+  
+  <!-- Edit Time Chart Modal -->
+  <div class="edit-modal" id="editTimeChartModal" style="display: none;">
+    <div class="modal-content">
+      <button class="modal-close" id="closeTimeChartModal">&times;</button>
+      <h2 class="modal-title">Modifica Tempo per Progetto</h2>
+      <div id="timeDataContainer">
+        <!-- Dynamic content will be inserted here -->
+      </div>
+      <button class="btn-add" id="addTimeItem">+ Aggiungi Progetto</button>
+      <button class="btn-save" id="saveTimeData">Salva Modifiche</button>
+    </div>
+  </div>
+  
+  <!-- Edit Interest Chart Modal -->
+  <div class="edit-modal" id="editInterestChartModal" style="display: none;">
+    <div class="modal-content">
+      <button class="modal-close" id="closeInterestChartModal">&times;</button>
+      <h2 class="modal-title">Modifica Dati Interessi</h2>
+      <div id="interestDataContainer">
+        <!-- Dynamic content will be inserted here -->
+      </div>
+      <button class="btn-add" id="addInterestItem">+ Aggiungi Categoria</button>
+      <button class="btn-save" id="saveInterestData">Salva Modifiche</button>
+    </div>
+  </div>
+  
+  <!-- Edit Correlation Chart Modal -->
+  <div class="edit-modal" id="editCorrelationChartModal" style="display: none;">
+    <div class="modal-content">
+      <button class="modal-close" id="closeCorrelationChartModal">&times;</button>
+      <h2 class="modal-title">Modifica Dati Correlazione</h2>
+      <div id="cor Dynamic content will be inserted hererelationDataContainer">
+        <!-- -->
+      </div>
+      <button class="btn-add" id="addCorrelationItem">+ Aggiungi Dato</button>
+      <button class="btn-save" id="saveCorrelationData">Salva Modifiche</button>
+    </div>
+  </div>
+  
+  <!-- Edit Mood Modal -->
+  <div class="edit-modal" id="editMoodModal" style="display: none;">
+    <div class="modal-content">
+      <button class="modal-close" id="closeMoodModal">&times;</button>
+      <h2 class="modal-title">Modifica Dati Interessi</h2>
+      <div id="moodDataContainer">
+        <!-- Dynamic content will be inserted here -->
+      </div>
+      <button class="btn-add" id="addMoodItem">+ Aggiungi Categoria</button>
+      <button class="btn-save" id="saveMoodData">Salva Modifiche</button>
+    </div>
+  </div>
   
   <!-- Scripts -->
   <script type="text/javascript">
@@ -992,351 +1615,1258 @@
       }, 3000);
     }
     
-    // FUNZIONE PER CARICARE I DATI DASHBOARD
-    async function loadDashboardData() {
-      try {
-        // Verifica che SCRIPT_URL sia definita
-        if (typeof SCRIPT_URL === 'undefined') {
-          throw new Error("SCRIPT_URL non è definita. Assicurati di aver incluso config.js");
-        }
-        
-        console.log("Caricamento dati da:", SCRIPT_URL);
-        
-        // Carica dati delle valutazioni
-        const ratingsResponse = await fetch(`${SCRIPT_URL}?action=getRatingsData`);
-        console.log("Stato risposta valutazioni:", ratingsResponse.status);
-        
-        if (!ratingsResponse.ok) {
-          throw new Error(`Errore HTTP: ${ratingsResponse.status} ${ratingsResponse.statusText}`);
-        }
-        
-        const ratingsData = await ratingsResponse.json();
-        console.log("Dati valutazioni:", ratingsData);
-        
-        if (ratingsData.status !== 'success') {
-          throw new Error(ratingsData.message || "Errore nei dati delle valutazioni");
-        }
-        
-        // Calcola il numero totale di valutazioni
-        const totalRatings = ratingsData.data.length;
-        document.getElementById('total-ratings').textContent = totalRatings;
-        document.getElementById('total-ratings-desc').textContent = 'Valutazioni ricevute';
-        
-        // Calcola il numero di aziende uniche
-        const companies = [...new Set(ratingsData.data.map(row => row[1]))];
-        document.getElementById('partner-companies').textContent = companies.length;
-        document.getElementById('partner-companies-desc').textContent = 'Aziende partner';
-        
-        // Calcola la valutazione media
-        let totalRating = 0;
-        let validRatings = 0;
-        
-        ratingsData.data.forEach(row => {
-          const rating = parseFloat(row[3]);
-          if (!isNaN(rating)) {
-            totalRating += rating;
-            validRatings++;
-          }
-        });
-        
-        const avgRating = validRatings > 0 ? (totalRating / validRatings).toFixed(1) : 0;
-        document.getElementById('avg-rating').textContent = avgRating;
-        document.getElementById('avg-rating-desc').textContent = `${validRatings} valutazioni valide`;
-        
-        // Aggiorna il grafico delle valutazioni per progetto
-        updateProjectChart(ratingsData.data);
-        
-        // Carica dati degli interessi
-        const interestsResponse = await fetch(`${SCRIPT_URL}?action=getInterestsData`);
-        console.log("Stato risposta interessi:", interestsResponse.status);
-        
-        if (!interestsResponse.ok) {
-          throw new Error(`Errore HTTP: ${interestsResponse.status} ${interestsResponse.statusText}`);
-        }
-        
-        const interestsData = await interestsResponse.json();
-        console.log("Dati interessi:", interestsData);
-        
-        if (interestsData.status !== 'success') {
-          throw new Error(interestsData.message || "Errore nei dati degli interessi");
-        }
-        
-        // Calcola l'interesse medio
-        let totalInterest = 0;
-        let validInterests = 0;
-        
-        interestsData.data.forEach(row => {
-          const interest = parseInt(row[3]);
-          if (!isNaN(interest)) {
-            totalInterest += interest;
-            validInterests++;
-          }
-        });
-        
-        const avgInterest = validInterests > 0 ? (totalInterest / validInterests).toFixed(1) : 0;
-        document.getElementById('avg-interest').textContent = avgInterest;
-        document.getElementById('avg-interest-desc').textContent = `Su scala da 1 a 5`;
-        
-        // Aggiorna la sezione MoodMeter
-        updateMoodMeter(interestsData.data);
-        
-        // Nascondi eventuali messaggi di errore precedenti
-        const errorElement = document.getElementById('data-error');
-        if (errorElement) {
-          errorElement.style.display = 'none';
-        }
-        
-      } catch (error) {
-        console.error('Errore nel caricamento dei dati:', error);
-        showNotification('Errore nel caricamento dei dati: ' + error.message + '. Utilizzo dati di esempio.');
-        
-        // Mostra un messaggio di errore sulla pagina
-        let errorElement = document.getElementById('data-error');
-        if (!errorElement) {
-          errorElement = document.createElement('div');
-          errorElement.id = 'data-error';
-          errorElement.className = 'error-message';
-          document.querySelector('.dashboard-container').prepend(errorElement);
-        }
-        errorElement.textContent = 'Errore nel caricamento dei dati: ' + error.message + '. Vengono mostrati dati di esempio.';
-        errorElement.style.display = 'block';
-        
-        // Carica dati di esempio in caso di errore
-        loadSampleData();
+    // DATI DI DEFAULT
+    let chartData = [
+      { project: 'ESP3D BOX', rating: 4.5 },
+      { project: 'Simocoloweb', rating: 4.2 },
+      { project: 'Flipper Zero', rating: 4.0 },
+      { project: 'Bruce', rating: 3.8 },
+      { project: 'Website', rating: 4.3 }
+    ];
+    
+    let trendData = [
+      { month: 'Gen', rating: 3.8 },
+      { month: 'Feb', rating: 4.0 },
+      { month: 'Mar', rating: 4.1 },
+      { month: 'Apr', rating: 4.2 },
+      { month: 'Mag', rating: 4.3 },
+      { month: 'Giu', rating: 4.4 }
+    ];
+    
+    let skillsData = [
+      { skill: 'Programmazione', level: 90 },
+      { skill: 'Elettronica', level: 85 },
+      { skill: 'Design', level: 75 },
+      { skill: 'Networking', level: 80 },
+      { skill: 'Sicurezza', level: 70 }
+    ];
+    
+    let timeData = [
+      { project: 'ESP3D BOX', hours: 120 },
+      { project: 'Simocoloweb', hours: 80 },
+      { project: 'Flipper Zero', hours: 60 },
+      { project: 'Bruce', hours: 40 },
+      { project: 'Website', hours: 100 }
+    ];
+    
+    let interestData = [
+      { category: 'Interessati', count: 75 },
+      { category: 'Non Interessati', count: 25 }
+    ];
+    
+    let correlationData = [
+      { project: 'ESP3D BOX', interest: 85, rating: 4.5 },
+      { project: 'Simocoloweb', interest: 75, rating: 4.2 },
+      { project: 'Flipper Zero', interest: 65, rating: 4.0 },
+      { project: 'Bruce', interest: 55, rating: 3.8 },
+      { project: 'Website', interest: 80, rating: 4.3 }
+    ];
+    
+    let moodData = [
+      { mood: 'Molto interessato 🤩', count: 31 },
+      { mood: 'Coinvolto 😃', count: 42 },
+      { mood: 'Curioso 🙂', count: 38 },
+      { mood: 'Distratto 😕', count: 12 },
+      { mood: 'Non interessato 😢', count: 5 }
+    ];
+    
+    // CARICA DATI DA LOCAL STORAGE SE DISPONIBILI
+    function loadDataFromStorage() {
+      const savedChartData = localStorage.getItem('chartData');
+      const savedTrendData = localStorage.getItem('trendData');
+      const savedSkillsData = localStorage.getItem('skillsData');
+      const savedTimeData = localStorage.getItem('timeData');
+      const savedInterestData = localStorage.getItem('interestData');
+      const savedCorrelationData = localStorage.getItem('correlationData');
+      const savedMoodData = localStorage.getItem('moodData');
+      
+      if (savedChartData) {
+        chartData = JSON.parse(savedChartData);
+      }
+      
+      if (savedTrendData) {
+        trendData = JSON.parse(savedTrendData);
+      }
+      
+      if (savedSkillsData) {
+        skillsData = JSON.parse(savedSkillsData);
+      }
+      
+      if (savedTimeData) {
+        timeData = JSON.parse(savedTimeData);
+      }
+      
+      if (savedInterestData) {
+        interestData = JSON.parse(savedInterestData);
+      }
+      
+      if (savedCorrelationData) {
+        correlationData = JSON.parse(savedCorrelationData);
+      }
+      
+      if (savedMoodData) {
+        moodData = JSON.parse(savedMoodData);
       }
     }
     
-    // FUNZIONE PER CARICARE DATI DI ESEMPIO
-    function loadSampleData() {
-      // Aggiorna le card della dashboard con dati di esempio
-      document.getElementById('total-ratings').textContent = '156';
-      document.getElementById('total-ratings-desc').textContent = 'Valutazioni ricevute';
-      
-      document.getElementById('partner-companies').textContent = '24';
-      document.getElementById('partner-companies-desc').textContent = 'Aziende partner';
-      
-      document.getElementById('avg-interest').textContent = '3.8';
-      document.getElementById('avg-interest-desc').textContent = 'Su scala da 1 a 5';
-      
-      document.getElementById('avg-rating').textContent = '4.2';
-      document.getElementById('avg-rating-desc').textContent = 'Basata su 156 valutazioni';
-      
-      // Aggiorna il grafico con dati di esempio
-      const projectData = [
-        { project: 'ESP3D BOX', rating: 4.5 },
-        { project: 'Simocoloweb', rating: 4.2 },
-        { project: 'Flipper Zero', rating: 4.0 },
-        { project: 'Bruce', rating: 3.8 },
-        { project: 'ESP32', rating: 4.3 }
-      ];
-      updateProjectChartFromData(projectData);
-      
-      // Aggiorna la sezione MoodMeter con dati di esempio
-      const moodmeterData = [
-        { mood: 'Non interessato 😢', count: 5 },
-        { mood: 'Distratto 😕', count: 12 },
-        { mood: 'Curioso 🙂', count: 38 },
-        { mood: 'Coinvolto 😃', count: 42 },
-        { mood: 'Molto interessato 🤩', count: 31 }
-      ];
-      updateMoodMeterFromData(moodmeterData);
+    // SALVA DATI IN LOCAL STORAGE
+    function saveDataToStorage() {
+      localStorage.setItem('chartData', JSON.stringify(chartData));
+      localStorage.setItem('trendData', JSON.stringify(trendData));
+      localStorage.setItem('skillsData', JSON.stringify(skillsData));
+      localStorage.setItem('timeData', JSON.stringify(timeData));
+      localStorage.setItem('interestData', JSON.stringify(interestData));
+      localStorage.setItem('correlationData', JSON.stringify(correlationData));
+      localStorage.setItem('moodData', JSON.stringify(moodData));
     }
     
-    // FUNZIONE PER AGGIORNARE IL GRAFICO DEI PROGETTI
-    function updateProjectChart(data) {
-      const chartContainer = document.getElementById('project-chart');
-      chartContainer.innerHTML = '';
+    // FAB BUTTON
+    document.getElementById('fab').addEventListener('click', function() {
+      const adminOptions = document.getElementById('adminOptions');
+      adminOptions.classList.toggle('active');
+    });
+    
+    // MOSTRA ADMIN PANEL
+    document.getElementById('showAdminPanel').addEventListener('click', function() {
+      document.getElementById('adminPanel').style.display = 'block';
+      document.getElementById('adminOptions').classList.remove('active');
+    });
+    
+    // MOSTRA QUESTIONARIO
+    document.getElementById('showQuestionnaire').addEventListener('click', function() {
+      document.getElementById('questionnaire').style.display = 'block';
+      document.getElementById('adminOptions').classList.remove('active');
+    });
+    
+    // LOGIN FORM
+    document.getElementById('adminLoginBtn').addEventListener('click', function() {
+      document.getElementById('loginOverlay').style.display = 'flex';
+    });
+    
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const password = document.getElementById('passwordInput').value;
       
-      // Raggruppa le valutazioni per progetto
-      const projectRatings = {};
+      if (password.toLowerCase() === 'arancione') {
+        document.getElementById('loginOverlay').style.display = 'none';
+        showNotification('Accesso consentito');
+        // Mostra i pulsanti di modifica
+        document.getElementById('editChartBtn').style.display = 'flex';
+        document.getElementById('editTrendChartBtn').style.display = 'flex';
+        document.getElementById('editSkillsChartBtn').style.display = 'flex';
+        document.getElementById('editTimeChartBtn').style.display = 'flex';
+        document.getElementById('editInterestChartBtn').style.display = 'flex';
+        document.getElementById('editCorrelationChartBtn').style.display = 'flex';
+        document.getElementById('editMoodBtn').style.display = 'flex';
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('loginError').style.display = 'none';
+        }, 3000);
+      }
+    });
+    
+    // QUESTIONARIO
+    document.getElementById('submitQuestionnaire').addEventListener('click', function() {
+      // Raccogli i dati dal questionario
+      const interestedRatings = parseInt(document.getElementById('interestedRatings').value) || 0;
+      const notInterestedRatings = parseInt(document.getElementById('notInterestedRatings').value) || 0;
+      const bruceRating = parseFloat(document.getElementById('bruceRating').value) || 0;
+      const websiteRating = parseFloat(document.getElementById('websiteRating').value) || 0;
+      const esp3dRating = parseFloat(document.getElementById('esp3dRating').value) || 0;
+      const simocolowebRating = parseFloat(document.getElementById('simocolowebRating').value) || 0;
+      const flipperRating = parseFloat(document.getElementById('flipperRating').value) || 0;
+      const veryInterestedCount = parseInt(document.getElementById('veryInterestedCount').value) || 0;
+      const engagedCount = parseInt(document.getElementById('engagedCount').value) || 0;
+      const curiousCount = parseInt(document.getElementById('curiousCount').value) || 0;
+      const distractedCount = parseInt(document.getElementById('distractedCount').value) || 0;
+      const notInterestedCount = parseInt(document.getElementById('notInterestedCount').value) || 0;
       
-      data.forEach(row => {
-        const project = row[2]; // Nome del progetto
-        const rating = parseFloat(row[3]); // Valutazione
-        
-        if (project && !isNaN(rating)) {
-          if (!projectRatings[project]) {
-            projectRatings[project] = [];
-          }
-          projectRatings[project].push(rating);
-        }
-      });
+      // Aggiorna i dati dei grafici
+      chartData = [
+        { project: 'ESP3D BOX', rating: esp3dRating },
+        { project: 'Simocoloweb', rating: simocolowebRating },
+        { project: 'Flipper Zero', rating: flipperRating },
+        { project: 'Bruce', rating: bruceRating },
+        { project: 'Website', rating: websiteRating }
+      ];
       
-      // Calcola la media delle valutazioni per progetto
-      const projectAverages = [];
-      for (const project in projectRatings) {
-        const ratings = projectRatings[project];
-        const average = ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
-        projectAverages.push({ project, rating: average.toFixed(1) });
+      interestData = [
+        { category: 'Interessati', count: interestedRatings },
+        { category: 'Non Interessati', count: notInterestedRatings }
+      ];
+      
+      moodData = [
+        { mood: 'Molto interessato 🤩', count: veryInterestedCount },
+        { mood: 'Coinvolto 😃', count: engagedCount },
+        { mood: 'Curioso 🙂', count: curiousCount },
+        { mood: 'Distratto 😕', count: distractedCount },
+        { mood: 'Non interessato 😢', count: notInterestedCount }
+      ];
+      
+      // Salva i dati
+      saveDataToStorage();
+      
+      // Aggiorna i grafici
+      updateDashboardCards();
+      createProjectChart();
+      createInterestChart();
+      createMoodChart();
+      
+      showNotification('Dati aggiornati con successo');
+    });
+    
+    // INIZIALIZZAZIONE DASHBOARD
+    function initializeDashboard() {
+      loadDataFromStorage();
+      updateDashboardCards();
+      createProjectChart();
+      createTrendChart();
+      createSkillsChart();
+      createTimeChart();
+      createInterestChart();
+      createCorrelationChart();
+      createMoodChart();
+    }
+    
+    // AGGIORNA CARDS DELLA DASHBOARD
+    function updateDashboardCards() {
+      // Calcola valutazioni totali
+      const totalRatings = chartData.reduce((sum, item) => sum + item.rating, 0);
+      document.getElementById('total-ratings').textContent = chartData.length;
+      document.getElementById('total-ratings-desc').textContent = 'Progetti valutati';
+      
+      // Calcola aziende partner (numero di progetti)
+      document.getElementById('partner-companies').textContent = chartData.length;
+      document.getElementById('partner-companies-desc').textContent = 'Progetti attivi';
+      
+      // Calcola interesse medio
+      const totalInterest = moodData.reduce((sum, item) => sum + item.count, 0);
+      const avgInterest = totalInterest > 0 ? (totalInterest / moodData.length).toFixed(1) : 0;
+      document.getElementById('avg-interest').textContent = avgInterest;
+      document.getElementById('avg-interest-desc').textContent = 'Interesse medio';
+      
+      // Calcola valutazione media
+      const avgRating = chartData.length > 0 ? (totalRatings / chartData.length).toFixed(1) : 0;
+      document.getElementById('avg-rating').textContent = avgRating;
+      document.getElementById('avg-rating-desc').textContent = 'Valutazione media';
+    }
+    
+    // CREA GRAFICO PROGETTI
+    function createProjectChart() {
+      const ctx = document.getElementById('projectChart').getContext('2d');
+      
+      // Distruggi il grafico esistente se presente
+      if (window.projectChartInstance) {
+        window.projectChartInstance.destroy();
       }
       
-      // Ordina per valutazione media
-      projectAverages.sort((a, b) => b.rating - a.rating);
-      
-      // Trova il valore massimo per scalare le barre
-      const maxRating = Math.max(...projectAverages.map(item => item.rating));
-      
-      projectAverages.forEach(item => {
-        const barContainer = document.createElement('div');
-        barContainer.style.position = 'relative';
-        barContainer.style.height = '100%';
-        barContainer.style.display = 'flex';
-        barContainer.style.alignItems = 'flex-end';
-        barContainer.style.flex = '1';
-        
-        const bar = document.createElement('div');
-        bar.className = 'bar';
-        // Calcola l'altezza in base al valore massimo
-        const height = maxRating > 0 ? (item.rating / maxRating) * 250 : 0;
-        bar.style.height = `${height}px`;
-        
-        const barLabel = document.createElement('div');
-        barLabel.className = 'bar-label';
-        barLabel.textContent = item.project.length > 10 ? item.project.substring(0, 10) + '...' : item.project;
-        
-        const barValue = document.createElement('div');
-        barValue.className = 'bar-value';
-        barValue.textContent = item.rating;
-        
-        bar.appendChild(barLabel);
-        bar.appendChild(barValue);
-        barContainer.appendChild(bar);
-        chartContainer.appendChild(barContainer);
-      });
-    }
-    
-    // FUNZIONE PER AGGIORNARE IL GRAFICO DEI PROGETTI DA DATI
-    function updateProjectChartFromData(data) {
-      const chartContainer = document.getElementById('project-chart');
-      chartContainer.innerHTML = '';
-      
-      // Trova il valore massimo per scalare le barre
-      const maxRating = Math.max(...data.map(item => item.rating));
-      
-      data.forEach(item => {
-        const barContainer = document.createElement('div');
-        barContainer.style.position = 'relative';
-        barContainer.style.height = '100%';
-        barContainer.style.display = 'flex';
-        barContainer.style.alignItems = 'flex-end';
-        barContainer.style.flex = '1';
-        
-        const bar = document.createElement('div');
-        bar.className = 'bar';
-        // Calcola l'altezza in base al valore massimo
-        const height = maxRating > 0 ? (item.rating / maxRating) * 250 : 0;
-        bar.style.height = `${height}px`;
-        
-        const barLabel = document.createElement('div');
-        barLabel.className = 'bar-label';
-        barLabel.textContent = item.project.length > 10 ? item.project.substring(0, 10) + '...' : item.project;
-        
-        const barValue = document.createElement('div');
-        barValue.className = 'bar-value';
-        barValue.textContent = item.rating;
-        
-        bar.appendChild(barLabel);
-        bar.appendChild(barValue);
-        barContainer.appendChild(bar);
-        chartContainer.appendChild(barContainer);
-      });
-    }
-    
-    // FUNZIONE PER AGGIORNARE LA SEZIONE MOODMETER
-    function updateMoodMeter(data) {
-      const moodmeterGrid = document.getElementById('moodmeter-grid');
-      moodmeterGrid.innerHTML = '';
-      
-      // Conta i diversi tipi di interesse
-      const interestCounts = {
-        'Non interessato 😢': 0,
-        'Distratto 😕': 0,
-        'Curioso 🙂': 0,
-        'Coinvolto 😃': 0,
-        'Molto interessato 🤩': 0
-      };
-      
-      // Analizza le righe degli interessi
-      data.forEach(row => {
-        // L'interesse è nella terza colonna (indice 2)
-        const interesse = row[2] || '';
-        
-        if (interestCounts.hasOwnProperty(interesse)) {
-          interestCounts[interesse]++;
+      window.projectChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: chartData.map(item => item.project),
+          datasets: [{
+            label: 'Valutazione',
+            data: chartData.map(item => item.rating),
+            backgroundColor: 'rgba(255, 87, 34, 0.7)',
+            borderColor: 'rgba(255, 87, 34, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 5,
+              ticks: {
+                color: '#cccccc'
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+              }
+            },
+            x: {
+              ticks: {
+                color: '#cccccc'
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: '#cccccc'
+              }
+            }
+          }
         }
       });
+    }
+    
+    // CREA GRAFICO ANDAMENTO TEMPORALE
+    function createTrendChart() {
+      const ctx = document.getElementById('trendChart').getContext('2d');
       
-      // Mappa dei tipi di interesse alle emoji
-      const interestEmojis = {
-        'Non interessato 😢': '😢',
-        'Distratto 😕': '😕',
-        'Curioso 🙂': '🙂',
-        'Coinvolto 😃': '😃',
-        'Molto interessato 🤩': '🤩'
-      };
+      // Distruggi il grafico esistente se presente
+      if (window.trendChartInstance) {
+        window.trendChartInstance.destroy();
+      }
       
-      // Crea le card per ogni tipo di interesse
-      Object.keys(interestCounts).forEach(interesse => {
-        const moodCard = document.createElement('div');
-        moodCard.className = 'mood-card';
-        
-        const moodEmoji = document.createElement('div');
-        moodEmoji.className = 'mood-emoji';
-        moodEmoji.textContent = interestEmojis[interesse];
-        
-        const moodLabel = document.createElement('div');
-        moodLabel.className = 'mood-label';
-        moodLabel.textContent = interesse;
-        
-        const moodCount = document.createElement('div');
-        moodCount.className = 'mood-count';
-        moodCount.textContent = interestCounts[interesse];
-        
-        moodCard.appendChild(moodEmoji);
-        moodCard.appendChild(moodLabel);
-        moodCard.appendChild(moodCount);
-        
-        moodmeterGrid.appendChild(moodCard);
+      window.trendChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: trendData.map(item => item.month),
+          datasets: [{
+            label: 'Valutazione Media',
+            data: trendData.map(item => item.rating),
+            backgroundColor: 'rgba(255, 87, 34, 0.2)',
+            borderColor: 'rgba(255, 87, 34, 1)',
+            borderWidth: 2,
+            tension: 0.4,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 5,
+              ticks: {
+                color: '#cccccc'
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+              }
+            },
+            x: {
+              ticks: {
+                color: '#cccccc'
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: '#cccccc'
+              }
+            }
+          }
+        }
       });
     }
     
-    // FUNZIONE PER AGGIORNARE LA SEZIONE MOODMETER DA DATI
-    function updateMoodMeterFromData(data) {
-      const moodmeterGrid = document.getElementById('moodmeter-grid');
-      moodmeterGrid.innerHTML = '';
+    // CREA GRAFICO COMPETENZE
+    function createSkillsChart() {
+      const ctx = document.getElementById('skillsChart').getContext('2d');
       
-      // Crea le card per ogni mood
-      data.forEach(item => {
-        const moodCard = document.createElement('div');
-        moodCard.className = 'mood-card';
-        
-        const moodEmoji = document.createElement('div');
-        moodEmoji.className = 'mood-emoji';
-        moodEmoji.textContent = item.mood.split(' ')[0];
-        
-        const moodLabel = document.createElement('div');
-        moodLabel.className = 'mood-label';
-        moodLabel.textContent = item.mood;
-        
-        const moodCount = document.createElement('div');
-        moodCount.className = 'mood-count';
-        moodCount.textContent = item.count;
-        
-        moodCard.appendChild(moodEmoji);
-        moodCard.appendChild(moodLabel);
-        moodCard.appendChild(moodCount);
-        
-        moodmeterGrid.appendChild(moodCard);
+      // Distruggi il grafico esistente se presente
+      if (window.skillsChartInstance) {
+        window.skillsChartInstance.destroy();
+      }
+      
+      window.skillsChartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: skillsData.map(item => item.skill),
+          datasets: [{
+            label: 'Livello Competenza',
+            data: skillsData.map(item => item.level),
+            backgroundColor: 'rgba(255, 87, 34, 0.2)',
+            borderColor: 'rgba(255, 87, 34, 1)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(255, 87, 34, 1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(255, 87, 34, 1)'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              beginAtZero: true,
+              max: 100,
+              ticks: {
+                stepSize: 20,
+                color: 'rgba(255, 255, 255, 0.7)'
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+              },
+              pointLabels: {
+                color: 'rgba(255, 255, 255, 0.9)',
+                font: {
+                  size: 12
+                }
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            }
+          }
+        }
       });
     }
+    
+    // CREA GRAFICO TEMPO PER PROGETTO
+    function createTimeChart() {
+      const ctx = document.getElementById('timeChart').getContext('2d');
+      
+      // Distruggi il grafico esistente se presente
+      if (window.timeChartInstance) {
+        window.timeChartInstance.destroy();
+      }
+      
+      window.timeChartInstance = new Chart(ctx, {
+        type: 'bar',
+        indexAxis: 'y',
+        data: {
+          labels: timeData.map(item => item.project),
+          datasets: [{
+            label: 'Ore',
+            data: timeData.map(item => item.hours),
+            backgroundColor: 'rgba(255, 87, 34, 0.7)',
+            borderColor: 'rgba(255, 87, 34, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              ticks: {
+                color: '#cccccc'
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+              }
+            },
+            x: {
+              ticks: {
+                color: '#cccccc'
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: '#cccccc'
+              }
+            }
+          }
+        }
+      });
+    }
+    
+    // CREA GRAFICO INTERESSI
+    function createInterestChart() {
+      const ctx = document.getElementById('interestChart').getContext('2d');
+      
+      // Distruggi il grafico esistente se presente
+      if (window.interestChartInstance) {
+        window.interestChartInstance.destroy();
+      }
+      
+      window.interestChartInstance = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: interestData.map(item => item.category),
+          datasets: [{
+            data: interestData.map(item => item.count),
+            backgroundColor: [
+              'rgba(76, 175, 80, 0.7)',
+              'rgba(239, 68, 68, 0.7)'
+            ],
+            borderColor: [
+              'rgba(76, 175, 80, 1)',
+              'rgba(239, 68, 68, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                color: '#cccccc'
+              }
+            }
+          }
+        }
+      });
+    }
+    
+    // CREA GRAFICO CORRELAZIONE
+    function createCorrelationChart() {
+      const ctx = document.getElementById('correlationChart').getContext('2d');
+      
+      // Distruggi il grafico esistente se presente
+      if (window.correlationChartInstance) {
+        window.correlationChartInstance.destroy();
+      }
+      
+      window.correlationChartInstance = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+          datasets: [{
+            label: 'Progetti',
+            data: correlationData.map(item => ({
+              x: item.interest,
+              y: item.rating
+            })),
+            backgroundColor: 'rgba(255, 87, 34, 0.7)',
+            borderColor: 'rgba(255, 87, 34, 1)',
+            borderWidth: 1,
+            pointRadius: 8,
+            pointHoverRadius: 10
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 5,
+              title: {
+                display: true,
+                text: 'Valutazione',
+                color: '#cccccc'
+              },
+              ticks: {
+                color: '#cccccc'
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+              }
+            },
+            x: {
+              beginAtZero: true,
+              max: 100,
+              title: {
+                display: true,
+                text: 'Interesse (%)',
+                color: '#cccccc'
+              },
+              ticks: {
+                color: '#cccccc'
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.1)'
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: '#cccccc'
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const point = correlationData[context.dataIndex];
+                  return `${point.project}: Interesse ${point.interest}%, Valutazione ${point.rating}`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+    
+    // CREA GRAFICO INTERESSI
+    function createMoodChart() {
+      const ctx = document.getElementById('moodChart').getContext('2d');
+      
+      // Distruggi il grafico esistente se presente
+      if (window.moodChartInstance) {
+        window.moodChartInstance.destroy();
+      }
+      
+      window.moodChartInstance = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: moodData.map(item => item.mood),
+          datasets: [{
+            data: moodData.map(item => item.count),
+            backgroundColor: [
+              'rgba(76, 175, 80, 0.7)',
+              'rgba(255, 193, 7, 0.7)',
+              'rgba(255, 171, 64, 0.7)',
+              'rgba(255, 138, 80, 0.7)',
+              'rgba(239, 68, 68, 0.7)'
+            ],
+            borderColor: [
+              'rgba(76, 175, 80, 1)',
+              'rgba(255, 193, 7, 1)',
+              'rgba(255, 171, 64, 1)',
+              'rgba(255, 138, 80, 1)',
+              'rgba(239, 68, 68, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'right',
+              labels: {
+                color: '#cccccc'
+              }
+            }
+          }
+        }
+      });
+    }
+    
+    // MODIFICA GRAFICO PROGETTI
+    document.getElementById('editChartBtn').addEventListener('click', function() {
+      const container = document.getElementById('chartDataContainer');
+      container.innerHTML = '';
+      
+      chartData.forEach((item, index) => {
+        const dataItem = document.createElement('div');
+        dataItem.className = 'data-item';
+        dataItem.innerHTML = `
+          <div class="data-item-info">
+            <div class="data-item-name">${item.project}</div>
+            <div class="data-item-value">Valutazione: ${item.rating}</div>
+          </div>
+          <button class="btn-delete" data-index="${index}">Elimina</button>
+        `;
+        container.appendChild(dataItem);
+      });
+      
+      document.getElementById('editChartModal').style.display = 'flex';
+    });
+    
+    // MODIFICA GRAFICO ANDAMENTO TEMPORALE
+    document.getElementById('editTrendChartBtn').addEventListener('click', function() {
+      const container = document.getElementById('trendDataContainer');
+      container.innerHTML = '';
+      
+      trendData.forEach((item, index) => {
+        const dataItem = document.createElement('div');
+        dataItem.className = 'data-item';
+        dataItem.innerHTML = `
+          <div class="data-item-info">
+            <div class="data-item-name">${item.month}</div>
+            <div class="data-item-value">Valutazione: ${item.rating}</div>
+          </div>
+          <button class="btn-delete" data-index="${index}">Elimina</button>
+        `;
+        container.appendChild(dataItem);
+      });
+      
+      document.getElementById('editTrendChartModal').style.display = 'flex';
+    });
+    
+    // MODIFICA GRAFICO COMPETENZE
+    document.getElementById('editSkillsChartBtn').addEventListener('click', function() {
+      const container = document.getElementById('skillsDataContainer');
+      container.innerHTML = '';
+      
+      skillsData.forEach((item, index) => {
+        const dataItem = document.createElement('div');
+        dataItem.className = 'data-item';
+        dataItem.innerHTML = `
+          <div class="data-item-info">
+            <div class="data-item-name">${item.skill}</div>
+            <div class="data-item-value">Livello: ${item.level}%</div>
+          </div>
+          <button class="btn-delete" data-index="${index}">Elimina</button>
+        `;
+        container.appendChild(dataItem);
+      });
+      
+      document.getElementById('editSkillsChartModal').style.display = 'flex';
+    });
+    
+    // MODIFICA GRAFICO TEMPO
+    document.getElementById('editTimeChartBtn').addEventListener('click', function() {
+      const container = document.getElementById('timeDataContainer');
+      container.innerHTML = '';
+      
+      timeData.forEach((item, index) => {
+        const dataItem = document.createElement('div');
+        dataItem.className = 'data-item';
+        dataItem.innerHTML = `
+          <div class="data-item-info">
+            <div class="data-item-name">${item.project}</div>
+            <div class="data-item-value">Ore: ${item.hours}</div>
+          </div>
+          <button class="btn-delete" data-index="${index}">Elimina</button>
+        `;
+        container.appendChild(dataItem);
+      });
+      
+      document.getElementById('editTimeChartModal').style.display = 'flex';
+    });
+    
+    // MODIFICA GRAFICO INTERESSI
+    document.getElementById('editInterestChartBtn').addEventListener('click', function() {
+      const container = document.getElementById('interestDataContainer');
+      container.innerHTML = '';
+      
+      interestData.forEach((item, index) => {
+        const dataItem = document.createElement('div');
+        dataItem.className = 'data-item';
+        dataItem.innerHTML = `
+          <div class="data-item-info">
+            <div class="data-item-name">${item.category}</div>
+            <div class="data-item-value">Count: ${item.count}</div>
+          </div>
+          <button class="btn-delete" data-index="${index}">Elimina</button>
+        `;
+        container.appendChild(dataItem);
+      });
+      
+      document.getElementById('editInterestChartModal').style.display = 'flex';
+    });
+    
+    // MODIFICA GRAFICO CORRELAZIONE
+    document.getElementById('editCorrelationChartBtn').addEventListener('click', function() {
+      const container = document.getElementById('correlationDataContainer');
+      container.innerHTML = '';
+      
+      correlationData.forEach((item, index) => {
+        const dataItem = document.createElement('div');
+        dataItem.className = 'data-item';
+        dataItem.innerHTML = `
+          <div class="data-item-info">
+            <div class="data-item-name">${item.project}</div>
+            <div class="data-item-value">Interesse: ${item.interest}%, Valutazione: ${item.rating}</div>
+          </div>
+          <button class="btn-delete" data-index="${index}">Elimina</button>
+        `;
+        container.appendChild(dataItem);
+      });
+      
+      document.getElementById('editCorrelationChartModal').style.display = 'flex';
+    });
+    
+    // MODIFICA GRAFICO MOOD
+    document.getElementById('editMoodBtn').addEventListener('click', function() {
+      const container = document.getElementById('moodDataContainer');
+      container.innerHTML = '';
+      
+      moodData.forEach((item, index) => {
+        const dataItem = document.createElement('div');
+        dataItem.className = 'data-item';
+        dataItem.innerHTML = `
+          <div class="data-item-info">
+            <div class="data-item-name">${item.mood}</div>
+            <div class="data-item-value">Count: ${item.count}</div>
+          </div>
+          <button class="btn-delete" data-index="${index}">Elimina</button>
+        `;
+        container.appendChild(dataItem);
+      });
+      
+      document.getElementById('editMoodModal').style.display = 'flex';
+    });
+    
+    // CHIUDI MODAL
+    document.getElementById('closeChartModal').addEventListener('click', function() {
+      document.getElementById('editChartModal').style.display = 'none';
+    });
+    
+    document.getElementById('closeTrendChartModal').addEventListener('click', function() {
+      document.getElementById('editTrendChartModal').style.display = 'none';
+    });
+    
+    document.getElementById('closeSkillsChartModal').addEventListener('click', function() {
+      document.getElementById('editSkillsChartModal').style.display = 'none';
+    });
+    
+    document.getElementById('closeTimeChartModal').addEventListener('click', function() {
+      document.getElementById('editTimeChartModal').style.display = 'none';
+    });
+    
+    document.getElementById('closeInterestChartModal').addEventListener('click', function() {
+      document.getElementById('editInterestChartModal').style.display = 'none';
+    });
+    
+    document.getElementById('closeCorrelationChartModal').addEventListener('click', function() {
+      document.getElementById('editCorrelationChartModal').style.display = 'none';
+    });
+    
+    document.getElementById('closeMoodModal').addEventListener('click', function() {
+      document.getElementById('editMoodModal').style.display = 'none';
+    });
+    
+    // AGGIUNGI ELEMENTO GRAFICO PROGETTI
+    document.getElementById('addChartItem').addEventListener('click', function() {
+      const projectName = prompt('Nome del progetto:');
+      const projectRating = prompt('Valutazione (1-5):');
+      
+      if (projectName && projectRating && !isNaN(projectRating)) {
+        chartData.push({
+          project: projectName,
+          rating: parseFloat(projectRating)
+        });
+        
+        // Aggiorna la visualizzazione
+        const container = document.getElementById('chartDataContainer');
+        container.innerHTML = '';
+        
+        chartData.forEach((item, index) => {
+          const dataItem = document.createElement('div');
+          dataItem.className = 'data-item';
+          dataItem.innerHTML = `
+            <div class="data-item-info">
+              <div class="data-item-name">${item.project}</div>
+              <div class="data-item-value">Valutazione: ${item.rating}</div>
+            </div>
+            <button class="btn-delete" data-index="${index}">Elimina</button>
+          `;
+          container.appendChild(dataItem);
+        });
+      }
+    });
+    
+    // AGGIUNGI ELEMENTO GRAFICO ANDAMENTO TEMPORALE
+    document.getElementById('addTrendItem').addEventListener('click', function() {
+      const month = prompt('Mese:');
+      const rating = prompt('Valutazione (1-5):');
+      
+      if (month && rating && !isNaN(rating)) {
+        trendData.push({
+          month: month,
+          rating: parseFloat(rating)
+        });
+        
+        // Aggiorna la visualizzazione
+        const container = document.getElementById('trendDataContainer');
+        container.innerHTML = '';
+        
+        trendData.forEach((item, index) => {
+          const dataItem = document.createElement('div');
+          dataItem.className = 'data-item';
+          dataItem.innerHTML = `
+            <div class="data-item-info">
+              <div class="data-item-name">${item.month}</div>
+              <div class="data-item-value">Valutazione: ${item.rating}</div>
+            </div>
+            <button class="btn-delete" data-index="${index}">Elimina</button>
+          `;
+          container.appendChild(dataItem);
+        });
+      }
+    });
+    
+    // AGGIUNGI ELEMENTO GRAFICO COMPETENZE
+    document.getElementById('addSkillsItem').addEventListener('click', function() {
+      const skill = prompt('Nome competenza:');
+      const level = prompt('Livello (0-100):');
+      
+      if (skill && level && !isNaN(level)) {
+        skillsData.push({
+          skill: skill,
+          level: parseInt(level)
+        });
+        
+        // Aggiorna la visualizzazione
+        const container = document.getElementById('skillsDataContainer');
+        container.innerHTML = '';
+        
+        skillsData.forEach((item, index) => {
+          const dataItem = document.createElement('div');
+          dataItem.className = 'data-item';
+          dataItem.innerHTML = `
+            <div class="data-item-info">
+              <div class="data-item-name">${item.skill}</div>
+              <div class="data-item-value">Livello: ${item.level}%</div>
+            </div>
+            <button class="btn-delete" data-index="${index}">Elimina</button>
+          `;
+          container.appendChild(dataItem);
+        });
+      }
+    });
+    
+    // AGGIUNGI ELEMENTO GRAFICO TEMPO
+    document.getElementById('addTimeItem').addEventListener('click', function() {
+      const project = prompt('Nome progetto:');
+      const hours = prompt('Ore dedicate:');
+      
+      if (project && hours && !isNaN(hours)) {
+        timeData.push({
+          project: project,
+          hours: parseInt(hours)
+        });
+        
+        // Aggiorna la visualizzazione
+        const container = document.getElementById('timeDataContainer');
+        container.innerHTML = '';
+        
+        timeData.forEach((item, index) => {
+          const dataItem = document.createElement('div');
+          dataItem.className = 'data-item';
+          dataItem.innerHTML = `
+            <div class="data-item-info">
+              <div class="data-item-name">${item.project}</div>
+              <div class="data-item-value">Ore: ${item.hours}</div>
+            </div>
+            <button class="btn-delete" data-index="${index}">Elimina</button>
+          `;
+          container.appendChild(dataItem);
+        });
+      }
+    });
+    
+    // AGGIUNGI ELEMENTO GRAFICO INTERESSI
+    document.getElementById('addInterestItem').addEventListener('click', function() {
+      const category = prompt('Nome categoria:');
+      const count = prompt('Count:');
+      
+      if (category && count && !isNaN(count)) {
+        interestData.push({
+          category: category,
+          count: parseInt(count)
+        });
+        
+        // Aggiorna la visualizzazione
+        const container = document.getElementById('interestDataContainer');
+        container.innerHTML = '';
+        
+        interestData.forEach((item, index) => {
+          const dataItem = document.createElement('div');
+          dataItem.className = 'data-item';
+          dataItem.innerHTML = `
+            <div class="data-item-info">
+              <div class="data-item-name">${item.category}</div>
+              <div class="data-item-value">Count: ${item.count}</div>
+            </div>
+            <button class="btn-delete" data-index="${index}">Elimina</button>
+          `;
+          container.appendChild(dataItem);
+        });
+      }
+    });
+    
+    // AGGIUNGI ELEMENTO GRAFICO CORRELAZIONE
+    document.getElementById('addCorrelationItem').addEventListener('click', function() {
+      const project = prompt('Nome progetto:');
+      const interest = prompt('Interesse (0-100):');
+      const rating = prompt('Valutazione (1-5):');
+      
+      if (project && interest && rating && !isNaN(interest) && !isNaN(rating)) {
+        correlationData.push({
+          project: project,
+          interest: parseInt(interest),
+          rating: parseFloat(rating)
+        });
+        
+        // Aggiorna la visualizzazione
+        const container = document.getElementById('correlationDataContainer');
+        container.innerHTML = '';
+        
+        correlationData.forEach((item, index) => {
+          const dataItem = document.createElement('div');
+          dataItem.className = 'data-item';
+          dataItem.innerHTML = `
+            <div class="data-item-info">
+              <div class="data-item-name">${item.project}</div>
+              <div class="data-item-value">Interesse: ${item.interest}%, Valutazione: ${item.rating}</div>
+            </div>
+            <button class="btn-delete" data-index="${index}">Elimina</button>
+          `;
+          container.appendChild(dataItem);
+        });
+      }
+    });
+    
+    // AGGIUNGI ELEMENTO GRAFICO MOOD
+    document.getElementById('addMoodItem').addEventListener('click', function() {
+      const mood = prompt('Nome categoria:');
+      const count = prompt('Count:');
+      
+      if (mood && count && !isNaN(count)) {
+        moodData.push({
+          mood: mood,
+          count: parseInt(count)
+        });
+        
+        // Aggiorna la visualizzazione
+        const container = document.getElementById('moodDataContainer');
+        container.innerHTML = '';
+        
+        moodData.forEach((item, index) => {
+          const dataItem = document.createElement('div');
+          dataItem.className = 'data-item';
+          dataItem.innerHTML = `
+            <div class="data-item-info">
+              <div class="data-item-name">${item.mood}</div>
+              <div class="data-item-value">Count: ${item.count}</div>
+            </div>
+            <button class="btn-delete" data-index="${index}">Elimina</button>
+          `;
+          container.appendChild(dataItem);
+        });
+      }
+    });
+    
+    // ELIMINA ELEMENTO GRAFICO PROGETTI
+    document.getElementById('chartDataContainer').addEventListener('click', function(e) {
+      if (e.target.classList.contains('btn-delete')) {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        chartData.splice(index, 1);
+        
+        // Aggiorna la visualizzazione
+        const container = document.getElementById('chartDataContainer');
+        container.innerHTML = '';
+        
+        chartData.forEach((item, index) => {
+          const dataItem = document.createElement('div');
+          dataItem.className = 'data-item';
+          dataItem.innerHTML = `
+            <div class="data-item-info">
+              <div class="data-item-name">${item.project}</div>
+              <div class="data-item-value">Valutazione: ${item.rating}</div>
+            </div>
+            <button class="btn-delete" data-index="${index}">Elimina</button>
+          `;
+          container.appendChild(dataItem);
+        });
+      }
+    });
+    
+    // ELIMINA ELEMENTO GRAFICO ANDAMENTO TEMPORALE
+    document.getElementById('trendDataContainer').addEventListener('click', function(e) {
+      if (e.target.classList.contains('btn-delete')) {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        trendData.splice(index, 1);
+        
+        // Aggiorna la visualizzazione
+        const container = document.getElementById('trendDataContainer');
+        container.innerHTML = '';
+        
+        trendData.forEach((item, index) => {
+          const dataItem = document.createElement('div');
+          dataItem.className = 'data-item';
+          dataItem.innerHTML = `
+            <div class="data-item-info">
+              <div class="data-item-name">${item.month}</div>
+              <div class="data-item-value">Valutazione: ${item.rating}</div>
+            </div>
+            <button class="btn-delete" data-index="${index}">Elimina</button>
+          `;
+          container.appendChild(dataItem);
+        });
+      }
+    });
+    
+    // ELIMINA ELEMENTO GRAFICO COMPETENZE
+    document.getElementById('skillsDataContainer').addEventListener('click', function(e) {
+      if (e.target.classList.contains('btn-delete')) {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        skillsData.splice(index, 1);
+        
+        // Aggiorna la visualizzazione
+        const container = document.getElementById('skillsDataContainer');
+        container.innerHTML = '';
+        
+        skillsData.forEach((item, index) => {
+          const dataItem = document.createElement('div');
+          dataItem.className = 'data-item';
+          dataItem.innerHTML = `
+            <div class="data-item-info">
+              <div class="data-item-name">${item.skill}</div>
+              <div class="data-item-value">Livello: ${item.level}%</div>
+            </div>
+            <button class="btn-delete" data-index="${index}">Elimina</button>
+          `;
+          container.appendChild(dataItem);
+        });
+      }
+    });
+    
+    // ELIMINA ELEMENTO GRAFICO TEMPO
+    document.getElementById('timeDataContainer').addEventListener('click', function(e) {
+      if (e.target.classList.contains('btn-delete')) {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        timeData.splice(index, 1);
+        
+        // Aggiorna la visualizzazione
+        const container = document.getElementById('timeDataContainer');
+        container.innerHTML = '';
+        
+        timeData.forEach((item, index) => {
+          const dataItem = document.createElement('div');
+          dataItem.className = 'data-item';
+          dataItem.innerHTML = `
+            <div class="data-item-info">
+              <div class="data-item-name">${item.project}</div>
+              <div class="data-item-value">Ore: ${item.hours}</div>
+            </div>
+            <button class="btn-delete" data-index="${index}">Elimina</button>
+          `;
+          container.appendChild(dataItem);
+        });
+      }
+    });
+    
+    // ELIMINA ELEMENTO GRAFICO INTERESSI
+    document.getElementById('interestDataContainer').addEventListener('click', function(e) {
+      if (e.target.classList.contains('btn-delete')) {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        interestData.splice(index, 1);
+        
+        // Aggiorna la visualizzazione
+        const container = document.getElementById('interestDataContainer');
+        container.innerHTML = '';
+        
+        interestData.forEach((item, index) => {
+          const dataItem = document.createElement('div');
+          dataItem.className = 'data-item';
+          dataItem.innerHTML = `
+            <div class="data-item-info">
+              <div class="data-item-name">${item.category}</div>
+              <div class="data-item-value">Count: ${item.count}</div>
+            </div>
+            <button class="btn-delete" data-index="${index}">Elimina</button>
+          `;
+          container.appendChild(dataItem);
+        });
+      }
+    });
+    
+    // ELIMINA ELEMENTO GRAFICO CORRELAZIONE
+    document.getElementById('correlationDataContainer').addEventListener('click', function(e) {
+      if (e.target.classList.contains('btn-delete')) {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        correlationData.splice(index, 1);
+        
+        // Aggiorna la visualizzazione
+        const container = document.getElementById('correlationDataContainer');
+        container.innerHTML = '';
+        
+        correlationData.forEach((item, index) => {
+          const dataItem = document.createElement('div');
+          dataItem.className = 'data-item';
+          dataItem.innerHTML = `
+            <div class="data-item-info">
+              <div class="data-item-name">${item.project}</div>
+              <div class="data-item-value">Interesse: ${item.interest}%, Valutazione: ${item.rating}</div>
+            </div>
+            <button class="btn-delete" data-index="${index}">Elimina</button>
+          `;
+          container.appendChild(dataItem);
+        });
+      }
+    });
+    
+    // ELIMINA ELEMENTO GRAFICO MOOD
+    document.getElementById('moodDataContainer').addEventListener('click', function(e) {
+      if (e.target.classList.contains('btn-delete')) {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        moodData.splice(index, 1);
+        
+        // Aggiorna la visualizzazione
+        const container = document.getElementById('moodDataContainer');
+        container.innerHTML = '';
+        
+        moodData.forEach((item, index) => {
+          const dataItem = document.createElement('div');
+          dataItem.className = 'data-item';
+          dataItem.innerHTML = `
+            <div class="data-item-info">
+              <div class="data-item-name">${item.mood}</div>
+              <div class="data-item-value">Count: ${item.count}</div>
+            </div>
+            <button class="btn-delete" data-index="${index}">Elimina</button>
+          `;
+          container.appendChild(dataItem);
+        });
+      }
+    });
+    
+    // SALVA DATI GRAFICO PROGETTI
+    document.getElementById('saveChartData').addEventListener('click', function() {
+      saveDataToStorage();
+      updateDashboardCards();
+      createProjectChart();
+      document.getElementById('editChartModal').style.display = 'none';
+      showNotification('Dati salvati con successo');
+    });
+    
+    // SALVA DATI GRAFICO ANDAMENTO TEMPORALE
+    document.getElementById('saveTrendData').addEventListener('click', function() {
+      saveDataToStorage();
+      createTrendChart();
+      document.getElementById('editTrendChartModal').style.display = 'none';
+      showNotification('Dati salvati con successo');
+    });
+    
+    // SALVA DATI GRAFICO COMPETENZE
+    document.getElementById('saveSkillsData').addEventListener('click', function() {
+      saveDataToStorage();
+      createSkillsChart();
+      document.getElementById('editSkillsChartModal').style.display = 'none';
+      showNotification('Dati salvati con successo');
+    });
+    
+    // SALVA DATI GRAFICO TEMPO
+    document.getElementById('saveTimeData').addEventListener('click', function() {
+      saveDataToStorage();
+      createTimeChart();
+      document.getElementById('editTimeChartModal').style.display = 'none';
+      showNotification('Dati salvati con successo');
+    });
+    
+    // SALVA DATI GRAFICO INTERESSI
+    document.getElementById('saveInterestData').addEventListener('click', function() {
+      saveDataToStorage();
+      updateDashboardCards();
+      createInterestChart();
+      document.getElementById('editInterestChartModal').style.display = 'none';
+      showNotification('Dati salvati con successo');
+    });
+    
+    // SALVA DATI GRAFICO CORRELAZIONE
+    document.getElementById('saveCorrelationData').addEventListener('click', function() {
+      saveDataToStorage();
+      createCorrelationChart();
+      document.getElementById('editCorrelationChartModal').style.display = 'none';
+      showNotification('Dati salvati con successo');
+    });
+    
+    // SALVA DATI GRAFICO MOOD
+    document.getElementById('saveMoodData').addEventListener('click', function() {
+      saveDataToStorage();
+      updateDashboardCards();
+      createMoodChart();
+      document.getElementById('editMoodModal').style.display = 'none';
+      showNotification('Dati salvati con successo');
+    });
     
     // INIZIALIZZAZIONE
     document.addEventListener('DOMContentLoaded', function () {
       createParticles();
-      loadDashboardData();
-      
-      // Aggiorna i dati ogni 5 minuti
-      setInterval(loadDashboardData, 5 * 60 * 1000);
+      initializeDashboard();
     });
     
     // Gestione resize per performance
