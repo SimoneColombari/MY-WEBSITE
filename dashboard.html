@@ -1295,22 +1295,6 @@
         <div class="questionnaire" id="questionnaire">
           <h2 class="questionnaire-title">Aggiorna Dati Dashboard</h2>
           <div class="question-group">
-            <div class="question">Numero valutazioni interessate:</div>
-            <input type="number" class="answer-input" id="interestedRatings" min="0" placeholder="Inserisci un numero">
-          </div>
-          <div class="question-group">
-            <div class="question">Numero valutazioni non interessate:</div>
-            <input type="number" class="answer-input" id="notInterestedRatings" min="0" placeholder="Inserisci un numero">
-          </div>
-          <div class="question-group">
-            <div class="question">Voto progetto Bruce (1-5):</div>
-            <input type="number" class="answer-input" id="bruceRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
-          </div>
-          <div class="question-group">
-            <div class="question">Voto progetto Website (1-5):</div>
-            <input type="number" class="answer-input" id="websiteRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
-          </div>
-          <div class="question-group">
             <div class="question">Voto progetto ESP3D BOX (1-5):</div>
             <input type="number" class="answer-input" id="esp3dRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
           </div>
@@ -1323,24 +1307,12 @@
             <input type="number" class="answer-input" id="flipperRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
           </div>
           <div class="question-group">
-            <div class="question">Numero di persone molto interessate:</div>
-            <input type="number" class="answer-input" id="veryInterestedCount" min="0" placeholder="Inserisci un numero">
+            <div class="question">Voto progetto Bruce (1-5):</div>
+            <input type="number" class="answer-input" id="bruceRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
           </div>
           <div class="question-group">
-            <div class="question">Numero di persone coinvolte:</div>
-            <input type="number" class="answer-input" id="engagedCount" min="0" placeholder="Inserisci un numero">
-          </div>
-          <div class="question-group">
-            <div class="question">Numero di persone curiose:</div>
-            <input type="number" class="answer-input" id="curiousCount" min="0" placeholder="Inserisci un numero">
-          </div>
-          <div class="question-group">
-            <div class="question">Numero di persone distratte:</div>
-            <input type="number" class="answer-input" id="distractedCount" min="0" placeholder="Inserisci un numero">
-          </div>
-          <div class="question-group">
-            <div class="question">Numero di persone non interessate:</div>
-            <input type="number" class="answer-input" id="notInterestedCount" min="0" placeholder="Inserisci un numero">
+            <div class="question">Voto progetto Website (1-5):</div>
+            <input type="number" class="answer-input" id="websiteRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
           </div>
           <button class="btn-submit" id="submitQuestionnaire">Aggiorna Dashboard</button>
         </div>
@@ -1566,8 +1538,8 @@
     <div class="modal-content">
       <button class="modal-close" id="closeCorrelationChartModal">&times;</button>
       <h2 class="modal-title">Modifica Dati Correlazione</h2>
-      <div id="cor Dynamic content will be inserted hererelationDataContainer">
-        <!-- -->
+      <div id="correlationDataContainer">
+        <!-- Dynamic content will be inserted here -->
       </div>
       <button class="btn-add" id="addCorrelationItem">+ Aggiungi Dato</button>
       <button class="btn-save" id="saveCorrelationData">Salva Modifiche</button>
@@ -1769,18 +1741,11 @@
     // QUESTIONARIO
     document.getElementById('submitQuestionnaire').addEventListener('click', function() {
       // Raccogli i dati dal questionario
-      const interestedRatings = parseInt(document.getElementById('interestedRatings').value) || 0;
-      const notInterestedRatings = parseInt(document.getElementById('notInterestedRatings').value) || 0;
-      const bruceRating = parseFloat(document.getElementById('bruceRating').value) || 0;
-      const websiteRating = parseFloat(document.getElementById('websiteRating').value) || 0;
       const esp3dRating = parseFloat(document.getElementById('esp3dRating').value) || 0;
       const simocolowebRating = parseFloat(document.getElementById('simocolowebRating').value) || 0;
       const flipperRating = parseFloat(document.getElementById('flipperRating').value) || 0;
-      const veryInterestedCount = parseInt(document.getElementById('veryInterestedCount').value) || 0;
-      const engagedCount = parseInt(document.getElementById('engagedCount').value) || 0;
-      const curiousCount = parseInt(document.getElementById('curiousCount').value) || 0;
-      const distractedCount = parseInt(document.getElementById('distractedCount').value) || 0;
-      const notInterestedCount = parseInt(document.getElementById('notInterestedCount').value) || 0;
+      const bruceRating = parseFloat(document.getElementById('bruceRating').value) || 0;
+      const websiteRating = parseFloat(document.getElementById('websiteRating').value) || 0;
       
       // Aggiorna i dati dei grafici
       chartData = [
@@ -1791,17 +1756,32 @@
         { project: 'Website', rating: websiteRating }
       ];
       
+      // Calcola dati derivati
+      const avgRating = chartData.length > 0 ? 
+        (chartData.reduce((sum, item) => sum + item.rating, 0) / chartData.length).toFixed(1) : 0;
+      
+      // Aggiorna dati di interesse basati sulle valutazioni
       interestData = [
-        { category: 'Interessati', count: interestedRatings },
-        { category: 'Non Interessati', count: notInterestedRatings }
+        { category: 'Interessati', count: Math.round(avgRating * 20) },
+        { category: 'Non Interessati', count: Math.round((5 - avgRating) * 20) }
       ];
       
+      // Aggiorna dati mood basati sulle valutazioni
       moodData = [
-        { mood: 'Molto interessato 🤩', count: veryInterestedCount },
-        { mood: 'Coinvolto 😃', count: engagedCount },
-        { mood: 'Curioso 🙂', count: curiousCount },
-        { mood: 'Distratto 😕', count: distractedCount },
-        { mood: 'Non interessato 😢', count: notInterestedCount }
+        { mood: 'Molto interessato 🤩', count: Math.round(avgRating * 10) },
+        { mood: 'Coinvolto 😃', count: Math.round(avgRating * 12) },
+        { mood: 'Curioso 🙂', count: Math.round(avgRating * 8) },
+        { mood: 'Distratto 😕', count: Math.round((5 - avgRating) * 8) },
+        { mood: 'Non interessato 😢', count: Math.round((5 - avgRating) * 5) }
+      ];
+      
+      // Aggiorna dati correlazione
+      correlationData = [
+        { project: 'ESP3D BOX', interest: Math.round(esp3dRating * 20), rating: esp3dRating },
+        { project: 'Simocoloweb', interest: Math.round(simocolowebRating * 20), rating: simocolowebRating },
+        { project: 'Flipper Zero', interest: Math.round(flipperRating * 20), rating: flipperRating },
+        { project: 'Bruce', interest: Math.round(bruceRating * 20), rating: bruceRating },
+        { project: 'Website', interest: Math.round(websiteRating * 20), rating: websiteRating }
       ];
       
       // Salva i dati
@@ -1812,6 +1792,7 @@
       createProjectChart();
       createInterestChart();
       createMoodChart();
+      createCorrelationChart();
       
       showNotification('Dati aggiornati con successo');
     });
