@@ -190,6 +190,48 @@
         border-right-color: transparent;
       }
     }
+    /* PULSANTE CTA SPETTACOLARE */
+    .cta-primary {
+      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+      color: white;
+      padding: 18px 40px;
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1em;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: 'Orbitron', monospace;
+      display: inline-block;
+      margin-top: 25px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
+    }
+    .cta-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
+    .cta-primary:hover::before {
+      left: 100%;
+    }
+    .cta-primary:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(255, 87, 34, 0.6);
+      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
+    }
+    .cta-primary:active {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(255, 87, 34, 0.8);
+    }
     /* SEZIONI CONTENT ANIMATE */
     .content-wrapper {
       background: rgba(26, 26, 26, 0.8);
@@ -418,6 +460,31 @@
       padding: 15px 20px;
       font-size: 0.9em;
     }
+    /* STILE SPECIALE PER IL PULSANTE DASHBOARD NEL FOOTER */
+    .cta-matrix .cta-dashboard {
+      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-matrix .cta-dashboard::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+    }
+    .cta-matrix .cta-dashboard:hover::after {
+      transform: translateX(100%);
+    }
+    .cta-matrix .cta-dashboard:hover {
+      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
+      transform: translateY(-5px) scale(1.08);
+      box-shadow: 0 15px 35px rgba(255, 87, 34, 0.7);
+    }
     /* TRANSLATION WIDGET ANIMATO */
     #translate-container {
       position: fixed;
@@ -508,10 +575,6 @@
         padding: 12px 18px;
         font-size: 0.85em;
       }
-      .nav-links a {
-        font-size: 0.75em;
-        padding: 5px 10px;
-      }
     }
     
     @media (max-width: 480px) {
@@ -544,12 +607,9 @@
       .info-card p {
         font-size: 0.9em;
       }
-      .nav-links a {
-        font-size: 0.7em;
-        padding: 4px 8px;
-      }
-      .nav-logo {
-        font-size: 1em;
+      .cta-matrix .cta-primary {
+        padding: 12px 18px;
+        font-size: 0.85em;
       }
     }
   </style>
@@ -628,13 +688,46 @@
   
   <!-- Scripts -->
   <script type="text/javascript">
-    // Carica la navbar
-    fetch('navbar.html')
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById('navbar-container').innerHTML = html;
-      })
-      .catch(error => console.error('Errore nel caricamento della navbar:', error));
+    // CARICAMENTO NAVBAR ESTERNA
+    function loadNavbar() {
+      fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('navbar-container').innerHTML = data;
+          // Esegui lo script della navbar dopo il caricamento
+          const navbarScript = document.createElement('script');
+          navbarScript.textContent = `
+            document.addEventListener('DOMContentLoaded', function() {
+              // Funzione per evidenziare il link attivo nella navbar
+              function setActiveNavLink() {
+                // Ottieni il percorso corrente
+                const currentPath = window.location.pathname;
+                const filename = currentPath.split('/').pop() || 'index.html';
+                
+                // Trova tutti i link nella navbar
+                const navLinks = document.querySelectorAll('.nav-links a');
+                
+                // Rimuovi la classe active da tutti i link
+                navLinks.forEach(link => {
+                  link.classList.remove('active');
+                });
+                
+                // Aggiungi la classe active al link corrispondente alla pagina corrente
+                navLinks.forEach(link => {
+                  const linkHref = link.getAttribute('href');
+                  if (linkHref === filename) {
+                    link.classList.add('active');
+                  }
+                });
+              }
+              // Inizializza la navbar
+              setActiveNavLink();
+            });
+          `;
+          document.body.appendChild(navbarScript);
+        })
+        .catch(error => console.error('Errore nel caricamento della navbar:', error));
+    }
     
     // CREAZIONE PARTICELLE DINAMICHE
     function createParticles() {
@@ -737,6 +830,42 @@
       });
     }
     
+    // EFFETTI PULSANTI AVANZATI
+    function initButtonEffects() {
+      const buttons = document.querySelectorAll('.cta-primary');
+      
+      buttons.forEach(button => {
+        button.addEventListener('mouseenter', function(e) {
+          const ripple = document.createElement('div');
+          ripple.style.position = 'absolute';
+          ripple.style.width = '0';
+          ripple.style.height = '0';
+          ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+          ripple.style.borderRadius = '50%';
+          ripple.style.left = '50%';
+          ripple.style.top = '50%';
+          ripple.style.transform = 'translate(-50%, -50%)';
+          ripple.style.transition = 'all 0.6s ease';
+          ripple.style.pointerEvents = 'none';
+          ripple.style.zIndex = '1';
+          
+          this.appendChild(ripple);
+          
+          setTimeout(() => {
+            ripple.style.width = '200px';
+            ripple.style.height = '200px';
+            ripple.style.opacity = '0';
+          }, 10);
+          
+          setTimeout(() => {
+            if (ripple.parentNode) {
+              ripple.parentNode.removeChild(ripple);
+            }
+          }, 600);
+        });
+      });
+    }
+    
     // Google Translate
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -758,12 +887,16 @@
     
     // INIZIALIZZAZIONE
     document.addEventListener('DOMContentLoaded', function () {
+      // Carica la navbar esterna
+      loadNavbar();
+      
       // Inizializza tutte le animazioni
       createParticles();
       initParallax();
       initMouseEffects();
       initTypingEffect();
       initScrollAnimations();
+      initButtonEffects();
       
       // Translation functionality
       const translateButton = document.getElementById('translate-button');
