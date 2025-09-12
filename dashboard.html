@@ -645,6 +645,19 @@
       transition: all 0.4s ease;
       box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
     }
+    .cta-matrix .cta-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
+    .cta-matrix .cta-primary:hover::before {
+      left: 100%;
+    }
     .cta-matrix .cta-primary:hover {
       transform: translateY(-5px) scale(1.05);
       box-shadow: 0 15px 35px rgba(255, 87, 34, 0.6);
@@ -707,111 +720,8 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-    /* MESSAGGIO DI ERRORE */
-    .error-message {
-      color: #FF5722;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      background-color: rgba(255, 87, 34, 0.1);
-      border-left: 4px solid #FF5722;
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 500;
-    }
-    /* LOGIN FORM */
-    .login-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-    .login-container {
-      background: rgba(26, 26, 26, 0.9);
-      padding: 40px;
-      border-radius: 15px;
-      border: 1px solid rgba(255, 87, 34, 0.3);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-    }
-    .login-container h2 {
-      color: #FF5722;
-      font-size: 1.8em;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-    .login-container p {
-      color: #cccccc;
-      margin-bottom: 25px;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.1em;
-    }
-    .login-container input {
-      width: 100%;
-      padding: 12px 15px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 87, 34, 0.3);
-      border-radius: 8px;
-      color: white;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1em;
-      margin-bottom: 20px;
-    }
-    .login-container button {
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      font-size: 1em;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .login-container button:hover {
-      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.3);
-    }
-    /* EDIT BUTTON */
-    .edit-btn {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: rgba(255, 87, 34, 0.2);
-      border: 1px solid #FF5722;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 10;
-    }
-    .edit-btn:hover {
-      background: rgba(255, 87, 34, 0.4);
-      transform: scale(1.1);
-    }
-    .edit-btn i {
-      color: #FF5722;
-      font-size: 1.2em;
-    }
-    /* EDIT MODAL */
-    .edit-modal {
+    /* LOADING OVERLAY */
+    .loading-overlay {
       position: fixed;
       top: 0;
       left: 0;
@@ -819,223 +729,35 @@
       height: 100%;
       background: rgba(0, 0, 0, 0.8);
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 9999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
     }
-    .modal-content {
-      background: rgba(26, 26, 26, 0.95);
-      border: 1px solid rgba(255, 87, 34, 0.3);
-      border-radius: 15px;
-      width: 90%;
-      max-width: 600px;
-      max-height: 80vh;
-      overflow-y: auto;
-      padding: 30px;
-      position: relative;
+    .loading-overlay.active {
+      opacity: 1;
+      visibility: visible;
     }
-    .modal-close {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      background: none;
-      border: none;
-      color: #FF5722;
-      font-size: 1.5em;
-      cursor: pointer;
-    }
-    .modal-title {
-      color: #FF5722;
-      font-size: 1.8em;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-    .form-group {
+    .loading-spinner-large {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #FF5722;
+      animation: spin 1s linear infinite;
       margin-bottom: 20px;
     }
-    .form-group label {
-      display: block;
-      color: #cccccc;
-      margin-bottom: 8px;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1em;
-    }
-    .form-group input {
-      width: 100%;
-      padding: 10px 15px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 87, 34, 0.3);
-      border-radius: 8px;
+    .loading-text {
       color: white;
       font-family: 'Rajdhani', sans-serif;
-      font-size: 1em;
+      font-size: 1.2em;
+      font-weight: 500;
     }
-    .btn-save {
-      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      font-size: 1em;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      padding: 12px 25px;
-      margin-top: 10px;
-      transition: all 0.3s ease;
-    }
-    .btn-save:hover {
-      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.3);
-    }
-    .btn-add {
-      background: rgba(16, 185, 129, 0.2);
-      border: 1px solid #10b981;
-      color: #10b981;
-      padding: 8px 15px;
-      border-radius: 5px;
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: all 0.3s ease;
-    }
-    .btn-add:hover {
-      background: rgba(16, 185, 129, 0.3);
-      transform: translateY(-2px);
-    }
-    .data-item {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .data-item-info {
-      flex-grow: 1;
-    }
-    .data-item-name {
-      color: #FF5722;
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-    .data-item-value {
-      color: #cccccc;
-      font-family: 'Rajdhani', sans-serif;
-    }
-    .btn-delete {
-      background: rgba(239, 68, 68, 0.2);
-      border: 1px solid #ef4444;
-      color: #ef4444;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .btn-delete:hover {
-      background: rgba(239, 68, 68, 0.3);
-      transform: translateY(-2px);
-    }
-    /* QUESTIONARIO */
-    .questionnaire {
-      background: rgba(255, 87, 34, 0.05);
-      padding: 30px;
-      border-radius: 15px;
-      border-left: 4px solid #FF5722;
-      margin-bottom: 40px;
-      display: none;
-    }
-    .questionnaire-title {
-      color: #FF5722;
-      font-size: 1.6em;
-      font-weight: 700;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-    .question-group {
-      margin-bottom: 25px;
-    }
-    .question {
-      color: #cccccc;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.1em;
-      margin-bottom: 10px;
-    }
-    .answer-input {
-      width: 100%;
-      padding: 10px 15px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 87, 34, 0.3);
-      border-radius: 8px;
-      color: white;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1em;
-      margin-bottom: 15px;
-    }
-    .btn-submit {
-      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      font-size: 1em;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      padding: 12px 25px;
-      transition: all 0.3s ease;
-    }
-    .btn-submit:hover {
-      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.3);
-    }
-    /* ADMIN PANEL */
-    .admin-panel {
-      background: rgba(255, 87, 34, 0.05);
-      padding: 20px;
-      border-radius: 15px;
-      border-left: 4px solid #FF5722;
-      margin-bottom: 40px;
-      text-align: center;
-      display: none;
-    }
-    .admin-panel p {
-      color: #cccccc;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.1em;
-      margin-bottom: 15px;
-    }
-    .btn-admin {
-      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      font-size: 1em;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      padding: 10px 20px;
-      transition: all 0.3s ease;
-    }
-    .btn-admin:hover {
-      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.3);
-    }
-    /* FLOATING ACTION BUTTON */
-    .fab {
+    /* REFRESH BUTTON */
+    .refresh-button {
       position: fixed;
       bottom: 25px;
       right: 25px;
@@ -1052,63 +774,33 @@
       transition: all 0.3s ease;
       opacity: 0.7;
     }
-    .fab:hover {
+    .refresh-button:hover {
       transform: scale(1.1);
       opacity: 1;
       box-shadow: 0 6px 15px rgba(255, 87, 34, 0.5);
     }
-    .fab i {
+    .refresh-button i {
       color: white;
       font-size: 1.8em;
     }
-    /* ADMIN OPTIONS PANEL */
-    .admin-options {
+    /* LAST UPDATE INFO */
+    .last-update {
       position: fixed;
       bottom: 100px;
       right: 25px;
-      background: rgba(26, 26, 26, 0.95);
-      border-radius: 15px;
+      background: rgba(26, 26, 26, 0.8);
+      padding: 10px 15px;
+      border-radius: 10px;
       border: 1px solid rgba(255, 87, 34, 0.3);
-      padding: 20px;
-      width: 300px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      z-index: 999;
-      transform: translateY(20px);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-    .admin-options.active {
-      transform: translateY(0);
-      opacity: 1;
-      visibility: visible;
-    }
-    .admin-option {
-      display: flex;
-      align-items: center;
-      padding: 12px 15px;
-      margin-bottom: 10px;
-      background: rgba(255, 87, 34, 0.1);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .admin-option:hover {
-      background: rgba(255, 87, 34, 0.2);
-      transform: translateX(-5px);
-    }
-    .admin-option:last-child {
-      margin-bottom: 0;
-    }
-    .admin-option i {
-      color: #FF5722;
-      font-size: 1.2em;
-      margin-right: 15px;
-    }
-    .admin-option span {
       color: #cccccc;
       font-family: 'Rajdhani', sans-serif;
-      font-weight: 500;
+      font-size: 0.9em;
+      z-index: 999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .last-update.visible {
+      opacity: 1;
     }
     /* RESPONSIVE MIGLIORATO */
     @media (max-width: 968px) {
@@ -1126,10 +818,6 @@
       .dashboard-grid {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 20px;
-      }
-      .admin-options {
-        width: 250px;
-        right: 15px;
       }
     }
     
@@ -1158,10 +846,6 @@
       }
       .chart-wrapper {
         height: 250px;
-      }
-      .admin-options {
-        width: 220px;
-        right: 15px;
       }
     }
     
@@ -1211,23 +895,19 @@
       .nav-logo {
         font-size: 1em;
       }
-      .modal-content {
-        padding: 20px;
-        width: 95%;
-      }
-      .fab {
+      .refresh-button {
         width: 50px;
         height: 50px;
         bottom: 20px;
         right: 20px;
       }
-      .fab i {
+      .refresh-button i {
         font-size: 1.5em;
       }
-      .admin-options {
-        width: 200px;
-        right: 15px;
+      .last-update {
         bottom: 80px;
+        right: 15px;
+        font-size: 0.8em;
       }
     }
   </style>
@@ -1245,19 +925,6 @@
     <div class="wave"></div>
     <div class="wave"></div>
     <div class="wave"></div>
-  </div>
-  
-  <!-- Login Overlay (inizialmente nascosto) -->
-  <div class="login-overlay" id="loginOverlay" style="display: none;">
-    <div class="login-container">
-      <h2>Accesso Riservato</h2>
-      <p>Quale è il colore del tuo gatto?</p>
-      <form id="loginForm">
-        <input type="password" id="passwordInput" placeholder="Password" required>
-        <button type="submit">Accedi</button>
-      </form>
-      <div id="loginError" class="error-message" style="display: none;">Password errata</div>
-    </div>
   </div>
   
   <!-- Navigation -->
@@ -1285,38 +952,6 @@
   <div class="content-wrapper">
     <section class="content-section">
       <div class="dashboard-container" id="dashboard-container">
-        <!-- Admin Panel (nascosto) -->
-        <div class="admin-panel" id="adminPanel">
-          <p>Sei l'amministratore e vuoi modificare i dati?</p>
-          <button class="btn-admin" id="adminLoginBtn">Accedi come Amministratore</button>
-        </div>
-        
-        <!-- Questionnaire (nascosto) -->
-        <div class="questionnaire" id="questionnaire">
-          <h2 class="questionnaire-title">Aggiorna Dati Dashboard</h2>
-          <div class="question-group">
-            <div class="question">Voto progetto ESP3D BOX (1-5):</div>
-            <input type="number" class="answer-input" id="esp3dRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
-          </div>
-          <div class="question-group">
-            <div class="question">Voto progetto Simocoloweb (1-5):</div>
-            <input type="number" class="answer-input" id="simocolowebRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
-          </div>
-          <div class="question-group">
-            <div class="question">Voto progetto Flipper Zero (1-5):</div>
-            <input type="number" class="answer-input" id="flipperRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
-          </div>
-          <div class="question-group">
-            <div class="question">Voto progetto Bruce (1-5):</div>
-            <input type="number" class="answer-input" id="bruceRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
-          </div>
-          <div class="question-group">
-            <div class="question">Voto progetto Website (1-5):</div>
-            <input type="number" class="answer-input" id="websiteRating" min="1" max="5" step="0.1" placeholder="Inserisci un voto da 1 a 5">
-          </div>
-          <button class="btn-submit" id="submitQuestionnaire">Aggiorna Dashboard</button>
-        </div>
-        
         <!-- Messaggio di errore (inizialmente nascosto) -->
         <div id="data-error" class="error-message" style="display: none;"></div>
         
@@ -1357,9 +992,6 @@
         
         <!-- Chart Section - Valutazioni per Progetto -->
         <div class="chart-container">
-          <div class="edit-btn" id="editChartBtn" style="display: none;">
-            <i class="fas fa-edit"></i>
-          </div>
           <h2 class="chart-title">VALUTAZIONI PER PROGETTO</h2>
           <div class="chart-wrapper">
             <canvas id="projectChart"></canvas>
@@ -1368,9 +1000,6 @@
         
         <!-- Chart Section - Andamento Temporale -->
         <div class="chart-container">
-          <div class="edit-btn" id="editTrendChartBtn" style="display: none;">
-            <i class="fas fa-edit"></i>
-          </div>
           <h2 class="chart-title">ANDAMENTO VALUTAZIONI NEL TEMPO</h2>
           <div class="chart-wrapper">
             <canvas id="trendChart"></canvas>
@@ -1379,9 +1008,6 @@
         
         <!-- Chart Section - Competenze Tecniche -->
         <div class="chart-container">
-          <div class="edit-btn" id="editSkillsChartBtn" style="display: none;">
-            <i class="fas fa-edit"></i>
-          </div>
           <h2 class="chart-title">COMPETENZE TECNICHE</h2>
           <div class="chart-wrapper">
             <canvas id="skillsChart"></canvas>
@@ -1390,9 +1016,6 @@
         
         <!-- Chart Section - Tempo per Progetto -->
         <div class="chart-container">
-          <div class="edit-btn" id="editTimeChartBtn" style="display: none;">
-            <i class="fas fa-edit"></i>
-          </div>
           <h2 class="chart-title">TEMPO DEDICATO PER PROGETTO (ORE)</h2>
           <div class="chart-wrapper">
             <canvas id="timeChart"></canvas>
@@ -1401,9 +1024,6 @@
         
         <!-- Chart Section - Interessi vs Non Interessi -->
         <div class="chart-container">
-          <div class="edit-btn" id="editInterestChartBtn" style="display: none;">
-            <i class="fas fa-edit"></i>
-          </div>
           <h2 class="chart-title">INTERESSATI VS NON INTERESSATI</h2>
           <div class="chart-wrapper">
             <canvas id="interestChart"></canvas>
@@ -1412,9 +1032,6 @@
         
         <!-- Chart Section - Correlazione Interesse-Valutazione -->
         <div class="chart-container">
-          <div class="edit-btn" id="editCorrelationChartBtn" style="display: none;">
-            <i class="fas fa-edit"></i>
-          </div>
           <h2 class="chart-title">CORRELAZIONE INTERESSE-VALUTAZIONE</h2>
           <div class="chart-wrapper">
             <canvas id="correlationChart"></canvas>
@@ -1423,9 +1040,6 @@
         
         <!-- MoodMeter Section -->
         <div class="moodmeter-section">
-          <div class="edit-btn" id="editMoodBtn" style="display: none;">
-            <i class="fas fa-edit"></i>
-          </div>
           <h2 class="moodmeter-title">DISTRIBUZIONE INTERESSI</h2>
           <div class="chart-wrapper">
             <canvas id="moodChart"></canvas>
@@ -1440,9 +1054,9 @@
     <h2 class="footer-title">ESPLORA IL MIO UNIVERSO</h2>
     <div class="cta-matrix">
       <a href="index.html" class="cta-primary">HOME</a>
-      <a href="projects.html" class="cta-primary">PROGETTI TECH</a>
-      <a href="usa.html" class="cta-primary">USA EXPERIENCE</a>
-      <a href="curriculum.html" class="cta-primary">CURRICULUM VITAE</a>
+      <a href="projects.html" class="cta-primary">PROGETTI</a>
+      <a href="usa.html" class="cta-primary">USA</a>
+      <a href="curriculum.html" class="cta-primary">CURRICULUM</a>
       <a href="contact.html" class="cta-primary">CONTATTI</a>
       <a href="dashboard.html" class="cta-primary cta-dashboard">DASHBOARD</a>
     </div>
@@ -1451,112 +1065,20 @@
   <!-- Notification -->
   <div class="notification" id="notification"></div>
   
-  <!-- Floating Action Button -->
-  <div class="fab" id="fab">
-    <i class="fas fa-cog"></i>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner-large"></div>
+    <div class="loading-text">Caricamento dati in corso...</div>
   </div>
   
-  <!-- Admin Options Panel -->
-  <div class="admin-options" id="adminOptions">
-    <div class="admin-option" id="showAdminPanel">
-      <i class="fas fa-user-shield"></i>
-      <span>Area Amministratore</span>
-    </div>
-    <div class="admin-option" id="showQuestionnaire">
-      <i class="fas fa-poll"></i>
-      <span>Aggiorna Dati</span>
-    </div>
+  <!-- Refresh Button -->
+  <div class="refresh-button" id="refreshButton" title="Aggiorna dati">
+    <i class="fas fa-sync-alt"></i>
   </div>
   
-  <!-- Edit Chart Modal -->
-  <div class="edit-modal" id="editChartModal" style="display: none;">
-    <div class="modal-content">
-      <button class="modal-close" id="closeChartModal">&times;</button>
-      <h2 class="modal-title">Modifica Valutazioni Progetti</h2>
-      <div id="chartDataContainer">
-        <!-- Dynamic content will be inserted here -->
-      </div>
-      <button class="btn-add" id="addChartItem">+ Aggiungi Progetto</button>
-      <button class="btn-save" id="saveChartData">Salva Modifiche</button>
-    </div>
-  </div>
-  
-  <!-- Edit Trend Chart Modal -->
-  <div class="edit-modal" id="editTrendChartModal" style="display: none;">
-    <div class="modal-content">
-      <button class="modal-close" id="closeTrendChartModal">&times;</button>
-      <h2 class="modal-title">Modifica Andamento Temporale</h2>
-      <div id="trendDataContainer">
-        <!-- Dynamic content will be inserted here -->
-      </div>
-      <button class="btn-add" id="addTrendItem">+ Aggiungi Periodo</button>
-      <button class="btn-save" id="saveTrendData">Salva Modifiche</button>
-    </div>
-  </div>
-  
-  <!-- Edit Skills Chart Modal -->
-  <div class="edit-modal" id="editSkillsChartModal" style="display: none;">
-    <div class="modal-content">
-      <button class="modal-close" id="closeSkillsChartModal">&times;</button>
-      <h2 class="modal-title">Modifica Competenze Tecniche</h2>
-      <div id="skillsDataContainer">
-        <!-- Dynamic content will be inserted here -->
-      </div>
-      <button class="btn-add" id="addSkillsItem">+ Aggiungi Competenza</button>
-      <button class="btn-save" id="saveSkillsData">Salva Modifiche</button>
-    </div>
-  </div>
-  
-  <!-- Edit Time Chart Modal -->
-  <div class="edit-modal" id="editTimeChartModal" style="display: none;">
-    <div class="modal-content">
-      <button class="modal-close" id="closeTimeChartModal">&times;</button>
-      <h2 class="modal-title">Modifica Tempo per Progetto</h2>
-      <div id="timeDataContainer">
-        <!-- Dynamic content will be inserted here -->
-      </div>
-      <button class="btn-add" id="addTimeItem">+ Aggiungi Progetto</button>
-      <button class="btn-save" id="saveTimeData">Salva Modifiche</button>
-    </div>
-  </div>
-  
-  <!-- Edit Interest Chart Modal -->
-  <div class="edit-modal" id="editInterestChartModal" style="display: none;">
-    <div class="modal-content">
-      <button class="modal-close" id="closeInterestChartModal">&times;</button>
-      <h2 class="modal-title">Modifica Dati Interessi</h2>
-      <div id="interestDataContainer">
-        <!-- Dynamic content will be inserted here -->
-      </div>
-      <button class="btn-add" id="addInterestItem">+ Aggiungi Categoria</button>
-      <button class="btn-save" id="saveInterestData">Salva Modifiche</button>
-    </div>
-  </div>
-  
-  <!-- Edit Correlation Chart Modal -->
-  <div class="edit-modal" id="editCorrelationChartModal" style="display: none;">
-    <div class="modal-content">
-      <button class="modal-close" id="closeCorrelationChartModal">&times;</button>
-      <h2 class="modal-title">Modifica Dati Correlazione</h2>
-      <div id="correlationDataContainer">
-        <!-- Dynamic content will be inserted here -->
-      </div>
-      <button class="btn-add" id="addCorrelationItem">+ Aggiungi Dato</button>
-      <button class="btn-save" id="saveCorrelationData">Salva Modifiche</button>
-    </div>
-  </div>
-  
-  <!-- Edit Mood Modal -->
-  <div class="edit-modal" id="editMoodModal" style="display: none;">
-    <div class="modal-content">
-      <button class="modal-close" id="closeMoodModal">&times;</button>
-      <h2 class="modal-title">Modifica Dati Interessi</h2>
-      <div id="moodDataContainer">
-        <!-- Dynamic content will be inserted here -->
-      </div>
-      <button class="btn-add" id="addMoodItem">+ Aggiungi Categoria</button>
-      <button class="btn-save" id="saveMoodData">Salva Modifiche</button>
-    </div>
+  <!-- Last Update Info -->
+  <div class="last-update" id="lastUpdate">
+    Ultimo aggiornamento: Caricamento...
   </div>
   
   <!-- Scripts -->
@@ -1587,268 +1109,135 @@
       }, 3000);
     }
     
-    // DATI DI DEFAULT
-    let chartData = [
-      { project: 'ESP3D BOX', rating: 4.5 },
-      { project: 'Simocoloweb', rating: 4.2 },
-      { project: 'Flipper Zero', rating: 4.0 },
-      { project: 'Bruce', rating: 3.8 },
-      { project: 'Website', rating: 4.3 }
-    ];
+    // FUNZIONE PER MOSTRARE/NASCONDERE LOADING OVERLAY
+    function showLoading() {
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      loadingOverlay.classList.add('active');
+    }
     
-    let trendData = [
-      { month: 'Gen', rating: 3.8 },
-      { month: 'Feb', rating: 4.0 },
-      { month: 'Mar', rating: 4.1 },
-      { month: 'Apr', rating: 4.2 },
-      { month: 'Mag', rating: 4.3 },
-      { month: 'Giu', rating: 4.4 }
-    ];
+    function hideLoading() {
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      loadingOverlay.classList.remove('active');
+    }
     
-    let skillsData = [
-      { skill: 'Programmazione', level: 90 },
-      { skill: 'Elettronica', level: 85 },
-      { skill: 'Design', level: 75 },
-      { skill: 'Networking', level: 80 },
-      { skill: 'Sicurezza', level: 70 }
-    ];
+    // FUNZIONE PER AGGIORNARE L'ORARIO DELL'ULTIMO AGGIORNAMENTO
+    function updateLastUpdateTime() {
+      const lastUpdateElement = document.getElementById('lastUpdate');
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('it-IT', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        second: '2-digit'
+      });
+      lastUpdateElement.textContent = `Ultimo aggiornamento: ${timeString}`;
+      lastUpdateElement.classList.add('visible');
+    }
     
-    let timeData = [
-      { project: 'ESP3D BOX', hours: 120 },
-      { project: 'Simocoloweb', hours: 80 },
-      { project: 'Flipper Zero', hours: 60 },
-      { project: 'Bruce', hours: 40 },
-      { project: 'Website', hours: 100 }
-    ];
+    // API BASE URL
+    const API_BASE_URL = 'http://localhost:3000/api';
     
-    let interestData = [
-      { category: 'Interessati', count: 75 },
-      { category: 'Non Interessati', count: 25 }
-    ];
-    
-    let correlationData = [
-      { project: 'ESP3D BOX', interest: 85, rating: 4.5 },
-      { project: 'Simocoloweb', interest: 75, rating: 4.2 },
-      { project: 'Flipper Zero', interest: 65, rating: 4.0 },
-      { project: 'Bruce', interest: 55, rating: 3.8 },
-      { project: 'Website', interest: 80, rating: 4.3 }
-    ];
-    
-    let moodData = [
-      { mood: 'Molto interessato 🤩', count: 31 },
-      { mood: 'Coinvolto 😃', count: 42 },
-      { mood: 'Curioso 🙂', count: 38 },
-      { mood: 'Distratto 😕', count: 12 },
-      { mood: 'Non interessato 😢', count: 5 }
-    ];
-    
-    // CARICA DATI DA LOCAL STORAGE SE DISPONIBILI
-    function loadDataFromStorage() {
-      const savedChartData = localStorage.getItem('chartData');
-      const savedTrendData = localStorage.getItem('trendData');
-      const savedSkillsData = localStorage.getItem('skillsData');
-      const savedTimeData = localStorage.getItem('timeData');
-      const savedInterestData = localStorage.getItem('interestData');
-      const savedCorrelationData = localStorage.getItem('correlationData');
-      const savedMoodData = localStorage.getItem('moodData');
-      
-      if (savedChartData) {
-        chartData = JSON.parse(savedChartData);
-      }
-      
-      if (savedTrendData) {
-        trendData = JSON.parse(savedTrendData);
-      }
-      
-      if (savedSkillsData) {
-        skillsData = JSON.parse(savedSkillsData);
-      }
-      
-      if (savedTimeData) {
-        timeData = JSON.parse(savedTimeData);
-      }
-      
-      if (savedInterestData) {
-        interestData = JSON.parse(savedInterestData);
-      }
-      
-      if (savedCorrelationData) {
-        correlationData = JSON.parse(savedCorrelationData);
-      }
-      
-      if (savedMoodData) {
-        moodData = JSON.parse(savedMoodData);
+    // FUNZIONE PER CARICARE I DATI DALLE API
+    async function fetchFromAPI(endpoint) {
+      try {
+        const response = await fetch(`${API_BASE_URL}${endpoint}`);
+        if (!response.ok) {
+          throw new Error(`Errore HTTP: ${response.status}`);
+        }
+        return await response.json();
+      } catch (error) {
+        console.error(`Errore nel recupero dei dati da ${endpoint}:`, error);
+        throw error;
       }
     }
     
-    // SALVA DATI IN LOCAL STORAGE
-    function saveDataToStorage() {
-      localStorage.setItem('chartData', JSON.stringify(chartData));
-      localStorage.setItem('trendData', JSON.stringify(trendData));
-      localStorage.setItem('skillsData', JSON.stringify(skillsData));
-      localStorage.setItem('timeData', JSON.stringify(timeData));
-      localStorage.setItem('interestData', JSON.stringify(interestData));
-      localStorage.setItem('correlationData', JSON.stringify(correlationData));
-      localStorage.setItem('moodData', JSON.stringify(moodData));
-    }
-    
-    // FAB BUTTON
-    document.getElementById('fab').addEventListener('click', function() {
-      const adminOptions = document.getElementById('adminOptions');
-      adminOptions.classList.toggle('active');
-    });
-    
-    // MOSTRA ADMIN PANEL
-    document.getElementById('showAdminPanel').addEventListener('click', function() {
-      document.getElementById('adminPanel').style.display = 'block';
-      document.getElementById('adminOptions').classList.remove('active');
-    });
-    
-    // MOSTRA QUESTIONARIO
-    document.getElementById('showQuestionnaire').addEventListener('click', function() {
-      document.getElementById('questionnaire').style.display = 'block';
-      document.getElementById('adminOptions').classList.remove('active');
-    });
-    
-    // LOGIN FORM
-    document.getElementById('adminLoginBtn').addEventListener('click', function() {
-      document.getElementById('loginOverlay').style.display = 'flex';
-    });
-    
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const password = document.getElementById('passwordInput').value;
-      
-      if (password.toLowerCase() === 'arancione') {
-        document.getElementById('loginOverlay').style.display = 'none';
-        showNotification('Accesso consentito');
-        // Mostra i pulsanti di modifica
-        document.getElementById('editChartBtn').style.display = 'flex';
-        document.getElementById('editTrendChartBtn').style.display = 'flex';
-        document.getElementById('editSkillsChartBtn').style.display = 'flex';
-        document.getElementById('editTimeChartBtn').style.display = 'flex';
-        document.getElementById('editInterestChartBtn').style.display = 'flex';
-        document.getElementById('editCorrelationChartBtn').style.display = 'flex';
-        document.getElementById('editMoodBtn').style.display = 'flex';
-      } else {
-        document.getElementById('loginError').style.display = 'block';
-        setTimeout(() => {
-          document.getElementById('loginError').style.display = 'none';
-        }, 3000);
+    // FUNZIONE PER CARICARE TUTTI I DATI DELLA DASHBOARD
+    async function loadDashboardData() {
+      try {
+        showLoading();
+        
+        // Carica i dati di interesse
+        const interestsData = await fetchFromAPI('/interests');
+        
+        // Carica i dati di valutazione
+        const ratingsData = await fetchFromAPI('/ratings');
+        
+        // Carica i dati di correlazione
+        const correlationData = await fetchFromAPI('/correlation');
+        
+        // Carica i dati del mood
+        const moodData = await fetchFromAPI('/mood');
+        
+        // Carica i dati delle competenze
+        const skillsData = await fetchFromAPI('/skills');
+        
+        // Carica i dati del tempo
+        const timeData = await fetchFromAPI('/time');
+        
+        // Carica i dati dell'andamento temporale
+        const trendData = await fetchFromAPI('/trend');
+        
+        // Aggiorna le card della dashboard
+        updateDashboardCards(interestsData, ratingsData);
+        
+        // Aggiorna i grafici
+        updateProjectChart(ratingsData.projectRatings);
+        updateTrendChart(trendData);
+        updateSkillsChart(skillsData);
+        updateTimeChart(timeData);
+        updateInterestChart(interestsData.interests);
+        updateCorrelationChart(correlationData);
+        updateMoodChart(moodData);
+        
+        // Aggiorna l'orario dell'ultimo aggiornamento
+        updateLastUpdateTime();
+        
+        hideLoading();
+        showNotification('Dati aggiornati con successo!');
+      } catch (error) {
+        console.error('Errore nel caricamento dei dati:', error);
+        hideLoading();
+        showNotification('Errore nel caricamento dei dati. Riprova più tardi.');
+        
+        // Mostra un messaggio di errore nella dashboard
+        const errorElement = document.getElementById('data-error');
+        errorElement.textContent = 'Impossibile caricare i dati. Verifica la connessione al server.';
+        errorElement.style.display = 'block';
       }
-    });
-    
-    // QUESTIONARIO
-    document.getElementById('submitQuestionnaire').addEventListener('click', function() {
-      // Raccogli i dati dal questionario
-      const esp3dRating = parseFloat(document.getElementById('esp3dRating').value) || 0;
-      const simocolowebRating = parseFloat(document.getElementById('simocolowebRating').value) || 0;
-      const flipperRating = parseFloat(document.getElementById('flipperRating').value) || 0;
-      const bruceRating = parseFloat(document.getElementById('bruceRating').value) || 0;
-      const websiteRating = parseFloat(document.getElementById('websiteRating').value) || 0;
-      
-      // Aggiorna i dati dei grafici
-      chartData = [
-        { project: 'ESP3D BOX', rating: esp3dRating },
-        { project: 'Simocoloweb', rating: simocolowebRating },
-        { project: 'Flipper Zero', rating: flipperRating },
-        { project: 'Bruce', rating: bruceRating },
-        { project: 'Website', rating: websiteRating }
-      ];
-      
-      // Calcola dati derivati
-      const avgRating = chartData.length > 0 ? 
-        (chartData.reduce((sum, item) => sum + item.rating, 0) / chartData.length).toFixed(1) : 0;
-      
-      // Aggiorna dati di interesse basati sulle valutazioni
-      interestData = [
-        { category: 'Interessati', count: Math.round(avgRating * 20) },
-        { category: 'Non Interessati', count: Math.round((5 - avgRating) * 20) }
-      ];
-      
-      // Aggiorna dati mood basati sulle valutazioni
-      moodData = [
-        { mood: 'Molto interessato 🤩', count: Math.round(avgRating * 10) },
-        { mood: 'Coinvolto 😃', count: Math.round(avgRating * 12) },
-        { mood: 'Curioso 🙂', count: Math.round(avgRating * 8) },
-        { mood: 'Distratto 😕', count: Math.round((5 - avgRating) * 8) },
-        { mood: 'Non interessato 😢', count: Math.round((5 - avgRating) * 5) }
-      ];
-      
-      // Aggiorna dati correlazione
-      correlationData = [
-        { project: 'ESP3D BOX', interest: Math.round(esp3dRating * 20), rating: esp3dRating },
-        { project: 'Simocoloweb', interest: Math.round(simocolowebRating * 20), rating: simocolowebRating },
-        { project: 'Flipper Zero', interest: Math.round(flipperRating * 20), rating: flipperRating },
-        { project: 'Bruce', interest: Math.round(bruceRating * 20), rating: bruceRating },
-        { project: 'Website', interest: Math.round(websiteRating * 20), rating: websiteRating }
-      ];
-      
-      // Salva i dati
-      saveDataToStorage();
-      
-      // Aggiorna i grafici
-      updateDashboardCards();
-      createProjectChart();
-      createInterestChart();
-      createMoodChart();
-      createCorrelationChart();
-      
-      showNotification('Dati aggiornati con successo');
-    });
-    
-    // INIZIALIZZAZIONE DASHBOARD
-    function initializeDashboard() {
-      loadDataFromStorage();
-      updateDashboardCards();
-      createProjectChart();
-      createTrendChart();
-      createSkillsChart();
-      createTimeChart();
-      createInterestChart();
-      createCorrelationChart();
-      createMoodChart();
     }
     
-    // AGGIORNA CARDS DELLA DASHBOARD
-    function updateDashboardCards() {
-      // Calcola valutazioni totali
-      const totalRatings = chartData.reduce((sum, item) => sum + item.rating, 0);
-      document.getElementById('total-ratings').textContent = chartData.length;
-      document.getElementById('total-ratings-desc').textContent = 'Progetti valutati';
+    // FUNZIONE PER AGGIORNARE LE CARD DELLA DASHBOARD
+    function updateDashboardCards(interestsData, ratingsData) {
+      document.getElementById('total-ratings').textContent = ratingsData.totalEntries || 0;
+      document.getElementById('total-ratings-desc').textContent = 'Valutazioni ricevute';
       
-      // Calcola aziende partner (numero di progetti)
-      document.getElementById('partner-companies').textContent = chartData.length;
-      document.getElementById('partner-companies-desc').textContent = 'Progetti attivi';
+      document.getElementById('partner-companies').textContent = ratingsData.uniqueCompanies || 0;
+      document.getElementById('partner-companies-desc').textContent = 'Aziende coinvolte';
       
-      // Calcola interesse medio
-      const totalInterest = moodData.reduce((sum, item) => sum + item.count, 0);
-      const avgInterest = totalInterest > 0 ? (totalInterest / moodData.length).toFixed(1) : 0;
-      document.getElementById('avg-interest').textContent = avgInterest;
+      document.getElementById('avg-interest').textContent = interestsData.avgInterest || 0;
       document.getElementById('avg-interest-desc').textContent = 'Interesse medio';
       
-      // Calcola valutazione media
-      const avgRating = chartData.length > 0 ? (totalRatings / chartData.length).toFixed(1) : 0;
-      document.getElementById('avg-rating').textContent = avgRating;
+      document.getElementById('avg-rating').textContent = ratingsData.avgRating || 0;
       document.getElementById('avg-rating-desc').textContent = 'Valutazione media';
     }
     
-    // CREA GRAFICO PROGETTI
-    function createProjectChart() {
+    // FUNZIONE PER AGGIORNARE IL GRAFICO DEI PROGETTI
+    function updateProjectChart(projectRatings) {
       const ctx = document.getElementById('projectChart').getContext('2d');
       
-      // Distruggi il grafico esistente se presente
       if (window.projectChartInstance) {
         window.projectChartInstance.destroy();
       }
       
+      const labels = Object.keys(projectRatings);
+      const data = Object.values(projectRatings);
+      
       window.projectChartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: chartData.map(item => item.project),
+          labels: labels,
           datasets: [{
             label: 'Valutazione',
-            data: chartData.map(item => item.rating),
+            data: data,
             backgroundColor: 'rgba(255, 87, 34, 0.7)',
             borderColor: 'rgba(255, 87, 34, 1)',
             borderWidth: 1
@@ -1888,22 +1277,24 @@
       });
     }
     
-    // CREA GRAFICO ANDAMENTO TEMPORALE
-    function createTrendChart() {
+    // FUNZIONE PER AGGIORNARE IL GRAFICO DELL'ANDAMENTO TEMPORALE
+    function updateTrendChart(trendData) {
       const ctx = document.getElementById('trendChart').getContext('2d');
       
-      // Distruggi il grafico esistente se presente
       if (window.trendChartInstance) {
         window.trendChartInstance.destroy();
       }
       
+      const labels = trendData.map(item => item.month);
+      const data = trendData.map(item => item.rating);
+      
       window.trendChartInstance = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: trendData.map(item => item.month),
+          labels: labels,
           datasets: [{
             label: 'Valutazione Media',
-            data: trendData.map(item => item.rating),
+            data: data,
             backgroundColor: 'rgba(255, 87, 34, 0.2)',
             borderColor: 'rgba(255, 87, 34, 1)',
             borderWidth: 2,
@@ -1945,22 +1336,24 @@
       });
     }
     
-    // CREA GRAFICO COMPETENZE
-    function createSkillsChart() {
+    // FUNZIONE PER AGGIORNARE IL GRAFICO DELLE COMPETENZE
+    function updateSkillsChart(skillsData) {
       const ctx = document.getElementById('skillsChart').getContext('2d');
       
-      // Distruggi il grafico esistente se presente
       if (window.skillsChartInstance) {
         window.skillsChartInstance.destroy();
       }
       
+      const labels = skillsData.map(item => item.skill);
+      const data = skillsData.map(item => item.level);
+      
       window.skillsChartInstance = new Chart(ctx, {
         type: 'radar',
         data: {
-          labels: skillsData.map(item => item.skill),
+          labels: labels,
           datasets: [{
             label: 'Livello Competenza',
-            data: skillsData.map(item => item.level),
+            data: data,
             backgroundColor: 'rgba(255, 87, 34, 0.2)',
             borderColor: 'rgba(255, 87, 34, 1)',
             borderWidth: 2,
@@ -2001,23 +1394,25 @@
       });
     }
     
-    // CREA GRAFICO TEMPO PER PROGETTO
-    function createTimeChart() {
+    // FUNZIONE PER AGGIORNARE IL GRAFICO DEL TEMPO PER PROGETTO
+    function updateTimeChart(timeData) {
       const ctx = document.getElementById('timeChart').getContext('2d');
       
-      // Distruggi il grafico esistente se presente
       if (window.timeChartInstance) {
         window.timeChartInstance.destroy();
       }
+      
+      const labels = timeData.map(item => item.project);
+      const data = timeData.map(item => item.hours);
       
       window.timeChartInstance = new Chart(ctx, {
         type: 'bar',
         indexAxis: 'y',
         data: {
-          labels: timeData.map(item => item.project),
+          labels: labels,
           datasets: [{
             label: 'Ore',
-            data: timeData.map(item => item.hours),
+            data: data,
             backgroundColor: 'rgba(255, 87, 34, 0.7)',
             borderColor: 'rgba(255, 87, 34, 1)',
             borderWidth: 1
@@ -2055,28 +1450,36 @@
       });
     }
     
-    // CREA GRAFICO INTERESSI
-    function createInterestChart() {
+    // FUNZIONE PER AGGIORNARE IL GRAFICO DEGLI INTERESSI
+    function updateInterestChart(interests) {
       const ctx = document.getElementById('interestChart').getContext('2d');
       
-      // Distruggi il grafico esistente se presente
       if (window.interestChartInstance) {
         window.interestChartInstance.destroy();
       }
       
+      const labels = Object.keys(interests);
+      const data = Object.values(interests);
+      
       window.interestChartInstance = new Chart(ctx, {
         type: 'pie',
         data: {
-          labels: interestData.map(item => item.category),
+          labels: labels,
           datasets: [{
-            data: interestData.map(item => item.count),
+            data: data,
             backgroundColor: [
               'rgba(76, 175, 80, 0.7)',
-              'rgba(239, 68, 68, 0.7)'
+              'rgba(239, 68, 68, 0.7)',
+              'rgba(255, 193, 7, 0.7)',
+              'rgba(33, 150, 243, 0.7)',
+              'rgba(156, 39, 176, 0.7)'
             ],
             borderColor: [
               'rgba(76, 175, 80, 1)',
-              'rgba(239, 68, 68, 1)'
+              'rgba(239, 68, 68, 1)',
+              'rgba(255, 193, 7, 1)',
+              'rgba(33, 150, 243, 1)',
+              'rgba(156, 39, 176, 1)'
             ],
             borderWidth: 1
           }]
@@ -2096,11 +1499,10 @@
       });
     }
     
-    // CREA GRAFICO CORRELAZIONE
-    function createCorrelationChart() {
+    // FUNZIONE PER AGGIORNARE IL GRAFICO DI CORRELAZIONE
+    function updateCorrelationChart(correlationData) {
       const ctx = document.getElementById('correlationChart').getContext('2d');
       
-      // Distruggi il grafico esistente se presente
       if (window.correlationChartInstance) {
         window.correlationChartInstance.destroy();
       }
@@ -2109,7 +1511,7 @@
         type: 'scatter',
         data: {
           datasets: [{
-            label: 'Progetti',
+            label: 'Aziende',
             data: correlationData.map(item => ({
               x: item.interest,
               y: item.rating
@@ -2142,10 +1544,10 @@
             },
             x: {
               beginAtZero: true,
-              max: 100,
+              max: 5,
               title: {
                 display: true,
-                text: 'Interesse (%)',
+                text: 'Interesse',
                 color: '#cccccc'
               },
               ticks: {
@@ -2166,7 +1568,7 @@
               callbacks: {
                 label: function(context) {
                   const point = correlationData[context.dataIndex];
-                  return `${point.project}: Interesse ${point.interest}%, Valutazione ${point.rating}`;
+                  return `${point.company}: Interesse ${point.interest}, Valutazione ${point.rating}`;
                 }
               }
             }
@@ -2175,21 +1577,23 @@
       });
     }
     
-    // CREA GRAFICO INTERESSI
-    function createMoodChart() {
+    // FUNZIONE PER AGGIORNARE IL GRAFICO DEL MOOD
+    function updateMoodChart(moodData) {
       const ctx = document.getElementById('moodChart').getContext('2d');
       
-      // Distruggi il grafico esistente se presente
       if (window.moodChartInstance) {
         window.moodChartInstance.destroy();
       }
       
+      const labels = Object.keys(moodData);
+      const data = Object.values(moodData);
+      
       window.moodChartInstance = new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: moodData.map(item => item.mood),
+          labels: labels,
           datasets: [{
-            data: moodData.map(item => item.count),
+            data: data,
             backgroundColor: [
               'rgba(76, 175, 80, 0.7)',
               'rgba(255, 193, 7, 0.7)',
@@ -2222,632 +1626,31 @@
       });
     }
     
-    // MODIFICA GRAFICO PROGETTI
-    document.getElementById('editChartBtn').addEventListener('click', function() {
-      const container = document.getElementById('chartDataContainer');
-      container.innerHTML = '';
-      
-      chartData.forEach((item, index) => {
-        const dataItem = document.createElement('div');
-        dataItem.className = 'data-item';
-        dataItem.innerHTML = `
-          <div class="data-item-info">
-            <div class="data-item-name">${item.project}</div>
-            <div class="data-item-value">Valutazione: ${item.rating}</div>
-          </div>
-          <button class="btn-delete" data-index="${index}">Elimina</button>
-        `;
-        container.appendChild(dataItem);
-      });
-      
-      document.getElementById('editChartModal').style.display = 'flex';
-    });
-    
-    // MODIFICA GRAFICO ANDAMENTO TEMPORALE
-    document.getElementById('editTrendChartBtn').addEventListener('click', function() {
-      const container = document.getElementById('trendDataContainer');
-      container.innerHTML = '';
-      
-      trendData.forEach((item, index) => {
-        const dataItem = document.createElement('div');
-        dataItem.className = 'data-item';
-        dataItem.innerHTML = `
-          <div class="data-item-info">
-            <div class="data-item-name">${item.month}</div>
-            <div class="data-item-value">Valutazione: ${item.rating}</div>
-          </div>
-          <button class="btn-delete" data-index="${index}">Elimina</button>
-        `;
-        container.appendChild(dataItem);
-      });
-      
-      document.getElementById('editTrendChartModal').style.display = 'flex';
-    });
-    
-    // MODIFICA GRAFICO COMPETENZE
-    document.getElementById('editSkillsChartBtn').addEventListener('click', function() {
-      const container = document.getElementById('skillsDataContainer');
-      container.innerHTML = '';
-      
-      skillsData.forEach((item, index) => {
-        const dataItem = document.createElement('div');
-        dataItem.className = 'data-item';
-        dataItem.innerHTML = `
-          <div class="data-item-info">
-            <div class="data-item-name">${item.skill}</div>
-            <div class="data-item-value">Livello: ${item.level}%</div>
-          </div>
-          <button class="btn-delete" data-index="${index}">Elimina</button>
-        `;
-        container.appendChild(dataItem);
-      });
-      
-      document.getElementById('editSkillsChartModal').style.display = 'flex';
-    });
-    
-    // MODIFICA GRAFICO TEMPO
-    document.getElementById('editTimeChartBtn').addEventListener('click', function() {
-      const container = document.getElementById('timeDataContainer');
-      container.innerHTML = '';
-      
-      timeData.forEach((item, index) => {
-        const dataItem = document.createElement('div');
-        dataItem.className = 'data-item';
-        dataItem.innerHTML = `
-          <div class="data-item-info">
-            <div class="data-item-name">${item.project}</div>
-            <div class="data-item-value">Ore: ${item.hours}</div>
-          </div>
-          <button class="btn-delete" data-index="${index}">Elimina</button>
-        `;
-        container.appendChild(dataItem);
-      });
-      
-      document.getElementById('editTimeChartModal').style.display = 'flex';
-    });
-    
-    // MODIFICA GRAFICO INTERESSI
-    document.getElementById('editInterestChartBtn').addEventListener('click', function() {
-      const container = document.getElementById('interestDataContainer');
-      container.innerHTML = '';
-      
-      interestData.forEach((item, index) => {
-        const dataItem = document.createElement('div');
-        dataItem.className = 'data-item';
-        dataItem.innerHTML = `
-          <div class="data-item-info">
-            <div class="data-item-name">${item.category}</div>
-            <div class="data-item-value">Count: ${item.count}</div>
-          </div>
-          <button class="btn-delete" data-index="${index}">Elimina</button>
-        `;
-        container.appendChild(dataItem);
-      });
-      
-      document.getElementById('editInterestChartModal').style.display = 'flex';
-    });
-    
-    // MODIFICA GRAFICO CORRELAZIONE
-    document.getElementById('editCorrelationChartBtn').addEventListener('click', function() {
-      const container = document.getElementById('correlationDataContainer');
-      container.innerHTML = '';
-      
-      correlationData.forEach((item, index) => {
-        const dataItem = document.createElement('div');
-        dataItem.className = 'data-item';
-        dataItem.innerHTML = `
-          <div class="data-item-info">
-            <div class="data-item-name">${item.project}</div>
-            <div class="data-item-value">Interesse: ${item.interest}%, Valutazione: ${item.rating}</div>
-          </div>
-          <button class="btn-delete" data-index="${index}">Elimina</button>
-        `;
-        container.appendChild(dataItem);
-      });
-      
-      document.getElementById('editCorrelationChartModal').style.display = 'flex';
-    });
-    
-    // MODIFICA GRAFICO MOOD
-    document.getElementById('editMoodBtn').addEventListener('click', function() {
-      const container = document.getElementById('moodDataContainer');
-      container.innerHTML = '';
-      
-      moodData.forEach((item, index) => {
-        const dataItem = document.createElement('div');
-        dataItem.className = 'data-item';
-        dataItem.innerHTML = `
-          <div class="data-item-info">
-            <div class="data-item-name">${item.mood}</div>
-            <div class="data-item-value">Count: ${item.count}</div>
-          </div>
-          <button class="btn-delete" data-index="${index}">Elimina</button>
-        `;
-        container.appendChild(dataItem);
-      });
-      
-      document.getElementById('editMoodModal').style.display = 'flex';
-    });
-    
-    // CHIUDI MODAL
-    document.getElementById('closeChartModal').addEventListener('click', function() {
-      document.getElementById('editChartModal').style.display = 'none';
-    });
-    
-    document.getElementById('closeTrendChartModal').addEventListener('click', function() {
-      document.getElementById('editTrendChartModal').style.display = 'none';
-    });
-    
-    document.getElementById('closeSkillsChartModal').addEventListener('click', function() {
-      document.getElementById('editSkillsChartModal').style.display = 'none';
-    });
-    
-    document.getElementById('closeTimeChartModal').addEventListener('click', function() {
-      document.getElementById('editTimeChartModal').style.display = 'none';
-    });
-    
-    document.getElementById('closeInterestChartModal').addEventListener('click', function() {
-      document.getElementById('editInterestChartModal').style.display = 'none';
-    });
-    
-    document.getElementById('closeCorrelationChartModal').addEventListener('click', function() {
-      document.getElementById('editCorrelationChartModal').style.display = 'none';
-    });
-    
-    document.getElementById('closeMoodModal').addEventListener('click', function() {
-      document.getElementById('editMoodModal').style.display = 'none';
-    });
-    
-    // AGGIUNGI ELEMENTO GRAFICO PROGETTI
-    document.getElementById('addChartItem').addEventListener('click', function() {
-      const projectName = prompt('Nome del progetto:');
-      const projectRating = prompt('Valutazione (1-5):');
-      
-      if (projectName && projectRating && !isNaN(projectRating)) {
-        chartData.push({
-          project: projectName,
-          rating: parseFloat(projectRating)
-        });
-        
-        // Aggiorna la visualizzazione
-        const container = document.getElementById('chartDataContainer');
-        container.innerHTML = '';
-        
-        chartData.forEach((item, index) => {
-          const dataItem = document.createElement('div');
-          dataItem.className = 'data-item';
-          dataItem.innerHTML = `
-            <div class="data-item-info">
-              <div class="data-item-name">${item.project}</div>
-              <div class="data-item-value">Valutazione: ${item.rating}</div>
-            </div>
-            <button class="btn-delete" data-index="${index}">Elimina</button>
-          `;
-          container.appendChild(dataItem);
-        });
-      }
-    });
-    
-    // AGGIUNGI ELEMENTO GRAFICO ANDAMENTO TEMPORALE
-    document.getElementById('addTrendItem').addEventListener('click', function() {
-      const month = prompt('Mese:');
-      const rating = prompt('Valutazione (1-5):');
-      
-      if (month && rating && !isNaN(rating)) {
-        trendData.push({
-          month: month,
-          rating: parseFloat(rating)
-        });
-        
-        // Aggiorna la visualizzazione
-        const container = document.getElementById('trendDataContainer');
-        container.innerHTML = '';
-        
-        trendData.forEach((item, index) => {
-          const dataItem = document.createElement('div');
-          dataItem.className = 'data-item';
-          dataItem.innerHTML = `
-            <div class="data-item-info">
-              <div class="data-item-name">${item.month}</div>
-              <div class="data-item-value">Valutazione: ${item.rating}</div>
-            </div>
-            <button class="btn-delete" data-index="${index}">Elimina</button>
-          `;
-          container.appendChild(dataItem);
-        });
-      }
-    });
-    
-    // AGGIUNGI ELEMENTO GRAFICO COMPETENZE
-    document.getElementById('addSkillsItem').addEventListener('click', function() {
-      const skill = prompt('Nome competenza:');
-      const level = prompt('Livello (0-100):');
-      
-      if (skill && level && !isNaN(level)) {
-        skillsData.push({
-          skill: skill,
-          level: parseInt(level)
-        });
-        
-        // Aggiorna la visualizzazione
-        const container = document.getElementById('skillsDataContainer');
-        container.innerHTML = '';
-        
-        skillsData.forEach((item, index) => {
-          const dataItem = document.createElement('div');
-          dataItem.className = 'data-item';
-          dataItem.innerHTML = `
-            <div class="data-item-info">
-              <div class="data-item-name">${item.skill}</div>
-              <div class="data-item-value">Livello: ${item.level}%</div>
-            </div>
-            <button class="btn-delete" data-index="${index}">Elimina</button>
-          `;
-          container.appendChild(dataItem);
-        });
-      }
-    });
-    
-    // AGGIUNGI ELEMENTO GRAFICO TEMPO
-    document.getElementById('addTimeItem').addEventListener('click', function() {
-      const project = prompt('Nome progetto:');
-      const hours = prompt('Ore dedicate:');
-      
-      if (project && hours && !isNaN(hours)) {
-        timeData.push({
-          project: project,
-          hours: parseInt(hours)
-        });
-        
-        // Aggiorna la visualizzazione
-        const container = document.getElementById('timeDataContainer');
-        container.innerHTML = '';
-        
-        timeData.forEach((item, index) => {
-          const dataItem = document.createElement('div');
-          dataItem.className = 'data-item';
-          dataItem.innerHTML = `
-            <div class="data-item-info">
-              <div class="data-item-name">${item.project}</div>
-              <div class="data-item-value">Ore: ${item.hours}</div>
-            </div>
-            <button class="btn-delete" data-index="${index}">Elimina</button>
-          `;
-          container.appendChild(dataItem);
-        });
-      }
-    });
-    
-    // AGGIUNGI ELEMENTO GRAFICO INTERESSI
-    document.getElementById('addInterestItem').addEventListener('click', function() {
-      const category = prompt('Nome categoria:');
-      const count = prompt('Count:');
-      
-      if (category && count && !isNaN(count)) {
-        interestData.push({
-          category: category,
-          count: parseInt(count)
-        });
-        
-        // Aggiorna la visualizzazione
-        const container = document.getElementById('interestDataContainer');
-        container.innerHTML = '';
-        
-        interestData.forEach((item, index) => {
-          const dataItem = document.createElement('div');
-          dataItem.className = 'data-item';
-          dataItem.innerHTML = `
-            <div class="data-item-info">
-              <div class="data-item-name">${item.category}</div>
-              <div class="data-item-value">Count: ${item.count}</div>
-            </div>
-            <button class="btn-delete" data-index="${index}">Elimina</button>
-          `;
-          container.appendChild(dataItem);
-        });
-      }
-    });
-    
-    // AGGIUNGI ELEMENTO GRAFICO CORRELAZIONE
-    document.getElementById('addCorrelationItem').addEventListener('click', function() {
-      const project = prompt('Nome progetto:');
-      const interest = prompt('Interesse (0-100):');
-      const rating = prompt('Valutazione (1-5):');
-      
-      if (project && interest && rating && !isNaN(interest) && !isNaN(rating)) {
-        correlationData.push({
-          project: project,
-          interest: parseInt(interest),
-          rating: parseFloat(rating)
-        });
-        
-        // Aggiorna la visualizzazione
-        const container = document.getElementById('correlationDataContainer');
-        container.innerHTML = '';
-        
-        correlationData.forEach((item, index) => {
-          const dataItem = document.createElement('div');
-          dataItem.className = 'data-item';
-          dataItem.innerHTML = `
-            <div class="data-item-info">
-              <div class="data-item-name">${item.project}</div>
-              <div class="data-item-value">Interesse: ${item.interest}%, Valutazione: ${item.rating}</div>
-            </div>
-            <button class="btn-delete" data-index="${index}">Elimina</button>
-          `;
-          container.appendChild(dataItem);
-        });
-      }
-    });
-    
-    // AGGIUNGI ELEMENTO GRAFICO MOOD
-    document.getElementById('addMoodItem').addEventListener('click', function() {
-      const mood = prompt('Nome categoria:');
-      const count = prompt('Count:');
-      
-      if (mood && count && !isNaN(count)) {
-        moodData.push({
-          mood: mood,
-          count: parseInt(count)
-        });
-        
-        // Aggiorna la visualizzazione
-        const container = document.getElementById('moodDataContainer');
-        container.innerHTML = '';
-        
-        moodData.forEach((item, index) => {
-          const dataItem = document.createElement('div');
-          dataItem.className = 'data-item';
-          dataItem.innerHTML = `
-            <div class="data-item-info">
-              <div class="data-item-name">${item.mood}</div>
-              <div class="data-item-value">Count: ${item.count}</div>
-            </div>
-            <button class="btn-delete" data-index="${index}">Elimina</button>
-          `;
-          container.appendChild(dataItem);
-        });
-      }
-    });
-    
-    // ELIMINA ELEMENTO GRAFICO PROGETTI
-    document.getElementById('chartDataContainer').addEventListener('click', function(e) {
-      if (e.target.classList.contains('btn-delete')) {
-        const index = parseInt(e.target.getAttribute('data-index'));
-        chartData.splice(index, 1);
-        
-        // Aggiorna la visualizzazione
-        const container = document.getElementById('chartDataContainer');
-        container.innerHTML = '';
-        
-        chartData.forEach((item, index) => {
-          const dataItem = document.createElement('div');
-          dataItem.className = 'data-item';
-          dataItem.innerHTML = `
-            <div class="data-item-info">
-              <div class="data-item-name">${item.project}</div>
-              <div class="data-item-value">Valutazione: ${item.rating}</div>
-            </div>
-            <button class="btn-delete" data-index="${index}">Elimina</button>
-          `;
-          container.appendChild(dataItem);
-        });
-      }
-    });
-    
-    // ELIMINA ELEMENTO GRAFICO ANDAMENTO TEMPORALE
-    document.getElementById('trendDataContainer').addEventListener('click', function(e) {
-      if (e.target.classList.contains('btn-delete')) {
-        const index = parseInt(e.target.getAttribute('data-index'));
-        trendData.splice(index, 1);
-        
-        // Aggiorna la visualizzazione
-        const container = document.getElementById('trendDataContainer');
-        container.innerHTML = '';
-        
-        trendData.forEach((item, index) => {
-          const dataItem = document.createElement('div');
-          dataItem.className = 'data-item';
-          dataItem.innerHTML = `
-            <div class="data-item-info">
-              <div class="data-item-name">${item.month}</div>
-              <div class="data-item-value">Valutazione: ${item.rating}</div>
-            </div>
-            <button class="btn-delete" data-index="${index}">Elimina</button>
-          `;
-          container.appendChild(dataItem);
-        });
-      }
-    });
-    
-    // ELIMINA ELEMENTO GRAFICO COMPETENZE
-    document.getElementById('skillsDataContainer').addEventListener('click', function(e) {
-      if (e.target.classList.contains('btn-delete')) {
-        const index = parseInt(e.target.getAttribute('data-index'));
-        skillsData.splice(index, 1);
-        
-        // Aggiorna la visualizzazione
-        const container = document.getElementById('skillsDataContainer');
-        container.innerHTML = '';
-        
-        skillsData.forEach((item, index) => {
-          const dataItem = document.createElement('div');
-          dataItem.className = 'data-item';
-          dataItem.innerHTML = `
-            <div class="data-item-info">
-              <div class="data-item-name">${item.skill}</div>
-              <div class="data-item-value">Livello: ${item.level}%</div>
-            </div>
-            <button class="btn-delete" data-index="${index}">Elimina</button>
-          `;
-          container.appendChild(dataItem);
-        });
-      }
-    });
-    
-    // ELIMINA ELEMENTO GRAFICO TEMPO
-    document.getElementById('timeDataContainer').addEventListener('click', function(e) {
-      if (e.target.classList.contains('btn-delete')) {
-        const index = parseInt(e.target.getAttribute('data-index'));
-        timeData.splice(index, 1);
-        
-        // Aggiorna la visualizzazione
-        const container = document.getElementById('timeDataContainer');
-        container.innerHTML = '';
-        
-        timeData.forEach((item, index) => {
-          const dataItem = document.createElement('div');
-          dataItem.className = 'data-item';
-          dataItem.innerHTML = `
-            <div class="data-item-info">
-              <div class="data-item-name">${item.project}</div>
-              <div class="data-item-value">Ore: ${item.hours}</div>
-            </div>
-            <button class="btn-delete" data-index="${index}">Elimina</button>
-          `;
-          container.appendChild(dataItem);
-        });
-      }
-    });
-    
-    // ELIMINA ELEMENTO GRAFICO INTERESSI
-    document.getElementById('interestDataContainer').addEventListener('click', function(e) {
-      if (e.target.classList.contains('btn-delete')) {
-        const index = parseInt(e.target.getAttribute('data-index'));
-        interestData.splice(index, 1);
-        
-        // Aggiorna la visualizzazione
-        const container = document.getElementById('interestDataContainer');
-        container.innerHTML = '';
-        
-        interestData.forEach((item, index) => {
-          const dataItem = document.createElement('div');
-          dataItem.className = 'data-item';
-          dataItem.innerHTML = `
-            <div class="data-item-info">
-              <div class="data-item-name">${item.category}</div>
-              <div class="data-item-value">Count: ${item.count}</div>
-            </div>
-            <button class="btn-delete" data-index="${index}">Elimina</button>
-          `;
-          container.appendChild(dataItem);
-        });
-      }
-    });
-    
-    // ELIMINA ELEMENTO GRAFICO CORRELAZIONE
-    document.getElementById('correlationDataContainer').addEventListener('click', function(e) {
-      if (e.target.classList.contains('btn-delete')) {
-        const index = parseInt(e.target.getAttribute('data-index'));
-        correlationData.splice(index, 1);
-        
-        // Aggiorna la visualizzazione
-        const container = document.getElementById('correlationDataContainer');
-        container.innerHTML = '';
-        
-        correlationData.forEach((item, index) => {
-          const dataItem = document.createElement('div');
-          dataItem.className = 'data-item';
-          dataItem.innerHTML = `
-            <div class="data-item-info">
-              <div class="data-item-name">${item.project}</div>
-              <div class="data-item-value">Interesse: ${item.interest}%, Valutazione: ${item.rating}</div>
-            </div>
-            <button class="btn-delete" data-index="${index}">Elimina</button>
-          `;
-          container.appendChild(dataItem);
-        });
-      }
-    });
-    
-    // ELIMINA ELEMENTO GRAFICO MOOD
-    document.getElementById('moodDataContainer').addEventListener('click', function(e) {
-      if (e.target.classList.contains('btn-delete')) {
-        const index = parseInt(e.target.getAttribute('data-index'));
-        moodData.splice(index, 1);
-        
-        // Aggiorna la visualizzazione
-        const container = document.getElementById('moodDataContainer');
-        container.innerHTML = '';
-        
-        moodData.forEach((item, index) => {
-          const dataItem = document.createElement('div');
-          dataItem.className = 'data-item';
-          dataItem.innerHTML = `
-            <div class="data-item-info">
-              <div class="data-item-name">${item.mood}</div>
-              <div class="data-item-value">Count: ${item.count}</div>
-            </div>
-            <button class="btn-delete" data-index="${index}">Elimina</button>
-          `;
-          container.appendChild(dataItem);
-        });
-      }
-    });
-    
-    // SALVA DATI GRAFICO PROGETTI
-    document.getElementById('saveChartData').addEventListener('click', function() {
-      saveDataToStorage();
-      updateDashboardCards();
-      createProjectChart();
-      document.getElementById('editChartModal').style.display = 'none';
-      showNotification('Dati salvati con successo');
-    });
-    
-    // SALVA DATI GRAFICO ANDAMENTO TEMPORALE
-    document.getElementById('saveTrendData').addEventListener('click', function() {
-      saveDataToStorage();
-      createTrendChart();
-      document.getElementById('editTrendChartModal').style.display = 'none';
-      showNotification('Dati salvati con successo');
-    });
-    
-    // SALVA DATI GRAFICO COMPETENZE
-    document.getElementById('saveSkillsData').addEventListener('click', function() {
-      saveDataToStorage();
-      createSkillsChart();
-      document.getElementById('editSkillsChartModal').style.display = 'none';
-      showNotification('Dati salvati con successo');
-    });
-    
-    // SALVA DATI GRAFICO TEMPO
-    document.getElementById('saveTimeData').addEventListener('click', function() {
-      saveDataToStorage();
-      createTimeChart();
-      document.getElementById('editTimeChartModal').style.display = 'none';
-      showNotification('Dati salvati con successo');
-    });
-    
-    // SALVA DATI GRAFICO INTERESSI
-    document.getElementById('saveInterestData').addEventListener('click', function() {
-      saveDataToStorage();
-      updateDashboardCards();
-      createInterestChart();
-      document.getElementById('editInterestChartModal').style.display = 'none';
-      showNotification('Dati salvati con successo');
-    });
-    
-    // SALVA DATI GRAFICO CORRELAZIONE
-    document.getElementById('saveCorrelationData').addEventListener('click', function() {
-      saveDataToStorage();
-      createCorrelationChart();
-      document.getElementById('editCorrelationChartModal').style.display = 'none';
-      showNotification('Dati salvati con successo');
-    });
-    
-    // SALVA DATI GRAFICO MOOD
-    document.getElementById('saveMoodData').addEventListener('click', function() {
-      saveDataToStorage();
-      updateDashboardCards();
-      createMoodChart();
-      document.getElementById('editMoodModal').style.display = 'none';
-      showNotification('Dati salvati con successo');
-    });
-    
     // INIZIALIZZAZIONE
     document.addEventListener('DOMContentLoaded', function () {
+      // Crea le particelle
       createParticles();
-      initializeDashboard();
+      
+      // Carica i dati iniziali
+      loadDashboardData();
+      
+      // Imposta l'aggiornamento automatico ogni 5 minuti
+      setInterval(loadDashboardData, 300000); // 5 minuti = 300000 ms
+      
+      // Gestione del pulsante di refresh
+      document.getElementById('refreshButton').addEventListener('click', function() {
+        // Aggiungi animazione di rotazione all'icona
+        const icon = this.querySelector('i');
+        icon.style.animation = 'spin 1s linear';
+        
+        // Rimuovi l'animazione dopo che è completata
+        setTimeout(() => {
+          icon.style.animation = '';
+        }, 1000);
+        
+        // Ricarica i dati
+        loadDashboardData();
+      });
     });
     
     // Gestione resize per performance
