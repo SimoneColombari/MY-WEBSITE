@@ -816,7 +816,7 @@
         font-size: 1em;
       }
       
-      /* Modifiche alla sezione competenze per mobile */
+      /* Modifiche alla sezione competenze per tablet */
       .skills-container {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -902,7 +902,7 @@
       }
     }
     
-    /* Ottimizzazione per telefoni piccoli */
+    /* Ottimizzazione per telefoni - due competenze per riga */
     @media (max-width: 480px) {
       .hero {
         padding: 15px;
@@ -939,32 +939,50 @@
         font-size: 1.5em;
       }
       
-      /* Modifiche specifiche per la sezione competenze su telefoni piccoli */
+      /* Modifiche specifiche per la sezione competenze su telefoni */
       .skills-container {
-        grid-template-columns: 1fr;
-        max-width: 250px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        max-width: 320px;
+        margin: 0 auto 40px;
       }
       
       .skill-item {
-        height: 140px;
+        width: 100%;
+        height: 120px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
       }
       
       .skill-chart {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
+        position: relative;
+        margin-bottom: 8px;
       }
       
       .skill-chart svg {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
+      }
+      
+      .skill-chart circle {
+        stroke-width: 6;
       }
       
       .skill-icon {
-        font-size: 1.8em;
+        font-size: 1.6em;
       }
       
       .skill-name {
-        font-size: 0.85em;
+        font-size: 0.75em;
+        text-align: center;
+        line-height: 1.1;
+        max-width: 120px;
       }
     }
   </style>
@@ -1044,9 +1062,9 @@
       <div class="skills-container">
         <div class="skill-item">
           <div class="skill-chart">
-            <svg width="150" height="150">
-              <circle class="skill-bg" cx="75" cy="75" r="70"></circle>
-              <circle class="skill-progress" cx="75" cy="75" r="70" style="--offset: 70"></circle>
+            <svg width="70" height="70">
+              <circle class="skill-bg" cx="35" cy="35" r="32"></circle>
+              <circle class="skill-progress" cx="35" cy="35" r="32" style="--offset: 70"></circle>
             </svg>
             <div class="skill-icon">⚡️</div>
           </div>
@@ -1054,9 +1072,9 @@
         </div>
         <div class="skill-item">
           <div class="skill-chart">
-            <svg width="150" height="150">
-              <circle class="skill-bg" cx="75" cy="75" r="70"></circle>
-              <circle class="skill-progress" cx="75" cy="75" r="70" style="--offset: 105"></circle>
+            <svg width="70" height="70">
+              <circle class="skill-bg" cx="35" cy="35" r="32"></circle>
+              <circle class="skill-progress" cx="35" cy="35" r="32" style="--offset: 105"></circle>
             </svg>
             <div class="skill-icon">🧵</div>
           </div>
@@ -1064,9 +1082,9 @@
         </div>
         <div class="skill-item">
           <div class="skill-chart">
-            <svg width="150" height="150">
-              <circle class="skill-bg" cx="75" cy="75" r="70"></circle>
-              <circle class="skill-progress" cx="75" cy="75" r="70" style="--offset: 84"></circle>
+            <svg width="70" height="70">
+              <circle class="skill-bg" cx="35" cy="35" r="32"></circle>
+              <circle class="skill-progress" cx="35" cy="35" r="32" style="--offset: 84"></circle>
             </svg>
             <div class="skill-icon">⚙️</div>
           </div>
@@ -1074,9 +1092,9 @@
         </div>
         <div class="skill-item">
           <div class="skill-chart">
-            <svg width="150" height="150">
-              <circle class="skill-bg" cx="75" cy="75" r="70"></circle>
-              <circle class="skill-progress" cx="75" cy="75" r="70" style="--offset: 126"></circle>
+            <svg width="70" height="70">
+              <circle class="skill-bg" cx="35" cy="35" r="32"></circle>
+              <circle class="skill-progress" cx="35" cy="35" r="32" style="--offset: 126"></circle>
             </svg>
             <div class="skill-icon">💻</div>
           </div>
