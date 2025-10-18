@@ -418,7 +418,8 @@
       color: #e8e8e8;
       font-weight: 400;
     }
-    /* FOOTER SPETTACOLARE */
+    
+    /* FOOTER SPETTACOLARE CON GRAFICI E TIMELINE */
     .footer-cta {
       background: linear-gradient(135deg, rgba(10,10,10,0.95) 0%, rgba(26,26,26,0.95) 100%);
       padding: 80px 40px;
@@ -441,13 +442,21 @@
       0%, 100% { transform: scale(1); opacity: 0.5; }
       50% { transform: scale(1.1); opacity: 1; }
     }
-    .footer-title {
+    
+    /* Sezione Introduzione */
+    .footer-intro {
+      max-width: 800px;
+      margin: 0 auto 60px;
+      position: relative;
+      z-index: 10;
+    }
+    .footer-intro h2 {
       font-size: 2.5em;
       font-weight: 900;
       color: #FF5722;
       text-transform: uppercase;
       letter-spacing: 4px;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
       text-shadow: 0 0 20px #FF5722;
       position: relative;
       z-index: 10;
@@ -461,6 +470,228 @@
         text-shadow: 0 0 30px #FF5722, 0 0 50px #FF5722, 0 0 70px #FF5722;
       }
     }
+    .footer-intro p {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.2em;
+      line-height: 1.6;
+      color: #e8e8e8;
+      margin-bottom: 20px;
+    }
+    
+    /* Sezione Competenze con Grafici */
+    .skills-section {
+      margin-bottom: 60px;
+      position: relative;
+      z-index: 10;
+    }
+    .skills-title {
+      font-size: 2em;
+      font-weight: 700;
+      color: #FF5722;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 40px;
+      position: relative;
+      display: inline-block;
+    }
+    .skills-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #FF5722, transparent);
+    }
+    .skills-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    .skill-item {
+      width: 200px;
+      height: 200px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .skill-chart {
+      width: 150px;
+      height: 150px;
+      position: relative;
+      margin-bottom: 15px;
+    }
+    .skill-chart svg {
+      transform: rotate(-90deg);
+    }
+    .skill-chart circle {
+      fill: none;
+      stroke-width: 8;
+    }
+    .skill-bg {
+      stroke: rgba(255, 87, 34, 0.1);
+    }
+    .skill-progress {
+      stroke: #FF5722;
+      stroke-linecap: round;
+      stroke-dasharray: 440;
+      stroke-dashoffset: 440;
+      animation: skill-fill 2s ease-out forwards;
+    }
+    @keyframes skill-fill {
+      to {
+        stroke-dashoffset: var(--offset);
+      }
+    }
+    .skill-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.5em;
+      color: #FF5722;
+    }
+    .skill-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1em;
+      color: #e8e8e8;
+      text-align: center;
+    }
+    
+    /* Sezione Timeline Futuristica */
+    .timeline-section {
+      margin-bottom: 60px;
+      position: relative;
+      z-index: 10;
+    }
+    .timeline-title {
+      font-size: 2em;
+      font-weight: 700;
+      color: #FF5722;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 40px;
+      position: relative;
+      display: inline-block;
+    }
+    .timeline-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #FF5722, transparent);
+    }
+    .timeline-container {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .timeline-line {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, #FF5722, #ff8a50, #ffab40);
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 50px;
+      width: 50%;
+    }
+    .timeline-item:nth-child(odd) {
+      left: 0;
+      padding-right: 50px;
+      text-align: right;
+    }
+    .timeline-item:nth-child(even) {
+      left: 50%;
+      padding-left: 50px;
+    }
+    .timeline-dot {
+      position: absolute;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background: #FF5722;
+      border-radius: 50%;
+      box-shadow: 0 0 15px #FF5722;
+      z-index: 2;
+    }
+    .timeline-item:nth-child(odd) .timeline-dot {
+      right: -10px;
+    }
+    .timeline-item:nth-child(even) .timeline-dot {
+      left: -10px;
+    }
+    .timeline-content {
+      background: rgba(255, 87, 34, 0.1);
+      border: 1px solid rgba(255, 87, 34, 0.3);
+      border-radius: 15px;
+      padding: 20px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .timeline-content:hover {
+      background: rgba(255, 87, 34, 0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.2);
+    }
+    .timeline-year {
+      font-size: 1.2em;
+      font-weight: 700;
+      color: #ff8a50;
+      margin-bottom: 10px;
+    }
+    .timeline-text {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1em;
+      color: #e8e8e8;
+    }
+    
+    /* Sezione Obiettivi */
+    .goals-section {
+      margin-bottom: 60px;
+      position: relative;
+      z-index: 10;
+    }
+    .goals-title {
+      font-size: 2em;
+      font-weight: 700;
+      color: #FF5722;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 40px;
+      position: relative;
+      display: inline-block;
+    }
+    .goals-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #FF5722, transparent);
+    }
+    .goals-content {
+      max-width: 800px;
+      margin: 0 auto 40px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.2em;
+      line-height: 1.6;
+      color: #e8e8e8;
+    }
+    
+    /* Pulsanti CTA */
     .cta-matrix {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -476,6 +707,7 @@
       padding: 22px 30px;
       font-size: 1em;
     }
+    
     /* TRANSLATION WIDGET ANIMATO */
     #translate-container {
       position: fixed;
@@ -515,6 +747,7 @@
       transform: translateY(-5px) scale(1.1);
       box-shadow: 0 10px 25px rgba(255, 87, 34, 0.6);
     }
+    
     /* RESPONSIVE MIGLIORATO */
     @media (max-width: 968px) {
       /* Modifiche alla navbar per mobile */
@@ -574,9 +807,50 @@
         padding: 50px 20px;
       }
       
-      .footer-title {
+      .footer-intro h2 {
         font-size: 1.8em;
-        margin-bottom: 30px;
+        margin-bottom: 15px;
+      }
+      
+      .footer-intro p {
+        font-size: 1em;
+      }
+      
+      .skills-container {
+        gap: 20px;
+      }
+      
+      .skill-item {
+        width: 150px;
+        height: 150px;
+      }
+      
+      .skill-chart {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .timeline-line {
+        left: 20px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 50px !important;
+        padding-right: 0 !important;
+        text-align: left !important;
+      }
+      
+      .timeline-item:nth-child(even) {
+        left: 0;
+      }
+      
+      .timeline-dot {
+        left: 10px !important;
+      }
+      
+      .goals-content {
+        font-size: 1em;
       }
       
       .cta-matrix {
@@ -627,6 +901,14 @@
       .nav-links a {
         font-size: 0.7em;
         padding: 5px 10px;
+      }
+      
+      .footer-intro h2 {
+        font-size: 1.5em;
+      }
+      
+      .skills-title, .timeline-title, .goals-title {
+        font-size: 1.5em;
       }
     }
   </style>
@@ -691,9 +973,107 @@
     </section>
   </div>
   
-  <!-- Footer -->
+  <!-- Footer con informazioni e grafici -->
   <footer class="footer-cta">
-    <h2 class="footer-title">ESPLORA IL MIO UNIVERSO</h2>
+    <!-- Introduzione -->
+    <div class="footer-intro">
+      <h2>👋 SIMONE COLOMBARI</h2>
+      <p>Tecnologia, elettronica e design funzionale: il mio mondo in una pagina.</p>
+      <p>Sono uno studente di Ingegneria Elettronica all'Università di Bologna, appassionato di tecnologia, elettronica e modellazione 3D. Amo costruire, automatizzare e dare forma alle idee — dai circuiti analogici ai prototipi intelligenti, dalle interfacce utente alle soluzioni che semplificano la vita.</p>
+    </div>
+    
+    <!-- Competenze con grafici -->
+    <div class="skills-section">
+      <h3 class="skills-title">🔧 COMPETENZE</h3>
+      <div class="skills-container">
+        <div class="skill-item">
+          <div class="skill-chart">
+            <svg width="150" height="150">
+              <circle class="skill-bg" cx="75" cy="75" r="70"></circle>
+              <circle class="skill-progress" cx="75" cy="75" r="70" style="--offset: 70"></circle>
+            </svg>
+            <div class="skill-icon">⚡️</div>
+          </div>
+          <div class="skill-name">Prototipazione Elettronica</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-chart">
+            <svg width="150" height="150">
+              <circle class="skill-bg" cx="75" cy="75" r="70"></circle>
+              <circle class="skill-progress" cx="75" cy="75" r="70" style="--offset: 105"></circle>
+            </svg>
+            <div class="skill-icon">🧵</div>
+          </div>
+          <div class="skill-name">Modellazione 3D</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-chart">
+            <svg width="150" height="150">
+              <circle class="skill-bg" cx="75" cy="75" r="70"></circle>
+              <circle class="skill-progress" cx="75" cy="75" r="70" style="--offset: 84"></circle>
+            </svg>
+            <div class="skill-icon">⚙️</div>
+          </div>
+          <div class="skill-name">Automazione</div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-chart">
+            <svg width="150" height="150">
+              <circle class="skill-bg" cx="75" cy="75" r="70"></circle>
+              <circle class="skill-progress" cx="75" cy="75" r="70" style="--offset: 126"></circle>
+            </svg>
+            <div class="skill-icon">💻</div>
+          </div>
+          <div class="skill-name">Sistemi Embedded</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Timeline Futuristica -->
+    <div class="timeline-section">
+      <h3 class="timeline-title">🌱 FORMAZIONE & RISULTATI</h3>
+      <div class="timeline-container">
+        <div class="timeline-line"></div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2024</div>
+            <div class="timeline-text">Vincitore del Boom Knowledge Hub Challenge 2024: app sostenibile per prenotazioni mensa, con mockup UX e animazioni 3D</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2023-2024</div>
+            <div class="timeline-text">Diploma in Elettronica ed Elettrotecnica (IIS Archimede)</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2022-2023</div>
+            <div class="timeline-text">Anno accademico negli USA (Champlin Park High School, Minnesota)</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-year">2021</div>
+            <div class="timeline-text">Certificazione Cambridge C1 in inglese</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Obiettivi -->
+    <div class="goals-section">
+      <h3 class="goals-title">🎯 OBIETTIVO</h3>
+      <div class="goals-content">
+        Collaborare con aziende visionarie per sviluppare strumenti smart, intuitivi e sostenibili. Porto con me un mindset globale, una forte etica del lavoro e una passione autentica per l'innovazione.
+      </div>
+    </div>
+    
+    <!-- Pulsanti CTA -->
     <div class="cta-matrix">
       <a href="projects.html" class="cta-primary">PROGETTI TECH</a>
       <a href="usa.html" class="cta-primary">USA EXPERIENCE</a>
@@ -813,6 +1193,52 @@
       });
     }
     
+    // ANIMAZIONE SKILL CHARTS
+    function initSkillCharts() {
+      const skillCharts = document.querySelectorAll('.skill-progress');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animation = 'skill-fill 2s ease-out forwards';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.5
+      });
+      
+      skillCharts.forEach(chart => {
+        observer.observe(chart);
+      });
+    }
+    
+    // ANIMAZIONE TIMELINE
+    function initTimelineAnimation() {
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+            }, index * 200);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.2
+      });
+      
+      timelineItems.forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(30px)';
+        item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(item);
+      });
+    }
+    
     // EFFETTI PULSANTI AVANZATI
     function initButtonEffects() {
       const buttons = document.querySelectorAll('.cta-primary');
@@ -911,6 +1337,8 @@
       initMouseEffects();
       initTypingEffect();
       initScrollAnimations();
+      initSkillCharts();
+      initTimelineAnimation();
       initButtonEffects();
       initPerformanceOptimization();
       
