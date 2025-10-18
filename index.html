@@ -816,18 +816,45 @@
         font-size: 1em;
       }
       
+      /* Modifiche alla sezione competenze per mobile */
       .skills-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
+        max-width: 400px;
+        margin: 0 auto 40px;
       }
       
       .skill-item {
-        width: 150px;
-        height: 150px;
+        width: 100%;
+        height: 160px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
       }
       
       .skill-chart {
         width: 100px;
         height: 100px;
+        position: relative;
+        margin-bottom: 10px;
+      }
+      
+      .skill-chart svg {
+        width: 100px;
+        height: 100px;
+      }
+      
+      .skill-icon {
+        font-size: 2em;
+      }
+      
+      .skill-name {
+        font-size: 0.9em;
+        text-align: center;
+        line-height: 1.2;
       }
       
       .timeline-line {
@@ -875,6 +902,7 @@
       }
     }
     
+    /* Ottimizzazione per telefoni piccoli */
     @media (max-width: 480px) {
       .hero {
         padding: 15px;
@@ -909,6 +937,34 @@
       
       .skills-title, .timeline-title, .goals-title {
         font-size: 1.5em;
+      }
+      
+      /* Modifiche specifiche per la sezione competenze su telefoni piccoli */
+      .skills-container {
+        grid-template-columns: 1fr;
+        max-width: 250px;
+      }
+      
+      .skill-item {
+        height: 140px;
+      }
+      
+      .skill-chart {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .skill-chart svg {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .skill-icon {
+        font-size: 1.8em;
+      }
+      
+      .skill-name {
+        font-size: 0.85em;
       }
     }
   </style>
