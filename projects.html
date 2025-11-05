@@ -347,6 +347,7 @@
     }
     .project-card:nth-child(2) { animation-delay: 0.2s; }
     .project-card:nth-child(3) { animation-delay: 0.4s; }
+    .project-card:nth-child(4) { animation-delay: 0.6s; }
     @keyframes card-enter {
       to {
         transform: translateY(0);
@@ -917,6 +918,52 @@
             <button class="project-btn">Invia valutazione</button>
           </div>
         </div>
+        
+        <!-- Progetto 3 -->
+        <div class="project-card">
+          <div class="flipper-header">
+            <div>
+              <div class="project-title">Meshtastic con Heltec V3</div>
+              <div class="project-desc">Un sistema di comunicazione off-grid basato su tecnologia LoRa che permette di creare una rete mesh senza bisogno di connessione internet, perfetto per escursioni e situazioni di emergenza.</div>
+            </div>
+            <div class="mini-slider">
+              <div class="slides" id="meshtastic-slides">
+                <img src="images/projects/imglorasito1.png" alt="Meshtastic Device 1" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
+                <img src="images/projects/imglorasito2.png" alt="Meshtastic Device 2" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
+                <img src="images/projects/imglorasito3.png" alt="Meshtastic Device 3" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
+                <img src="images/projects/imglorasito4.png" alt="Meshtastic Device 4" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
+              </div>
+              <div class="controls">
+                <button id="meshtastic-prev">⏪</button>
+                <button id="meshtastic-next">⏩</button>
+              </div>
+            </div>
+          </div>
+          <div class="project-details">
+            <details>
+              <summary>📡 Dettagli del progetto</summary>
+              <ul>
+                <li>🔹 <strong>Tecnologia:</strong> Rete mesh basata su LoRa, completamente off-grid</li>
+                <li>🔹 <strong>Dispositivo:</strong> Heltec V3 con antenna integrata</li>
+                <li>🔹 <strong>Funzionalità:</strong> Comunicazione testuale, futura integrazione GPS</li>
+                <li>🔹 <strong>Autonomia:</strong> Circa 8 ore di utilizzo continuo con batteria integrata</li>
+                <li>🔹 <strong>Firmware:</strong> Ultima versione stabile di Meshtastic</li>
+                <li>🔹 <strong>Utilizzi:</strong> Escursioni, emergenze, aree senza copertura</li>
+              </ul>
+            </details>
+          </div>
+          <div class="rating-section">
+            <label>Valutazione:</label>
+            <div class="stars">
+              <span data-value="1">☆</span>
+              <span data-value="2">☆</span>
+              <span data-value="3">☆</span>
+              <span data-value="4">☆</span>
+              <span data-value="5">☆</span>
+            </div>
+            <button class="project-btn">Invia valutazione</button>
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -1413,6 +1460,32 @@
         setInterval(() => {
           flipperIndex = (flipperIndex + 1) % totalFlipperSlides;
           showFlipperSlide(flipperIndex);
+        }, 3000);
+      }
+      
+      // Slider fotografico Meshtastic
+      const meshtasticSlides = document.getElementById('meshtastic-slides');
+      if (meshtasticSlides) {
+        const totalMeshtasticSlides = meshtasticSlides.querySelectorAll('img').length;
+        let meshtasticIndex = 0;
+        
+        function showMeshtasticSlide(i) {
+          meshtasticSlides.style.transform = `translateX(-${i * 100}%)`;
+        }
+        
+        document.getElementById('meshtastic-next').addEventListener('click', () => {
+          meshtasticIndex = (meshtasticIndex + 1) % totalMeshtasticSlides;
+          showMeshtasticSlide(meshtasticIndex);
+        });
+        
+        document.getElementById('meshtastic-prev').addEventListener('click', () => {
+          meshtasticIndex = (meshtasticIndex - 1 + totalMeshtasticSlides) % totalMeshtasticSlides;
+          showMeshtasticSlide(meshtasticIndex);
+        });
+        
+        setInterval(() => {
+          meshtasticIndex = (meshtasticIndex + 1) % totalMeshtasticSlides;
+          showMeshtasticSlide(meshtasticIndex);
         }, 3000);
       }
       
