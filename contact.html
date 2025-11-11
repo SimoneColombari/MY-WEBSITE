@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PROGETTI - SIMONE COLOMBARI</title>
+  <title>CONTATTI - SIMONE COLOMBARI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
-  <!-- Configurazione globale per l'URL dello script Google Apps Script -->
+  <!-- Includi il file di configurazione -->
   <script>
+    // Configurazione globale per l'URL dello script Google Apps Script
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzC1iqv3mmZGzLPtl1mNQUPCCwwFtxGNqPx4u3I8LU304YlglYowcaGMEgDU2Pcfqk2/exec";
   </script>
   <style>
@@ -116,12 +117,6 @@
         opacity: 1;
       }
     }
-    
-    /* SPAZIO PER LA NAVBAR */
-    .navbar-spacer {
-      height: 70px;
-    }
-    
     /* HERO SECTION SPETTACOLARE */
     .hero {
       height: 50vh;
@@ -131,7 +126,7 @@
       align-items: center;
       padding: 0 60px;
       position: relative;
-      margin-top: 0;
+      margin-top: 70px;
       text-align: center;
     }
     .glitch-title {
@@ -265,74 +260,29 @@
     .content-section {
       padding: 60px 30px;
     }
-    .azienda-section {
-      margin-bottom: 40px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .azienda-section label {
-      display: block;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.2em;
-      font-weight: 700;
-      color: #FF5722;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    input[type="text"] {
-      width: 100%;
-      padding: 15px;
-      margin-top: 10px;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 87, 34, 0.3);
-      background: rgba(10, 10, 10, 0.7);
-      color: white;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.1em;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-    input[type="text"]:focus {
-      outline: none;
-      border-color: #FF5722;
-      box-shadow: 0 0 15px rgba(255, 87, 34, 0.3);
-      background: rgba(10, 10, 10, 0.9);
-    }
-    
-    /* SEZIONE PROGETTI */
-    .projects-section {
-      margin-bottom: 50px;
-    }
-    .section-title {
-      font-size: 2.2em;
-      font-weight: 900;
-      color: #FF5722;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      margin-bottom: 30px;
-      text-align: center;
+    .contact-container {
+      max-width: 1000px;
+      margin: 0 auto;
       position: relative;
+      animation: contact-container-enter 1s ease-out;
     }
-    .section-title::after {
-      content: '';
-      position: absolute;
-      width: 150px;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #FF5722, transparent);
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: title-underline 3s infinite;
+    @keyframes contact-container-enter {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    @keyframes title-underline {
-      0%, 100% { width: 150px; }
-      50% { width: 250px; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
     }
-    
-    /* PROJECT CARD */
-    .project-card {
+    .contact-card {
       background: rgba(255, 87, 34, 0.05);
       padding: 25px;
       border-radius: 15px;
@@ -340,21 +290,18 @@
       transition: all 0.5s ease;
       position: relative;
       overflow: hidden;
-      margin-bottom: 30px;
       transform: translateY(20px);
       opacity: 0;
       animation: card-enter 0.6s ease-out forwards;
     }
-    .project-card:nth-child(2) { animation-delay: 0.2s; }
-    .project-card:nth-child(3) { animation-delay: 0.4s; }
-    .project-card:nth-child(4) { animation-delay: 0.6s; }
+    .contact-card:nth-child(2) { animation-delay: 0.2s; }
     @keyframes card-enter {
       to {
         transform: translateY(0);
         opacity: 1;
       }
     }
-    .project-card::before {
+    .contact-card::before {
       content: '';
       position: absolute;
       top: 0;
@@ -364,16 +311,16 @@
       background: linear-gradient(90deg, transparent, rgba(255, 87, 34, 0.1), transparent);
       transition: left 0.6s ease;
     }
-    .project-card:hover::before {
+    .contact-card:hover::before {
       left: 100%;
     }
-    .project-card:hover {
+    .contact-card:hover {
       transform: translateY(-8px) scale(1.02);
       background: rgba(255, 87, 34, 0.12);
       box-shadow: 0 20px 40px rgba(255, 87, 34, 0.3);
       border-left-width: 6px;
     }
-    .project-title {
+    .contact-card h2 {
       color: #FF5722;
       font-size: 1.6em;
       font-weight: 700;
@@ -389,7 +336,7 @@
       0% { text-shadow: 0 0 5px #FF5722; }
       100% { text-shadow: 0 0 15px #FF5722, 0 0 25px #FF5722; }
     }
-    .project-title::before {
+    .contact-card h2::before {
       content: '';
       display: inline-block;
       width: 20px;
@@ -403,8 +350,7 @@
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.2); }
     }
-    
-    .project-desc {
+    .contact-card p {
       font-family: 'Rajdhani', sans-serif;
       font-size: 1em;
       line-height: 1.6;
@@ -412,95 +358,56 @@
       font-weight: 400;
       margin-bottom: 15px;
     }
-    .project-details {
-      margin-top: 15px;
-    }
-    details {
-      margin-top: 10px;
-    }
-    summary {
-      cursor: pointer;
-      font-weight: bold;
-      color: #ffa726;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.1em;
-      padding: 8px 12px;
-      background: rgba(255, 167, 38, 0.1);
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-    summary:hover {
-      background: rgba(255, 167, 38, 0.2);
-      color: #FF5722;
-    }
-    details ul {
-      margin-top: 12px;
-      padding-left: 25px;
-      color: #ffd699;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1em;
-      line-height: 1.6;
-    }
-    details li {
-      margin-bottom: 6px;
-      position: relative;
-      padding-left: 8px;
-    }
-    details li::before {
-      content: '▶';
-      position: absolute;
-      left: -12px;
-      color: #FF5722;
-      font-size: 0.8em;
-    }
-    .rating-section {
-      margin-top: 20px;
+    .contact-info {
       display: flex;
       flex-direction: column;
+      gap: 12px;
     }
-    .rating-section label {
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .contact-item-label {
       font-family: 'Rajdhani', sans-serif;
-      font-size: 1.1em;
+      font-size: 1em;
       font-weight: 700;
       color: #FF5722;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      min-width: 80px;
     }
-    .stars {
-      display: flex;
-      gap: 5px;
-      margin-bottom: 15px;
+    .contact-item-value {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1em;
+      color: #e8e8e8;
+      flex-grow: 1;
     }
-    .stars span {
-      font-size: 1.8em;
-      cursor: pointer;
-      color: #ffcc00;
-      transition: all 0.2s ease;
-      text-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+    .contact-item-value a {
+      color: #e8e8e8;
+      text-decoration: none;
+      transition: all 0.3s ease;
     }
-    .stars span:hover {
-      transform: scale(1.2);
-      text-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+    .contact-item-value a:hover {
+      color: #FF5722;
+      text-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
     }
-    .project-btn {
+    .copy-button {
       background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
       color: white;
-      padding: 12px 25px;
       border: none;
-      border-radius: 30px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: 'Orbitron', monospace;
       font-weight: 700;
-      font-size: 0.9em;
+      font-size: 0.8em;
       text-transform: uppercase;
       letter-spacing: 1px;
-      font-family: 'Orbitron', monospace;
-      cursor: pointer;
-      transition: all 0.4s ease;
-      box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
       position: relative;
       overflow: hidden;
     }
-    .project-btn::before {
+    .copy-button::before {
       content: '';
       position: absolute;
       top: 0;
@@ -510,100 +417,146 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
       transition: left 0.5s ease;
     }
-    .project-btn:hover::before {
+    .copy-button:hover::before {
       left: 100%;
     }
-    .project-btn:hover {
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 10px 25px rgba(255, 87, 34, 0.6);
+    .copy-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px 15px rgba(255, 87, 34, 0.5);
+      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
     }
-    .project-btn:active {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 5px 15px rgba(255, 87, 34, 0.8);
-    }
-    /* Mini Slider */
-    .flipper-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 15px;
-    }
-    .mini-slider {
-      position: relative;
-      width: 100%;
-      max-width: 300px;
-      height: 200px;
-      overflow: hidden;
+    .interest-section {
+      background: rgba(255, 87, 34, 0.05);
+      padding: 25px;
       border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255, 87, 34, 0.4);
-      flex-shrink: 0;
-      border: 2px solid rgba(255, 87, 34, 0.3);
+      border-left: 4px solid #FF5722;
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+      margin-top: 30px;
     }
-    .mini-slider .slides {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-      height: 100%;
-    }
-    .mini-slider .slides img {
+    .interest-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      flex-shrink: 0;
-      border-radius: 13px;
-      background-color: #0a0a0a;
+      background: linear-gradient(90deg, transparent, rgba(255, 87, 34, 0.1), transparent);
+      transition: left 0.6s ease;
     }
-    .mini-slider .controls {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: space-between;
-      transform: translateY(-50%);
-      padding: 0 10px;
+    .interest-section:hover::before {
+      left: 100%;
     }
-    .mini-slider .controls button {
-      background-color: rgba(0, 0, 0, 0.7);
-      border: none;
-      color: #ffcc00;
-      font-size: 1.4em;
-      padding: 8px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      width: 40px;
-      height: 40px;
+    .interest-section:hover {
+      transform: translateY(-8px) scale(1.02);
+      background: rgba(255, 87, 34, 0.12);
+      box-shadow: 0 20px 40px rgba(255, 87, 34, 0.3);
+      border-left-width: 6px;
+    }
+    .interest-section h2 {
+      color: #FF5722;
+      font-size: 1.6em;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 15px;
+      animation: title-glow 2s ease-in-out infinite alternate;
     }
-    .mini-slider .controls button:hover {
-      background-color: rgba(255, 87, 34, 0.8);
+    .interest-section h2::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background: #FF5722;
+      border-radius: 50%;
+      animation: icon-pulse 1.5s infinite;
+      box-shadow: 0 0 10px #FF5722;
+    }
+    .interest-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.1em;
+      font-weight: 700;
+      color: #FF5722;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .company-input {
+      width: 100%;
+      padding: 12px 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 87, 34, 0.5);
+      border-radius: 8px;
       color: white;
-      transform: scale(1.1);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1em;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
     }
-    
-    /* YouTube Container */
-    .youtube-container {
-      position: relative;
+    .company-input:focus {
+      outline: none;
+      border-color: #FF5722;
+      box-shadow: 0 0 15px rgba(255, 87, 34, 0.3);
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .company-input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .interest-slider {
       width: 100%;
-      max-width: 300px;
-      height: 200px;
-      overflow: hidden;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255, 87, 34, 0.4);
-      margin: 15px auto;
-      border: 2px solid rgba(255, 87, 34, 0.3);
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+      outline: none;
+      margin: 15px 0;
+      -webkit-appearance: none;
     }
-
-    .youtube-container iframe {
-      width: 100%;
-      height: 100%;
-      border-radius: 13px;
+    .interest-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 87, 34, 0.5);
+      transition: all 0.3s ease;
     }
-    
+    .interest-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 20px rgba(255, 87, 34, 0.8);
+    }
+    .interest-slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 87, 34, 0.5);
+      transition: all 0.3s ease;
+    }
+    .interest-slider::-moz-range-thumb:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 20px rgba(255, 87, 34, 0.8);
+    }
+    .interest-value {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.6em;
+      font-weight: 700;
+      color: #FF5722;
+      text-align: center;
+      margin-top: 15px;
+      text-shadow: 0 0 10px rgba(255, 87, 34, 0.3);
+      animation: interest-pulse 2s ease-in-out infinite;
+    }
+    @keyframes interest-pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
     /* FOOTER SPETTACOLARE */
     .footer-cta {
       background: linear-gradient(135deg, rgba(10,10,10,0.95) 0%, rgba(26,26,26,0.95) 100%);
@@ -662,6 +615,31 @@
       padding: 15px 20px;
       font-size: 0.9em;
     }
+    /* STILE SPECIALE PER IL PULSANTE DASHBOARD NEL FOOTER */
+    .cta-matrix .cta-dashboard {
+      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-matrix .cta-dashboard::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
+      transform: translateX(-100%);
+      transition: transform 0.6s;
+    }
+    .cta-matrix .cta-dashboard:hover::after {
+      transform: translateX(100%);
+    }
+    .cta-matrix .cta-dashboard:hover {
+      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
+      transform: translateY(-5px) scale(1.08);
+      box-shadow: 0 15px 35px rgba(255, 87, 34, 0.7);
+    }
     /* TRANSLATION WIDGET ANIMATO */
     #translate-container {
       position: fixed;
@@ -703,15 +681,10 @@
     }
     /* RESPONSIVE MIGLIORATO */
     @media (max-width: 968px) {
-      /* Modifiche alla navbar per mobile */
-      .navbar-spacer {
-        height: 90px;
-      }
-      
       .hero {
         padding: 30px 20px;
         height: 40vh;
-        margin-top: 0;
+        margin-top: 70px;
       }
       .content-wrapper {
         margin: 15px;
@@ -719,34 +692,12 @@
       .content-section {
         padding: 40px 20px;
       }
-      .flipper-header {
-        flex-direction: column;
-        align-items: center;
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
       }
-      .mini-slider {
-        width: 100%;
-        max-width: 100%;
-        height: 200px;
-      }
-      .youtube-container {
-        max-width: 100%;
-        height: 200px;
-      }
-      .project-title {
-        font-size: 1.4em;
-      }
-      .project-desc {
-        font-size: 0.95em;
-      }
-      .azienda-section label {
-        font-size: 1.1em;
-      }
-      input[type="text"] {
-        font-size: 1em;
-        padding: 12px;
-      }
-      .stars span {
-        font-size: 1.5em;
+      .contact-card {
+        min-width: 100%;
       }
     }
     
@@ -757,10 +708,6 @@
       }
       .subtitle-tech {
         font-size: 1.1em;
-      }
-      .project-card {
-        padding: 20px;
-        margin-bottom: 20px;
       }
       .footer-cta {
         padding: 50px 15px;
@@ -773,16 +720,12 @@
         padding: 12px 18px;
         font-size: 0.85em;
       }
-      .nav-links a {
-        font-size: 0.75em;
-        padding: 5px 10px;
-      }
     }
     
     @media (max-width: 480px) {
       .hero {
         padding: 15px;
-        margin-top: 0;
+        margin-top: 70px;
         height: 35vh;
       }
       .glitch-title {
@@ -797,30 +740,27 @@
       .content-section {
         padding: 30px 15px;
       }
-      .project-card {
-        padding: 15px;
+      .contact-card {
+        padding: 20px;
       }
-      .project-title {
-        font-size: 1.2em;
+      .contact-card h2 {
+        font-size: 1.4em;
       }
-      .project-desc {
-        font-size: 0.9em;
+      .contact-card p {
+        font-size: 0.95em;
       }
-      .mini-slider {
-        height: 150px;
+      .interest-section {
+        padding: 20px;
       }
-      .youtube-container {
-        height: 150px;
+      .interest-section h2 {
+        font-size: 1.4em;
       }
-      .nav-links a {
-        font-size: 0.7em;
-        padding: 4px 8px;
+      .interest-value {
+        font-size: 1.4em;
       }
-      .nav-logo {
-        font-size: 1em;
-      }
-      .section-title {
-        font-size: 1.8em;
+      .copy-button {
+        font-size: 0.75em;
+        padding: 5px 10px;
       }
     }
   </style>
@@ -839,11 +779,8 @@
     <div class="wave"></div>
   </div>
   
-  <!-- Navigation Container -->
+  <!-- Navbar Esterna -->
   <div id="navbar-container"></div>
-  
-  <!-- Spacer per compensare la navbar fissa -->
-  <div class="navbar-spacer"></div>
   
   <!-- Translation Widget -->
   <div id="translate-container">
@@ -853,157 +790,66 @@
   
   <!-- Hero Section -->
   <header class="hero">
-    <h1 class="glitch-title" data-text="PROGETTI">PROGETTI</h1>
-    <p class="subtitle-tech">INNOVAZIONE • CREATIVITÀ • TECNOLOGIA</p>
+    <h1 class="glitch-title" data-text="CONTATTI">CONTATTI</h1>
+    <p class="subtitle-tech">CONNECT • COLLABORATE • INNOVATE</p>
   </header>
   
   <!-- Content Section -->
   <div class="content-wrapper">
     <section class="content-section">
-      <div class="azienda-section">
-        <label for="azienda">Nome azienda:</label>
-        <input type="text" id="azienda" placeholder="Inserisci il nome dell'azienda" />
-      </div>
-      
-      <!-- Sezione Progetti -->
-      <div class="projects-section">
-        <h2 class="section-title">I MIEI PROGETTI</h2>
-        
-        <!-- Progetto 1 -->
-        <div class="project-card">
-          <div class="project-title">Simocoloweb</div>
-          <div class="project-desc">Il mio sito personale creato da zero con HTML, CSS e JavaScript. Include pagine come Home, Who Am I, Progetti, USA, Curriculum e Contatti.</div>
-          <div class="project-details">
-            <details>
-              <summary>📘 Cosa ho imparato</summary>
-              <ul>
-                <li>Struttura semantica con &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;footer&gt;</li>
-                <li>Stilizzazione avanzata con CSS: gradienti, navbar fissa, hover effects</li>
-                <li>Responsive design con viewport e layout flessibili</li>
-                <li>Interattività con JavaScript: valutazioni, fetch API, DOM manipulation</li>
-                <li>Organizzazione del progetto con cartelle CSS, SVG, e file come index.html, style.css, package.json</li>
-              </ul>
-            </details>
-          </div>
-          <div class="rating-section">
-            <label>Valutazione:</label>
-            <div class="stars">
-              <span data-value="1">☆</span>
-              <span data-value="2">☆</span>
-              <span data-value="3">☆</span>
-              <span data-value="4">☆</span>
-              <span data-value="5">☆</span>
+      <div class="contact-container">
+        <div class="contact-grid">
+          <div class="contact-card">
+            <h2>📧 CONTATTI PROFESSIONALI</h2>
+            <p>Se sei un'azienda interessata a collaborare con me, ecco come puoi contattarmi direttamente:</p>
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-item-label">Email:</div>
+                <div class="contact-item-value">
+                  <span id="email">mcsl.simone@gmail.com</span>
+                  <button class="copy-button" onclick="copyEmail()">📋 COPIA</button>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item-label">Telefono:</div>
+                <div class="contact-item-value">
+                  <a href="tel:+393921638193">392 163 8193</a>
+                </div>
+              </div>
             </div>
-            <button class="project-btn">Invia valutazione</button>
+            <p style="margin-top: 15px;">Preferisco essere contattato via email. Se vuoi fissare una call o un incontro, scrivimi e ti risponderò entro 24 ore nei giorni lavorativi.</p>
+          </div>
+          
+          <div class="contact-card">
+            <h2>🌐 PRESENZA ONLINE</h2>
+            <p>Seguimi sui miei canali professionali per rimanere aggiornato sui miei progetti e attività:</p>
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-item-label">GitHub:</div>
+                <div class="contact-item-value">
+                  <a href="https://github.com/SimoneColombari" target="_blank">github.com/SimoneColombari</a>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-item-label">Portfolio:</div>
+                <div class="contact-item-value">
+                  <a href="https://simone-colombari.dev" target="_blank">simone-colombari.dev</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         
-        <!-- Progetto 2 -->
-        <div class="project-card">
-          <div class="flipper-header">
-            <div>
-              <div class="project-title">Flipper Zero con Bruce ed ESP32</div>
-              <div class="project-desc">Un dispositivo didattico e diagnostico basato su ESP32, ispirato al Flipper Zero, con funzionalità avanzate per reti, RF, IR, BLE e debug elettronico.</div>
-            </div>
-            <div class="mini-slider">
-              <div class="slides" id="flipper-slides">
-                <img src="images/projects/im1.png" alt="Flipper Device 1" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-                <img src="images/projects/im2.png" alt="Flipper Device 2" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-                <img src="images/projects/im3.png" alt="Flipper Device 3" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-                <img src="images/projects/im4.png" alt="Flipper Device 4" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-                <img src="images/projects/im5.png" alt="Flipper Device 5" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-                <img src="images/projects/im6.png" alt="Flipper Device 6" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-              </div>
-              <div class="controls">
-                <button id="flipper-prev">⏪</button>
-                <button id="flipper-next">⏩</button>
-              </div>
-            </div>
-          </div>
-          <div class="project-details">
-            <details>
-              <summary>🧠 Funzionalità integrate</summary>
-              <ul>
-                <li>🔹 WiFi / Reti: Scanner SSID, test copertura, congestione canali, sniffer base, ping monitor, ARP scan, logger uptime</li>
-                <li>🔹 RF / NFC / RFID: Lettura/scrittura/emulazione tag, analisi segnale RF</li>
-                <li>🔹 Infrarossi: Telecomando universale, test sensori IR, analisi protocolli</li>
-                <li>🔹 Bluetooth / BLE: Scanner BLE, test segnale, eventi beacon, connessione a periferiche</li>
-                <li>🔹 GPIO / Debug: Multimetro base, tester continuità, oscilloscopio logico, controllo servo/relay/LED, generatore segnali</li>
-                <li>🔹 Extra: Datalogger, giochi didattici, agenda elettronica, QR Code display, contatore Geiger</li>
-              </ul>
-            </details>
-          </div>
-          <div class="rating-section">
-            <label>Valutazione:</label>
-            <div class="stars">
-              <span data-value="1">☆</span>
-              <span data-value="2">☆</span>
-              <span data-value="3">☆</span>
-              <span data-value="4">☆</span>
-              <span data-value="5">☆</span>
-            </div>
-            <button class="project-btn">Invia valutazione</button>
-          </div>
-        </div>
-        
-        <!-- Progetto 3 -->
-        <div class="project-card">
-          <div class="flipper-header">
-            <div>
-              <div class="project-title">Meshtastic con Heltec V3</div>
-              <div class="project-desc">Un sistema di comunicazione off-grid basato su tecnologia LoRa che permette di creare una rete mesh senza bisogno di connessione internet, perfetto per escursioni e situazioni di emergenza.</div>
-            </div>
-            <div class="mini-slider">
-              <div class="slides" id="meshtastic-slides">
-                <img src="images/projects/imglorasito1.png" alt="Meshtastic Device 1" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-                <img src="images/projects/imglorasito2.png" alt="Meshtastic Device 2" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-                <img src="images/projects/imglorasito3.png" alt="Meshtastic Device 3" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-                <img src="images/projects/imglorasito4.png" alt="Meshtastic Device 4" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMzAwIDIwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMwYTBhMGEiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2ZmNTcyMiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNCI+SW1hZ2luZSBub24gdHJvdmF0YTwvdGV4dD48L3N2Zz4='" />
-              </div>
-              <div class="controls">
-                <button id="meshtastic-prev">⏪</button>
-                <button id="meshtastic-next">⏩</button>
-              </div>
-            </div>
-          </div>
+        <div class="interest-section">
+          <h2>📊 IL TUO LIVELLO DI INTERESSE</h2>
+          <div class="interest-label">Nome della tua azienda:</div>
+          <input type="text" id="companyName" class="company-input" placeholder="Inserisci il nome della tua azienda" />
           
-          <!-- Video YouTube aggiunto qui -->
-          <div class="youtube-container">
-            <iframe 
-              width="100%" 
-              height="200" 
-              src="https://www.youtube.com/embed/nkp3-EzIssU" 
-              title="YouTube video player" 
-              frameborder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen>
-            </iframe>
-          </div>
+          <div class="interest-label" style="margin-top: 20px;">Seleziona quanto sei interessato a una collaborazione:</div>
+          <input type="range" id="interestRange" class="interest-slider" min="0" max="100" value="50" />
+          <div id="interestLabel" class="interest-value">Curioso 🙂</div>
           
-          <div class="project-details">
-            <details>
-              <summary>📡 Dettagli del progetto</summary>
-              <ul>
-                <li>🔹 <strong>Tecnologia:</strong> Rete mesh basata su LoRa, completamente off-grid</li>
-                <li>🔹 <strong>Dispositivo:</strong> Heltec V3 con antenna integrata</li>
-                <li>🔹 <strong>Funzionalità:</strong> Comunicazione testuale, futura integrazione GPS</li>
-                <li>🔹 <strong>Autonomia:</strong> Circa 8 ore di utilizzo continuo con batteria integrata</li>
-                <li>🔹 <strong>Firmware:</strong> Ultima versione stabile di Meshtastic</li>
-                <li>🔹 <strong>Utilizzi:</strong> Escursioni, emergenze, aree senza copertura</li>
-              </ul>
-            </details>
-          </div>
-          <div class="rating-section">
-            <label>Valutazione:</label>
-            <div class="stars">
-              <span data-value="1">☆</span>
-              <span data-value="2">☆</span>
-              <span data-value="3">☆</span>
-              <span data-value="4">☆</span>
-              <span data-value="5">☆</span>
-            </div>
-            <button class="project-btn">Invia valutazione</button>
-          </div>
+          <button id="submitInterest" class="cta-primary" style="margin-top: 20px;">INVIA INTERESSE</button>
         </div>
       </div>
     </section>
@@ -1011,24 +857,58 @@
   
   <!-- Footer -->
   <footer class="footer-cta">
-    <h2 class="footer-title">ESPLORA I MIEI PROGETTI</h2>
+    <h2 class="footer-title">ESPLORA IL MIO UNIVERSO</h2>
     <div class="cta-matrix">
       <a href="index.html" class="cta-primary">HOME</a>
-      <a href="modelli3d.html" class="cta-primary">MODELLI 3D</a>
+      <a href="projects.html" class="cta-primary">PROGETTI TECH</a>
       <a href="usa.html" class="cta-primary">USA EXPERIENCE</a>
-      <a href="contact.html" class="cta-primary">CONNETTITI</a>
+      <a href="curriculum.html" class="cta-primary">CURRICULUM VITAE</a>
+      <a href="dashboard.html" class="cta-primary cta-dashboard">DASHBOARD</a>
     </div>
   </footer>
   
   <!-- Scripts -->
   <script type="text/javascript">
-    // Carica la navbar
-    fetch('navbar.html')
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById('navbar-container').innerHTML = html;
-      })
-      .catch(error => console.error('Errore nel caricamento della navbar:', error));
+    // CARICAMENTO NAVBAR ESTERNA
+    function loadNavbar() {
+      fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('navbar-container').innerHTML = data;
+          // Esegui lo script della navbar dopo il caricamento
+          const navbarScript = document.createElement('script');
+          navbarScript.textContent = `
+            document.addEventListener('DOMContentLoaded', function() {
+              // Funzione per evidenziare il link attivo nella navbar
+              function setActiveNavLink() {
+                // Ottieni il percorso corrente
+                const currentPath = window.location.pathname;
+                const filename = currentPath.split('/').pop() || 'index.html';
+                
+                // Trova tutti i link nella navbar
+                const navLinks = document.querySelectorAll('.nav-links a');
+                
+                // Rimuovi la classe active da tutti i link
+                navLinks.forEach(link => {
+                  link.classList.remove('active');
+                });
+                
+                // Aggiungi la classe active al link corrispondente alla pagina corrente
+                navLinks.forEach(link => {
+                  const linkHref = link.getAttribute('href');
+                  if (linkHref === filename) {
+                    link.classList.add('active');
+                  }
+                });
+              }
+              // Inizializza la navbar
+              setActiveNavLink();
+            });
+          `;
+          document.body.appendChild(navbarScript);
+        })
+        .catch(error => console.error('Errore nel caricamento della navbar:', error));
+    }
     
     // CREAZIONE PARTICELLE DINAMICHE
     function createParticles() {
@@ -1109,7 +989,7 @@
     
     // ANIMAZIONE CARDS CON INTERSECTION OBSERVER
     function initScrollAnimations() {
-      const cards = document.querySelectorAll('.project-card');
+      const cards = document.querySelectorAll('.contact-card, .interest-section');
       
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
@@ -1133,7 +1013,7 @@
     
     // EFFETTI PULSANTI AVANZATI
     function initButtonEffects() {
-      const buttons = document.querySelectorAll('.project-btn, .cta-primary');
+      const buttons = document.querySelectorAll('.cta-primary, .copy-button');
       
       buttons.forEach(button => {
         button.addEventListener('mouseenter', function(e) {
@@ -1167,8 +1047,76 @@
       });
     }
     
+    // Funzione globale per copiare l'email
+    window.copyEmail = function() {
+      const emailElement = document.getElementById("email");
+      if (!emailElement) return;
+      
+      const emailText = emailElement.textContent;
+      navigator.clipboard.writeText(emailText).then(() => {
+        // Creiamo un elemento per mostrare il feedback
+        const emailFeedback = document.createElement('div');
+        emailFeedback.textContent = 'Email copiata!';
+        emailFeedback.style.position = 'fixed';
+        emailFeedback.style.bottom = '20px';
+        emailFeedback.style.left = '50%';
+        emailFeedback.style.transform = 'translateX(-50%)';
+        emailFeedback.style.background = 'linear-gradient(135deg, #FF5722 0%, #ff8a50 100%)';
+        emailFeedback.style.color = 'white';
+        emailFeedback.style.padding = '10px 20px';
+        emailFeedback.style.borderRadius = '30px';
+        emailFeedback.style.fontFamily = 'Orbitron, sans-serif';
+        emailFeedback.style.fontWeight = '700';
+        emailFeedback.style.zIndex = '10000';
+        emailFeedback.style.boxShadow = '0 5px 15px rgba(255, 87, 34, 0.4)';
+        emailFeedback.style.opacity = '0';
+        emailFeedback.style.transition = 'opacity 0.3s ease';
+        
+        document.body.appendChild(emailFeedback);
+        
+        // Animazione di entrata
+        setTimeout(() => {
+          emailFeedback.style.opacity = '1';
+        }, 10);
+        
+        // Rimuovi dopo 2 secondi
+        setTimeout(() => {
+          emailFeedback.style.opacity = '0';
+          setTimeout(() => {
+            if (document.body.contains(emailFeedback)) {
+              document.body.removeChild(emailFeedback);
+            }
+          }, 300);
+        }, 2000);
+      }).catch(err => {
+        console.error('Errore durante la copia dell\'email:', err);
+      });
+    }
+    
+    // Google Translate
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'it',
+        includedLanguages: 'en',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+    
+    function waitForTranslateWidget(callback) {
+      const interval = setInterval(() => {
+        const select = document.querySelector('.goog-te-combo');
+        if (select) {
+          clearInterval(interval);
+          callback(select);
+        }
+      }, 100);
+    }
+    
     // INIZIALIZZAZIONE
     document.addEventListener('DOMContentLoaded', function () {
+      // Carica la navbar esterna
+      loadNavbar();
+      
       // Inizializza tutte le animazioni
       createParticles();
       initParallax();
@@ -1196,35 +1144,10 @@
             this.style.transform = 'translateY(-5px) scale(1.1)';
           }, 150);
           
-          // Funzione per inizializzare Google Translate
-          function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-              pageLanguage: 'it',
-              includedLanguages: 'en',
-              layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-          }
-          
-          // Carica dinamicamente lo script di Google Translate
-          if (!window.google || !window.google.translate) {
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-            document.head.appendChild(script);
-          } else {
-            // Se già caricato, usa direttamente la funzione
-            googleTranslateElementInit();
-          }
-          
-          // Attendi che il widget sia caricato
-          const interval = setInterval(() => {
-            const select = document.querySelector('.goog-te-combo');
-            if (select) {
-              clearInterval(interval);
-              select.value = 'en';
-              select.dispatchEvent(new Event('change'));
-            }
-          }, 100);
+          waitForTranslateWidget(function (select) {
+            select.value = 'en';
+            select.dispatchEvent(new Event('change'));
+          });
         });
       }
       
@@ -1242,299 +1165,265 @@
         });
       });
       
-      // Funzionalità di valutazione
-      document.querySelectorAll('.project-card').forEach(card => {
-        const stars = card.querySelectorAll('.stars span');
-        let valutazione = 0;
-        
-        stars.forEach(stella => {
-          stella.addEventListener('click', () => {
-            valutazione = parseInt(stella.getAttribute('data-value'));
-            stars.forEach(s => {
-              s.textContent = parseInt(s.getAttribute('data-value')) <= valutazione ? '⭐' : '☆';
-            });
-          });
-        });
-        
-        const btn = card.querySelector('.project-btn');
-        btn.addEventListener('click', () => {
-          const nomeAzienda = document.getElementById('azienda').value.trim();
-          const progetto = card.querySelector('.project-title').textContent.trim();
-          
-          if (!nomeAzienda || valutazione === 0) {
-            // Mostra un messaggio di errore
-            const errorFeedback = document.createElement('div');
-            errorFeedback.textContent = 'Inserisci il nome dell\'azienda e seleziona una valutazione.';
-            errorFeedback.style.position = 'fixed';
-            errorFeedback.style.bottom = '20px';
-            errorFeedback.style.left = '50%';
-            errorFeedback.style.transform = 'translateX(-50%)';
-            errorFeedback.style.background = 'linear-gradient(135deg, #ff4d4d 0%, #ff8080 100%)';
-            errorFeedback.style.color = 'white';
-            errorFeedback.style.padding = '10px 20px';
-            errorFeedback.style.borderRadius = '30px';
-            errorFeedback.style.fontFamily = 'Orbitron, sans-serif';
-            errorFeedback.style.fontWeight = '700';
-            errorFeedback.style.zIndex = '10000';
-            errorFeedback.style.boxShadow = '0 5px 15px rgba(255, 77, 77, 0.4)';
-            errorFeedback.style.opacity = '0';
-            errorFeedback.style.transition = 'opacity 0.3s ease';
-            
-            document.body.appendChild(errorFeedback);
-            
-            setTimeout(() => {
-              errorFeedback.style.opacity = '1';
-            }, 10);
-            
-            setTimeout(() => {
-              errorFeedback.style.opacity = '0';
-              setTimeout(() => {
-                if (document.body.contains(errorFeedback)) {
-                  document.body.removeChild(errorFeedback);
-                }
-              }, 300);
-            }, 2000);
-            
-            return;
-          }
-          
-          // Mostra un messaggio di invio in corso
-          const sendingFeedback = document.createElement('div');
-          sendingFeedback.textContent = 'Invio in corso...';
-          sendingFeedback.style.position = 'fixed';
-          sendingFeedback.style.bottom = '20px';
-          sendingFeedback.style.left = '50%';
-          sendingFeedback.style.transform = 'translateX(-50%)';
-          sendingFeedback.style.background = 'linear-gradient(135deg, #FF5722 0%, #ff8a50 100%)';
-          sendingFeedback.style.color = 'white';
-          sendingFeedback.style.padding = '10px 20px';
-          sendingFeedback.style.borderRadius = '30px';
-          sendingFeedback.style.fontFamily = 'Orbitron, sans-serif';
-          sendingFeedback.style.fontWeight = '700';
-          sendingFeedback.style.zIndex = '10000';
-          sendingFeedback.style.boxShadow = '0 5px 15px rgba(255, 87, 34, 0.4)';
-          sendingFeedback.style.opacity = '0';
-          sendingFeedback.style.transition = 'opacity 0.3s ease';
-          
-          document.body.appendChild(sendingFeedback);
-          
-          setTimeout(() => {
-            sendingFeedback.style.opacity = '1';
-          }, 10);
-          
-          // Verifica che SCRIPT_URL sia definita
-          if (typeof SCRIPT_URL === 'undefined') {
-            console.error("SCRIPT_URL non è definita. Assicurati di aver incluso config.js");
-            
-            // Rimuovi il messaggio di invio in corso
-            sendingFeedback.style.opacity = '0';
-            setTimeout(() => {
-              if (document.body.contains(sendingFeedback)) {
-                document.body.removeChild(sendingFeedback);
-              }
-            }, 300);
-            
-            // Mostra un messaggio di errore
-            const configErrorFeedback = document.createElement('div');
-            configErrorFeedback.textContent = 'Errore di configurazione. Contatta l\'amministratore.';
-            configErrorFeedback.style.position = 'fixed';
-            configErrorFeedback.style.bottom = '20px';
-            configErrorFeedback.style.left = '50%';
-            configErrorFeedback.style.transform = 'translateX(-50%)';
-            configErrorFeedback.style.background = 'linear-gradient(135deg, #ff4d4d 0%, #ff8080 100%)';
-            configErrorFeedback.style.color = 'white';
-            configErrorFeedback.style.padding = '10px 20px';
-            configErrorFeedback.style.borderRadius = '30px';
-            configErrorFeedback.style.fontFamily = 'Orbitron, sans-serif';
-            configErrorFeedback.style.fontWeight = '700';
-            configErrorFeedback.style.zIndex = '10000';
-            configErrorFeedback.style.boxShadow = '0 5px 15px rgba(255, 77, 77, 0.4)';
-            configErrorFeedback.style.opacity = '0';
-            configErrorFeedback.style.transition = 'opacity 0.3s ease';
-            
-            document.body.appendChild(configErrorFeedback);
-            
-            setTimeout(() => {
-              configErrorFeedback.style.opacity = '1';
-            }, 10);
-            
-            setTimeout(() => {
-              configErrorFeedback.style.opacity = '0';
-              setTimeout(() => {
-                if (document.body.contains(configErrorFeedback)) {
-                  document.body.removeChild(configErrorFeedback);
-                }
-              }, 300);
-            }, 3000);
-            
-            return;
-          }
-          
-          // Costruisci l'URL con i parametri corretti
-          const params = new URLSearchParams();
-          params.append('azienda', nomeAzienda);
-          params.append('progetto', progetto);
-          params.append('valutazione', valutazione);
-          
-          fetch(`${SCRIPT_URL}?${params.toString()}`, {
-            method: 'GET',
-            mode: 'no-cors' // Aggiunto per problemi di CORS
-          })
-          .then(response => {
-            // Con 'no-cors', non possiamo leggere la risposta, ma assumiamo successo
-            console.log("Dati inviati con successo");
-            
-            // Rimuovi il messaggio di invio in corso
-            sendingFeedback.style.opacity = '0';
-            setTimeout(() => {
-              if (document.body.contains(sendingFeedback)) {
-                document.body.removeChild(sendingFeedback);
-              }
-            }, 300);
-            
-            // Mostra un messaggio di successo
-            const successFeedback = document.createElement('div');
-            successFeedback.textContent = `Valutazione per "${progetto}" inviata con successo!`;
-            successFeedback.style.position = 'fixed';
-            successFeedback.style.bottom = '20px';
-            successFeedback.style.left = '50%';
-            successFeedback.style.transform = 'translateX(-50%)';
-            successFeedback.style.background = 'linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%)';
-            successFeedback.style.color = 'white';
-            successFeedback.style.padding = '10px 20px';
-            successFeedback.style.borderRadius = '30px';
-            successFeedback.style.fontFamily = 'Orbitron, sans-serif';
-            successFeedback.style.fontWeight = '700';
-            successFeedback.style.zIndex = '10000';
-            successFeedback.style.boxShadow = '0 5px 15px rgba(76, 175, 80, 0.4)';
-            successFeedback.style.opacity = '0';
-            successFeedback.style.transition = 'opacity 0.3s ease';
-            
-            document.body.appendChild(successFeedback);
-            
-            setTimeout(() => {
-              successFeedback.style.opacity = '1';
-            }, 10);
-            
-            setTimeout(() => {
-              successFeedback.style.opacity = '0';
-              setTimeout(() => {
-                if (document.body.contains(successFeedback)) {
-                  document.body.removeChild(successFeedback);
-                }
-              }, 300);
-            }, 3000);
-            
-            // Resetta le stelle dopo l'invio
-            stars.forEach(s => {
-              s.textContent = '☆';
-            });
-            valutazione = 0;
-          })
-          .catch(error => {
-            console.error("Errore nel salvataggio:", error);
-            
-            // Rimuovi il messaggio di invio in corso
-            sendingFeedback.style.opacity = '0';
-            setTimeout(() => {
-              if (document.body.contains(sendingFeedback)) {
-                document.body.removeChild(sendingFeedback);
-              }
-            }, 300);
-            
-            // Mostra un messaggio di errore
-            const fetchErrorFeedback = document.createElement('div');
-            fetchErrorFeedback.textContent = 'Si è verificato un errore. Riprova più tardi.';
-            fetchErrorFeedback.style.position = 'fixed';
-            fetchErrorFeedback.style.bottom = '20px';
-            fetchErrorFeedback.style.left = '50%';
-            fetchErrorFeedback.style.transform = 'translateX(-50%)';
-            fetchErrorFeedback.style.background = 'linear-gradient(135deg, #ff4d4d 0%, #ff8080 100%)';
-            fetchErrorFeedback.style.color = 'white';
-            fetchErrorFeedback.style.padding = '10px 20px';
-            fetchErrorFeedback.style.borderRadius = '30px';
-            fetchErrorFeedback.style.fontFamily = 'Orbitron, sans-serif';
-            fetchErrorFeedback.style.fontWeight = '700';
-            fetchErrorFeedback.style.zIndex = '10000';
-            fetchErrorFeedback.style.boxShadow = '0 5px 15px rgba(255, 77, 77, 0.4)';
-            fetchErrorFeedback.style.opacity = '0';
-            fetchErrorFeedback.style.transition = 'opacity 0.3s ease';
-            
-            document.body.appendChild(fetchErrorFeedback);
-            
-            setTimeout(() => {
-              fetchErrorFeedback.style.opacity = '1';
-            }, 10);
-            
-            setTimeout(() => {
-              fetchErrorFeedback.style.opacity = '0';
-              setTimeout(() => {
-                if (document.body.contains(fetchErrorFeedback)) {
-                  document.body.removeChild(fetchErrorFeedback);
-                }
-              }, 300);
-            }, 3000);
-          });
-        });
+      // Funzionalità slider e invio interesse
+      const range = document.getElementById('interestRange');
+      const label = document.getElementById('interestLabel');
+      const companyNameInput = document.getElementById('companyName');
+      const submitButton = document.getElementById('submitInterest');
+      
+      // Verifica che gli elementi esistano
+      if (!range || !label || !companyNameInput || !submitButton) {
+        console.error("Uno o più elementi del form non sono stati trovati");
+        return;
+      }
+      
+      function getInteresseTestuale(value) {
+        if (value < 20) return 'Non interessato 😢';
+        else if (value < 40) return 'Distratto 😕';
+        else if (value < 60) return 'Curioso 🙂';
+        else if (value < 80) return 'Coinvolto 😃';
+        else return 'Molto interessato 🤩';
+      }
+      
+      // Aggiungi un valore numerico per l'interesse per facilitare l'analisi
+      function getInteresseValore(value) {
+        if (value < 20) return 1;
+        else if (value < 40) return 2;
+        else if (value < 60) return 3;
+        else if (value < 80) return 4;
+        else return 5;
+      }
+      
+      range.addEventListener('input', () => {
+        const value = parseInt(range.value);
+        label.textContent = getInteresseTestuale(value);
       });
       
-      // Slider fotografico Flipper Zero
-      const flipperSlides = document.getElementById('flipper-slides');
-      if (flipperSlides) {
-        const totalFlipperSlides = flipperSlides.querySelectorAll('img').length;
-        let flipperIndex = 0;
+      submitButton.addEventListener('click', () => {
+        const value = parseInt(range.value);
+        const interesseTestuale = getInteresseTestuale(value);
+        const interesseValore = getInteresseValore(value);
+        const companyName = companyNameInput.value.trim();
         
-        function showFlipperSlide(i) {
-          flipperSlides.style.transform = `translateX(-${i * 100}%)`;
+        if (!companyName) {
+          // Mostra un messaggio di errore se il nome dell'azienda non è inserito
+          const errorFeedback = document.createElement('div');
+          errorFeedback.textContent = 'Per favore, inserisci il nome della tua azienda';
+          errorFeedback.style.position = 'fixed';
+          errorFeedback.style.bottom = '20px';
+          errorFeedback.style.left = '50%';
+          errorFeedback.style.transform = 'translateX(-50%)';
+          errorFeedback.style.background = 'linear-gradient(135deg, #ff4d4d 0%, #ff8080 100%)';
+          errorFeedback.style.color = 'white';
+          errorFeedback.style.padding = '10px 20px';
+          errorFeedback.style.borderRadius = '30px';
+          errorFeedback.style.fontFamily = 'Orbitron, sans-serif';
+          errorFeedback.style.fontWeight = '700';
+          errorFeedback.style.zIndex = '10000';
+          errorFeedback.style.boxShadow = '0 5px 15px rgba(255, 77, 77, 0.4)';
+          errorFeedback.style.opacity = '0';
+          errorFeedback.style.transition = 'opacity 0.3s ease';
+          
+          document.body.appendChild(errorFeedback);
+          
+          setTimeout(() => {
+            errorFeedback.style.opacity = '1';
+          }, 10);
+          
+          setTimeout(() => {
+            errorFeedback.style.opacity = '0';
+            setTimeout(() => {
+              if (document.body.contains(errorFeedback)) {
+                document.body.removeChild(errorFeedback);
+              }
+            }, 300);
+          }, 2000);
+          
+          return;
         }
         
-        document.getElementById('flipper-next').addEventListener('click', () => {
-          flipperIndex = (flipperIndex + 1) % totalFlipperSlides;
-          showFlipperSlide(flipperIndex);
-        });
+        // Animazione feedback
+        label.style.transform = 'scale(1.2)';
+        setTimeout(() => {
+          label.style.transform = 'scale(1)';
+        }, 300);
         
-        document.getElementById('flipper-prev').addEventListener('click', () => {
-          flipperIndex = (flipperIndex - 1 + totalFlipperSlides) % totalFlipperSlides;
-          showFlipperSlide(flipperIndex);
-        });
+        // Mostra un messaggio di invio in corso
+        const sendingFeedback = document.createElement('div');
+        sendingFeedback.textContent = 'Invio in corso...';
+        sendingFeedback.style.position = 'fixed';
+        sendingFeedback.style.bottom = '20px';
+        sendingFeedback.style.left = '50%';
+        sendingFeedback.style.transform = 'translateX(-50%)';
+        sendingFeedback.style.background = 'linear-gradient(135deg, #FF5722 0%, #ff8a50 100%)';
+        sendingFeedback.style.color = 'white';
+        sendingFeedback.style.padding = '10px 20px';
+        sendingFeedback.style.borderRadius = '30px';
+        sendingFeedback.style.fontFamily = 'Orbitron, sans-serif';
+        sendingFeedback.style.fontWeight = '700';
+        sendingFeedback.style.zIndex = '10000';
+        sendingFeedback.style.boxShadow = '0 5px 15px rgba(255, 87, 34, 0.4)';
+        sendingFeedback.style.opacity = '0';
+        sendingFeedback.style.transition = 'opacity 0.3s ease';
         
-        setInterval(() => {
-          flipperIndex = (flipperIndex + 1) % totalFlipperSlides;
-          showFlipperSlide(flipperIndex);
-        }, 3000);
-      }
-      
-      // Slider fotografico Meshtastic
-      const meshtasticSlides = document.getElementById('meshtastic-slides');
-      if (meshtasticSlides) {
-        const totalMeshtasticSlides = meshtasticSlides.querySelectorAll('img').length;
-        let meshtasticIndex = 0;
+        document.body.appendChild(sendingFeedback);
         
-        function showMeshtasticSlide(i) {
-          meshtasticSlides.style.transform = `translateX(-${i * 100}%)`;
+        setTimeout(() => {
+          sendingFeedback.style.opacity = '1';
+        }, 10);
+        
+        // Verifica che SCRIPT_URL sia definita
+        if (typeof SCRIPT_URL === 'undefined') {
+          console.error("SCRIPT_URL non è definita. Assicurati di aver incluso config.js");
+          
+          // Rimuovi il messaggio di invio in corso
+          sendingFeedback.style.opacity = '0';
+          setTimeout(() => {
+            if (document.body.contains(sendingFeedback)) {
+              document.body.removeChild(sendingFeedback);
+            }
+          }, 300);
+          
+          // Mostra un messaggio di errore
+          const configErrorFeedback = document.createElement('div');
+          configErrorFeedback.textContent = 'Errore di configurazione. Contatta l\'amministratore.';
+          configErrorFeedback.style.position = 'fixed';
+          configErrorFeedback.style.bottom = '20px';
+          configErrorFeedback.style.left = '50%';
+          configErrorFeedback.style.transform = 'translateX(-50%)';
+          configErrorFeedback.style.background = 'linear-gradient(135deg, #ff4d4d 0%, #ff8080 100%)';
+          configErrorFeedback.style.color = 'white';
+          configErrorFeedback.style.padding = '10px 20px';
+          configErrorFeedback.style.borderRadius = '30px';
+          configErrorFeedback.style.fontFamily = 'Orbitron, sans-serif';
+          configErrorFeedback.style.fontWeight = '700';
+          configErrorFeedback.style.zIndex = '10000';
+          configErrorFeedback.style.boxShadow = '0 5px 15px rgba(255, 77, 77, 0.4)';
+          configErrorFeedback.style.opacity = '0';
+          configErrorFeedback.style.transition = 'opacity 0.3s ease';
+          
+          document.body.appendChild(configErrorFeedback);
+          
+          setTimeout(() => {
+            configErrorFeedback.style.opacity = '1';
+          }, 10);
+          
+          setTimeout(() => {
+            configErrorFeedback.style.opacity = '0';
+            setTimeout(() => {
+              if (document.body.contains(configErrorFeedback)) {
+                document.body.removeChild(configErrorFeedback);
+              }
+            }, 300);
+          }, 3000);
+          
+          return;
         }
         
-        document.getElementById('meshtastic-next').addEventListener('click', () => {
-          meshtasticIndex = (meshtasticIndex + 1) % totalMeshtasticSlides;
-          showMeshtasticSlide(meshtasticIndex);
-        });
+        // Invia i dati allo script Google
+        // Utilizziamo URLSearchParams per costruire l'URL in modo più sicuro
+        const params = new URLSearchParams();
+        params.append('azienda', companyName);
+        params.append('interesse', interesseTestuale);
+        params.append('valore', interesseValore);
         
-        document.getElementById('meshtastic-prev').addEventListener('click', () => {
-          meshtasticIndex = (meshtasticIndex - 1 + totalMeshtasticSlides) % totalMeshtasticSlides;
-          showMeshtasticSlide(meshtasticIndex);
-        });
-        
-        setInterval(() => {
-          meshtasticIndex = (meshtasticIndex + 1) % totalMeshtasticSlides;
-          showMeshtasticSlide(meshtasticIndex);
-        }, 3000);
-      }
-      
-      // Verifica caricamento immagini
-      const images = document.querySelectorAll('.mini-slider img');
-      images.forEach(img => {
-        img.addEventListener('error', function() {
-          console.error(`Errore nel caricamento dell'immagine: ${img.src}`);
+        fetch(`${SCRIPT_URL}?${params.toString()}`, {
+          method: 'GET',
+          mode: 'no-cors' // Aggiunto per problemi di CORS
+        })
+        .then(response => {
+          // Con 'no-cors', non possiamo leggere la risposta, ma assumiamo successo
+          console.log("Dati inviati con successo");
+          
+          // Rimuovi il messaggio di invio in corso
+          sendingFeedback.style.opacity = '0';
+          setTimeout(() => {
+            if (document.body.contains(sendingFeedback)) {
+              document.body.removeChild(sendingFeedback);
+            }
+          }, 300);
+          
+          // Mostra un messaggio di successo
+          const successFeedback = document.createElement('div');
+          successFeedback.textContent = 'Grazie! Il tuo interesse è stato registrato.';
+          successFeedback.style.position = 'fixed';
+          successFeedback.style.bottom = '20px';
+          successFeedback.style.left = '50%';
+          successFeedback.style.transform = 'translateX(-50%)';
+          successFeedback.style.background = 'linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%)';
+          successFeedback.style.color = 'white';
+          successFeedback.style.padding = '10px 20px';
+          successFeedback.style.borderRadius = '30px';
+          successFeedback.style.fontFamily = 'Orbitron, sans-serif';
+          successFeedback.style.fontWeight = '700';
+          successFeedback.style.zIndex = '10000';
+          successFeedback.style.boxShadow = '0 5px 15px rgba(76, 175, 80, 0.4)';
+          successFeedback.style.opacity = '0';
+          successFeedback.style.transition = 'opacity 0.3s ease';
+          
+          document.body.appendChild(successFeedback);
+          
+          setTimeout(() => {
+            successFeedback.style.opacity = '1';
+          }, 10);
+          
+          setTimeout(() => {
+            successFeedback.style.opacity = '0';
+            setTimeout(() => {
+              if (document.body.contains(successFeedback)) {
+                document.body.removeChild(successFeedback);
+              }
+            }, 300);
+          }, 3000);
+          
+          // Resetta il form
+          companyNameInput.value = '';
+          range.value = 50;
+          label.textContent = getInteresseTestuale(50);
+        })
+        .catch(error => {
+          console.error("Errore nel salvataggio:", error);
+          
+          // Rimuovi il messaggio di invio in corso
+          sendingFeedback.style.opacity = '0';
+          setTimeout(() => {
+            if (document.body.contains(sendingFeedback)) {
+              document.body.removeChild(sendingFeedback);
+            }
+          }, 300);
+          
+          // Mostra un messaggio di errore
+          const fetchErrorFeedback = document.createElement('div');
+          fetchErrorFeedback.textContent = 'Si è verificato un errore. Riprova più tardi.';
+          fetchErrorFeedback.style.position = 'fixed';
+          fetchErrorFeedback.style.bottom = '20px';
+          fetchErrorFeedback.style.left = '50%';
+          fetchErrorFeedback.style.transform = 'translateX(-50%)';
+          fetchErrorFeedback.style.background = 'linear-gradient(135deg, #ff4d4d 0%, #ff8080 100%)';
+          fetchErrorFeedback.style.color = 'white';
+          fetchErrorFeedback.style.padding = '10px 20px';
+          fetchErrorFeedback.style.borderRadius = '30px';
+          fetchErrorFeedback.style.fontFamily = 'Orbitron, sans-serif';
+          fetchErrorFeedback.style.fontWeight = '700';
+          fetchErrorFeedback.style.zIndex = '10000';
+          fetchErrorFeedback.style.boxShadow = '0 5px 15px rgba(255, 77, 77, 0.4)';
+          fetchErrorFeedback.style.opacity = '0';
+          fetchErrorFeedback.style.transition = 'opacity 0.3s ease';
+          
+          document.body.appendChild(fetchErrorFeedback);
+          
+          setTimeout(() => {
+            fetchErrorFeedback.style.opacity = '1';
+          }, 10);
+          
+          setTimeout(() => {
+            fetchErrorFeedback.style.opacity = '0';
+            setTimeout(() => {
+              if (document.body.contains(fetchErrorFeedback)) {
+                document.body.removeChild(fetchErrorFeedback);
+              }
+            }, 300);
+          }, 3000);
         });
       });
     });
@@ -1555,5 +1444,6 @@
       }, 250);
     });
   </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
