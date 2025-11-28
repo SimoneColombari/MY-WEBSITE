@@ -1,0 +1,152 @@
+/* Popup per video di Meshtastic */
+.video-popup {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  max-width: 280px;
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: 0.9em;
+  transform: translateX(-120%);
+  transition: transform 0.5s ease;
+  cursor: pointer;
+}
+
+.video-popup.show {
+  transform: translateX(0);
+}
+
+.video-popup .close-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s ease;
+}
+
+.video-popup .close-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.video-popup .popup-content {
+  padding-right: 25px;
+}
+
+.video-popup .popup-title {
+  margin: 0;
+  font-size: 0.9em;
+  line-height: 1.3;
+}
+
+.video-popup .popup-icon {
+  margin-right: 8px;
+  font-size: 1.2em;
+}
+
+/* Overlay per il video */
+.video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.video-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.video-overlay .video-container {
+  position: relative;
+  width: 80%;
+  max-width: 800px;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+}
+
+.video-overlay.show .video-container {
+  transform: scale(1);
+}
+
+.video-overlay .close-video {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: transform 0.3s ease;
+}
+
+.video-overlay .close-video:hover {
+  transform: scale(1.2);
+}
+
+.video-overlay iframe {
+  width: 100%;
+  height: 450px;
+  border: none;
+}
+
+/* Responsive per dispositivi mobili */
+@media (max-width: 768px) {
+  .video-popup {
+    top: 10px;
+    left: 10px;
+    max-width: 240px;
+    padding: 12px 15px;
+    font-size: 0.8em;
+  }
+  
+  .video-overlay .video-container {
+    width: 95%;
+  }
+  
+  .video-overlay iframe {
+    height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-popup {
+    max-width: 200px;
+    padding: 10px 12px;
+    font-size: 0.7em;
+  }
+  
+  .video-overlay .video-container {
+    width: 98%;
+  }
+  
+  .video-overlay iframe {
+    height: 200px;
+  }
+}
