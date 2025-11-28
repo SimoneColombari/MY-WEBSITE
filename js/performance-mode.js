@@ -1,19 +1,5 @@
 // performance-mode.js - Gestione centralizzata delle modalità di visualizzazione
 
-// Funzione per rilevare il tipo di dispositivo
-function detectDevice() {
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  
-  // Rileva dispositivi mobili
-  if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent)) {
-    // Per i dispositivi mobili, usa la modalità leggera di default
-    return 'light';
-  }
-  
-  // Default per altri dispositivi
-  return 'base';
-}
-
 // Funzione per regolare le particelle in base alla modalità
 function adjustParticles(mode) {
   const particlesContainer = document.getElementById('particles');
@@ -139,32 +125,7 @@ function handlePerformanceModeChange(mode) {
 
 // Funzione per impostare la modalità di performance
 function setPerformanceMode(mode) {
-  // LOGICA PRINCIPALE: Controlla se è la prima volta che si accede al sito
-  if (!localStorage.getItem('firstVisitCompleted')) {
-    // Imposta la modalità leggera per i primi 15 secondi
-    handlePerformanceModeChange('light');
-    
-    // Mostra una notifica per la transizione
-    showNotification('Modalità leggera attivata. Potrai selezionare la modalità preferita tra 15 secondi...');
-    
-    // Imposta un timer per mostrare il popup di selezione dopo 15 secondi
-    setTimeout(() => {
-      // MARCATORE: Imposta il flag per indicare che la transizione iniziale è avvenuta
-      localStorage.setItem('firstVisitCompleted', 'true');
-      
-      // Mostra il popup di selezione solo se siamo sulla pagina index.html
-      if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
-        createInitialModePopup();
-      } else {
-        // Se non siamo sulla pagina index.html, imposta la modalità base come default
-        handlePerformanceModeChange('base');
-        showNotification('Modalità base attivata. Puoi cambiare modalità dalla pagina principale.');
-      }
-    }, 15000); // 15 secondi
-  } else {
-    // Per le visite successive o dopo la transizione iniziale
-    handlePerformanceModeChange(mode);
-  }
+  handlePerformanceModeChange(mode);
 }
 
 // Funzione per aggiornare l'indicatore di modalità
@@ -232,7 +193,7 @@ function createModeIndicator() {
   
   const indicator = document.createElement('div');
   indicator.id = 'performance-indicator';
-  indicator.textContent = 'BASE';
+  indicator.textContent = 'LEGGERA';
   indicator.addEventListener('click', function() {
     // Mostra il selettore solo se siamo sulla pagina index.html
     if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
@@ -318,9 +279,8 @@ function createInitialModePopup() {
     if (countdown <= 0) {
       clearInterval(countdownInterval);
       
-      // Rileva automaticamente il dispositivo e imposta la modalità appropriata
-      const detectedMode = detectDevice();
-      setPerformanceMode(detectedMode);
+      // Imposta sempre la modalità leggera come default
+      setPerformanceMode('light');
       
       // Rimuovi il popup
       popup.style.opacity = '0';
@@ -392,13 +352,14 @@ function initPerformanceMode() {
   if (savedMode) {
     // Usa la preferenza salvata
     handlePerformanceModeChange(savedMode);
-  } else if (!localStorage.getItem('firstVisitCompleted')) {
-    // Prima visita: inizia con la modalità leggera per 15 secondi
-    setPerformanceMode('light');
   } else {
-    // Visitò successiva ma senza preferenza salvata (caso raro)
-    const detectedMode = detectDevice();
-    handlePerformanceModeChange(detectedMode);
+    // Imposta sempre la modalità leggera come default
+    handlePerformanceModeChange('light');
+    
+    // Mostra il popup di selezione solo se siamo sulla pagina index.html
+    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+      createInitialModePopup();
+    }
   }
 }
 
@@ -411,7 +372,7 @@ document.addEventListener('DOMContentLoaded', function() {
 window.PerformanceMode = {
   setMode: setPerformanceMode,
   getCurrentMode: function() {
-    return localStorage.getItem('performanceMode') || 'base';
+    return localStorage.getItem('performanceMode') || 'light';
   },
   adjustParticles: adjustParticles,
   adjustDynamicEffects: adjustDynamicEffects
