@@ -1,6 +1,21 @@
 /* performance-mode.css - Stili per le modalità di visualizzazione */
 
 /* ===================================================================================== */
+/* CORREZIONE CRITICA: Disabilita qualsiasi scaling globale per prevenire il bug dei testi */
+/* ===================================================================================== */
+html, body {
+  /* Assicura che non venga applicato nessuno zoom o trasformazione di scala */
+  transform: none !important;
+  zoom: normal !important;
+  
+  /* Imposta una dimensione del font base stabile e coerente per tutto il sito */
+  font-size: 16px !important;
+  
+  /* Assicura che l'overflow venga gestito correttamente */
+  overflow-x: hidden;
+}
+
+/* ===================================================================================== */
 /* STILI PER LA MODALITÀ LEGGERA - MINIMO IMPATTO VISIVO E DINAMICO                      */
 /* ===================================================================================== */
 body.light-mode {
