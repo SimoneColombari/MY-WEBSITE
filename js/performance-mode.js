@@ -109,26 +109,39 @@ function adjustDynamicEffects(mode) {
 }
 
 // Funzione per impostare la modalità di performance
-function setPerformanceMode(mode, skipTransition = false) {
+function setPerformanceMode(mode) {
   // Rimuovi tutte le classi di modalità
   document.body.classList.remove('light-mode', 'base-mode', 'performance-mode');
   
-  // Se la modalità è performance e non dobbiamo saltare la transizione, avvia il timer
-  if (mode === 'performance' && !skipTransition) {
+  // Aggiungi la classe corrispondente alla modalità
+  document.body.classList.add(mode + '-mode');
+  
+  // Salva la preferenza dell'utente
+  localStorage.setItem('performanceMode', mode);
+  
+  // Aggiorna l'indicatore di modalità
+  updateModeIndicator(mode);
+  
+  // Regola il numero di particelle in base alla modalità
+  adjustParticles(mode);
+  
+  // Regola gli effetti dinamici in base alla modalità
+  adjustDynamicEffects(mode);
+  
+  // LOGICA PRINCIPALE: Controlla se è la prima volta che si attiva la modalità performance
+  if (mode === 'performance' && !localStorage.getItem('performanceModeInitialized')) {
     // Imposta la modalità leggera per i primi 15 secondi
+    document.body.classList.remove('performance-mode');
     document.body.classList.add('light-mode');
     
-    // Salva la preferenza dell'utente come performance
-    localStorage.setItem('performanceMode', 'performance');
+    // Regola le particelle per la modalità leggera
+    adjustParticles('light');
+    
+    // Regola gli effetti dinamici per la modalità leggera
+    adjustDynamicEffects('light');
     
     // Aggiorna l'indicatore di modalità
     updateModeIndicator('light');
-    
-    // Regola il numero di particelle in base alla modalità leggera
-    adjustParticles('light');
-    
-    // Regola gli effetti dinamici in base alla modalità leggera
-    adjustDynamicEffects('light');
     
     // Mostra una notifica per la transizione
     showNotification('Modalità leggera attivata. Passaggio a performance in 15 secondi...');
@@ -150,6 +163,9 @@ function setPerformanceMode(mode, skipTransition = false) {
       // Aggiorna l'indicatore di modalità
       updateModeIndicator('performance');
       
+      // MARCATORE: Imposta il flag per indicare che la transizione iniziale è avvenuta
+      localStorage.setItem('performanceModeInitialized', 'true');
+      
       // Mostra una notifica per il completamento della transizione
       showNotification('Modalità performance attivata');
       
@@ -159,30 +175,15 @@ function setPerformanceMode(mode, skipTransition = false) {
       }
     }, 15000); // 15 secondi
     
-    return;
-  }
-  
-  // Aggiungi la classe corrispondente alla modalità
-  document.body.classList.add(mode + '-mode');
-  
-  // Salva la preferenza dell'utente
-  localStorage.setItem('performanceMode', mode);
-  
-  // Aggiorna l'indicatore di modalità
-  updateModeIndicator(mode);
-  
-  // Regola il numero di particelle in base alla modalità
-  adjustParticles(mode);
-  
-  // Regola gli effetti dinamici in base alla modalità
-  adjustDynamicEffects(mode);
-  
-  // Mostra una notifica
-  showNotification(`Modalità ${mode === 'light' ? 'leggera' : mode === 'base' ? 'base' : 'performance'} attivata`);
-  
-  // Esegui funzioni specifiche della pagina se definite
-  if (typeof window.onPerformanceModeChange === 'function') {
-    window.onPerformanceModeChange(mode);
+  } else {
+    // Per tutte le altre modalità (light, base) o per le visite successive in modalità performance
+    // Mostra una notifica standard
+    showNotification(`Modalità ${mode === 'light' ? 'leggera' : mode === 'base' ? 'base' : 'performance'} attivata`);
+    
+    // Esegui funzioni specifiche della pagina se definite
+    if (typeof window.onPerformanceModeChange === 'function') {
+      window.onPerformanceModeChange(mode);
+    }
   }
 }
 
@@ -401,7 +402,7 @@ function initPerformanceMode() {
   
   if (savedMode) {
     // Usa la preferenza salvata
-    setPerformanceMode(savedMode, false);
+    setPerformanceMode(savedMode);
   } else {
     // Mostra il popup iniziale per la selezione della modalità
     createInitialModePopup();
