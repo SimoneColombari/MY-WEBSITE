@@ -95,16 +95,6 @@ body.light-mode .wave {
   transition: opacity 1.5s ease-in-out;
 }
 
-/* Assicurati che le animazioni si riattivino correttamente */
-body.performance-mode .particle,
-body.performance-mode .wave {
-  animation: float 15s infinite ease-in-out;
-}
-
-body.performance-mode .wave {
-  animation: wave-pulse 8s infinite ease-in-out;
-}
-
 /* ===================================================================================== */
 /* STILI PER LA MODALITÀ BASE - IMPATTO VISIVO RIDOTTO                                   */
 /* ===================================================================================== */
@@ -168,14 +158,143 @@ body.base-mode #translate-button::before {
 /* ===================================================================================== */
 /* STILI PER LA MODALITÀ PERFORMANCE - IMPATTO VISIVO COMPLETO                          */
 /* ===================================================================================== */
-/* In questa modalità, gli stili sono quelli di default definiti in style.css */
-/* Qui definiamo solo le sovrascritture, se necessarie. */
-body.performance-mode .particle {
-  opacity: 0.7;
+/* Assicura che la modalità performance mantenga le stesse dimensioni della modalità base */
+body.performance-mode {
+  font-size: 16px !important;
 }
 
+body.performance-mode .glitch-title {
+  font-size: clamp(2.8em, 7vw, 5.5em) !important;
+  animation-duration: 3s !important;
+}
+
+body.performance-mode .profile-container {
+  width: 320px !important;
+  height: 320px !important;
+}
+
+body.performance-mode .profile-container::before {
+  animation-duration: 4s !important;
+}
+
+body.performance-mode .profile-pic {
+  animation-duration: 3s !important;
+}
+
+body.performance-mode .subtitle-tech {
+  font-size: 1.4em !important;
+  animation-duration: 2s !important;
+}
+
+body.performance-mode .content-wrapper::before {
+  animation-duration: 4s !important;
+}
+
+body.performance-mode .content-card::before {
+  animation-duration: 6s !important;
+}
+
+body.performance-mode .content-card h2 {
+  font-size: 1.6em !important;
+  animation-duration: 3s !important;
+}
+
+body.performance-mode .content-card h2::before {
+  animation-duration: 2s !important;
+}
+
+body.performance-mode .footer-cta::before {
+  animation-duration: 4s !important;
+}
+
+body.performance-mode .footer-title {
+  font-size: 2em !important;
+  animation-duration: 3s !important;
+}
+
+body.performance-mode .cta-primary::before {
+  animation-duration: 8s !important;
+}
+
+body.performance-mode #translate-button::before {
+  animation-duration: 8s !important;
+}
+
+/* Effetti aggiuntivi per la modalità performance che non influenzano la grafica */
+body.performance-mode .animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -3;
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(255, 87, 34, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(255, 138, 80, 0.08) 0%, transparent 50%),
+    linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  /* Aggiungi un'animazione sottile allo sfondo */
+  animation: background-shift 20s infinite alternate;
+}
+
+@keyframes background-shift {
+  0% {
+    background: 
+      radial-gradient(circle at 25% 25%, rgba(255, 87, 34, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(255, 138, 80, 0.08) 0%, transparent 50%),
+      linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  }
+  100% {
+    background: 
+      radial-gradient(circle at 75% 25%, rgba(255, 87, 34, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 25% 75%, rgba(255, 138, 80, 0.12) 0%, transparent 50%),
+      linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  }
+}
+
+/* Particelle più luminose e numerose in modalità performance */
+body.performance-mode .particle {
+  opacity: 0.7;
+  box-shadow: 0 0 10px #FF5722;
+}
+
+body.performance-mode .particle:nth-child(odd) {
+  box-shadow: 0 0 12px #ff8a50;
+}
+
+body.performance-mode .particle:nth-child(3n) {
+  box-shadow: 0 0 14px #ffab40;
+}
+
+/* Onde più visibili in modalità performance */
 body.performance-mode .wave {
   opacity: 0.3;
+}
+
+/* Effetti hover potenziati in modalità performance */
+body.performance-mode .profile-pic:hover {
+  transform: scale(1.08) rotateY(5deg);
+  box-shadow: 
+    0 0 60px rgba(255, 87, 34, 0.8),
+    0 0 100px rgba(255, 87, 34, 0.4);
+  filter: brightness(1.3) contrast(1.4) saturate(1.2);
+}
+
+body.performance-mode .content-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  background: rgba(255, 87, 34, 0.12);
+  box-shadow: 0 20px 40px rgba(255, 87, 34, 0.3);
+  border-left-width: 6px;
+}
+
+body.performance-mode .cta-primary:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(255, 87, 34, 0.6);
+  background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
+}
+
+body.performance-mode #translate-button:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 10px 25px rgba(255, 87, 34, 0.6);
 }
 
 /* ===================================================================================== */
