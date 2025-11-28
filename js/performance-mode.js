@@ -139,27 +139,30 @@ function handlePerformanceModeChange(mode) {
 
 // Funzione per impostare la modalità di performance
 function setPerformanceMode(mode) {
-  // LOGICA PRINCIPALE: Controlla se è la prima volta che si attiva la modalità performance
-  if (mode === 'performance' && !localStorage.getItem('performanceModeInitialized')) {
+  // LOGICA PRINCIPALE: Controlla se è la prima volta che si accede al sito
+  if (!localStorage.getItem('firstVisitCompleted')) {
     // Imposta la modalità leggera per i primi 15 secondi
     handlePerformanceModeChange('light');
     
     // Mostra una notifica per la transizione
-    showNotification('Modalità leggera attivata. Passaggio a performance in 15 secondi...');
+    showNotification('Modalità leggera attivata. Potrai selezionare la modalità preferita tra 15 secondi...');
     
-    // Imposta un timer per passare alla modalità performance dopo 15 secondi
+    // Imposta un timer per mostrare il popup di selezione dopo 15 secondi
     setTimeout(() => {
       // MARCATORE: Imposta il flag per indicare che la transizione iniziale è avvenuta
-      localStorage.setItem('performanceModeInitialized', 'true');
+      localStorage.setItem('firstVisitCompleted', 'true');
       
-      // Passa alla modalità performance
-      handlePerformanceModeChange('performance');
-      
-      // Mostra una notifica per il completamento della transizione
-      showNotification('Modalità performance attivata');
+      // Mostra il popup di selezione solo se siamo sulla pagina index.html
+      if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+        createInitialModePopup();
+      } else {
+        // Se non siamo sulla pagina index.html, imposta la modalità base come default
+        handlePerformanceModeChange('base');
+        showNotification('Modalità base attivata. Puoi cambiare modalità dalla pagina principale.');
+      }
     }, 15000); // 15 secondi
   } else {
-    // Per tutte le altre modalità (light, base) o per le visite successive in modalità performance
+    // Per le visite successive o dopo la transizione iniziale
     handlePerformanceModeChange(mode);
   }
 }
@@ -231,9 +234,14 @@ function createModeIndicator() {
   indicator.id = 'performance-indicator';
   indicator.textContent = 'BASE';
   indicator.addEventListener('click', function() {
-    const selector = document.getElementById('performance-mode-selector');
-    if (selector) {
-      selector.classList.toggle('show');
+    // Mostra il selettore solo se siamo sulla pagina index.html
+    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+      const selector = document.getElementById('performance-mode-selector');
+      if (selector) {
+        selector.classList.toggle('show');
+      }
+    } else {
+      showNotification('Per cambiare modalità, torna alla pagina principale');
     }
   });
   document.body.appendChild(indicator);
@@ -370,19 +378,27 @@ function createModeSelector() {
 
 // Inizializza il sistema di modalità
 function initPerformanceMode() {
-  // Crea l'indicatore e il selettore di modalità
+  // Crea l'indicatore
   createModeIndicator();
-  createModeSelector();
+  
+  // Crea il selettore solo se siamo sulla pagina index.html
+  if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+    createModeSelector();
+  }
   
   // Controlla se l'utente ha già una preferenza salvata
   const savedMode = localStorage.getItem('performanceMode');
   
   if (savedMode) {
     // Usa la preferenza salvata
-    setPerformanceMode(savedMode);
+    handlePerformanceModeChange(savedMode);
+  } else if (!localStorage.getItem('firstVisitCompleted')) {
+    // Prima visita: inizia con la modalità leggera per 15 secondi
+    setPerformanceMode('light');
   } else {
-    // Mostra il popup iniziale per la selezione della modalità
-    createInitialModePopup();
+    // Visitò successiva ma senza preferenza salvata (caso raro)
+    const detectedMode = detectDevice();
+    handlePerformanceModeChange(detectedMode);
   }
 }
 
