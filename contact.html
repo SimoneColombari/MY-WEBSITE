@@ -4,33 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CONTATTI - SIMONE COLOMBARI</title>
-  <meta name="description" content="Contatta Simone Colombari per collaborazioni professionali nel settore tech">
-  
-  <!-- Preconnect per Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
-  
-  <!-- CSS esterni -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/performance-mode.css">
-  
-  <!-- Variabili CSS personalizzate -->
+  <!-- Includi il file di stile esterno -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/performance-mode.css">
+
+<!-- ... altro contenuto ... -->
+
+  <!-- Includi il file di configurazione -->
+  <script>
+    // Configurazione globale per l'URL dello script Google Apps Script
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzC1iqv3mmZGzLPtl1mNQUPCCwwFtxGNqPx4u3I8LU304YlglYowcaGMEgDU2Pcfqk2/exec";
+  </script>
   <style>
-    :root {
-      --primary-color: #FF5722;
-      --primary-color-light: #ff8a50;
-      --primary-color-dark: #e64a19;
-      --text-color: #e8e8e8;
-      --background-color: #0a0a0a;
-      --card-background: rgba(255, 87, 34, 0.05);
-      --card-border: 4px solid #FF5722;
-      --transition-speed: 0.3s;
-      --border-radius: 15px;
-      --animation-duration: 0.6s;
-      --animation-delay: 0.2s;
-    }
-    
     /* Stili specifici per la pagina contatti che non sono in style.css */
     .navbar-spacer {
       height: 70px;
@@ -62,21 +50,19 @@
     }
     
     .contact-card {
-      background: var(--card-background);
+      background: rgba(255, 87, 34, 0.05);
       padding: 25px;
-      border-radius: var(--border-radius);
-      border-left: var(--card-border);
-      transition: all var(--transition-speed) ease;
+      border-radius: 15px;
+      border-left: 4px solid #FF5722;
+      transition: all 0.5s ease;
       position: relative;
       overflow: hidden;
       transform: translateY(20px);
       opacity: 0;
-      animation: card-enter var(--animation-duration) ease-out forwards;
+      animation: card-enter 0.6s ease-out forwards;
     }
     
-    .contact-card:nth-child(2) { 
-      animation-delay: var(--animation-delay); 
-    }
+    .contact-card:nth-child(2) { animation-delay: 0.2s; }
     
     .contact-info {
       display: flex;
@@ -94,30 +80,30 @@
       font-family: 'Rajdhani', sans-serif;
       font-size: 1em;
       font-weight: 700;
-      color: var(--primary-color);
+      color: #FF5722;
       min-width: 80px;
     }
     
     .contact-item-value {
       font-family: 'Rajdhani', sans-serif;
       font-size: 1em;
-      color: var(--text-color);
+      color: #e8e8e8;
       flex-grow: 1;
     }
     
     .contact-item-value a {
-      color: var(--text-color);
+      color: #e8e8e8;
       text-decoration: none;
-      transition: all var(--transition-speed) ease;
+      transition: all 0.3s ease;
     }
     
     .contact-item-value a:hover {
-      color: var(--primary-color);
+      color: #FF5722;
       text-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
     }
     
     .copy-button {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-light) 100%);
+      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
       color: white;
       border: none;
       padding: 6px 12px;
@@ -128,7 +114,7 @@
       font-size: 0.8em;
       text-transform: uppercase;
       letter-spacing: 1px;
-      transition: all var(--transition-speed) ease;
+      transition: all 0.3s ease;
       box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
       position: relative;
       overflow: hidden;
@@ -152,15 +138,15 @@
     .copy-button:hover {
       transform: translateY(-3px) scale(1.05);
       box-shadow: 0 6px 15px rgba(255, 87, 34, 0.5);
-      background: linear-gradient(135deg, var(--primary-color-light) 0%, #ffab40 100%);
+      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
     }
     
     .interest-section {
-      background: var(--card-background);
+      background: rgba(255, 87, 34, 0.05);
       padding: 25px;
-      border-radius: var(--border-radius);
-      border-left: var(--card-border);
-      transition: all var(--transition-speed) ease;
+      border-radius: 15px;
+      border-left: 4px solid #FF5722;
+      transition: all 0.5s ease;
       position: relative;
       overflow: hidden;
       margin-top: 30px;
@@ -192,7 +178,7 @@
       font-family: 'Rajdhani', sans-serif;
       font-size: 1.1em;
       font-weight: 700;
-      color: var(--primary-color);
+      color: #FF5722;
       margin-bottom: 12px;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -208,12 +194,12 @@
       font-family: 'Rajdhani', sans-serif;
       font-size: 1em;
       margin-bottom: 15px;
-      transition: all var(--transition-speed) ease;
+      transition: all 0.3s ease;
     }
     
     .company-input:focus {
       outline: none;
-      border-color: var(--primary-color);
+      border-color: #FF5722;
       box-shadow: 0 0 15px rgba(255, 87, 34, 0.3);
       background: rgba(255, 255, 255, 0.15);
     }
@@ -237,11 +223,11 @@
       appearance: none;
       width: 25px;
       height: 25px;
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-light) 100%);
+      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
       border-radius: 50%;
       cursor: pointer;
       box-shadow: 0 0 15px rgba(255, 87, 34, 0.5);
-      transition: all var(--transition-speed) ease;
+      transition: all 0.3s ease;
     }
     
     .interest-slider::-webkit-slider-thumb:hover {
@@ -252,11 +238,11 @@
     .interest-slider::-moz-range-thumb {
       width: 25px;
       height: 25px;
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-light) 100%);
+      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
       border-radius: 50%;
       cursor: pointer;
       box-shadow: 0 0 15px rgba(255, 87, 34, 0.5);
-      transition: all var(--transition-speed) ease;
+      transition: all 0.3s ease;
     }
     
     .interest-slider::-moz-range-thumb:hover {
@@ -268,93 +254,10 @@
       font-family: 'Rajdhani', sans-serif;
       font-size: 1.6em;
       font-weight: 700;
-      color: var(--primary-color);
+      color: #FF5722;
       text-align: center;
       margin-top: 15px;
       text-shadow: 0 0 10px rgba(255, 87, 34, 0.3);
-    }
-    
-    /* Classi per feedback visivo */
-    .feedback-message {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: 700;
-      z-index: 10000;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-    
-    .feedback-success {
-      background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
-      color: white;
-      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
-    }
-    
-    .feedback-error {
-      background: linear-gradient(135deg, #ff4d4d 0%, #ff8080 100%);
-      color: white;
-      box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
-    }
-    
-    .feedback-info {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-light) 100%);
-      color: white;
-      box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
-    }
-    
-    /* MODALITÀ LEGGERA - MINIMO IMPATTO VISIVO */
-    body.light-mode .contact-card::before,
-    body.light-mode .interest-section::before {
-      animation: none;
-    }
-    
-    body.light-mode .contact-card:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 87, 34, 0.1);
-      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.2);
-    }
-    
-    body.light-mode .interest-section:hover {
-      transform: translateY(-5px);
-      background: rgba(255, 87, 34, 0.1);
-      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.2);
-    }
-    
-    body.light-mode .copy-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(255, 87, 34, 0.4);
-    }
-    
-    /* MODALITÀ BASE - IMPATTO VISIVO RIDOTTO */
-    body.base-mode .contact-card::before {
-      animation-duration: 8s;
-    }
-    
-    body.base-mode .interest-section::before {
-      animation-duration: 8s;
-    }
-    
-    body.base-mode .copy-button::before {
-      animation-duration: 8s;
-    }
-    
-    /* MODALITÀ PERFORMANCE - IMPATTO VISIVO COMPLETO */
-    body.performance-mode .contact-card::before {
-      animation-duration: 6s;
-    }
-    
-    body.performance-mode .interest-section::before {
-      animation-duration: 6s;
-    }
-    
-    body.performance-mode .copy-button::before {
-      animation-duration: 8s;
     }
     
     /* RESPONSIVE MIGLIORATO */
@@ -416,29 +319,26 @@
   </div>
   
   <!-- Navbar Esterna -->
-  <header>
-    <nav id="navbar-container" aria-label="Menu di navigazione principale"></nav>
-  </header>
+  <div id="navbar-container"></div>
   
   <!-- Translation Widget -->
   <div id="translate-container">
-    <button id="translate-button" aria-label="Traduci pagina in inglese">🌐 EN</button>
+    <button id="translate-button">🌐 EN</button>
   </div>
-  <div id="google_translate_element" style="display: none;" aria-hidden="true"></div>
+  <div id="google_translate_element" style="display: none;"></div>
   
   <!-- Hero Section -->
-  <section class="hero" aria-labelledby="hero-title">
-    <h1 id="hero-title" class="glitch-title" data-text="CONTATTI">CONTATTI</h1>
+  <header class="hero">
+    <h1 class="glitch-title" data-text="CONTATTI">CONTATTI</h1>
     <p class="subtitle-tech">CONNECT • COLLABORATE • INNOVATE</p>
-  </section>
+  </header>
   
   <!-- Content Section -->
-  <main class="content-wrapper">
-    <section class="content-section" aria-labelledby="contact-heading">
+  <div class="content-wrapper">
+    <section class="content-section">
       <div class="contact-container">
-        <h2 id="contact-heading" class="visually-hidden">Informazioni di contatto</h2>
         <div class="contact-grid">
-          <article class="contact-card">
+          <div class="contact-card">
             <h2>📧 CONTATTI PROFESSIONALI</h2>
             <p>Se sei un'azienda interessata a collaborare con me, ecco come puoi contattarmi direttamente:</p>
             <div class="contact-info">
@@ -446,174 +346,68 @@
                 <div class="contact-item-label">Email:</div>
                 <div class="contact-item-value">
                   <span id="email">mcsl.simone@gmail.com</span>
-                  <button class="copy-button" onclick="copyEmail()" aria-label="Copia indirizzo email">📋 COPIA</button>
+                  <button class="copy-button" onclick="copyEmail()">📋 COPIA</button>
                 </div>
               </div>
               <div class="contact-item">
                 <div class="contact-item-label">Telefono:</div>
                 <div class="contact-item-value">
-                  <a href="tel:+393921638193" aria-label="Chiama il numero 392 163 8193">392 163 8193</a>
+                  <a href="tel:+393921638193">392 163 8193</a>
                 </div>
               </div>
             </div>
             <p style="margin-top: 15px;">Preferisco essere contattato via email. Se vuoi fissare una call o un incontro, scrivimi e ti risponderò entro 24 ore nei giorni lavorativi.</p>
-          </article>
+          </div>
           
-          <article class="contact-card">
+          <div class="contact-card">
             <h2>🌐 PRESENZA ONLINE</h2>
             <p>Seguimi sui miei canali professionali per rimanere aggiornato sui miei progetti e attività:</p>
             <div class="contact-info">
               <div class="contact-item">
                 <div class="contact-item-label">GitHub:</div>
                 <div class="contact-item-value">
-                  <a href="https://github.com/SimoneColombari" target="_blank" rel="noopener noreferrer" aria-label="Visita il profilo GitHub di Simone Colombari">github.com/SimoneColombari</a>
+                  <a href="https://github.com/SimoneColombari" target="_blank">github.com/SimoneColombari</a>
                 </div>
               </div>
               <div class="contact-item">
                 <div class="contact-item-label">Portfolio:</div>
                 <div class="contact-item-value">
-                  <a href="https://simone-colombari.dev" target="_blank" rel="noopener noreferrer" aria-label="Visita il portfolio di Simone Colombari">simone-colombari.dev</a>
+                  <a href="https://simone-colombari.dev" target="_blank">simone-colombari.dev</a>
                 </div>
               </div>
             </div>
-          </article>
+          </div>
         </div>
         
-        <section class="interest-section" aria-labelledby="interest-heading">
-          <h2 id="interest-heading">📊 IL TUO LIVELLO DI INTERESSE</h2>
+        <div class="interest-section">
+          <h2>📊 IL TUO LIVELLO DI INTERESSE</h2>
           <div class="interest-label">Nome della tua azienda:</div>
-          <input type="text" id="companyName" class="company-input" placeholder="Inserisci il nome della tua azienda" aria-required="true" aria-describedby="company-error" />
-          <div id="company-error" class="error-message" role="alert" aria-live="polite"></div>
+          <input type="text" id="companyName" class="company-input" placeholder="Inserisci il nome della tua azienda" />
           
           <div class="interest-label" style="margin-top: 20px;">Seleziona quanto sei interessato a una collaborazione:</div>
-          <input type="range" id="interestRange" class="interest-slider" min="0" max="100" value="50" aria-label="Livello di interesse" aria-describedby="interest-label" />
-          <div id="interest-label" class="interest-value" role="status" aria-live="polite">Curioso 🙂</div>
+          <input type="range" id="interestRange" class="interest-slider" min="0" max="100" value="50" />
+          <div id="interestLabel" class="interest-value">Curioso 🙂</div>
           
-          <button id="submitInterest" class="cta-primary" style="margin-top: 20px;" aria-label="Invia il tuo interesse per una collaborazione">INVIA INTERESSE</button>
-        </section>
+          <button id="submitInterest" class="cta-primary" style="margin-top: 20px;">INVIA INTERESSE</button>
+        </div>
       </div>
     </section>
-  </main>
+  </div>
   
   <!-- Footer -->
   <footer class="footer-cta">
     <h2 class="footer-title">ESPLORA IL MIO UNIVERSO</h2>
-    <nav aria-label="Menu di navigazione secondario">
-      <div class="cta-matrix">
-        <a href="index.html" class="cta-primary">HOME</a>
-        <a href="projects.html" class="cta-primary">PROGETTI TECH</a>
-        <a href="usa.html" class="cta-primary">USA EXPERIENCE</a>
-        <a href="curriculum.html" class="cta-primary">CURRICULUM VITAE</a>
-        <a href="dashboard.html" class="cta-primary cta-dashboard">DASHBOARD</a>
-      </div>
-    </nav>
+    <div class="cta-matrix">
+      <a href="index.html" class="cta-primary">HOME</a>
+      <a href="projects.html" class="cta-primary">PROGETTI TECH</a>
+      <a href="usa.html" class="cta-primary">USA EXPERIENCE</a>
+      <a href="curriculum.html" class="cta-primary">CURRICULUM VITAE</a>
+      <a href="dashboard.html" class="cta-primary cta-dashboard">DASHBOARD</a>
+    </div>
   </footer>
   
   <!-- Scripts -->
-  <script>
-    // Configurazione globale per l'URL dello script Google Apps Script
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzC1iqv3mmZGzLPtl1mNQUPCCwwFtxGNqPx4u3I8LU304YlglYowcaGMEgDU2Pcfqk2/exec";
-    
-    // Funzione per la gestione delle modalità di visualizzazione
-    window.onPerformanceModeChange = function(mode) {
-      // Adatta le animazioni delle card in base alla modalità
-      const contactCards = document.querySelectorAll('.contact-card');
-      const interestSection = document.querySelector('.interest-section');
-      
-      // Adatta le animazioni in base alla modalità
-      if (mode === 'light') {
-        // Modalità leggera - animazioni minime
-        contactCards.forEach(card => {
-          card.style.animationDuration = '0.3s';
-          card.style.animationDelay = '0s';
-        });
-        
-        if (interestSection) {
-          interestSection.style.animationDuration = '0.3s';
-          interestSection.style.animationDelay = '0s';
-        }
-      } else if (mode === 'base') {
-        // Modalità base - animazioni moderate
-        contactCards.forEach((card, index) => {
-          card.style.animationDuration = '0.6s';
-          card.style.animationDelay = `${index * 0.2}s`;
-        });
-        
-        if (interestSection) {
-          interestSection.style.animationDuration = '0.6s';
-          interestSection.style.animationDelay = '0.4s';
-        }
-      } else {
-        // Modalità performance - animazioni complete
-        contactCards.forEach((card, index) => {
-          card.style.animationDuration = '0.6s';
-          card.style.animationDelay = `${index * 0.2}s`;
-        });
-        
-        if (interestSection) {
-          interestSection.style.animationDuration = '0.6s';
-          interestSection.style.animationDelay = '0.4s';
-        }
-      }
-      
-      // Adatta anche le animazioni dei pulsanti
-      const buttons = document.querySelectorAll('.cta-primary, .copy-button');
-      buttons.forEach(btn => {
-        if (mode === 'light') {
-          btn.style.transition = 'all 0.2s ease';
-        } else if (mode === 'base') {
-          btn.style.transition = 'all 0.3s ease';
-        } else {
-          btn.style.transition = 'all 0.4s ease';
-        }
-      });
-    };
-    
-    // Funzione per mostrare messaggi di feedback
-    function showFeedback(message, type = 'info') {
-      // Rimuovi eventuali messaggi di feedback esistenti
-      const existingFeedback = document.querySelector('.feedback-message');
-      if (existingFeedback) {
-        document.body.removeChild(existingFeedback);
-      }
-      
-      // Crea un nuovo elemento per il feedback
-      const feedback = document.createElement('div');
-      feedback.className = `feedback-message feedback-${type}`;
-      feedback.textContent = message;
-      
-      document.body.appendChild(feedback);
-      
-      // Animazione di entrata
-      setTimeout(() => {
-        feedback.style.opacity = '1';
-      }, 10);
-      
-      // Rimuovi dopo 3 secondi
-      setTimeout(() => {
-        feedback.style.opacity = '0';
-        setTimeout(() => {
-          if (document.body.contains(feedback)) {
-            document.body.removeChild(feedback);
-          }
-        }, 300);
-      }, 3000);
-    }
-    
-    // Funzione globale per copiare l'email
-    window.copyEmail = function() {
-      const emailElement = document.getElementById("email");
-      if (!emailElement) return;
-      
-      const emailText = emailElement.textContent;
-      navigator.clipboard.writeText(emailText).then(() => {
-        showFeedback('Email copiata!', 'success');
-      }).catch(err => {
-        console.error('Errore durante la copia dell\'email:', err);
-        showFeedback('Errore durante la copia dell\'email', 'error');
-      });
-    }
-    
+  <script type="text/javascript">
     // CARICAMENTO NAVBAR ESTERNA
     function loadNavbar() {
       fetch('navbar.html')
@@ -652,15 +446,13 @@
           `;
           document.body.appendChild(navbarScript);
         })
-        .catch(error => {
-          console.error('Errore nel caricamento della navbar:', error);
-          showFeedback('Errore nel caricamento della navigazione', 'error');
-        });
+        .catch(error => console.error('Errore nel caricamento della navbar:', error));
     }
     
     // EFFETTO PARALLASS AVANZATO
     function initParallax() {
       const waves = document.querySelectorAll('.wave');
+      const particles = document.querySelectorAll('.particle');
       
       window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
@@ -669,9 +461,34 @@
         waves.forEach((wave, index) => {
           wave.style.transform = `translateY(${rate * (index + 1) * 0.3}px) scale(${1 + scrolled * 0.0001})`;
         });
+        
+        // Effetto parallax sulle particelle
+        particles.forEach((particle, index) => {
+          if (index % 3 === 0) {
+            particle.style.transform = `translateY(${rate * 0.2}px)`;
+          }
+        });
       });
     }
     
+    /*// ANIMAZIONE MOUSEFOLLOW PER LO SFONDO
+    function initMouseEffects() {
+      const background = document.querySelector('.animated-background');
+      let mouseX = 0;
+      let mouseY = 0;
+      
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX / window.innerWidth;
+        mouseY = e.clientY / window.innerHeight;
+        
+        background.style.background = `
+          radial-gradient(circle at ${mouseX * 100}% ${mouseY * 100}%, rgba(255, 87, 34, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at ${(1-mouseX) * 100}% ${(1-mouseY) * 100}%, rgba(255, 138, 80, 0.1) 0%, transparent 50%),
+          linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)
+        `;
+      });
+    }
+    */
     // EFFETTO TYPING ANIMATO
     function initTypingEffect() {
       const subtitle = document.querySelector('.subtitle-tech');
@@ -754,6 +571,52 @@
       });
     }
     
+    // Funzione globale per copiare l'email
+    window.copyEmail = function() {
+      const emailElement = document.getElementById("email");
+      if (!emailElement) return;
+      
+      const emailText = emailElement.textContent;
+      navigator.clipboard.writeText(emailText).then(() => {
+        // Creiamo un elemento per mostrare il feedback
+        const emailFeedback = document.createElement('div');
+        emailFeedback.textContent = 'Email copiata!';
+        emailFeedback.style.position = 'fixed';
+        emailFeedback.style.bottom = '20px';
+        emailFeedback.style.left = '50%';
+        emailFeedback.style.transform = 'translateX(-50%)';
+        emailFeedback.style.background = 'linear-gradient(135deg, #FF5722 0%, #ff8a50 100%)';
+        emailFeedback.style.color = 'white';
+        emailFeedback.style.padding = '10px 20px';
+        emailFeedback.style.borderRadius = '30px';
+        emailFeedback.style.fontFamily = 'Orbitron, sans-serif';
+        emailFeedback.style.fontWeight = '700';
+        emailFeedback.style.zIndex = '10000';
+        emailFeedback.style.boxShadow = '0 5px 15px rgba(255, 87, 34, 0.4)';
+        emailFeedback.style.opacity = '0';
+        emailFeedback.style.transition = 'opacity 0.3s ease';
+        
+        document.body.appendChild(emailFeedback);
+        
+        // Animazione di entrata
+        setTimeout(() => {
+          emailFeedback.style.opacity = '1';
+        }, 10);
+        
+        // Rimuovi dopo 2 secondi
+        setTimeout(() => {
+          emailFeedback.style.opacity = '0';
+          setTimeout(() => {
+            if (document.body.contains(emailFeedback)) {
+              document.body.removeChild(emailFeedback);
+            }
+          }, 300);
+        }, 2000);
+      }).catch(err => {
+        console.error('Errore durante la copia dell\'email:', err);
+      });
+    }
+    
     // Google Translate
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
@@ -780,6 +643,7 @@
       
       // Inizializza tutte le animazioni
       initParallax();
+      //initMouseEffects();
       initTypingEffect();
       initScrollAnimations();
       initButtonEffects();
@@ -826,9 +690,8 @@
       
       // Funzionalità slider e invio interesse
       const range = document.getElementById('interestRange');
-      const label = document.getElementById('interest-label');
+      const label = document.getElementById('interestLabel');
       const companyNameInput = document.getElementById('companyName');
-      const companyError = document.getElementById('company-error');
       const submitButton = document.getElementById('submitInterest');
       
       // Verifica che gli elementi esistano
@@ -854,37 +717,53 @@
         else return 5;
       }
       
-      // Validazione del nome dell'azienda
-      function validateCompanyName() {
-        const companyName = companyNameInput.value.trim();
-        if (!companyName) {
-          companyError.textContent = 'Per favore, inserisci il nome della tua azienda';
-          companyNameInput.setAttribute('aria-invalid', 'true');
-          return false;
-        } else {
-          companyError.textContent = '';
-          companyNameInput.setAttribute('aria-invalid', 'false');
-          return true;
-        }
-      }
-      
       range.addEventListener('input', () => {
         const value = parseInt(range.value);
         label.textContent = getInteresseTestuale(value);
       });
       
-      companyNameInput.addEventListener('blur', validateCompanyName);
-      
       submitButton.addEventListener('click', () => {
-        // Validazione del form
-        if (!validateCompanyName()) {
-          return;
-        }
-        
         const value = parseInt(range.value);
         const interesseTestuale = getInteresseTestuale(value);
         const interesseValore = getInteresseValore(value);
         const companyName = companyNameInput.value.trim();
+        
+        if (!companyName) {
+          // Mostra un messaggio di errore se il nome dell'azienda non è inserito
+          const errorFeedback = document.createElement('div');
+          errorFeedback.textContent = 'Per favore, inserisci il nome della tua azienda';
+          errorFeedback.style.position = 'fixed';
+          errorFeedback.style.bottom = '20px';
+          errorFeedback.style.left = '50%';
+          errorFeedback.style.transform = 'translateX(-50%)';
+          errorFeedback.style.background = 'linear-gradient(135deg, #ff4d4d 0%, #ff8080 100%)';
+          errorFeedback.style.color = 'white';
+          errorFeedback.style.padding = '10px 20px';
+          errorFeedback.style.borderRadius = '30px';
+          errorFeedback.style.fontFamily = 'Orbitron, sans-serif';
+          errorFeedback.style.fontWeight = '700';
+          errorFeedback.style.zIndex = '10000';
+          errorFeedback.style.boxShadow = '0 5px 15px rgba(255, 77, 77, 0.4)';
+          errorFeedback.style.opacity = '0';
+          errorFeedback.style.transition = 'opacity 0.3s ease';
+          
+          document.body.appendChild(errorFeedback);
+          
+          setTimeout(() => {
+            errorFeedback.style.opacity = '1';
+          }, 10);
+          
+          setTimeout(() => {
+            errorFeedback.style.opacity = '0';
+            setTimeout(() => {
+              if (document.body.contains(errorFeedback)) {
+                document.body.removeChild(errorFeedback);
+              }
+            }, 300);
+          }, 2000);
+          
+          return;
+        }
         
         // Animazione feedback
         label.style.transform = 'scale(1.2)';
@@ -893,12 +772,74 @@
         }, 300);
         
         // Mostra un messaggio di invio in corso
-        showFeedback('Invio in corso...', 'info');
+        const sendingFeedback = document.createElement('div');
+        sendingFeedback.textContent = 'Invio in corso...';
+        sendingFeedback.style.position = 'fixed';
+        sendingFeedback.style.bottom = '20px';
+        sendingFeedback.style.left = '50%';
+        sendingFeedback.style.transform = 'translateX(-50%)';
+        sendingFeedback.style.background = 'linear-gradient(135deg, #FF5722 0%, #ff8a50 100%)';
+        sendingFeedback.style.color = 'white';
+        sendingFeedback.style.padding = '10px 20px';
+        sendingFeedback.style.borderRadius = '30px';
+        sendingFeedback.style.fontFamily = 'Orbitron, sans-serif';
+        sendingFeedback.style.fontWeight = '700';
+        sendingFeedback.style.zIndex = '10000';
+        sendingFeedback.style.boxShadow = '0 5px 15px rgba(255, 87, 34, 0.4)';
+        sendingFeedback.style.opacity = '0';
+        sendingFeedback.style.transition = 'opacity 0.3s ease';
+        
+        document.body.appendChild(sendingFeedback);
+        
+        setTimeout(() => {
+          sendingFeedback.style.opacity = '1';
+        }, 10);
         
         // Verifica che SCRIPT_URL sia definita
         if (typeof SCRIPT_URL === 'undefined') {
           console.error("SCRIPT_URL non è definita. Assicurati di aver incluso config.js");
-          showFeedback('Errore di configurazione. Contatta l\'amministratore.', 'error');
+          
+          // Rimuovi il messaggio di invio in corso
+          sendingFeedback.style.opacity = '0';
+          setTimeout(() => {
+            if (document.body.contains(sendingFeedback)) {
+              document.body.removeChild(sendingFeedback);
+            }
+          }, 300);
+          
+          // Mostra un messaggio di errore
+          const configErrorFeedback = document.createElement('div');
+          configErrorFeedback.textContent = 'Errore di configurazione. Contatta l\'amministratore.';
+          configErrorFeedback.style.position = 'fixed';
+          configErrorFeedback.style.bottom = '20px';
+          configErrorFeedback.style.left = '50%';
+          configErrorFeedback.style.transform = 'translateX(-50%)';
+          configErrorFeedback.style.background = 'linear-gradient(135deg, #ff4d4d 0%, #ff8080 100%)';
+          configErrorFeedback.style.color = 'white';
+          configErrorFeedback.style.padding = '10px 20px';
+          configErrorFeedback.style.borderRadius = '30px';
+          configErrorFeedback.style.fontFamily = 'Orbitron, sans-serif';
+          configErrorFeedback.style.fontWeight = '700';
+          configErrorFeedback.style.zIndex = '10000';
+          configErrorFeedback.style.boxShadow = '0 5px 15px rgba(255, 77, 77, 0.4)';
+          configErrorFeedback.style.opacity = '0';
+          configErrorFeedback.style.transition = 'opacity 0.3s ease';
+          
+          document.body.appendChild(configErrorFeedback);
+          
+          setTimeout(() => {
+            configErrorFeedback.style.opacity = '1';
+          }, 10);
+          
+          setTimeout(() => {
+            configErrorFeedback.style.opacity = '0';
+            setTimeout(() => {
+              if (document.body.contains(configErrorFeedback)) {
+                document.body.removeChild(configErrorFeedback);
+              }
+            }, 300);
+          }, 3000);
+          
           return;
         }
         
@@ -917,8 +858,46 @@
           // Con 'no-cors', non possiamo leggere la risposta, ma assumiamo successo
           console.log("Dati inviati con successo");
           
+          // Rimuovi il messaggio di invio in corso
+          sendingFeedback.style.opacity = '0';
+          setTimeout(() => {
+            if (document.body.contains(sendingFeedback)) {
+              document.body.removeChild(sendingFeedback);
+            }
+          }, 300);
+          
           // Mostra un messaggio di successo
-          showFeedback('Grazie! Il tuo interesse è stato registrato.', 'success');
+          const successFeedback = document.createElement('div');
+          successFeedback.textContent = 'Grazie! Il tuo interesse è stato registrato.';
+          successFeedback.style.position = 'fixed';
+          successFeedback.style.bottom = '20px';
+          successFeedback.style.left = '50%';
+          successFeedback.style.transform = 'translateX(-50%)';
+          successFeedback.style.background = 'linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%)';
+          successFeedback.style.color = 'white';
+          successFeedback.style.padding = '10px 20px';
+          successFeedback.style.borderRadius = '30px';
+          successFeedback.style.fontFamily = 'Orbitron, sans-serif';
+          successFeedback.style.fontWeight = '700';
+          successFeedback.style.zIndex = '10000';
+          successFeedback.style.boxShadow = '0 5px 15px rgba(76, 175, 80, 0.4)';
+          successFeedback.style.opacity = '0';
+          successFeedback.style.transition = 'opacity 0.3s ease';
+          
+          document.body.appendChild(successFeedback);
+          
+          setTimeout(() => {
+            successFeedback.style.opacity = '1';
+          }, 10);
+          
+          setTimeout(() => {
+            successFeedback.style.opacity = '0';
+            setTimeout(() => {
+              if (document.body.contains(successFeedback)) {
+                document.body.removeChild(successFeedback);
+              }
+            }, 300);
+          }, 3000);
           
           // Resetta il form
           companyNameInput.value = '';
@@ -928,8 +907,46 @@
         .catch(error => {
           console.error("Errore nel salvataggio:", error);
           
+          // Rimuovi il messaggio di invio in corso
+          sendingFeedback.style.opacity = '0';
+          setTimeout(() => {
+            if (document.body.contains(sendingFeedback)) {
+              document.body.removeChild(sendingFeedback);
+            }
+          }, 300);
+          
           // Mostra un messaggio di errore
-          showFeedback('Si è verificato un errore. Riprova più tardi.', 'error');
+          const fetchErrorFeedback = document.createElement('div');
+          fetchErrorFeedback.textContent = 'Si è verificato un errore. Riprova più tardi.';
+          fetchErrorFeedback.style.position = 'fixed';
+          fetchErrorFeedback.style.bottom = '20px';
+          fetchErrorFeedback.style.left = '50%';
+          fetchErrorFeedback.style.transform = 'translateX(-50%)';
+          fetchErrorFeedback.style.background = 'linear-gradient(135deg, #ff4d4d 0%, #ff8080 100%)';
+          fetchErrorFeedback.style.color = 'white';
+          fetchErrorFeedback.style.padding = '10px 20px';
+          fetchErrorFeedback.style.borderRadius = '30px';
+          fetchErrorFeedback.style.fontFamily = 'Orbitron, sans-serif';
+          fetchErrorFeedback.style.fontWeight = '700';
+          fetchErrorFeedback.style.zIndex = '10000';
+          fetchErrorFeedback.style.boxShadow = '0 5px 15px rgba(255, 77, 77, 0.4)';
+          fetchErrorFeedback.style.opacity = '0';
+          fetchErrorFeedback.style.transition = 'opacity 0.3s ease';
+          
+          document.body.appendChild(fetchErrorFeedback);
+          
+          setTimeout(() => {
+            fetchErrorFeedback.style.opacity = '1';
+          }, 10);
+          
+          setTimeout(() => {
+            fetchErrorFeedback.style.opacity = '0';
+            setTimeout(() => {
+              if (document.body.contains(fetchErrorFeedback)) {
+                document.body.removeChild(fetchErrorFeedback);
+              }
+            }, 300);
+          }, 3000);
         });
       });
     });

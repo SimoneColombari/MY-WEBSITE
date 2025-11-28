@@ -713,10 +713,11 @@
   <script type="text/javascript">
     // Funzione specifica per la pagina che viene chiamata quando cambia la modalità
     window.onPerformanceModeChange = function(mode) {
+      // Codice specifico per la pagina projects.html
       // Adatta le animazioni delle card in base alla modalità
-      const cards = document.querySelectorAll('.content-card, .project-card, .info-card');
+      const projectCards = document.querySelectorAll('.project-card');
       
-      cards.forEach(card => {
+      projectCards.forEach(card => {
         // Rimuovi le classi di transizione esistenti
         card.style.transition = 'all 0.5s ease';
         
@@ -737,7 +738,7 @@
       });
       
       // Adatta anche le animazioni dei pulsanti
-      const buttons = document.querySelectorAll('.cta-primary, .project-btn');
+      const buttons = document.querySelectorAll('.project-btn');
       buttons.forEach(btn => {
         if (mode === 'light') {
           btn.style.transition = 'all 0.2s ease';
@@ -1299,4 +1300,6 @@
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   
   <!-- Includi il file di gestione delle modalità di visualizzazione -->
-  <script src="
+  <script src="js/performance-mode.js"></script>
+</body>
+</html>

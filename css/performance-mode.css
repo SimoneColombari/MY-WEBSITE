@@ -1,394 +1,287 @@
-/* PERFORMANCE-MODE.CSS - Stili per le modalità di visualizzazione */
+/* performance-mode.css - Stili per le modalità di visualizzazione */
 
 /* ===================================================================================== */
-/* MODALITÀ LEGGERA - Effetti minimi per dispositivi meno potenti o connessioni lente   */
+/* STILI PER LA MODALITÀ LEGGERA - MINIMO IMPATTO VISIVO E DINAMICO                      */
 /* ===================================================================================== */
 body.light-mode {
-  /* Disabilita o riduci le animazioni più pesanti */
+  /* Disabilita tutti gli elementi dinamici pesanti */
 }
-
-body.light-mode .animated-background {
-  /* Sfondo statico o con animazioni minime */
-  animation: none;
-}
-
-body.light-mode .floating-particles {
-  /* Riduci il numero di particelle o disabilitale completamente */
-  opacity: 0.3;
-}
-
-body.light-mode .energy-waves {
-  /* Disabilita le onde energetiche */
+body.light-mode .particle,
+body.light-mode .wave {
   display: none;
 }
 
-body.light-mode .glitch-title {
-  /* Effetto glitch ridotto */
-  animation: none;
-  text-shadow: 0 0 5px #FF5722;
+/* DISABILITA COMPLETAMENTE L'EFFETTO DI ILLUMINAZIONE DELLO SFONDO IN MODALITÀ LEGGERA */
+body.light-mode .animated-background {
+  /* FORZA lo sfondo statico senza effetto dinamico */
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(255, 87, 34, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(255, 138, 80, 0.08) 0%, transparent 50%),
+    linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%) !important;
+  /* Disabilita qualsiasi transizione che potrebbe interferire */
+  transition: none !important;
 }
 
-body.light-mode .subtitle-tech {
-  /* Animazione di digitazione disabilitata */
-  animation: none;
-  border-right: none;
+/* Disabilita TUTTE le animazioni e le transizioni complesse, mantenendo solo gli hover di base */
+body.light-mode .glitch-title,
+body.light-mode .profile-container::before,
+body.light-mode .profile-pic,
+body.light-mode .subtitle-tech,
+body.light-mode .content-wrapper::before,
+body.light-mode .content-card::before,
+body.light-mode .content-card h2,
+body.light-mode .content-card h2::before,
+body.light-mode .footer-cta::before,
+body.light-mode .footer-title,
+body.light-mode .cta-primary::before,
+body.light-mode #translate-button::before {
+  animation: none !important;
+  transition: none !important; /* Disabilita anche le transizioni non essenziali */
 }
 
-body.light-mode .content-card,
-body.light-mode .project-card,
-body.light-mode .info-card {
-  /* Animazioni hover ridotte */
-  transition: all 0.2s ease;
+/* Mantiene solo gli effetti hover di base su pulsanti e elementi interattivi */
+body.light-mode .profile-pic:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 87, 34, 0.4);
 }
 
-body.light-mode .content-card:hover,
-body.light-mode .project-card:hover,
-body.light-mode .info-card:hover {
-  transform: translateY(-3px);
+body.light-mode .content-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 87, 34, 0.1);
   box-shadow: 0 10px 20px rgba(255, 87, 34, 0.2);
 }
 
-body.light-mode .content-card::before,
-body.light-mode .project-card::before,
-body.light-mode .info-card::before {
-  /* Disabilita l'effetto sweep */
-  animation: none;
-}
-
-body.light-mode .content-card h2::before,
-body.light-mode .project-title::before,
-body.light-mode .info-card h3::before {
-  /* Disabilita l'animazione pulse delle icone */
-  animation: none;
-}
-
-body.light-mode .cta-primary,
-body.light-mode .project-btn {
-  /* Transizioni più veloci */
-  transition: all 0.2s ease;
-}
-
-body.light-mode .cta-primary:hover,
-body.light-mode .project-btn:hover {
+body.light-mode .cta-primary:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(255, 87, 34, 0.4);
 }
 
-body.light-mode .cta-primary::before,
-body.light-mode .project-btn::before {
-  /* Disabilita l'effetto sweep sui pulsanti */
-  animation: none;
+body.light-mode #translate-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
 }
 
-body.light-mode .profile-pic {
-  /* Disabilita le animazioni complesse dell'immagine profilo */
-  animation: none;
-  transition: transform 0.3s ease;
+/* Disabilita il mouse follow in modalità leggera */
+body.light-mode #mouse-follow {
+  display: none !important;
 }
 
-body.light-mode .profile-container::before {
-  /* Disabilita l'animazione di rotazione del bordo */
-  animation: none;
-}
-
-body.light-mode .viewer-3d {
-  /* Riduci l'altezza del visualizzatore 3D in modalità leggera */
-  height: 300px;
-}
-
-body.light-mode .viewer-3d canvas {
-  /* Disabilita antialiasing in modalità leggera */
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-}
 
 /* ===================================================================================== */
-/* MODALITÀ BASE - Effetti moderati per la maggior parte degli utenti                       */
+/* STILI PER LA MODALITÀ BASE - IMPATTO VISIVO RIDOTTO                                   */
 /* ===================================================================================== */
-body.base-mode {
-  /* Animazioni standard */
-}
-
-body.base-mode .animated-background {
-  /* Animazioni standard */
-}
-
-body.base-mode .floating-particles {
-  /* Numero standard di particelle */
-  opacity: 0.6;
-}
-
-body.base-mode .energy-waves {
-  /* Onde con animazione standard */
+body.base-mode .particle {
   opacity: 0.3;
 }
 
+body.base-mode .wave {
+  opacity: 0.1;
+}
+
+/* Rallenta le animazioni per ridurre l'impatto visivo */
 body.base-mode .glitch-title {
-  /* Effetto glitch standard */
-  animation: title-pulse 3s ease-in-out infinite;
+  animation-duration: 5s;
 }
 
-body.base-mode .subtitle-tech {
-  /* Animazione di digitazione standard */
-  animation: subtitle-typewriter 2s ease-out 0.8s forwards;
-}
-
-body.base-mode .content-card,
-body.base-mode .project-card,
-body.base-mode .info-card {
-  /* Animazioni hover standard */
-  transition: all 0.3s ease;
-}
-
-body.base-mode .content-card:hover,
-body.base-mode .project-card:hover,
-body.base-mode .info-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(255, 87, 34, 0.25);
-}
-
-body.base-mode .content-card::before,
-body.base-mode .project-card::before,
-body.base-mode .info-card::before {
-  /* Effetto sweep con durata più lunga */
-  animation-duration: 8s;
-}
-
-body.base-mode .content-card h2::before,
-body.base-mode .project-title::before,
-body.base-mode .info-card h3::before {
-  /* Animazione pulse standard */
-  animation: icon-pulse 2s infinite;
-}
-
-body.base-mode .cta-primary,
-body.base-mode .project-btn {
-  /* Transizioni standard */
-  transition: all 0.3s ease;
-}
-
-body.base-mode .cta-primary:hover,
-body.base-mode .project-btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 25px rgba(255, 87, 34, 0.5);
-}
-
-body.base-mode .cta-primary::before,
-body.base-mode .project-btn::before {
-  /* Effetto sweep standard */
+body.base-mode .profile-container::before {
   animation-duration: 8s;
 }
 
 body.base-mode .profile-pic {
-  /* Animazione standard dell'immagine profilo */
-  animation: profile-float 3s ease-in-out infinite;
+  animation-duration: 5s;
 }
 
-body.base-mode .profile-container::before {
-  /* Animazione standard di rotazione del bordo */
-  animation: profile-rotate 4s linear infinite;
+body.base-mode .subtitle-tech {
+  animation-duration: 3s;
 }
+
+body.base-mode .content-wrapper::before {
+  animation-duration: 6s;
+}
+
+body.base-mode .content-card::before {
+  animation-duration: 8s;
+}
+
+body.base-mode .content-card h2 {
+  animation-duration: 3s;
+}
+
+body.base-mode .content-card h2::before {
+  animation-duration: 2s;
+}
+
+body.base-mode .footer-cta::before {
+  animation-duration: 6s;
+}
+
+body.base-mode .footer-title {
+  animation-duration: 4s;
+}
+
+body.base-mode .cta-primary::before {
+  animation-duration: 8s;
+}
+
+body.base-mode #translate-button::before {
+  animation-duration: 8s;
+}
+
 
 /* ===================================================================================== */
-/* MODALITÀ PERFORMANCE - Effetti completi per dispositivi potenti                           */
+/* STILI PER LA MODALITÀ PERFORMANCE - IMPATTO VISIVO COMPLETO                          */
 /* ===================================================================================== */
-body.performance-mode {
-  /* Tutte le animazioni abilitate */
+/* In questa modalità, gli stili sono quelli di default definiti in style.css */
+/* Qui definiamo solo le sovrascritture, se necessarie. */
+body.performance-mode .particle {
+  opacity: 0.7;
 }
 
-body.performance-mode .animated-background {
-  /* Animazioni complete */
+body.performance-mode .wave {
+  opacity: 0.3;
 }
 
-body.performance-mode .floating-particles {
-  /* Numero massimo di particelle */
+
+/* ===================================================================================== */
+/* ACCESSIBILITÀ - Disabilita animazioni per utenti che preferiscono ridurre il movimento */
+/* ===================================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Mantiene solo gli effetti hover di base per l'interattività */
+  .profile-pic:hover {
+    transform: scale(1.05);
+  }
+  
+  .content-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .cta-primary:hover {
+    transform: translateY(-3px);
+  }
+  
+  #translate-button:hover {
+    transform: translateY(-3px) scale(1.05);
+  }
+}
+
+
+/* ===================================================================================== */
+/* STILI PER IL POPUP INIZIALE DI SELEZIONE MODALITÀ                                    */
+/* ===================================================================================== */
+#initial-mode-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#initial-mode-popup.show {
   opacity: 1;
 }
 
-body.performance-mode .energy-waves {
-  /* Onde con animazione completa */
-  opacity: 0.5;
-}
-
-body.performance-mode .glitch-title {
-  /* Effetto glitch completo */
-  animation: title-pulse 3s ease-in-out infinite;
-}
-
-body.performance-mode .subtitle-tech {
-  /* Animazione di digitazione completa */
-  animation: subtitle-typewriter 2s ease-out 0.8s forwards;
-}
-
-body.performance-mode .content-card,
-body.performance-mode .project-card,
-body.performance-mode .info-card {
-  /* Animazioni hover complete */
-  transition: all 0.4s ease;
-}
-
-body.performance-mode .content-card:hover,
-body.performance-mode .project-card:hover,
-body.performance-mode .info-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(255, 87, 34, 0.3);
-}
-
-body.performance-mode .content-card::before,
-body.performance-mode .project-card::before,
-body.performance-mode .info-card::before {
-  /* Effetto sweep con durata standard */
-  animation-duration: 6s;
-}
-
-body.performance-mode .content-card h2::before,
-body.performance-mode .project-title::before,
-body.performance-mode .info-card h3::before {
-  /* Animazione pulse completa */
-  animation: icon-pulse 1.5s infinite;
-}
-
-body.performance-mode .cta-primary,
-body.performance-mode .project-btn {
-  /* Transizioni complete */
-  transition: all 0.4s ease;
-}
-
-body.performance-mode .cta-primary:hover,
-body.performance-mode .project-btn:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 35px rgba(255, 87, 34, 0.6);
-}
-
-body.performance-mode .cta-primary::before,
-body.performance-mode .project-btn::before {
-  /* Effetto sweep completo */
-  animation-duration: 6s;
-}
-
-body.performance-mode .profile-pic {
-  /* Animazione completa dell'immagine profilo */
-  animation: profile-float 3s ease-in-out infinite;
-}
-
-body.performance-mode .profile-container::before {
-  /* Animazione completa di rotazione del bordo */
-  animation: profile-rotate 4s linear infinite;
-}
-
-/* ===================================================================================== */
-/* SELETTORE DI MODALITÀ - Stili per l'interfaccia di selezione                             */
-/* ===================================================================================== */
-.performance-mode-selector {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000;
-  background: rgba(10, 10, 10, 0.9);
-  border: 1px solid rgba(255, 87, 34, 0.3);
-  border-radius: 15px;
-  padding: 15px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  max-width: 300px;
-  transition: all 0.3s ease;
-  transform: translateY(150%);
-}
-
-.performance-mode-selector.show {
-  transform: translateY(0);
-}
-
-.performance-mode-selector h4 {
-  color: #FF5722;
-  margin-bottom: 10px;
-  font-family: 'Orbitron', monospace;
-  font-size: 1em;
-  text-align: center;
-}
-
-.performance-mode-selector p {
-  color: #e8e8e8;
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 0.9em;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.performance-modes {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-}
-
-.performance-mode {
-  flex: 1;
-  padding: 8px 5px;
-  margin: 0 3px;
-  border: 1px solid rgba(255, 87, 34, 0.3);
-  border-radius: 8px;
-  background: rgba(255, 87, 34, 0.1);
-  color: #e8e8e8;
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 0.8em;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.performance-mode:hover {
-  background: rgba(255, 87, 34, 0.2);
-}
-
-.performance-mode.active {
-  background: rgba(255, 87, 34, 0.4);
-  border-color: #FF5722;
-  color: white;
-}
-
-.performance-mode-selector button {
-  width: 100%;
-  padding: 8px;
-  background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-family: 'Orbitron', monospace;
-  font-weight: 700;
-  font-size: 0.8em;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.performance-mode-selector button:hover {
-  background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
-}
-
-.performance-indicator {
-  position: fixed;
-  top: 80px;
-  right: 15px;
-  background: rgba(10, 10, 10, 0.8);
+.popup-content {
+  background: rgba(26, 26, 26, 0.95);
   border: 1px solid rgba(255, 87, 34, 0.3);
   border-radius: 20px;
-  padding: 5px 10px;
+  padding: 30px;
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.popup-content h3 {
   color: #FF5722;
   font-family: 'Orbitron', monospace;
-  font-size: 0.7em;
-  z-index: 999;
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.popup-content p {
+  color: #e8e8e8;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.1em;
+  margin-bottom: 25px;
+}
+
+.popup-content .performance-modes {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.popup-content .performance-mode {
+  flex: 1;
+  padding: 20px 10px;
+  border: 1px solid rgba(255, 87, 34, 0.3);
+  border-radius: 15px;
+  background: rgba(255, 87, 34, 0.05);
+  color: #e8e8e8;
+  font-family: 'Rajdhani', sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.performance-indicator:hover {
+.popup-content .performance-mode:hover {
   background: rgba(255, 87, 34, 0.2);
+  transform: translateY(-5px);
 }
 
+.popup-content .mode-icon {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.popup-content .mode-name {
+  font-weight: 700;
+  font-size: 1.1em;
+  margin-bottom: 5px;
+  color: #FF5722;
+}
+
+.popup-content .mode-desc {
+  font-size: 0.9em;
+  color: #cccccc;
+}
+
+.popup-footer {
+  color: #cccccc;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9em;
+}
+
+.popup-footer #popup-timer {
+  font-weight: 700;
+  color: #FF5722;
+  font-size: 1.1em;
+}
+
+
 /* ===================================================================================== */
-/* STILI RESPONSIVI PER IL SELETTORE DI MODALITÀ                                        */
+/* RESPONSIVE PER IL SELETTORE DI MODALITÀ                                               */
 /* ===================================================================================== */
-@media (max-width: 768px) {
+@media (max-width: 968px) {
   .performance-mode-selector {
     bottom: 10px;
     right: 10px;
@@ -396,38 +289,70 @@ body.performance-mode .profile-container::before {
     max-width: none;
   }
   
+  .performance-modes {
+    margin-bottom: 10px;
+  }
+  
   .performance-mode {
-    font-size: 0.7em;
     padding: 6px 3px;
+    font-size: 0.7em;
   }
   
-  .performance-mode-selector h4 {
-    font-size: 0.9em;
+  .performance-indicator {
+    top: 70px;
+    right: 10px;
+    font-size: 0.6em;
   }
   
-  .performance-mode-selector p {
-    font-size: 0.8em;
+  /* Responsive per il popup iniziale */
+  .popup-content {
+    padding: 20px;
+  }
+  
+  .popup-content h3 {
+    font-size: 1.2em;
+  }
+  
+  .popup-content p {
+    font-size: 1em;
+  }
+  
+  .popup-content .performance-modes {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .popup-content .performance-mode {
+    padding: 15px;
   }
 }
 
 @media (max-width: 480px) {
-  .performance-mode-selector {
+  .popup-content {
+    padding: 15px;
+  }
+  
+  .popup-content h3 {
+    font-size: 1em;
+  }
+  
+  .popup-content p {
+    font-size: 0.9em;
+  }
+  
+  .popup-content .performance-mode {
     padding: 10px;
   }
   
-  .performance-mode {
-    font-size: 0.6em;
-    padding: 5px 2px;
-    margin: 0 2px;
+  .popup-content .mode-icon {
+    font-size: 1.5em;
   }
   
-  .performance-mode-selector h4 {
+  .popup-content .mode-name {
+    font-size: 1em;
+  }
+  
+  .popup-content .mode-desc {
     font-size: 0.8em;
-    margin-bottom: 8px;
-  }
-  
-  .performance-mode-selector p {
-    font-size: 0.7em;
-    margin-bottom: 10px;
   }
 }

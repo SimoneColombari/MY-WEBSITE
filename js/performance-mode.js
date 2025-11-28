@@ -1,277 +1,375 @@
-/**
- * PERFORMANCE-MODE.JS - Gestione delle modalità di visualizzazione del sito
- * 
- * Questo script gestisce tre modalità di visualizzazione:
- * - Leggero: Effetti minimi per dispositivi meno potenti
- * - Base: Effetti moderati per la maggior parte degli utenti
- * - Performance: Effetti completi per dispositivi potenti
- * 
- * La modalità viene mantenuta durante la navigazione tra le pagine.
- */
+// performance-mode.js - Gestione centralizzata delle modalità di visualizzazione
 
-// Variabili globali per la gestione delle modalità
-let currentMode = 'light';
-let initialModeTimer = null;
-let modeSelector = null;
-let modeIndicator = null;
-
-// Inizializza il sistema di modalità di visualizzazione
-function initPerformanceMode() {
-  // Crea l'indicatore di modalità in alto a destra
-  createModeIndicator();
+// Funzione per rilevare il tipo di dispositivo
+function detectDevice() {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   
-  // Crea il selettore di modalità in fondo alla pagina (solo su index.html)
-  if (isIndexPage()) {
-    createModeSelector();
+  // Rileva dispositivi mobili
+  if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent)) {
+    // Per i dispositivi mobili, usa la modalità leggera di default
+    return 'light';
   }
   
-  // Carica la modalità salvata o usa la modalità leggera di default
-  const savedMode = localStorage.getItem('performanceMode');
+  // Default per altri dispositivi
+  return 'base';
+}
+
+// Funzione per regolare le particelle in base alla modalità
+function adjustParticles(mode) {
+  const particlesContainer = document.getElementById('particles');
+  if (!particlesContainer) return;
   
-  // Se non c'è una modalità salvata, usa la modalità leggera
-  if (!savedMode) {
-    setPerformanceMode('light');
-    
-    // Mostra il selettore dopo 15 secondi solo sulla pagina index
-    if (isIndexPage()) {
-      initialModeTimer = setTimeout(() => {
-        if (modeSelector) {
-          modeSelector.classList.add('show');
-        }
-      }, 15000);
-    }
-  } else {
-    // Usa la modalità salvata
-    setPerformanceMode(savedMode);
-    
-    // Mostra subito il selettore se siamo sulla pagina index
-    if (isIndexPage() && modeSelector) {
-      modeSelector.classList.add('show');
+  let particleCount;
+  switch (mode) {
+    case 'light':
+      particleCount = 0; // Nessuna particella in modalità leggera
+      break;
+    case 'base':
+      particleCount = 15;
+      break;
+    case 'performance':
+      particleCount = 30;
+      break;
+    default:
+      particleCount = 15;
+  }
+  
+  // Rimuovi tutte le particelle esistenti
+  particlesContainer.innerHTML = '';
+  
+  // Crea nuove particelle solo se non siamo in modalità leggera
+  if (particleCount > 0) {
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 15 + 's';
+      particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+      particlesContainer.appendChild(particle);
     }
   }
 }
 
-// Verifica se la pagina corrente è index.html
-function isIndexPage() {
-  const path = window.location.pathname;
-  const filename = path.split('/').pop();
-  return filename === 'index.html' || filename === '' || filename === '/';
-}
-
-// Crea l'indicatore di modalità in alto a destra
-function createModeIndicator() {
-  modeIndicator = document.createElement('div');
-  modeIndicator.className = 'performance-indicator';
-  modeIndicator.id = 'performance-indicator';
+// Funzione per regolare gli effetti dinamici in base alla modalità
+function adjustDynamicEffects(mode) {
+  // Gestione delle onde energetiche
+  const wavesContainer = document.getElementById('energy-waves');
+  if (wavesContainer) {
+    if (mode === 'light') {
+      wavesContainer.style.display = 'none';
+    } else {
+      wavesContainer.style.display = 'block';
+      if (mode === 'base') {
+        wavesContainer.style.opacity = '0.1';
+      } else { // performance
+        wavesContainer.style.opacity = '0.3';
+      }
+    }
+  }
   
-  // Aggiungi un evento click per mostrare/nascondere il selettore
-  modeIndicator.addEventListener('click', function() {
-    if (modeSelector) {
-      modeSelector.classList.toggle('show');
+  // Gestione del mouse follow (se esiste)
+  // IMPORTANTE: Assicurati che l'elemento HTML del mouse follow abbia l'ID "mouse-follow"
+  const mouseFollow = document.getElementById('mouse-follow');
+  if (mouseFollow) {
+    if (mode === 'light') {
+      mouseFollow.style.display = 'none';
+      // Disabilita anche gli event listener del mouse follow se esistono
+      if (typeof disableMouseFollow === 'function') {
+        disableMouseFollow();
+      }
+    } else {
+      mouseFollow.style.display = 'block';
+      if (mode === 'base') {
+        mouseFollow.style.opacity = '0.5';
+      } else { // performance
+        mouseFollow.style.opacity = '1';
+      }
+      // Riabilita gli event listener del mouse follow se esistono
+      if (typeof enableMouseFollow === 'function') {
+        enableMouseFollow();
+      }
+    }
+  }
+  
+  // Gestione di altri effetti dinamici che potrebbero essere presenti
+  // Aggiungi la classe "dynamic-effect" a qualsiasi elemento che debba essere nascosto in modalità leggera
+  const dynamicElements = document.querySelectorAll('.dynamic-effect');
+  dynamicElements.forEach(element => {
+    if (mode === 'light') {
+      element.style.display = 'none';
+    } else {
+      element.style.display = 'block';
+      if (mode === 'base') {
+        element.style.opacity = '0.5';
+      } else { // performance
+        element.style.opacity = '1';
+      }
     }
   });
-  
-  document.body.appendChild(modeIndicator);
 }
 
-// Crea il selettore di modalità in fondo alla pagina
-function createModeSelector() {
-  modeSelector = document.createElement('div');
-  modeSelector.className = 'performance-mode-selector';
-  modeSelector.id = 'performance-mode-selector';
-  
-  modeSelector.innerHTML = `
-    <h4>MODALITÀ VISUALIZZAZIONE</h4>
-    <p>Seleziona la modalità preferita per ottimizzare la tua esperienza:</p>
-    <div class="performance-modes">
-      <div class="performance-mode" data-mode="light">LEGGERO</div>
-      <div class="performance-mode" data-mode="base">BASE</div>
-      <div class="performance-mode" data-mode="performance">PERFORMANCE</div>
-    </div>
-    <button id="save-mode">SALVA PREFERENZA</button>
-  `;
-  
-  document.body.appendChild(modeSelector);
-  
-  // Aggiungi gli eventi click per le modalità
-  const modeButtons = modeSelector.querySelectorAll('.performance-mode');
-  modeButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const mode = this.getAttribute('data-mode');
-      setPerformanceMode(mode);
-      
-      // Aggiorna la classe active
-      modeButtons.forEach(btn => btn.classList.remove('active'));
-      this.classList.add('active');
-    });
-  });
-  
-  // Aggiungi l'evento click per il pulsante di salvataggio
-  const saveButton = modeSelector.querySelector('#save-mode');
-  saveButton.addEventListener('click', function() {
-    savePerformanceMode();
-  });
-}
-
-// Imposta la modalità di visualizzazione specificata
+// Funzione per impostare la modalità di performance
 function setPerformanceMode(mode) {
-  // Rimuovi tutte le classi di modalità dal body
+  // Rimuovi tutte le classi di modalità
   document.body.classList.remove('light-mode', 'base-mode', 'performance-mode');
   
-  // Aggiungi la classe per la modalità specificata
+  // Aggiungi la classe corrispondente alla modalità
   document.body.classList.add(mode + '-mode');
   
-  // Aggiorna la variabile globale
-  currentMode = mode;
+  // Salva la preferenza dell'utente
+  localStorage.setItem('performanceMode', mode);
   
-  // Aggiorna il testo dell'indicatore
-  if (modeIndicator) {
-    let modeText = '';
-    switch (mode) {
-      case 'light':
-        modeText = 'LEGGERO';
-        break;
-      case 'base':
-        modeText = 'BASE';
-        break;
-      case 'performance':
-        modeText = 'PERFORMANCE';
-        break;
-    }
-    modeIndicator.textContent = modeText;
-  }
+  // Aggiorna l'indicatore di modalità
+  updateModeIndicator(mode);
   
-  // Aggiorna la selezione nel selettore se esiste
-  if (modeSelector) {
-    const modeButtons = modeSelector.querySelectorAll('.performance-mode');
-    modeButtons.forEach(button => {
-      button.classList.remove('active');
-      if (button.getAttribute('data-mode') === mode) {
-        button.classList.add('active');
-      }
-    });
-  }
+  // Regola il numero di particelle in base alla modalità
+  adjustParticles(mode);
   
-  // Chiama la funzione specifica della pagina se esiste
+  // Regola gli effetti dinamici in base alla modalità
+  adjustDynamicEffects(mode);
+  
+  // Mostra una notifica
+  showNotification(`Modalità ${mode === 'light' ? 'leggera' : mode === 'base' ? 'base' : 'performance'} attivata`);
+  
+  // Esegui funzioni specifiche della pagina se definite
   if (typeof window.onPerformanceModeChange === 'function') {
     window.onPerformanceModeChange(mode);
   }
-  
-  // Regola le particelle in base alla modalità
-  adjustParticles(mode);
 }
 
-// Salva la modalità di visualizzazione preferita
-function savePerformanceMode() {
-  localStorage.setItem('performanceMode', currentMode);
-  
-  // Mostra un messaggio di conferma
-  showConfirmation('Preferenza salvata con successo!');
+// Funzione per aggiornare l'indicatore di modalità
+function updateModeIndicator(mode) {
+  const indicator = document.getElementById('performance-indicator');
+  if (indicator) {
+    indicator.textContent = mode === 'light' ? 'LEGGERA' : mode === 'base' ? 'BASE' : 'PERFORMANCE';
+  }
 }
 
-// Mostra un messaggio di conferma
-function showConfirmation(message) {
-  const confirmation = document.createElement('div');
-  confirmation.style.position = 'fixed';
-  confirmation.style.bottom = '20px';
-  confirmation.style.left = '50%';
-  confirmation.style.transform = 'translateX(-50%)';
-  confirmation.style.background = 'linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%)';
-  confirmation.style.color = 'white';
-  confirmation.style.padding = '10px 20px';
-  confirmation.style.borderRadius = '30px';
-  confirmation.style.fontFamily = 'Orbitron, sans-serif';
-  confirmation.style.fontWeight = '700';
-  confirmation.style.zIndex = '10000';
-  confirmation.style.boxShadow = '0 5px 15px rgba(76, 175, 80, 0.4)';
-  confirmation.style.opacity = '0';
-  confirmation.style.transition = 'opacity 0.3s ease';
-  confirmation.textContent = message;
+// Funzione per mostrare una notifica
+function showNotification(message) {
+  // Rimuovi notifiche esistenti
+  const existingNotification = document.querySelector('.performance-notification');
+  if (existingNotification) {
+    existingNotification.remove();
+  }
   
-  document.body.appendChild(confirmation);
+  // Crea una nuova notifica
+  const notification = document.createElement('div');
+  notification.className = 'performance-notification';
+  notification.textContent = message;
+  notification.style.cssText = `
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 0.8em;
+    z-index: 10000;
+    box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  `;
   
-  // Animazione di entrata
+  document.body.appendChild(notification);
+  
+  // Mostra la notifica
   setTimeout(() => {
-    confirmation.style.opacity = '1';
+    notification.style.opacity = '1';
   }, 10);
   
-  // Rimuovi il messaggio dopo 3 secondi
+  // Nascondi la notifica dopo 3 secondi
   setTimeout(() => {
-    confirmation.style.opacity = '0';
+    notification.style.opacity = '0';
     setTimeout(() => {
-      if (document.body.contains(confirmation)) {
-        document.body.removeChild(confirmation);
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
       }
     }, 300);
   }, 3000);
 }
 
-// Regola le particelle in base alla modalità
-function adjustParticles(mode) {
-  const particlesContainer = document.getElementById('particles');
-  if (!particlesContainer) return;
-  
-  // Rimuovi tutte le particelle esistenti
-  particlesContainer.innerHTML = '';
-  
-  // Determina il numero di particelle in base alla modalità
-  let particleCount = 0;
-  switch (mode) {
-    case 'light':
-      particleCount = 10;
-      break;
-    case 'base':
-      particleCount = 20;
-      break;
-    case 'performance':
-      particleCount = 30;
-      break;
+// Crea l'indicatore di modalità
+function createModeIndicator() {
+  // Verifica se l'indicatore esiste già
+  if (document.getElementById('performance-indicator')) {
+    return;
   }
   
-  // Crea le nuove particelle
-  for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    
-    // Posizione casuale
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.top = Math.random() * 100 + '%';
-    
-    // Dimensione casuale
-    const size = Math.random() * 3 + 1;
-    particle.style.width = size + 'px';
-    particle.style.height = size + 'px';
-    
-    // Animazione casuale
-    const duration = Math.random() * 15 + 10;
-    const delay = Math.random() * 5;
-    particle.style.animation = `float ${duration}s infinite ease-in-out`;
-    particle.style.animationDelay = delay + 's';
-    
-    particlesContainer.appendChild(particle);
-  }
+  const indicator = document.createElement('div');
+  indicator.id = 'performance-indicator';
+  indicator.textContent = 'BASE';
+  indicator.addEventListener('click', function() {
+    const selector = document.getElementById('performance-mode-selector');
+    if (selector) {
+      selector.classList.toggle('show');
+    }
+  });
+  document.body.appendChild(indicator);
 }
 
-// Funzione pubblica per cambiare modalità da altre parti del codice
-window.changePerformanceMode = function(mode) {
-  if (['light', 'base', 'performance'].includes(mode)) {
-    setPerformanceMode(mode);
+// Crea il popup di selezione modalità iniziale
+function createInitialModePopup() {
+  // Verifica se il popup esiste già
+  if (document.getElementById('initial-mode-popup')) {
+    return;
   }
-};
+  
+  const popup = document.createElement('div');
+  popup.id = 'initial-mode-popup';
+  popup.innerHTML = `
+    <div class="popup-content">
+      <h3>Seleziona la Modalità di Visualizzazione</h3>
+      <p>Scegli la modalità preferita per ottimizzare le prestazioni del sito</p>
+      <div class="performance-modes">
+        <div class="performance-mode" data-mode="light">
+          <div class="mode-icon">⚡</div>
+          <div class="mode-name">Leggera</div>
+          <div class="mode-desc">Nessuna animazione</div>
+        </div>
+        <div class="performance-mode" data-mode="base">
+          <div class="mode-icon">🎯</div>
+          <div class="mode-name">Base</div>
+          <div class="mode-desc">Animazioni ridotte</div>
+        </div>
+        <div class="performance-mode" data-mode="performance">
+          <div class="mode-icon">🚀</div>
+          <div class="mode-name">Performance</div>
+          <div class="mode-desc">Animazioni complete</div>
+        </div>
+      </div>
+      <div class="popup-footer">
+        <span id="popup-timer">10</span> secondi alla selezione automatica
+      </div>
+    </div>
+  `;
+  document.body.appendChild(popup);
+  
+  // Mostra il popup con una piccola animazione
+  setTimeout(() => {
+    popup.classList.add('show');
+  }, 100);
+  
+  // Aggiungi event listener per i pulsanti di modalità
+  const modeButtons = popup.querySelectorAll('.performance-mode');
+  modeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Imposta la modalità corrispondente
+      setPerformanceMode(this.getAttribute('data-mode'));
+      
+      // Rimuovi il popup
+      popup.style.opacity = '0';
+      setTimeout(() => {
+        if (popup.parentNode) {
+          popup.parentNode.removeChild(popup);
+        }
+      }, 300);
+    });
+  });
+  
+  // Timer per la selezione automatica
+  let countdown = 10; // MODIFICATO DA 5 A 10
+  const timerElement = document.getElementById('popup-timer');
+  const countdownInterval = setInterval(() => {
+    countdown--;
+    if (timerElement) {
+      timerElement.textContent = countdown;
+    }
+    
+    if (countdown <= 0) {
+      clearInterval(countdownInterval);
+      
+      // Rileva automaticamente il dispositivo e imposta la modalità appropriata
+      const detectedMode = detectDevice();
+      setPerformanceMode(detectedMode);
+      
+      // Rimuovi il popup
+      popup.style.opacity = '0';
+      setTimeout(() => {
+        if (popup.parentNode) {
+          popup.parentNode.removeChild(popup);
+        }
+      }, 300);
+    }
+  }, 1000);
+}
 
-// Funzione pubblica per ottenere la modalità corrente
-window.getCurrentPerformanceMode = function() {
-  return currentMode;
-};
+// Crea il selettore di modalità
+function createModeSelector() {
+  // Verifica se il selettore esiste già
+  if (document.getElementById('performance-mode-selector')) {
+    return;
+  }
+  
+  const selector = document.createElement('div');
+  selector.id = 'performance-mode-selector';
+  selector.innerHTML = `
+    <h4>Modalità Visualizzazione</h4>
+    <p>Seleziona la modalità preferita per ottimizzare le prestazioni del sito</p>
+    <div class="performance-modes">
+      <div class="performance-mode" data-mode="light">Leggera</div>
+      <div class="performance-mode" data-mode="base">Base</div>
+      <div class="performance-mode" data-mode="performance">Performance</div>
+    </div>
+    <button id="save-performance-mode">Salva Preferenza</button>
+  `;
+  document.body.appendChild(selector);
+  
+  // Aggiungi event listener per i pulsanti di modalità
+  const modeButtons = selector.querySelectorAll('.performance-mode');
+  modeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Rimuovi la classe active da tutti i pulsanti
+      modeButtons.forEach(btn => btn.classList.remove('active'));
+      
+      // Aggiungi la classe active al pulsante cliccato
+      this.classList.add('active');
+      
+      // Imposta la modalità corrispondente
+      setPerformanceMode(this.getAttribute('data-mode'));
+    });
+  });
+  
+  // Aggiungi event listener per il pulsante di salvataggio
+  document.getElementById('save-performance-mode').addEventListener('click', function() {
+    selector.classList.remove('show');
+    showNotification('Preferenza salvata con successo');
+  });
+}
+
+// Inizializza il sistema di modalità
+function initPerformanceMode() {
+  // Crea l'indicatore e il selettore di modalità
+  createModeIndicator();
+  createModeSelector();
+  
+  // Controlla se l'utente ha già una preferenza salvata
+  const savedMode = localStorage.getItem('performanceMode');
+  
+  if (savedMode) {
+    // Usa la preferenza salvata
+    setPerformanceMode(savedMode);
+  } else {
+    // Mostra il popup iniziale per la selezione della modalità
+    createInitialModePopup();
+  }
+}
 
 // Inizializza il sistema quando il DOM è caricato
 document.addEventListener('DOMContentLoaded', function() {
   initPerformanceMode();
 });
 
-// Pulisci il timer quando la pagina viene scaricata
-window.addEventListener('beforeunload', function() {
-  if (initialModeTimer) {
-    clearTimeout(initialModeTimer);
-  }
-});
+// Esponi le funzioni globalmente per poterle utilizzare da altre parti del codice
+window.PerformanceMode = {
+  setMode: setPerformanceMode,
+  getCurrentMode: function() {
+    return localStorage.getItem('performanceMode') || 'base';
+  },
+  adjustParticles: adjustParticles,
+  adjustDynamicEffects: adjustDynamicEffects
+};
