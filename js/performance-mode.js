@@ -4,28 +4,10 @@
 function detectDevice() {
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   
-  // Rileva dispositivi Apple
-  if (/iPad|iPhone|iPod/.test(userAgent) || /Mac/.test(userAgent)) {
-    return 'performance';
-  }
-  
-  // Rileva Android
-  if (/android/i.test(userAgent)) {
-    // Controlla la versione di Android per determinare la modalità
-    const match = userAgent.match(/Android (\d+(?:\.\d+)?)/);
-    if (match) {
-      const version = parseFloat(match[1]);
-      // Android 10 o più recente potrebbe gestire meglio le animazioni
-      return version >= 10 ? 'base' : 'light';
-    }
+  // Rileva dispositivi mobili
+  if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent)) {
+    // Per i dispositivi mobili, usa la modalità leggera di default
     return 'light';
-  }
-  
-  // Rileva Windows
-  if (/Win/.test(userAgent)) {
-    // Controlla se è un dispositivo Windows meno recente
-    // Questa è una stima approssimativa
-    return 'base';
   }
   
   // Default per altri dispositivi
@@ -77,8 +59,11 @@ function adjustDynamicEffects(mode) {
       wavesContainer.style.display = 'none';
     } else {
       wavesContainer.style.display = 'block';
-      // Rimuoviamo le differenze di opacità tra modalità
-      wavesContainer.style.opacity = '0.3';
+      if (mode === 'base') {
+        wavesContainer.style.opacity = '0.1';
+      } else { // performance
+        wavesContainer.style.opacity = '0.3';
+      }
     }
   }
   
@@ -88,10 +73,21 @@ function adjustDynamicEffects(mode) {
   if (mouseFollow) {
     if (mode === 'light') {
       mouseFollow.style.display = 'none';
+      // Disabilita anche gli event listener del mouse follow se esistono
+      if (typeof disableMouseFollow === 'function') {
+        disableMouseFollow();
+      }
     } else {
       mouseFollow.style.display = 'block';
-      // Rimuoviamo le differenze di opacità tra modalità
-      mouseFollow.style.opacity = '1';
+      if (mode === 'base') {
+        mouseFollow.style.opacity = '0.5';
+      } else { // performance
+        mouseFollow.style.opacity = '1';
+      }
+      // Riabilita gli event listener del mouse follow se esistono
+      if (typeof enableMouseFollow === 'function') {
+        enableMouseFollow();
+      }
     }
   }
   
@@ -103,8 +99,11 @@ function adjustDynamicEffects(mode) {
       element.style.display = 'none';
     } else {
       element.style.display = 'block';
-      // Rimuoviamo le differenze di opacità tra modalità
-      element.style.opacity = '1';
+      if (mode === 'base') {
+        element.style.opacity = '0.5';
+      } else { // performance
+        element.style.opacity = '1';
+      }
     }
   });
 }
@@ -213,6 +212,87 @@ function createModeIndicator() {
   document.body.appendChild(indicator);
 }
 
+// Crea il popup di selezione modalità iniziale
+function createInitialModePopup() {
+  // Verifica se il popup esiste già
+  if (document.getElementById('initial-mode-popup')) {
+    return;
+  }
+  
+  const popup = document.createElement('div');
+  popup.id = 'initial-mode-popup';
+  popup.innerHTML = `
+    <div class="popup-content">
+      <h3>Seleziona la Modalità di Visualizzazione</h3>
+      <p>Scegli la modalità preferita per ottimizzare le prestazioni del sito</p>
+      <div class="performance-modes">
+        <div class="performance-mode" data-mode="light">
+          <div class="mode-icon">⚡</div>
+          <div class="mode-name">Leggera</div>
+          <div class="mode-desc">Nessuna animazione</div>
+        </div>
+        <div class="performance-mode" data-mode="base">
+          <div class="mode-icon">🎯</div>
+          <div class="mode-name">Base</div>
+          <div class="mode-desc">Animazioni ridotte</div>
+        </div>
+        <div class="performance-mode" data-mode="performance">
+          <div class="mode-icon">🚀</div>
+          <div class="mode-name">Performance</div>
+          <div class="mode-desc">Animazioni complete</div>
+        </div>
+      </div>
+      <div class="popup-footer">
+        <span id="popup-timer">5</span> secondi alla selezione automatica
+      </div>
+    </div>
+  `;
+  document.body.appendChild(popup);
+  
+  // Aggiungi event listener per i pulsanti di modalità
+  const modeButtons = popup.querySelectorAll('.performance-mode');
+  modeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Imposta la modalità corrispondente
+      setPerformanceMode(this.getAttribute('data-mode'));
+      
+      // Rimuovi il popup
+      popup.style.opacity = '0';
+      setTimeout(() => {
+        if (popup.parentNode) {
+          popup.parentNode.removeChild(popup);
+        }
+      }, 300);
+    });
+  });
+  
+  // Timer per la selezione automatica
+  let countdown = 5;
+  const timerElement = document.getElementById('popup-timer');
+  const countdownInterval = setInterval(() => {
+    countdown--;
+    if (timerElement) {
+      timerElement.textContent = countdown;
+    }
+    
+    if (countdown <= 0) {
+      clearInterval(countdownInterval);
+      
+      // Rileva automaticamente il dispositivo e imposta la modalità appropriata
+      const detectedMode = detectDevice();
+      setPerformanceMode(detectedMode);
+      
+      // Rimuovi il popup
+      popup.style.opacity = '0';
+      setTimeout(() => {
+        if (popup.parentNode) {
+          popup.parentNode.removeChild(popup);
+        }
+      }, 300);
+    }
+  }, 1000);
+}
+
 // Crea il selettore di modalità
 function createModeSelector() {
   // Verifica se il selettore esiste già
@@ -268,48 +348,9 @@ function initPerformanceMode() {
   if (savedMode) {
     // Usa la preferenza salvata
     setPerformanceMode(savedMode);
-    
-    // Mostra il selettore per un breve periodo per permettere all'utente di cambiare
-    setTimeout(() => {
-      const selector = document.getElementById('performance-mode-selector');
-      if (selector) {
-        selector.classList.add('show');
-        
-        // Imposta il pulsante corretto come attivo
-        const modeButton = selector.querySelector(`.performance-mode[data-mode="${savedMode}"]`);
-        if (modeButton) {
-          modeButton.classList.add('active');
-        }
-        
-        // Nascondi il selettore dopo 10 secondi
-        setTimeout(() => {
-          selector.classList.remove('show');
-        }, 10000);
-      }
-    }, 2000);
   } else {
-    // Rileva automaticamente il dispositivo e imposta la modalità appropriata
-    const detectedMode = detectDevice();
-    setPerformanceMode(detectedMode);
-    
-    // Mostra il selettore per permettere all'utente di cambiare
-    setTimeout(() => {
-      const selector = document.getElementById('performance-mode-selector');
-      if (selector) {
-        selector.classList.add('show');
-        
-        // Imposta il pulsante corretto come attivo
-        const modeButton = selector.querySelector(`.performance-mode[data-mode="${detectedMode}"]`);
-        if (modeButton) {
-          modeButton.classList.add('active');
-        }
-        
-        // Nascondi il selettore dopo 10 secondi
-        setTimeout(() => {
-          selector.classList.remove('show');
-        }, 10000);
-      }
-    }, 2000);
+    // Mostra il popup iniziale per la selezione della modalità
+    createInitialModePopup();
   }
 }
 
