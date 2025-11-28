@@ -68,77 +68,63 @@ body.light-mode #mouse-follow {
 
 
 /* ===================================================================================== */
-/* STILI PER LA MODALITÀ BASE - IMPATTO VISIVO RIDOTTO                                   */
+/* STILI PER LA MODALITÀ ALTA PRESTAZIONE - IMPATTO VISIVO COMPLETO                      */
 /* ===================================================================================== */
-body.base-mode .particle {
-  opacity: 0.3;
-}
-
-body.base-mode .wave {
-  opacity: 0.1;
-}
-
-/* Rallenta le animazioni per ridurre l'impatto visivo */
-body.base-mode .glitch-title {
-  animation-duration: 5s;
-}
-
-body.base-mode .profile-container::before {
-  animation-duration: 8s;
-}
-
-body.base-mode .profile-pic {
-  animation-duration: 5s;
-}
-
-body.base-mode .subtitle-tech {
-  animation-duration: 3s;
-}
-
-body.base-mode .content-wrapper::before {
-  animation-duration: 6s;
-}
-
-body.base-mode .content-card::before {
-  animation-duration: 8s;
-}
-
-body.base-mode .content-card h2 {
-  animation-duration: 3s;
-}
-
-body.base-mode .content-card h2::before {
-  animation-duration: 2s;
-}
-
-body.base-mode .footer-cta::before {
-  animation-duration: 6s;
-}
-
-body.base-mode .footer-title {
-  animation-duration: 4s;
-}
-
-body.base-mode .cta-primary::before {
-  animation-duration: 8s;
-}
-
-body.base-mode #translate-button::before {
-  animation-duration: 8s;
-}
-
-
-/* ===================================================================================== */
-/* STILI PER LA MODALITÀ PERFORMANCE - IMPATTO VISIVO COMPLETO                          */
-/* ===================================================================================== */
-/* In questa modalità, gli stili sono quelli di default definiti in style.css */
-/* Qui definiamo solo le sovrascritture, se necessarie. */
-body.performance-mode .particle {
+body.high-performance-mode .particle {
   opacity: 0.7;
 }
 
-body.performance-mode .wave {
+body.high-performance-mode .wave {
   opacity: 0.3;
+}
+
+/* Rallenta le animazioni per ridurre l'impatto visivo */
+body.high-performance-mode .glitch-title {
+  animation-duration: 5s;
+}
+
+body.high-performance-mode .profile-container::before {
+  animation-duration: 8s;
+}
+
+body.high-performance-mode .profile-pic {
+  animation-duration: 5s;
+}
+
+body.high-performance-mode .subtitle-tech {
+  animation-duration: 3s;
+}
+
+body.high-performance-mode .content-wrapper::before {
+  animation-duration: 6s;
+}
+
+body.high-performance-mode .content-card::before {
+  animation-duration: 8s;
+}
+
+body.high-performance-mode .content-card h2 {
+  animation-duration: 3s;
+}
+
+body.high-performance-mode .content-card h2::before {
+  animation-duration: 2s;
+}
+
+body.high-performance-mode .footer-cta::before {
+  animation-duration: 6s;
+}
+
+body.high-performance-mode .footer-title {
+  animation-duration: 4s;
+}
+
+body.high-performance-mode .cta-primary::before {
+  animation-duration: 8s;
+}
+
+body.high-performance-mode #translate-button::before {
+  animation-duration: 8s;
 }
 
 
@@ -179,7 +165,7 @@ body.performance-mode .wave {
 /* ===================================================================================== */
 #initial-mode-popup {
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 100%;
@@ -188,7 +174,7 @@ body.performance-mode .wave {
   z-index: 10000;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -200,12 +186,13 @@ body.performance-mode .wave {
 .popup-content {
   background: rgba(26, 26, 26, 0.95);
   border: 1px solid rgba(255, 87, 34, 0.3);
-  border-radius: 20px;
+  border-radius: 20px 20px 0 0;
   padding: 30px;
   max-width: 600px;
   width: 90%;
   text-align: center;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0;
 }
 
 .popup-content h3 {
@@ -307,6 +294,7 @@ body.performance-mode .wave {
   /* Responsive per il popup iniziale */
   .popup-content {
     padding: 20px;
+    border-radius: 20px 20px 0 0;
   }
   
   .popup-content h3 {
