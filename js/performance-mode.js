@@ -6,8 +6,7 @@
  * - Base: Effetti moderati per la maggior parte degli utenti
  * - Performance: Effetti completi per dispositivi potenti
  * 
- * La modalità leggera viene applicata automaticamente per i primi 15 secondi
- * dopo il caricamento della pagina, dopodiché l'utente può scegliere la modalità preferita.
+ * La modalità viene mantenuta durante la navigazione tra le pagine.
  */
 
 // Variabili globali per la gestione delle modalità
@@ -29,26 +28,18 @@ function initPerformanceMode() {
   // Carica la modalità salvata o usa la modalità leggera di default
   const savedMode = localStorage.getItem('performanceMode');
   
-  // Se non c'è una modalità salvata o se è passato meno di 15 secondi dal primo caricamento,
-  // usa la modalità leggera
-  const firstVisitTime = localStorage.getItem('firstVisitTime');
-  const now = new Date().getTime();
-  
-  if (!savedMode || (firstVisitTime && (now - parseInt(firstVisitTime)) < 15000)) {
-    // Salva il tempo del primo caricamento se non è già stato salvato
-    if (!firstVisitTime) {
-      localStorage.setItem('firstVisitTime', now.toString());
-    }
-    
-    // Imposta la modalità leggera
+  // Se non c'è una modalità salvata, usa la modalità leggera
+  if (!savedMode) {
     setPerformanceMode('light');
     
-    // Mostra il selettore dopo 15 secondi
-    initialModeTimer = setTimeout(() => {
-      if (isIndexPage() && modeSelector) {
-        modeSelector.classList.add('show');
-      }
-    }, 15000);
+    // Mostra il selettore dopo 15 secondi solo sulla pagina index
+    if (isIndexPage()) {
+      initialModeTimer = setTimeout(() => {
+        if (modeSelector) {
+          modeSelector.classList.add('show');
+        }
+      }, 15000);
+    }
   } else {
     // Usa la modalità salvata
     setPerformanceMode(savedMode);
@@ -175,6 +166,11 @@ function savePerformanceMode() {
   localStorage.setItem('performanceMode', currentMode);
   
   // Mostra un messaggio di conferma
+  showConfirmation('Preferenza salvata con successo!');
+}
+
+// Mostra un messaggio di conferma
+function showConfirmation(message) {
   const confirmation = document.createElement('div');
   confirmation.style.position = 'fixed';
   confirmation.style.bottom = '20px';
@@ -190,7 +186,7 @@ function savePerformanceMode() {
   confirmation.style.boxShadow = '0 5px 15px rgba(76, 175, 80, 0.4)';
   confirmation.style.opacity = '0';
   confirmation.style.transition = 'opacity 0.3s ease';
-  confirmation.textContent = 'Preferenza salvata con successo!';
+  confirmation.textContent = message;
   
   document.body.appendChild(confirmation);
   
