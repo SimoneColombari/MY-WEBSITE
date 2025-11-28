@@ -215,6 +215,8 @@ function createInitialModePopup() {
     return;
   }
   
+  let selectedMode = 'light'; // Modalità predefinita
+  
   const popup = document.createElement('div');
   popup.id = 'initial-mode-popup';
   popup.innerHTML = `
@@ -239,7 +241,7 @@ function createInitialModePopup() {
         </div>
       </div>
       <div class="popup-footer">
-        <span id="popup-timer">10</span> secondi alla selezione automatica
+        <span id="popup-timer">15</span> secondi all'applicazione automatica
       </div>
     </div>
   `;
@@ -254,21 +256,22 @@ function createInitialModePopup() {
   const modeButtons = popup.querySelectorAll('.performance-mode');
   modeButtons.forEach(button => {
     button.addEventListener('click', function() {
-      // Imposta la modalità corrispondente
-      setPerformanceMode(this.getAttribute('data-mode'));
+      // Rimuovi la classe active da tutti i pulsanti
+      modeButtons.forEach(btn => btn.classList.remove('active'));
       
-      // Rimuovi il popup
-      popup.style.opacity = '0';
-      setTimeout(() => {
-        if (popup.parentNode) {
-          popup.parentNode.removeChild(popup);
-        }
-      }, 300);
+      // Aggiungi la classe active al pulsante cliccato
+      this.classList.add('active');
+      
+      // Salva la modalità selezionata
+      selectedMode = this.getAttribute('data-mode');
+      
+      // Mostra una notifica per la selezione
+      showNotification(`Modalità ${selectedMode === 'light' ? 'leggera' : selectedMode === 'base' ? 'base' : 'performance'} selezionata`);
     });
   });
   
-  // Timer per la selezione automatica
-  let countdown = 10;
+  // Timer per l'applicazione automatica dopo 15 secondi
+  let countdown = 15;
   const timerElement = document.getElementById('popup-timer');
   const countdownInterval = setInterval(() => {
     countdown--;
@@ -279,8 +282,8 @@ function createInitialModePopup() {
     if (countdown <= 0) {
       clearInterval(countdownInterval);
       
-      // Imposta sempre la modalità leggera come default
-      setPerformanceMode('light');
+      // Applica la modalità selezionata (o quella predefinita)
+      setPerformanceMode(selectedMode);
       
       // Rimuovi il popup
       popup.style.opacity = '0';
@@ -341,24 +344,25 @@ function initPerformanceMode() {
   // Crea l'indicatore
   createModeIndicator();
   
+  // Imposta sempre la modalità leggera all'avvio
+  handlePerformanceModeChange('light');
+  
   // Crea il selettore solo se siamo sulla pagina index.html
   if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
     createModeSelector();
-  }
-  
-  // Controlla se l'utente ha già una preferenza salvata
-  const savedMode = localStorage.getItem('performanceMode');
-  
-  if (savedMode) {
-    // Usa la preferenza salvata
-    handlePerformanceModeChange(savedMode);
-  } else {
-    // Imposta sempre la modalità leggera come default
-    handlePerformanceModeChange('light');
     
-    // Mostra il popup di selezione solo se siamo sulla pagina index.html
-    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+    // Controlla se l'utente ha già una preferenza salvata
+    const savedMode = localStorage.getItem('performanceMode');
+    
+    if (!savedMode) {
+      // Mostra il popup di selezione solo alla prima visita
       createInitialModePopup();
+    }
+  } else {
+    // Per le altre pagine, se non c'è una preferenza salvata, mantieni la modalità leggera
+    const savedMode = localStorage.getItem('performanceMode');
+    if (!savedMode) {
+      handlePerformanceModeChange('light');
     }
   }
 }
