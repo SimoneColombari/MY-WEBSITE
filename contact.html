@@ -7,265 +7,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+  <!-- Includi il file di stile esterno -->
+  <link rel="stylesheet" href="style.css">
   <!-- Includi il file di configurazione -->
   <script>
     // Configurazione globale per l'URL dello script Google Apps Script
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzC1iqv3mmZGzLPtl1mNQUPCCwwFtxGNqPx4u3I8LU304YlglYowcaGMEgDU2Pcfqk2/exec";
   </script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* Stili specifici per la pagina contatti che non sono in style.css */
+    .navbar-spacer {
+      height: 70px;
     }
-    body {
-      margin: 0;
-      background: #0a0a0a;
-      font-family: 'Orbitron', monospace;
-      color: white;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
-    /* BACKGROUND ANIMATO FUTURISTICO */
-    .animated-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -3;
-      background: 
-        radial-gradient(circle at 25% 25%, rgba(255, 87, 34, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(255, 138, 80, 0.08) 0%, transparent 50%),
-        linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-    }
-    .floating-particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      pointer-events: none;
-    }
-    .particle {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      background: #FF5722;
-      border-radius: 50%;
-      box-shadow: 0 0 6px #FF5722;
-      animation: float 15s infinite ease-in-out;
-      opacity: 0.7;
-    }
-    .particle:nth-child(odd) {
-      background: #ff8a50;
-      box-shadow: 0 0 8px #ff8a50;
-      animation-duration: 20s;
-    }
-    .particle:nth-child(3n) {
-      background: #ffab40;
-      box-shadow: 0 0 10px #ffab40;
-      animation-duration: 25s;
-    }
-    @keyframes float {
-      0%, 100% { 
-        transform: translateY(100vh) translateX(0) rotate(0deg); 
-        opacity: 0;
-      }
-      10% { opacity: 0.7; }
-      90% { opacity: 0.7; }
-      50% { 
-        transform: translateY(-10vh) translateX(50px) rotate(180deg); 
-        opacity: 1;
-      }
-    }
-    /* ONDE ENERGETICHE */
-    .energy-waves {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.3;
-    }
-    .wave {
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, transparent 0%, rgba(255, 87, 34, 0.03) 50%, transparent 100%);
-      border-radius: 50%;
-      animation: wave-pulse 8s infinite ease-in-out;
-    }
-    .wave:nth-child(2) {
-      animation-delay: -2s;
-      background: radial-gradient(circle, transparent 0%, rgba(255, 138, 80, 0.02) 50%, transparent 100%);
-    }
-    .wave:nth-child(3) {
-      animation-delay: -4s;
-      background: radial-gradient(circle, transparent 0%, rgba(255, 171, 64, 0.015) 50%, transparent 100%);
-    }
-    @keyframes wave-pulse {
-      0%, 100% { 
-        transform: scale(0.8) rotate(0deg);
-        opacity: 0;
-      }
-      50% { 
-        transform: scale(1.2) rotate(180deg);
-        opacity: 1;
-      }
-    }
-    /* HERO SECTION SPETTACOLARE */
-    .hero {
-      height: 50vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 0 60px;
-      position: relative;
-      margin-top: 70px;
-      text-align: center;
-    }
-    .glitch-title {
-      font-size: clamp(2.8em, 7vw, 5.5em);
-      font-weight: 900;
-      color: #FF5722;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      margin-bottom: 20px;
-      position: relative;
-      text-shadow: 
-        0 0 5px #FF5722,
-        0 0 10px #FF5722,
-        0 0 20px #FF5722,
-        0 0 40px #FF5722;
-      animation: title-pulse 3s ease-in-out infinite;
-    }
-    @keyframes title-pulse {
-      0%, 100% {
-        text-shadow: 
-          0 0 5px #FF5722,
-          0 0 10px #FF5722,
-          0 0 20px #FF5722,
-          0 0 40px #FF5722;
-      }
-      50% {
-        text-shadow: 
-          0 0 2px #FF5722,
-          0 0 5px #FF5722,
-          0 0 10px #FF5722,
-          0 0 20px #FF5722,
-          0 0 35px #FF5722,
-          0 0 50px #FF5722;
-      }
-    }
-    .subtitle-tech {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.4em;
-      font-weight: 500;
-      color: #cccccc;
-      margin-bottom: 30px;
-      opacity: 0;
-      letter-spacing: 1px;
-      animation: subtitle-typewriter 2s ease-out 0.8s forwards;
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 2px solid #FF5722;
-    }
-    @keyframes subtitle-typewriter {
-      0% {
-        width: 0;
-        opacity: 1;
-      }
-      90% {
-        border-right-color: #FF5722;
-      }
-      100% {
-        width: 100%;
-        opacity: 1;
-        border-right-color: transparent;
-      }
-    }
-    /* PULSANTE CTA SPETTACOLARE */
-    .cta-primary {
-      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
-      color: white;
-      padding: 18px 40px;
-      border: none;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.1em;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-family: 'Orbitron', monospace;
-      display: inline-block;
-      margin-top: 25px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.4s ease;
-      box-shadow: 0 8px 20px rgba(255, 87, 34, 0.4);
-    }
-    .cta-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.5s ease;
-    }
-    .cta-primary:hover::before {
-      left: 100%;
-    }
-    .cta-primary:hover {
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 15px 35px rgba(255, 87, 34, 0.6);
-      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
-    }
-    .cta-primary:active {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 10px 25px rgba(255, 87, 34, 0.8);
-    }
-    /* SEZIONI CONTENT ANIMATE */
-    .content-wrapper {
-      background: rgba(26, 26, 26, 0.8);
-      backdrop-filter: blur(15px);
-      margin: 20px;
-      border-radius: 25px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 87, 34, 0.3);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-      position: relative;
-    }
-    .content-wrapper::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #FF5722, transparent);
-      animation: content-scan 4s infinite;
-    }
-    @keyframes content-scan {
-      0% { transform: translateX(-100%); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateX(100%); opacity: 0; }
-    }
-    .content-section {
-      padding: 60px 30px;
-    }
+    
     .contact-container {
       max-width: 1000px;
       margin: 0 auto;
       position: relative;
       animation: contact-container-enter 1s ease-out;
     }
+    
     @keyframes contact-container-enter {
       0% {
         opacity: 0;
@@ -276,12 +37,14 @@
         transform: translateY(0);
       }
     }
+    
     .contact-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 30px;
       margin-bottom: 40px;
     }
+    
     .contact-card {
       background: rgba(255, 87, 34, 0.05);
       padding: 25px;
@@ -294,80 +57,21 @@
       opacity: 0;
       animation: card-enter 0.6s ease-out forwards;
     }
+    
     .contact-card:nth-child(2) { animation-delay: 0.2s; }
-    @keyframes card-enter {
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-    .contact-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 87, 34, 0.1), transparent);
-      transition: left 0.6s ease;
-    }
-    .contact-card:hover::before {
-      left: 100%;
-    }
-    .contact-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      background: rgba(255, 87, 34, 0.12);
-      box-shadow: 0 20px 40px rgba(255, 87, 34, 0.3);
-      border-left-width: 6px;
-    }
-    .contact-card h2 {
-      color: #FF5722;
-      font-size: 1.6em;
-      font-weight: 700;
-      margin-bottom: 15px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      animation: title-glow 2s ease-in-out infinite alternate;
-    }
-    @keyframes title-glow {
-      0% { text-shadow: 0 0 5px #FF5722; }
-      100% { text-shadow: 0 0 15px #FF5722, 0 0 25px #FF5722; }
-    }
-    .contact-card h2::before {
-      content: '';
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      background: #FF5722;
-      border-radius: 50%;
-      animation: icon-pulse 1.5s infinite;
-      box-shadow: 0 0 10px #FF5722;
-    }
-    @keyframes icon-pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-    }
-    .contact-card p {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1em;
-      line-height: 1.6;
-      color: #e8e8e8;
-      font-weight: 400;
-      margin-bottom: 15px;
-    }
+    
     .contact-info {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
+    
     .contact-item {
       display: flex;
       align-items: center;
       gap: 12px;
     }
+    
     .contact-item-label {
       font-family: 'Rajdhani', sans-serif;
       font-size: 1em;
@@ -375,21 +79,25 @@
       color: #FF5722;
       min-width: 80px;
     }
+    
     .contact-item-value {
       font-family: 'Rajdhani', sans-serif;
       font-size: 1em;
       color: #e8e8e8;
       flex-grow: 1;
     }
+    
     .contact-item-value a {
       color: #e8e8e8;
       text-decoration: none;
       transition: all 0.3s ease;
     }
+    
     .contact-item-value a:hover {
       color: #FF5722;
       text-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
     }
+    
     .copy-button {
       background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
       color: white;
@@ -407,6 +115,7 @@
       position: relative;
       overflow: hidden;
     }
+    
     .copy-button::before {
       content: '';
       position: absolute;
@@ -417,14 +126,17 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
       transition: left 0.5s ease;
     }
+    
     .copy-button:hover::before {
       left: 100%;
     }
+    
     .copy-button:hover {
       transform: translateY(-3px) scale(1.05);
       box-shadow: 0 6px 15px rgba(255, 87, 34, 0.5);
       background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
     }
+    
     .interest-section {
       background: rgba(255, 87, 34, 0.05);
       padding: 25px;
@@ -435,6 +147,7 @@
       overflow: hidden;
       margin-top: 30px;
     }
+    
     .interest-section::before {
       content: '';
       position: absolute;
@@ -445,37 +158,18 @@
       background: linear-gradient(90deg, transparent, rgba(255, 87, 34, 0.1), transparent);
       transition: left 0.6s ease;
     }
+    
     .interest-section:hover::before {
       left: 100%;
     }
+    
     .interest-section:hover {
       transform: translateY(-8px) scale(1.02);
       background: rgba(255, 87, 34, 0.12);
       box-shadow: 0 20px 40px rgba(255, 87, 34, 0.3);
       border-left-width: 6px;
     }
-    .interest-section h2 {
-      color: #FF5722;
-      font-size: 1.6em;
-      font-weight: 700;
-      margin-bottom: 15px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      animation: title-glow 2s ease-in-out infinite alternate;
-    }
-    .interest-section h2::before {
-      content: '';
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      background: #FF5722;
-      border-radius: 50%;
-      animation: icon-pulse 1.5s infinite;
-      box-shadow: 0 0 10px #FF5722;
-    }
+    
     .interest-label {
       font-family: 'Rajdhani', sans-serif;
       font-size: 1.1em;
@@ -485,6 +179,7 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
+    
     .company-input {
       width: 100%;
       padding: 12px 15px;
@@ -497,15 +192,18 @@
       margin-bottom: 15px;
       transition: all 0.3s ease;
     }
+    
     .company-input:focus {
       outline: none;
       border-color: #FF5722;
       box-shadow: 0 0 15px rgba(255, 87, 34, 0.3);
       background: rgba(255, 255, 255, 0.15);
     }
+    
     .company-input::placeholder {
       color: rgba(255, 255, 255, 0.5);
     }
+    
     .interest-slider {
       width: 100%;
       height: 8px;
@@ -515,6 +213,7 @@
       margin: 15px 0;
       -webkit-appearance: none;
     }
+    
     .interest-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
@@ -526,10 +225,12 @@
       box-shadow: 0 0 15px rgba(255, 87, 34, 0.5);
       transition: all 0.3s ease;
     }
+    
     .interest-slider::-webkit-slider-thumb:hover {
       transform: scale(1.2);
       box-shadow: 0 0 20px rgba(255, 87, 34, 0.8);
     }
+    
     .interest-slider::-moz-range-thumb {
       width: 25px;
       height: 25px;
@@ -539,10 +240,12 @@
       box-shadow: 0 0 15px rgba(255, 87, 34, 0.5);
       transition: all 0.3s ease;
     }
+    
     .interest-slider::-moz-range-thumb:hover {
       transform: scale(1.2);
       box-shadow: 0 0 20px rgba(255, 87, 34, 0.8);
     }
+    
     .interest-value {
       font-family: 'Rajdhani', sans-serif;
       font-size: 1.6em;
@@ -553,211 +256,49 @@
       text-shadow: 0 0 10px rgba(255, 87, 34, 0.3);
       animation: interest-pulse 2s ease-in-out infinite;
     }
+    
     @keyframes interest-pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
     }
-    /* FOOTER SPETTACOLARE */
-    .footer-cta {
-      background: linear-gradient(135deg, rgba(10,10,10,0.95) 0%, rgba(26,26,26,0.95) 100%);
-      padding: 60px 20px;
-      text-align: center;
-      border-top: 2px solid rgba(255, 87, 34, 0.3);
-      position: relative;
-      overflow: hidden;
-    }
-    .footer-cta::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, rgba(255, 87, 34, 0.05) 0%, transparent 70%);
-      animation: footer-pulse 4s ease-in-out infinite;
-    }
-    @keyframes footer-pulse {
-      0%, 100% { transform: scale(1); opacity: 0.5; }
-      50% { transform: scale(1.1); opacity: 1; }
-    }
-    .footer-title {
-      font-size: 2em;
-      font-weight: 900;
-      color: #FF5722;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      margin-bottom: 30px;
-      text-shadow: 0 0 20px #FF5722;
-      position: relative;
-      z-index: 10;
-      animation: footer-title-glow 3s ease-in-out infinite;
-    }
-    @keyframes footer-title-glow {
-      0%, 100% {
-        text-shadow: 0 0 20px #FF5722, 0 0 30px #FF5722;
-      }
-      50% {
-        text-shadow: 0 0 30px #FF5722, 0 0 50px #FF5722, 0 0 70px #FF5722;
-      }
-    }
-    .cta-matrix {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      max-width: 900px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 10;
-    }
-    .cta-matrix .cta-primary {
-      margin: 0;
-      width: 100%;
-      padding: 15px 20px;
-      font-size: 0.9em;
-    }
-    /* STILE SPECIALE PER IL PULSANTE DASHBOARD NEL FOOTER */
-    .cta-matrix .cta-dashboard {
-      background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
-      position: relative;
-      overflow: hidden;
-    }
-    .cta-matrix .cta-dashboard::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
-      transform: translateX(-100%);
-      transition: transform 0.6s;
-    }
-    .cta-matrix .cta-dashboard:hover::after {
-      transform: translateX(100%);
-    }
-    .cta-matrix .cta-dashboard:hover {
-      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
-      transform: translateY(-5px) scale(1.08);
-      box-shadow: 0 15px 35px rgba(255, 87, 34, 0.7);
-    }
-    /* TRANSLATION WIDGET ANIMATO */
-    #translate-container {
-      position: fixed;
-      top: 80px;
-      right: 15px;
-      z-index: 1001;
-    }
-    #translate-button {
-      background: linear-gradient(135deg, #FF5722, #ff8a50);
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      transition: all 0.4s ease;
-      box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
-      font-size: 0.8em;
-      position: relative;
-      overflow: hidden;
-    }
-    #translate-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.5s ease;
-    }
-    #translate-button:hover::before {
-      left: 100%;
-    }
-    #translate-button:hover {
-      transform: translateY(-5px) scale(1.1);
-      box-shadow: 0 10px 25px rgba(255, 87, 34, 0.6);
-    }
+    
     /* RESPONSIVE MIGLIORATO */
     @media (max-width: 968px) {
-      .hero {
-        padding: 30px 20px;
-        height: 40vh;
-        margin-top: 70px;
-      }
-      .content-wrapper {
-        margin: 15px;
-      }
-      .content-section {
-        padding: 40px 20px;
-      }
       .contact-grid {
         grid-template-columns: 1fr;
         gap: 20px;
       }
+      
       .contact-card {
         min-width: 100%;
       }
     }
     
-    @media (max-width: 768px) {
-      .glitch-title {
-        font-size: 2.2em;
-        letter-spacing: 2px;
-      }
-      .subtitle-tech {
-        font-size: 1.1em;
-      }
-      .footer-cta {
-        padding: 50px 15px;
-      }
-      .cta-matrix {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-      .cta-matrix .cta-primary {
-        padding: 12px 18px;
-        font-size: 0.85em;
-      }
-    }
-    
     @media (max-width: 480px) {
-      .hero {
-        padding: 15px;
-        margin-top: 70px;
-        height: 35vh;
-      }
-      .glitch-title {
-        font-size: 1.8em;
-      }
-      .subtitle-tech {
-        font-size: 1em;
-      }
-      .content-wrapper {
-        margin: 10px;
-      }
-      .content-section {
-        padding: 30px 15px;
-      }
       .contact-card {
         padding: 20px;
       }
+      
       .contact-card h2 {
         font-size: 1.4em;
       }
+      
       .contact-card p {
         font-size: 0.95em;
       }
+      
       .interest-section {
         padding: 20px;
       }
+      
       .interest-section h2 {
         font-size: 1.4em;
       }
+      
       .interest-value {
         font-size: 1.4em;
       }
+      
       .copy-button {
         font-size: 0.75em;
         padding: 5px 10px;
