@@ -97,10 +97,20 @@ function adjustDynamicEffects(mode) {
     }
   }
   
-  // Disabilita l'effetto di illuminazione dello sfondo al passaggio del mouse in modalità leggera
+  // DISABILITA COMPLETAMENTE L'EFFETTO DI ILLUMINAZIONE DELLO SFONDO IN MODALITÀ LEGGERA
   if (mode === 'light') {
     // Rimuovi l'event listener per l'effetto mouse follow sullo sfondo
     document.removeEventListener('mousemove', handleMouseMove);
+    
+    // Resetta lo sfondo allo stato statico
+    const background = document.querySelector('.animated-background');
+    if (background) {
+      background.style.background = `
+        radial-gradient(circle at 25% 25%, rgba(255, 87, 34, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255, 138, 80, 0.08) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)
+      `;
+    }
   } else {
     // Riaggiungi l'event listener per l'effetto mouse follow sullo sfondo
     document.addEventListener('mousemove', handleMouseMove);

@@ -8,7 +8,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
   <!-- Includi il file di stile esterno -->
-  <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/performance-mode.css">
+
+<!-- ... altro contenuto ... -->
+
   <!-- Includi il file di configurazione -->
   <script>
     // Configurazione globale per l'URL dello script Google Apps Script
@@ -467,7 +471,7 @@
       });
     }
     
-    // ANIMAZIONE MOUSEFOLLOW PER LO SFONDO
+    /*// ANIMAZIONE MOUSEFOLLOW PER LO SFONDO
     function initMouseEffects() {
       const background = document.querySelector('.animated-background');
       let mouseX = 0;
@@ -484,7 +488,7 @@
         `;
       });
     }
-    
+    */
     // EFFETTO TYPING ANIMATO
     function initTypingEffect() {
       const subtitle = document.querySelector('.subtitle-tech');
@@ -639,7 +643,7 @@
       
       // Inizializza tutte le animazioni
       initParallax();
-      initMouseEffects();
+      //initMouseEffects();
       initTypingEffect();
       initScrollAnimations();
       initButtonEffects();

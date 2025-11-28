@@ -11,6 +11,17 @@ body.light-mode .wave {
   display: none;
 }
 
+/* DISABILITA COMPLETAMENTE L'EFFETTO DI ILLUMINAZIONE DELLO SFONDO IN MODALITÀ LEGGERA */
+body.light-mode .animated-background {
+  /* FORZA lo sfondo statico senza effetto dinamico */
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(255, 87, 34, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(255, 138, 80, 0.08) 0%, transparent 50%),
+    linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%) !important;
+  /* Disabilita qualsiasi transizione che potrebbe interferire */
+  transition: none !important;
+}
+
 /* Disabilita TUTTE le animazioni e le transizioni complesse, mantenendo solo gli hover di base */
 body.light-mode .glitch-title,
 body.light-mode .profile-container::before,
@@ -26,14 +37,6 @@ body.light-mode .cta-primary::before,
 body.light-mode #translate-button::before {
   animation: none !important;
   transition: none !important; /* Disabilita anche le transizioni non essenziali */
-}
-
-/* Disabilita l'effetto di illuminazione dello sfondo al passaggio del mouse */
-body.light-mode .animated-background {
-  background: 
-    radial-gradient(circle at 25% 25%, rgba(255, 87, 34, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(255, 138, 80, 0.08) 0%, transparent 50%),
-    linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
 }
 
 /* Mantiene solo gli effetti hover di base su pulsanti e elementi interattivi */

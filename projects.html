@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
   <!-- Includi il file di stile esterno -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/performance-mode.css">
   <!-- Configurazione globale per l'URL dello script Google Apps Script -->
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzC1iqv3mmZGzLPtl1mNQUPCCwwFtxGNqPx4u3I8LU304YlglYowcaGMEgDU2Pcfqk2/exec";
@@ -818,7 +819,7 @@
       });
     }
     
-    // ANIMAZIONE MOUSEFOLLOW PER LO SFONDO
+    /*// ANIMAZIONE MOUSEFOLLOW PER LO SFONDO
     function initMouseEffects() {
       const background = document.querySelector('.animated-background');
       let mouseX = 0;
@@ -834,7 +835,7 @@
           linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)
         `;
       });
-    }
+    }*/
     
     // EFFETTO TYPING ANIMATO
     function initTypingEffect() {
@@ -944,7 +945,7 @@
       
       // Inizializza tutte le animazioni
       initParallax();
-      initMouseEffects();
+      //initMouseEffects();
       initTypingEffect();
       initScrollAnimations();
       initButtonEffects();
