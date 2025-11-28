@@ -68,6 +68,56 @@ function adjustParticles(mode) {
   }
 }
 
+// Funzione per regolare gli effetti dinamici in base alla modalità
+function adjustDynamicEffects(mode) {
+  // Gestione delle onde energetiche
+  const wavesContainer = document.getElementById('energy-waves');
+  if (wavesContainer) {
+    if (mode === 'light') {
+      wavesContainer.style.display = 'none';
+    } else {
+      wavesContainer.style.display = 'block';
+      if (mode === 'base') {
+        wavesContainer.style.opacity = '0.1';
+      } else { // performance
+        wavesContainer.style.opacity = '0.3';
+      }
+    }
+  }
+  
+  // Gestione del mouse follow (se esiste)
+  // IMPORTANTE: Assicurati che l'elemento HTML del mouse follow abbia l'ID "mouse-follow"
+  const mouseFollow = document.getElementById('mouse-follow');
+  if (mouseFollow) {
+    if (mode === 'light') {
+      mouseFollow.style.display = 'none';
+    } else {
+      mouseFollow.style.display = 'block';
+      if (mode === 'base') {
+        mouseFollow.style.opacity = '0.5';
+      } else { // performance
+        mouseFollow.style.opacity = '1';
+      }
+    }
+  }
+  
+  // Gestione di altri effetti dinamici che potrebbero essere presenti
+  // Aggiungi la classe "dynamic-effect" a qualsiasi elemento che debba essere nascosto in modalità leggera
+  const dynamicElements = document.querySelectorAll('.dynamic-effect');
+  dynamicElements.forEach(element => {
+    if (mode === 'light') {
+      element.style.display = 'none';
+    } else {
+      element.style.display = 'block';
+      if (mode === 'base') {
+        element.style.opacity = '0.5';
+      } else { // performance
+        element.style.opacity = '1';
+      }
+    }
+  });
+}
+
 // Funzione per impostare la modalità di performance
 function setPerformanceMode(mode) {
   // Rimuovi tutte le classi di modalità
@@ -84,6 +134,9 @@ function setPerformanceMode(mode) {
   
   // Regola il numero di particelle in base alla modalità
   adjustParticles(mode);
+  
+  // Regola gli effetti dinamici in base alla modalità
+  adjustDynamicEffects(mode);
   
   // Mostra una notifica
   showNotification(`Modalità ${mode === 'light' ? 'leggera' : mode === 'base' ? 'base' : 'performance'} attivata`);
@@ -280,5 +333,6 @@ window.PerformanceMode = {
   getCurrentMode: function() {
     return localStorage.getItem('performanceMode') || 'base';
   },
-  adjustParticles: adjustParticles
+  adjustParticles: adjustParticles,
+  adjustDynamicEffects: adjustDynamicEffects
 };

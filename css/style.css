@@ -15,7 +15,9 @@ body {
   scroll-behavior: smooth;
 }
 
-/* SISTEMA DI MODALITÀ PERFORMANCIA */
+/* ===================================================================================== */
+/* SISTEMA DI MODALITÀ PERFORMANCIA - Stili base dell'interfaccia                         */
+/* ===================================================================================== */
 .performance-mode-selector {
   position: fixed;
   bottom: 20px;
@@ -120,6 +122,10 @@ body {
 .performance-indicator:hover {
   background: rgba(255, 87, 34, 0.2);
 }
+
+/* ===================================================================================== */
+/* STILI GENERALI DEL SITO                                                              */
+/* ===================================================================================== */
 
 /* BACKGROUND ANIMATO FUTURISTICO */
 .animated-background {
@@ -716,201 +722,6 @@ body {
   box-shadow: 0 10px 25px rgba(255, 87, 34, 0.6);
 }
 
-/* MODALITÀ LEGGERA - MINIMO IMPATTO VISIVO */
-body.light-mode .particle,
-body.light-mode .wave {
-  display: none;
-}
-
-body.light-mode .animated-background {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-}
-
-body.light-mode .glitch-title {
-  animation: none;
-  text-shadow: 0 0 10px #FF5722;
-}
-
-body.light-mode .profile-container::before {
-  animation: none;
-}
-
-body.light-mode .profile-pic {
-  animation: none;
-  filter: brightness(1.1) contrast(1.2);
-}
-
-body.light-mode .profile-pic:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255, 87, 34, 0.4);
-  filter: brightness(1.2) contrast(1.3);
-}
-
-body.light-mode .subtitle-tech {
-  animation: none;
-  border-right: none;
-}
-
-body.light-mode .content-wrapper::before {
-  animation: none;
-}
-
-body.light-mode .content-card::before {
-  animation: none;
-}
-
-body.light-mode .content-card:hover {
-  transform: translateY(-5px);
-  background: rgba(255, 87, 34, 0.1);
-  box-shadow: 0 10px 20px rgba(255, 87, 34, 0.2);
-}
-
-body.light-mode .content-card h2 {
-  animation: none;
-  text-shadow: 0 0 5px #FF5722;
-}
-
-body.light-mode .content-card h2::before {
-  animation: none;
-}
-
-body.light-mode .footer-cta::before {
-  animation: none;
-}
-
-body.light-mode .footer-title {
-  animation: none;
-  text-shadow: 0 0 10px #FF5722;
-}
-
-body.light-mode .cta-primary::before {
-  animation: none;
-}
-
-body.light-mode .cta-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(255, 87, 34, 0.4);
-}
-
-body.light-mode #translate-button::before {
-  animation: none;
-}
-
-body.light-mode #translate-button:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
-}
-
-/* MODALITÀ BASE - IMPATTO VISIVO RIDOTTO */
-body.base-mode .particle {
-  opacity: 0.3;
-}
-
-body.base-mode .wave {
-  opacity: 0.1;
-}
-
-body.base-mode .glitch-title {
-  animation-duration: 5s;
-}
-
-body.base-mode .profile-container::before {
-  animation-duration: 8s;
-}
-
-body.base-mode .profile-pic {
-  animation-duration: 5s;
-}
-
-body.base-mode .subtitle-tech {
-  animation-duration: 3s;
-}
-
-body.base-mode .content-wrapper::before {
-  animation-duration: 6s;
-}
-
-body.base-mode .content-card::before {
-  animation-duration: 8s;
-}
-
-body.base-mode .content-card:hover {
-  transform: translateY(-5px);
-}
-
-body.base-mode .content-card h2 {
-  animation-duration: 3s;
-}
-
-body.base-mode .content-card h2::before {
-  animation-duration: 2s;
-}
-
-body.base-mode .footer-cta::before {
-  animation-duration: 6s;
-}
-
-body.base-mode .footer-title {
-  animation-duration: 4s;
-}
-
-body.base-mode .cta-primary::before {
-  animation-duration: 8s;
-}
-
-body.base-mode #translate-button::before {
-  animation-duration: 8s;
-}
-
-/* MODALITÀ PERFORMANCE - IMPATTO VISIVO COMPLETO */
-body.performance-mode .particle {
-  opacity: 0.7;
-}
-
-body.performance-mode .wave {
-  opacity: 0.3;
-}
-
-/* Disabilita animazioni per utenti che preferiscono ridurre il movimento */
-@media (prefers-reduced-motion: reduce) {
-  .particle,
-  .wave,
-  .glitch-title,
-  .profile-container::before,
-  .profile-pic,
-  .subtitle-tech,
-  .content-wrapper::before,
-  .content-card::before,
-  .content-card h2,
-  .content-card h2::before,
-  .footer-cta::before,
-  .footer-title,
-  .cta-primary::before,
-  #translate-button::before {
-    animation: none !important;
-  }
-  
-  .glitch-title {
-    text-shadow: 0 0 10px #FF5722;
-  }
-  
-  .profile-pic:hover {
-    transform: scale(1.05);
-  }
-  
-  .content-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .cta-primary:hover {
-    transform: translateY(-3px);
-  }
-  
-  #translate-button:hover {
-    transform: translateY(-3px) scale(1.05);
-  }
-}
-
 /* RESPONSIVE MIGLIORATO */
 @media (max-width: 968px) {
   /* Modifiche alla navbar per mobile */
@@ -952,29 +763,6 @@ body.performance-mode .wave {
   .section-grid {
     grid-template-columns: 1fr;
     gap: 20px;
-  }
-  
-  /* Ottimizzazioni per dispositivi mobili */
-  .performance-mode-selector {
-    bottom: 10px;
-    right: 10px;
-    left: 10px;
-    max-width: none;
-  }
-  
-  .performance-modes {
-    margin-bottom: 10px;
-  }
-  
-  .performance-mode {
-    padding: 6px 3px;
-    font-size: 0.7em;
-  }
-  
-  .performance-indicator {
-    top: 70px;
-    right: 10px;
-    font-size: 0.6em;
   }
 }
 
