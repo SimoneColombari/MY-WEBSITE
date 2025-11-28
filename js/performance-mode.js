@@ -109,9 +109,58 @@ function adjustDynamicEffects(mode) {
 }
 
 // Funzione per impostare la modalità di performance
-function setPerformanceMode(mode) {
+function setPerformanceMode(mode, skipTransition = false) {
   // Rimuovi tutte le classi di modalità
   document.body.classList.remove('light-mode', 'base-mode', 'performance-mode');
+  
+  // Se la modalità è performance e non dobbiamo saltare la transizione, avvia il timer
+  if (mode === 'performance' && !skipTransition) {
+    // Imposta la modalità leggera per i primi 15 secondi
+    document.body.classList.add('light-mode');
+    
+    // Salva la preferenza dell'utente come performance
+    localStorage.setItem('performanceMode', 'performance');
+    
+    // Aggiorna l'indicatore di modalità
+    updateModeIndicator('light');
+    
+    // Regola il numero di particelle in base alla modalità leggera
+    adjustParticles('light');
+    
+    // Regola gli effetti dinamici in base alla modalità leggera
+    adjustDynamicEffects('light');
+    
+    // Mostra una notifica per la transizione
+    showNotification('Modalità leggera attivata. Passaggio a performance in 15 secondi...');
+    
+    // Imposta un timer per passare alla modalità performance dopo 15 secondi
+    setTimeout(() => {
+      // Rimuovi la modalità leggera
+      document.body.classList.remove('light-mode');
+      
+      // Aggiungi la modalità performance
+      document.body.classList.add('performance-mode');
+      
+      // Regola le particelle per la modalità performance
+      adjustParticles('performance');
+      
+      // Regola gli effetti dinamici per la modalità performance
+      adjustDynamicEffects('performance');
+      
+      // Aggiorna l'indicatore di modalità
+      updateModeIndicator('performance');
+      
+      // Mostra una notifica per il completamento della transizione
+      showNotification('Modalità performance attivata');
+      
+      // Esegui funzioni specifiche della pagina se definite
+      if (typeof window.onPerformanceModeChange === 'function') {
+        window.onPerformanceModeChange('performance');
+      }
+    }, 15000); // 15 secondi
+    
+    return;
+  }
   
   // Aggiungi la classe corrispondente alla modalità
   document.body.classList.add(mode + '-mode');
@@ -272,7 +321,7 @@ function createInitialModePopup() {
   });
   
   // Timer per la selezione automatica
-  let countdown = 10; // MODIFICATO DA 5 A 10
+  let countdown = 10;
   const timerElement = document.getElementById('popup-timer');
   const countdownInterval = setInterval(() => {
     countdown--;
@@ -352,7 +401,7 @@ function initPerformanceMode() {
   
   if (savedMode) {
     // Usa la preferenza salvata
-    setPerformanceMode(savedMode);
+    setPerformanceMode(savedMode, false);
   } else {
     // Mostra il popup iniziale per la selezione della modalità
     createInitialModePopup();

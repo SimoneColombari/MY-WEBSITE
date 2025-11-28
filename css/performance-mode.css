@@ -66,6 +66,29 @@ body.light-mode #mouse-follow {
   display: none !important;
 }
 
+/* Aggiungi una transizione fluida per il cambio di modalità */
+body {
+  transition: background 1.5s ease-in-out;
+}
+
+body.light-mode .animated-background {
+  transition: all 1.5s ease-in-out;
+}
+
+body.light-mode .particle,
+body.light-mode .wave {
+  transition: opacity 1.5s ease-in-out;
+}
+
+/* Assicurati che le animazioni si riattivino correttamente */
+body.performance-mode .particle,
+body.performance-mode .wave {
+  animation: float 15s infinite ease-in-out;
+}
+
+body.performance-mode .wave {
+  animation: wave-pulse 8s infinite ease-in-out;
+}
 
 /* ===================================================================================== */
 /* STILI PER LA MODALITÀ BASE - IMPATTO VISIVO RIDOTTO                                   */
@@ -127,7 +150,6 @@ body.base-mode #translate-button::before {
   animation-duration: 8s;
 }
 
-
 /* ===================================================================================== */
 /* STILI PER LA MODALITÀ PERFORMANCE - IMPATTO VISIVO COMPLETO                          */
 /* ===================================================================================== */
@@ -140,7 +162,6 @@ body.performance-mode .particle {
 body.performance-mode .wave {
   opacity: 0.3;
 }
-
 
 /* ===================================================================================== */
 /* ACCESSIBILITÀ - Disabilita animazioni per utenti che preferiscono ridurre il movimento */
@@ -172,7 +193,6 @@ body.performance-mode .wave {
     transform: translateY(-3px) scale(1.05);
   }
 }
-
 
 /* ===================================================================================== */
 /* STILI PER IL POPUP INIZIALE DI SELEZIONE MODALITÀ                                    */
@@ -276,7 +296,6 @@ body.performance-mode .wave {
   color: #FF5722;
   font-size: 1.1em;
 }
-
 
 /* ===================================================================================== */
 /* RESPONSIVE PER IL SELETTORE DI MODALITÀ                                               */
