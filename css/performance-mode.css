@@ -52,78 +52,15 @@ body.light-mode #translate-button:hover {
 
 
 /* ===================================================================================== */
-/* STILI PER LA MODALITÀ BASE - IMPATTO VISIVO RIDOTTO                                   */
+/* STILI PER LA MODALITÀ BASE - STILE IDENTICO ALLA PERFORMANCE                          */
 /* ===================================================================================== */
-body.base-mode .particle {
-  opacity: 0.3;
-}
-
-body.base-mode .wave {
-  opacity: 0.1;
-}
-
-/* Rallenta le animazioni per ridurre l'impatto visivo */
-body.base-mode .glitch-title {
-  animation-duration: 5s;
-}
-
-body.base-mode .profile-container::before {
-  animation-duration: 8s;
-}
-
-body.base-mode .profile-pic {
-  animation-duration: 5s;
-}
-
-body.base-mode .subtitle-tech {
-  animation-duration: 3s;
-}
-
-body.base-mode .content-wrapper::before {
-  animation-duration: 6s;
-}
-
-body.base-mode .content-card::before {
-  animation-duration: 8s;
-}
-
-body.base-mode .content-card h2 {
-  animation-duration: 3s;
-}
-
-body.base-mode .content-card h2::before {
-  animation-duration: 2s;
-}
-
-body.base-mode .footer-cta::before {
-  animation-duration: 6s;
-}
-
-body.base-mode .footer-title {
-  animation-duration: 4s;
-}
-
-body.base-mode .cta-primary::before {
-  animation-duration: 8s;
-}
-
-body.base-mode #translate-button::before {
-  animation-duration: 8s;
-}
+/* Non definiamo stili specifici per la modalità base, per mantenere lo stesso aspetto della modalità performance */
 
 
 /* ===================================================================================== */
-/* STILI PER LA MODALITÀ PERFORMANCE - IMPATTO VISIVO COMPLETO                          */
+/* STILI PER LA MODALITÀ PERFORMANCE - STILE IDENTICO ALLA BASE                         */
 /* ===================================================================================== */
-/* In questa modalità, gli stili sono quelli di default definiti in style.css */
-/* Qui definiamo solo le sovrascritture, se necessarie. */
-body.performance-mode .particle {
-  opacity: 0.7;
-}
-
-body.performance-mode .wave {
-  opacity: 0.3;
-}
+/* Non definiamo stili specifici per la modalità performance, per mantenere lo stesso aspetto della modalità base */
 
 
 /* ===================================================================================== */

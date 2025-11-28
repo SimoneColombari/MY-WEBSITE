@@ -77,11 +77,8 @@ function adjustDynamicEffects(mode) {
       wavesContainer.style.display = 'none';
     } else {
       wavesContainer.style.display = 'block';
-      if (mode === 'base') {
-        wavesContainer.style.opacity = '0.1';
-      } else { // performance
-        wavesContainer.style.opacity = '0.3';
-      }
+      // Rimuoviamo le differenze di opacità tra modalità
+      wavesContainer.style.opacity = '0.3';
     }
   }
   
@@ -93,11 +90,8 @@ function adjustDynamicEffects(mode) {
       mouseFollow.style.display = 'none';
     } else {
       mouseFollow.style.display = 'block';
-      if (mode === 'base') {
-        mouseFollow.style.opacity = '0.5';
-      } else { // performance
-        mouseFollow.style.opacity = '1';
-      }
+      // Rimuoviamo le differenze di opacità tra modalità
+      mouseFollow.style.opacity = '1';
     }
   }
   
@@ -109,11 +103,8 @@ function adjustDynamicEffects(mode) {
       element.style.display = 'none';
     } else {
       element.style.display = 'block';
-      if (mode === 'base') {
-        element.style.opacity = '0.5';
-      } else { // performance
-        element.style.opacity = '1';
-      }
+      // Rimuoviamo le differenze di opacità tra modalità
+      element.style.opacity = '1';
     }
   });
 }
