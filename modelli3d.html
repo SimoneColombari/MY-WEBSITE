@@ -62,6 +62,10 @@
       background: rgba(10, 10, 10, 0.9);
     }
     
+    input[type="text"]::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
     /* SEZIONE PROGETTI 3D */
     .projects-3d-section {
       margin-bottom: 50px;
@@ -781,6 +785,85 @@
       image-rendering: crisp-edges;
     }
     
+    body.light-mode .project-card::before {
+      animation: none;
+    }
+    
+    body.light-mode .project-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 87, 34, 0.1);
+      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.2);
+    }
+    
+    body.light-mode .project-title {
+      animation: none;
+    }
+    
+    body.light-mode .project-title::before {
+      animation: none;
+    }
+    
+    body.light-mode .project-btn::before {
+      animation: none;
+    }
+    
+    body.light-mode .project-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.4);
+    }
+    
+    /* MODALITÀ BASE - IMPATTO VISIVO RIDOTTO */
+    body.base-mode .viewer-3d-container::before,
+    body.base-mode .esp3d-viewer::before {
+      animation-duration: 8s;
+    }
+    
+    body.base-mode .project-badge {
+      animation-duration: 3s;
+    }
+    
+    body.base-mode .project-card::before {
+      animation-duration: 8s;
+    }
+    
+    body.base-mode .project-title {
+      animation-duration: 3s;
+    }
+    
+    body.base-mode .project-title::before {
+      animation-duration: 2s;
+    }
+    
+    body.base-mode .project-btn::before {
+      animation-duration: 8s;
+    }
+    
+    /* MODALITÀ PERFORMANCE - IMPATTO VISIVO COMPLETO */
+    body.performance-mode .viewer-3d-container::before,
+    body.performance-mode .esp3d-viewer::before {
+      animation-duration: 6s;
+    }
+    
+    body.performance-mode .project-badge {
+      animation-duration: 2s;
+    }
+    
+    body.performance-mode .project-card::before {
+      animation-duration: 6s;
+    }
+    
+    body.performance-mode .project-title {
+      animation-duration: 3s;
+    }
+    
+    body.performance-mode .project-title::before {
+      animation-duration: 2s;
+    }
+    
+    body.performance-mode .project-btn::before {
+      animation-duration: 8s;
+    }
+    
     /* RESPONSIVE MIGLIORATO */
     @media (max-width: 968px) {
       .flipper-header {
@@ -1096,15 +1179,60 @@
           // Mantieni i delay originali
         }
       });
+      
+      // Adatta anche le animazioni dei pulsanti
+      const buttons = document.querySelectorAll('.project-btn');
+      buttons.forEach(btn => {
+        if (mode === 'light') {
+          btn.style.transition = 'all 0.2s ease';
+        } else if (mode === 'base') {
+          btn.style.transition = 'all 0.3s ease';
+        } else {
+          btn.style.transition = 'all 0.4s ease';
+        }
+      });
     };
     
-    // Carica la navbar
-    fetch('navbar.html')
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById('navbar-container').innerHTML = html;
-      })
-      .catch(error => console.error('Errore nel caricamento della navbar:', error));
+    // CARICAMENTO NAVBAR ESTERNA
+    function loadNavbar() {
+      fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('navbar-container').innerHTML = data;
+          // Esegui lo script della navbar dopo il caricamento
+          const navbarScript = document.createElement('script');
+          navbarScript.textContent = `
+            document.addEventListener('DOMContentLoaded', function() {
+              // Funzione per evidenziare il link attivo nella navbar
+              function setActiveNavLink() {
+                // Ottieni il percorso corrente
+                const currentPath = window.location.pathname;
+                const filename = currentPath.split('/').pop() || 'index.html';
+                
+                // Trova tutti i link nella navbar
+                const navLinks = document.querySelectorAll('.nav-links a');
+                
+                // Rimuovi la classe active da tutti i link
+                navLinks.forEach(link => {
+                  link.classList.remove('active');
+                });
+                
+                // Aggiungi la classe active al link corrispondente alla pagina corrente
+                navLinks.forEach(link => {
+                  const linkHref = link.getAttribute('href');
+                  if (linkHref === filename) {
+                    link.classList.add('active');
+                  }
+                });
+              }
+              // Inizializza la navbar
+              setActiveNavLink();
+            });
+          `;
+          document.body.appendChild(navbarScript);
+        })
+        .catch(error => console.error('Errore nel caricamento della navbar:', error));
+    }
     
     // CREAZIONE PARTICELLE DINAMICHE
     function createParticles() {
@@ -1334,12 +1462,7 @@
     // INIZIALIZZAZIONE
     document.addEventListener('DOMContentLoaded', function () {
       // Carica la navbar esterna
-      fetch('navbar.html')
-        .then(response => response.text())
-        .then(html => {
-          document.getElementById('navbar-container').innerHTML = html;
-        })
-        .catch(error => console.error('Errore nel caricamento della navbar:', error));
+      loadNavbar();
       
       // Inizializza tutte le animazioni
       initParallax();
@@ -1379,35 +1502,10 @@
             this.style.transform = 'translateY(-5px) scale(1.1)';
           }, 150);
           
-          // Funzione per inizializzare Google Translate
-          function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-              pageLanguage: 'it',
-              includedLanguages: 'en',
-              layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-          }
-          
-          // Carica dinamicamente lo script di Google Translate
-          if (!window.google || !window.google.translate) {
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-            document.head.appendChild(script);
-          } else {
-            // Se già caricato, usa direttamente la funzione
-            googleTranslateElementInit();
-          }
-          
-          // Attendi che il widget sia caricato
-          const interval = setInterval(() => {
-            const select = document.querySelector('.goog-te-combo');
-            if (select) {
-              clearInterval(interval);
-              select.value = 'en';
-              select.dispatchEvent(new Event('change'));
-            }
-          }, 100);
+          waitForTranslateWidget(function (select) {
+            select.value = 'en';
+            select.dispatchEvent(new Event('change'));
+          });
         });
       }
       
@@ -1445,7 +1543,7 @@
           const progetto = card.querySelector('.project-title').textContent.trim();
           
           if (!nomeAzienda || valutazione === 0) {
-            // Mostra un messaggio di errore
+            // Mostra un messaggio di errore se il nome dell'azienda non è inserito
             const errorFeedback = document.createElement('div');
             errorFeedback.textContent = 'Inserisci il nome dell\'azienda e seleziona una valutazione.';
             errorFeedback.style.position = 'fixed';
@@ -1852,12 +1950,7 @@
     // INIZIALIZZAZIONE
     document.addEventListener('DOMContentLoaded', function () {
       // Carica la navbar esterna
-      fetch('navbar.html')
-        .then(response => response.text())
-        .then(html => {
-          document.getElementById('navbar-container').innerHTML = html;
-        })
-        .catch(error => console.error('Errore nel caricamento della navbar:', error));
+      loadNavbar();
       
       // Inizializza tutte le animazioni
       initParallax();

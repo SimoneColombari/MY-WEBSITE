@@ -328,6 +328,68 @@
       font-size: 0.9em;
     }
     
+    /* MODALITÀ LEGGERA - MINIMO IMPATTO VISIVO */
+    body.light-mode .skills-title::after,
+    body.light-mode .timeline-title::after,
+    body.light-mode .goals-title::after {
+      animation: none;
+      width: 150px;
+    }
+    
+    body.light-mode .skill-progress {
+      animation: none;
+      stroke-dashoffset: var(--offset);
+    }
+    
+    body.light-mode .timeline-content:hover {
+      transform: translateY(-3px);
+    }
+    
+    body.light-mode .cta-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.4);
+    }
+    
+    /* MODALITÀ BASE - IMPATTO VISIVO RIDOTTO */
+    body.base-mode .skills-title::after,
+    body.base-mode .timeline-title::after,
+    body.base-mode .goals-title::after {
+      animation-duration: 6s;
+    }
+    
+    body.base-mode .skill-progress {
+      animation-duration: 3s;
+    }
+    
+    body.base-mode .timeline-content:hover {
+      transform: translateY(-4px);
+    }
+    
+    body.base-mode .cta-primary:hover {
+      transform: translateY(-4px);
+    }
+    
+    /* MODALITÀ PERFORMANCE - IMPATTO VISIVO COMPLETO */
+    body.performance-mode .skills-title::after,
+    body.performance-mode .timeline-title::after,
+    body.performance-mode .goals-title::after {
+      animation-duration: 3s;
+    }
+    
+    body.performance-mode .skill-progress {
+      animation-duration: 2s;
+    }
+    
+    body.performance-mode .timeline-content:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 30px rgba(255, 87, 34, 0.3);
+    }
+    
+    body.performance-mode .cta-primary:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(255, 87, 34, 0.6);
+    }
+    
     /* RESPONSIVE MIGLIORATO */
     @media (max-width: 968px) {
       /* Modifiche alla navbar per mobile */
@@ -681,13 +743,89 @@
   
   <!-- Scripts -->
   <script type="text/javascript">
-    // Carica la navbar
-    fetch('navbar.html')
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById('navbar-container').innerHTML = html;
-      })
-      .catch(error => console.error('Errore nel caricamento della navbar:', error));
+    // Funzione specifica per la pagina che viene chiamata quando cambia la modalità
+    window.onPerformanceModeChange = function(mode) {
+      // Adatta le animazioni delle card in base alla modalità
+      const contentCards = document.querySelectorAll('.content-card');
+      const skillCharts = document.querySelectorAll('.skill-progress');
+      const timelineItems = document.querySelectorAll('.timeline-item');
+      
+      // Adatta le animazioni in base alla modalità
+      if (mode === 'light') {
+        // Modalità leggera - animazioni minime
+        contentCards.forEach(card => {
+          card.style.animationDuration = '0.3s';
+          card.style.animationDelay = '0s';
+        });
+        
+        skillCharts.forEach(chart => {
+          chart.style.animation = 'none';
+          // Imposta direttamente il valore finale
+          const offset = chart.style.getPropertyValue('--offset');
+          chart.style.strokeDashoffset = offset;
+        });
+        
+        timelineItems.forEach((item, index) => {
+          item.style.transition = 'all 0.3s ease';
+        });
+      } else if (mode === 'base') {
+        // Modalità base - animazioni moderate
+        contentCards.forEach((card, index) => {
+          card.style.animationDuration = '0.6s';
+          card.style.animationDelay = `${index * 0.2}s`;
+        });
+        
+        skillCharts.forEach(chart => {
+          chart.style.animationDuration = '3s';
+        });
+        
+        timelineItems.forEach((item, index) => {
+          item.style.transition = 'all 0.4s ease';
+        });
+      } else {
+        // Modalità performance - animazioni complete
+        contentCards.forEach((card, index) => {
+          card.style.animationDuration = '0.6s';
+          card.style.animationDelay = `${index * 0.2}s`;
+        });
+        
+        skillCharts.forEach(chart => {
+          chart.style.animationDuration = '2s';
+        });
+        
+        timelineItems.forEach((item, index) => {
+          item.style.transition = 'all 0.5s ease';
+        });
+      }
+      
+      // Adatta anche le animazioni dei pulsanti
+      const buttons = document.querySelectorAll('.cta-primary');
+      buttons.forEach(btn => {
+        if (mode === 'light') {
+          btn.style.transition = 'all 0.2s ease';
+        } else if (mode === 'base') {
+          btn.style.transition = 'all 0.3s ease';
+        } else {
+          btn.style.transition = 'all 0.4s ease';
+        }
+      });
+    };
+    
+    // CARICAMENTO NAVBAR ESTERNA
+    function loadNavbar() {
+      fetch('navbar.html')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('navbar-container').innerHTML = html;
+        })
+        .catch(error => console.error('Errore nel caricamento della navbar:', error));
+    }
+    
+    // CREAZIONE PARTICELLE DINAMICHE
+    function createParticles() {
+      // Non creare particelle qui, verranno create dalla funzione adjustParticles
+      // che viene chiamata quando si imposta la modalità di performance
+    }
     
     // EFFETTO PARALLASS AVANZATO
     function initParallax() {
@@ -878,9 +1016,12 @@
     
     // INIZIALIZZAZIONE
     document.addEventListener('DOMContentLoaded', function () {
+      // Carica la navbar esterna
+      loadNavbar();
+      
       // Inizializza tutte le animazioni
       initParallax();
-     // initMouseEffects();
+      //initMouseEffects();
       initTypingEffect();
       initScrollAnimations();
       initSkillCharts();
@@ -947,42 +1088,5 @@
   <!-- Includi il file di gestione delle modalità di visualizzazione -->
   <script src="js/performance-mode.js"></script>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-// Funzione specifica per la pagina che viene chiamata quando cambia la modalità
-window.onPerformanceModeChange = function(mode) {
-  // Adatta le animazioni delle card in base alla modalità
-  const cards = document.querySelectorAll('.content-card, .project-card, .info-card');
-  
-  cards.forEach(card => {
-    // Rimuovi le classi di transizione esistenti
-    card.style.transition = 'all 0.5s ease';
-    
-    // Adatta le animazioni in base alla modalità
-    if (mode === 'light') {
-      // Modalità leggera - animazioni minime
-      card.style.animationDuration = '0.3s';
-      card.style.animationDelay = '0s';
-    } else if (mode === 'base') {
-      // Modalità base - animazioni moderate
-      card.style.animationDuration = '0.6s';
-      // Mantieni i delay originali
-    } else {
-      // Modalità performance - animazioni complete
-      card.style.animationDuration = '0.6s';
-      // Mantieni i delay originali
-    }
-  });
-  
-  // Adatta anche le animazioni dei pulsanti
-  const buttons = document.querySelectorAll('.cta-primary, .project-btn');
-  buttons.forEach(btn => {
-    if (mode === 'light') {
-      btn.style.transition = 'all 0.2s ease';
-    } else if (mode === 'base') {
-      btn.style.transition = 'all 0.3s ease';
-    } else {
-      btn.style.transition = 'all 0.4s ease';
-    }
-  });
-};
 </body>
 </html>

@@ -246,6 +246,60 @@
       font-weight: 400;
     }
     
+    /* MODALITÀ LEGGERA - MINIMO IMPATTO VISIVO */
+    body.light-mode .info-card::before {
+      animation: none;
+    }
+    
+    body.light-mode .info-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 87, 34, 0.1);
+      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.2);
+    }
+    
+    body.light-mode .info-card h3::before {
+      animation: none;
+    }
+    
+    body.light-mode .download-button::before,
+    body.light-mode .home-button::before {
+      animation: none;
+    }
+    
+    body.light-mode .download-button:hover,
+    body.light-mode .home-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 87, 34, 0.4);
+    }
+    
+    /* MODALITÀ BASE - IMPATTO VISIVO RIDOTTO */
+    body.base-mode .info-card::before {
+      animation-duration: 8s;
+    }
+    
+    body.base-mode .info-card h3::before {
+      animation-duration: 2s;
+    }
+    
+    body.base-mode .download-button::before,
+    body.base-mode .home-button::before {
+      animation-duration: 8s;
+    }
+    
+    /* MODALITÀ PERFORMANCE - IMPATTO VISIVO COMPLETO */
+    body.performance-mode .info-card::before {
+      animation-duration: 6s;
+    }
+    
+    body.performance-mode .info-card h3::before {
+      animation-duration: 2s;
+    }
+    
+    body.performance-mode .download-button::before,
+    body.performance-mode .home-button::before {
+      animation-duration: 8s;
+    }
+    
     /* RESPONSIVE MIGLIORATO */
     @media (max-width: 968px) {
       .cv-info {
@@ -393,6 +447,44 @@
   
   <!-- Scripts -->
   <script type="text/javascript">
+    // Funzione specifica per la pagina che viene chiamata quando cambia la modalità
+    window.onPerformanceModeChange = function(mode) {
+      // Adatta le animazioni delle card in base alla modalità
+      const infoCards = document.querySelectorAll('.info-card');
+      
+      infoCards.forEach((card, index) => {
+        // Rimuovi le classi di transizione esistenti
+        card.style.transition = 'all 0.5s ease';
+        
+        // Adatta le animazioni in base alla modalità
+        if (mode === 'light') {
+          // Modalità leggera - animazioni minime
+          card.style.animationDuration = '0.3s';
+          card.style.animationDelay = '0s';
+        } else if (mode === 'base') {
+          // Modalità base - animazioni moderate
+          card.style.animationDuration = '0.6s';
+          card.style.animationDelay = `${index * 0.2}s`;
+        } else {
+          // Modalità performance - animazioni complete
+          card.style.animationDuration = '0.6s';
+          card.style.animationDelay = `${index * 0.2}s`;
+        }
+      });
+      
+      // Adatta anche le animazioni dei pulsanti
+      const buttons = document.querySelectorAll('.download-button, .home-button');
+      buttons.forEach(btn => {
+        if (mode === 'light') {
+          btn.style.transition = 'all 0.2s ease';
+        } else if (mode === 'base') {
+          btn.style.transition = 'all 0.3s ease';
+        } else {
+          btn.style.transition = 'all 0.4s ease';
+        }
+      });
+    };
+    
     // CARICAMENTO NAVBAR ESTERNA
     function loadNavbar() {
       fetch('navbar.html')
@@ -641,42 +733,5 @@
   <!-- Includi il file di gestione delle modalità di visualizzazione -->
   <script src="js/performance-mode.js"></script>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-// Funzione specifica per la pagina che viene chiamata quando cambia la modalità
-window.onPerformanceModeChange = function(mode) {
-  // Adatta le animazioni delle card in base alla modalità
-  const cards = document.querySelectorAll('.content-card, .project-card, .info-card');
-  
-  cards.forEach(card => {
-    // Rimuovi le classi di transizione esistenti
-    card.style.transition = 'all 0.5s ease';
-    
-    // Adatta le animazioni in base alla modalità
-    if (mode === 'light') {
-      // Modalità leggera - animazioni minime
-      card.style.animationDuration = '0.3s';
-      card.style.animationDelay = '0s';
-    } else if (mode === 'base') {
-      // Modalità base - animazioni moderate
-      card.style.animationDuration = '0.6s';
-      // Mantieni i delay originali
-    } else {
-      // Modalità performance - animazioni complete
-      card.style.animationDuration = '0.6s';
-      // Mantieni i delay originali
-    }
-  });
-  
-  // Adatta anche le animazioni dei pulsanti
-  const buttons = document.querySelectorAll('.cta-primary, .project-btn');
-  buttons.forEach(btn => {
-    if (mode === 'light') {
-      btn.style.transition = 'all 0.2s ease';
-    } else if (mode === 'base') {
-      btn.style.transition = 'all 0.3s ease';
-    } else {
-      btn.style.transition = 'all 0.4s ease';
-    }
-  });
-};
 </body>
 </html>

@@ -713,11 +713,10 @@
   <script type="text/javascript">
     // Funzione specifica per la pagina che viene chiamata quando cambia la modalità
     window.onPerformanceModeChange = function(mode) {
-      // Codice specifico per la pagina projects.html
       // Adatta le animazioni delle card in base alla modalità
-      const projectCards = document.querySelectorAll('.project-card');
+      const cards = document.querySelectorAll('.content-card, .project-card, .info-card');
       
-      projectCards.forEach(card => {
+      cards.forEach(card => {
         // Rimuovi le classi di transizione esistenti
         card.style.transition = 'all 0.5s ease';
         
@@ -738,7 +737,7 @@
       });
       
       // Adatta anche le animazioni dei pulsanti
-      const buttons = document.querySelectorAll('.project-btn');
+      const buttons = document.querySelectorAll('.cta-primary, .project-btn');
       buttons.forEach(btn => {
         if (mode === 'light') {
           btn.style.transition = 'all 0.2s ease';
@@ -1300,43 +1299,4 @@
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   
   <!-- Includi il file di gestione delle modalità di visualizzazione -->
-  <script src="js/performance-mode.js"></script>
-// Funzione specifica per la pagina che viene chiamata quando cambia la modalità
-window.onPerformanceModeChange = function(mode) {
-  // Adatta le animazioni delle card in base alla modalità
-  const cards = document.querySelectorAll('.content-card, .project-card, .info-card');
-  
-  cards.forEach(card => {
-    // Rimuovi le classi di transizione esistenti
-    card.style.transition = 'all 0.5s ease';
-    
-    // Adatta le animazioni in base alla modalità
-    if (mode === 'light') {
-      // Modalità leggera - animazioni minime
-      card.style.animationDuration = '0.3s';
-      card.style.animationDelay = '0s';
-    } else if (mode === 'base') {
-      // Modalità base - animazioni moderate
-      card.style.animationDuration = '0.6s';
-      // Mantieni i delay originali
-    } else {
-      // Modalità performance - animazioni complete
-      card.style.animationDuration = '0.6s';
-      // Mantieni i delay originali
-    }
-  });
-  
-  // Adatta anche le animazioni dei pulsanti
-  const buttons = document.querySelectorAll('.cta-primary, .project-btn');
-  buttons.forEach(btn => {
-    if (mode === 'light') {
-      btn.style.transition = 'all 0.2s ease';
-    } else if (mode === 'base') {
-      btn.style.transition = 'all 0.3s ease';
-    } else {
-      btn.style.transition = 'all 0.4s ease';
-    }
-  });
-};
-</body>
-</html>
+  <script src="
