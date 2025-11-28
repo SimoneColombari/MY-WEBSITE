@@ -283,7 +283,7 @@ function createInitialModePopup() {
         </div>
       </div>
       <div class="popup-footer">
-        <span id="popup-timer">5</span> secondi alla selezione automatica
+        <span id="popup-timer">10</span> secondi alla selezione automatica
       </div>
     </div>
   `;
@@ -307,7 +307,7 @@ function createInitialModePopup() {
   });
   
   // Timer per la selezione automatica
-  let countdown = 5;
+  let countdown = 10;  // Modificato da 5 a 10
   const timerElement = document.getElementById('popup-timer');
   const countdownInterval = setInterval(() => {
     countdown--;
@@ -331,12 +331,12 @@ function createInitialModePopup() {
       }, 300);
     }
   }, 1000);
-  
+}
   // Mostra il popup con un'animazione di entrata
   setTimeout(() => {
     popup.classList.add('show');
   }, 100);
-}
+
 
 // Crea il selettore di modalità
 function createModeSelector() {
