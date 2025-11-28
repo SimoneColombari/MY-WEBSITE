@@ -5,11 +5,11 @@
   left: 20px;
   background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
   color: white;
-  padding: 15px 20px;
+  padding: 15px;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   z-index: 1000;
-  max-width: 280px;
+  max-width: 400px; /* Larghezza aumentata per contenere l'immagine */
   font-family: 'Orbitron', monospace;
   font-weight: 700;
   font-size: 0.9em;
@@ -36,6 +36,7 @@
   cursor: pointer;
   font-size: 12px;
   transition: background 0.3s ease;
+  z-index: 1; /* Assicura che sia sopra il contenuto */
 }
 
 .video-popup .close-btn:hover {
@@ -43,7 +44,22 @@
 }
 
 .video-popup .popup-content {
-  padding-right: 25px;
+  display: flex; /* Usa Flexbox per il layout */
+  align-items: center; /* Allinea verticalmente gli elementi */
+}
+
+.video-popup .popup-thumbnail {
+  width: 120px;
+  height: 68px; /* Proporzioni 16:9 */
+  border-radius: 5px;
+  margin-right: 15px;
+  object-fit: cover; /* Assicura che l'immagine copra l'area senza distorsioni */
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  flex-shrink: 0; /* Impedisce all'immagine di restringersi */
+}
+
+.video-popup .popup-text {
+  flex: 1; /* Permette al testo di occupare lo spazio rimanente */
 }
 
 .video-popup .popup-title {
@@ -121,9 +137,22 @@
   .video-popup {
     top: 10px;
     left: 10px;
-    max-width: 240px;
-    padding: 12px 15px;
+    max-width: 300px; /* Larghezza ridotta per mobile */
+    padding: 12px;
     font-size: 0.8em;
+  }
+
+  /* Impila gli elementi verticalmente su mobile */
+  .video-popup .popup-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .video-popup .popup-thumbnail {
+    width: 100%;
+    height: auto; /* Mantiene le proporzioni */
+    margin-right: 0;
+    margin-bottom: 10px;
   }
   
   .video-overlay .video-container {
@@ -137,8 +166,8 @@
 
 @media (max-width: 480px) {
   .video-popup {
-    max-width: 200px;
-    padding: 10px 12px;
+    max-width: 260px; /* Larghezza ulteriormente ridotta per piccoli schermi */
+    padding: 10px;
     font-size: 0.7em;
   }
   

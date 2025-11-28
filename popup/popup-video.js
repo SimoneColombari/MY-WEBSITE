@@ -22,7 +22,10 @@ function createVideoPopup() {
   popup.innerHTML = `
     <div class="close-btn">×</div>
     <div class="popup-content">
-      <p class="popup-title"><span class="popup-icon">📹</span>GUARDA ORA IL MIO VIDEO SU MESHTASTIC!!!</p>
+      <img src="https://img.youtube.com/vi/nkp3-EzIssU/mqdefault.jpg" alt="Copertina video Meshtastic" class="popup-thumbnail">
+      <div class="popup-text">
+        <p class="popup-title"><span class="popup-icon">📹</span>GUARDA ORA IL MIO VIDEO SU MESHTASTIC!!!</p>
+      </div>
     </div>
   `;
   
