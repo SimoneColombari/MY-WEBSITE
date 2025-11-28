@@ -113,70 +113,76 @@ function setPerformanceMode(mode) {
   // Rimuovi tutte le classi di modalità
   document.body.classList.remove('light-mode', 'base-mode', 'performance-mode');
   
-  // Aggiungi la classe corrispondente alla modalità
-  document.body.classList.add(mode + '-mode');
-  
-  // Salva la preferenza dell'utente
-  localStorage.setItem('performanceMode', mode);
-  
-  // Aggiorna l'indicatore di modalità
-  updateModeIndicator(mode);
-  
-  // Regola il numero di particelle in base alla modalità
-  adjustParticles(mode);
-  
-  // Regola gli effetti dinamici in base alla modalità
-  adjustDynamicEffects(mode);
-  
   // LOGICA PRINCIPALE: Controlla se è la prima volta che si attiva la modalità performance
   if (mode === 'performance' && !localStorage.getItem('performanceModeInitialized')) {
     // Imposta la modalità leggera per i primi 15 secondi
-    document.body.classList.remove('performance-mode');
     document.body.classList.add('light-mode');
     
-    // Regola le particelle per la modalità leggera
-    adjustParticles('light');
-    
-    // Regola gli effetti dinamici per la modalità leggera
-    adjustDynamicEffects('light');
+    // Salva la preferenza dell'utente
+    localStorage.setItem('performanceMode', mode);
     
     // Aggiorna l'indicatore di modalità
     updateModeIndicator('light');
+    
+    // Regola il numero di particelle in base alla modalità
+    adjustParticles('light');
+    
+    // Regola gli effetti dinamici in base alla modalità
+    adjustDynamicEffects('light');
     
     // Mostra una notifica per la transizione
     showNotification('Modalità leggera attivata. Passaggio a performance in 15 secondi...');
     
     // Imposta un timer per passare alla modalità performance dopo 15 secondi
     setTimeout(() => {
-      // Rimuovi la modalità leggera
-      document.body.classList.remove('light-mode');
-      
-      // Aggiungi la modalità performance
-      document.body.classList.add('performance-mode');
-      
-      // Regola le particelle per la modalità performance
-      adjustParticles('performance');
-      
-      // Regola gli effetti dinamici per la modalità performance
-      adjustDynamicEffects('performance');
-      
-      // Aggiorna l'indicatore di modalità
-      updateModeIndicator('performance');
-      
-      // MARCATORE: Imposta il flag per indicare che la transizione iniziale è avvenuta
-      localStorage.setItem('performanceModeInitialized', 'true');
-      
-      // Mostra una notifica per il completamento della transizione
-      showNotification('Modalità performance attivata');
-      
-      // Esegui funzioni specifiche della pagina se definite
-      if (typeof window.onPerformanceModeChange === 'function') {
-        window.onPerformanceModeChange('performance');
+      // Controlla se l'utente ha cambiato modalità nel frattempo
+      const currentMode = localStorage.getItem('performanceMode');
+      if (currentMode === 'performance') {
+        // Rimuovi la modalità leggera
+        document.body.classList.remove('light-mode');
+        
+        // Aggiungi la modalità performance
+        document.body.classList.add('performance-mode');
+        
+        // Regola le particelle per la modalità performance
+        adjustParticles('performance');
+        
+        // Regola gli effetti dinamici per la modalità performance
+        adjustDynamicEffects('performance');
+        
+        // Aggiorna l'indicatore di modalità
+        updateModeIndicator('performance');
+        
+        // MARCATORE: Imposta il flag per indicare che la transizione iniziale è avvenuta
+        localStorage.setItem('performanceModeInitialized', 'true');
+        
+        // Mostra una notifica per il completamento della transizione
+        showNotification('Modalità performance attivata');
+        
+        // Esegui funzioni specifiche della pagina se definite
+        if (typeof window.onPerformanceModeChange === 'function') {
+          window.onPerformanceModeChange('performance');
+        }
       }
     }, 15000); // 15 secondi
     
   } else {
     // Per tutte le altre modalità (light, base) o per le visite successive in modalità performance
+    // Aggiungi la classe corrispondente alla modalità
+    document.body.classList.add(mode + '-mode');
+    
+    // Salva la preferenza dell'utente
+    localStorage.setItem('performanceMode', mode);
+    
+    // Aggiorna l'indicatore di modalità
+    updateModeIndicator(mode);
+    
+    // Regola il numero di particelle in base alla modalità
+    adjustParticles(mode);
+    
+    // Regola gli effetti dinamici in base alla modalità
+    adjustDynamicEffects(mode);
+    
     // Mostra una notifica standard
     showNotification(`Modalità ${mode === 'light' ? 'leggera' : mode === 'base' ? 'base' : 'performance'} attivata`);
     
@@ -388,6 +394,14 @@ function createModeSelector() {
   document.getElementById('save-performance-mode').addEventListener('click', function() {
     selector.classList.remove('show');
     showNotification('Preferenza salvata con successo');
+  });
+  
+  // Imposta il pulsante attivo in base alla modalità corrente
+  const currentMode = localStorage.getItem('performanceMode') || 'base';
+  modeButtons.forEach(button => {
+    if (button.getAttribute('data-mode') === currentMode) {
+      button.classList.add('active');
+    }
   });
 }
 
