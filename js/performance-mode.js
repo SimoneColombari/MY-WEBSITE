@@ -4,8 +4,14 @@
 function detectDevice() {
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   
-  // Rileva dispositivi mobili
-  if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent)) {
+  // Rileva dispositivi Apple
+  if (/iPad|iPhone|iPod/.test(userAgent) || 
+      (/Macintosh/.test(userAgent) && 'ontouchend' in document)) {
+    return 'performance';
+  }
+  
+  // Rileva dispositivi mobili Android
+  if (/android|webos|iemobile|opera mini/i.test(userAgent)) {
     // Per i dispositivi mobili, usa la modalità leggera di default
     return 'light';
   }
@@ -91,6 +97,15 @@ function adjustDynamicEffects(mode) {
     }
   }
   
+  // Disabilita l'effetto di illuminazione dello sfondo al passaggio del mouse in modalità leggera
+  if (mode === 'light') {
+    // Rimuovi l'event listener per l'effetto mouse follow sullo sfondo
+    document.removeEventListener('mousemove', handleMouseMove);
+  } else {
+    // Riaggiungi l'event listener per l'effetto mouse follow sullo sfondo
+    document.addEventListener('mousemove', handleMouseMove);
+  }
+  
   // Gestione di altri effetti dinamici che potrebbero essere presenti
   // Aggiungi la classe "dynamic-effect" a qualsiasi elemento che debba essere nascosto in modalità leggera
   const dynamicElements = document.querySelectorAll('.dynamic-effect');
@@ -106,6 +121,21 @@ function adjustDynamicEffects(mode) {
       }
     }
   });
+}
+
+// Funzione per gestire l'effetto di illuminazione dello sfondo
+function handleMouseMove(e) {
+  const background = document.querySelector('.animated-background');
+  if (!background) return;
+  
+  const mouseX = e.clientX / window.innerWidth;
+  const mouseY = e.clientY / window.innerHeight;
+  
+  background.style.background = `
+    radial-gradient(circle at ${mouseX * 100}% ${mouseY * 100}%, rgba(255, 87, 34, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at ${(1-mouseX) * 100}% ${(1-mouseY) * 100}%, rgba(255, 138, 80, 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)
+  `;
 }
 
 // Funzione per impostare la modalità di performance
@@ -291,6 +321,11 @@ function createInitialModePopup() {
       }, 300);
     }
   }, 1000);
+  
+  // Mostra il popup con un'animazione di entrata
+  setTimeout(() => {
+    popup.classList.add('show');
+  }, 100);
 }
 
 // Crea il selettore di modalità

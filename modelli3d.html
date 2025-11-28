@@ -12,6 +12,7 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
   <!-- Includi il file di stile esterno -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/performance-mode.css">
   <!-- Configurazione globale per l'URL dello script Google Apps Script -->
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzC1iqv3mmZGzLPtl1mNQUPCCwwFtxGNqPx4u3I8LU304YlglYowcaGMEgDU2Pcfqk2/exec";
@@ -1353,6 +1354,12 @@
       // Inizializza il visualizzatore 3D
       init3DViewer();
       
+      // Inizializza il sistema di modalità di visualizzazione
+      // Il popup verrà mostrato automaticamente se non c'è una preferenza salvata
+      if (typeof initPerformanceMode === 'function') {
+        initPerformanceMode();
+      }
+      
       // Translation functionality
       const translateButton = document.getElementById('translate-button');
       if (translateButton) {
@@ -1865,6 +1872,12 @@
       // Inizializza il visualizzatore 3D
       init3DViewer();
       
+      // Inizializza il sistema di modalità di visualizzazione
+      // Il popup verrà mostrato automaticamente se non c'è una preferenza salvata
+      if (typeof initPerformanceMode === 'function') {
+        initPerformanceMode();
+      }
+      
       // Translation functionality
       const translateButton = document.getElementById('translate-button');
       if (translateButton) {
@@ -1915,9 +1928,9 @@
       }, 250);
     });
   </script>
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   
   <!-- Includi il file di gestione delle modalità di visualizzazione -->
   <script src="js/performance-mode.js"></script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
