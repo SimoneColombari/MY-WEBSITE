@@ -681,6 +681,7 @@
     .project-btn:hover {
       transform: translateY(-5px) scale(1.05);
       box-shadow: 0 10px 25px rgba(255, 87, 34, 0.6);
+      background: linear-gradient(135deg, #ff8a50 0%, #ffab40 100%);
     }
     
     .project-btn:active {
@@ -756,6 +757,27 @@
       background-color: rgba(255, 87, 34, 0.8);
       color: white;
       transform: scale(1.1);
+    }
+    
+    /* MODALITÀ LEGGERA - MINIMO IMPATTO VISIVO */
+    body.light-mode .viewer-3d-container::before,
+    body.light-mode .esp3d-viewer::before {
+      animation: none;
+    }
+    
+    body.light-mode .project-badge {
+      animation: none;
+    }
+    
+    body.light-mode .viewer-3d {
+      height: 300px; /* Riduci l'altezza in modalità leggera */
+    }
+    
+    body.light-mode .viewer-3d canvas {
+      /* Disabilita antialiasing in modalità leggera */
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
     }
     
     /* RESPONSIVE MIGLIORATO */
@@ -1033,184 +1055,287 @@
     
     // CREAZIONE PARTICELLE DINAMICHE
     function createParticles() {
+      // Non creare particelle qui, verranno create dalla funzione adjustParticles
+      // che viene chiamata quando si imposta la modalità di performance
+    }
+    
+    // Funzione per regolare le particelle in base alla modalità
+    function adjustParticles(mode) {
       const particlesContainer = document.getElementById('particles');
-      const particleCount = window.innerWidth > 768 ? 50 : 25;
+      if (!particlesContainer) return;
       
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 15 + 's';
-        particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-        particlesContainer.appendChild(particle);
+      let particleCount;
+      switch (mode) {
+        case 'light':
+          particleCount = 0; // Nessuna particella in modalità leggera
+          break;
+        case 'base':
+          particleCount = 15;
+          break;
+        case 'performance':
+          particleCount = 30;
+          break;
+        default:
+          particleCount = 15;
+      }
+      
+      // Rimuovi tutte le particelle esistenti
+      particlesContainer.innerHTML = '';
+      
+      // Crea nuove particelle solo se non siamo in modalità leggera
+      if (particleCount > 0) {
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'particle';
+          particle.style.left = Math.random() * 100 + '%';
+          particle.style.animationDelay = Math.random() * 15 + 's';
+          particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+          particlesContainer.appendChild(particle);
+        }
       }
     }
     
-    // EFFETTO PARALLASS AVANZATO
-    function initParallax() {
-      const waves = document.querySelectorAll('.wave');
-      const particles = document.querySelectorAll('.particle');
+    // Funzione per rilevare il tipo di dispositivo
+    function detectDevice() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
       
-      window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const rate = scrolled * -0.5;
-        
-        waves.forEach((wave, index) => {
-          wave.style.transform = `translateY(${rate * (index + 1) * 0.3}px) scale(${1 + scrolled * 0.0001})`;
-        });
-        
-        // Effetto parallax sulle particelle
-        particles.forEach((particle, index) => {
-          if (index % 3 === 0) {
-            particle.style.transform = `translateY(${rate * 0.2}px)`;
+      // Rileva dispositivi Apple
+      if (/iPad|iPhone|iPod/.test(userAgent) || /Mac/.test(userAgent)) {
+        return 'performance';
+      }
+      
+      // Rileva Android
+      if (/android/i.test(userAgent)) {
+        // Controlla la versione di Android per determinare la modalità
+        const match = userAgent.match(/Android (\d+(?:\.\d+)?)/);
+        if (match) {
+          const version = parseFloat(match[1]);
+          // Android 10 o più recente potrebbe gestire meglio le animazioni
+          return version >= 10 ? 'base' : 'light';
+        }
+        return 'light';
+      }
+      
+      // Rileva Windows
+      if (/Win/.test(userAgent)) {
+        // Controlla se è un dispositivo Windows meno recente
+        // Questa è una stima approssimativa
+        return 'base';
+      }
+      
+      // Default per altri dispositivi
+      return 'base';
+    }
+    
+    // Funzione per impostare la modalità di performance
+    function setPerformanceMode(mode) {
+      // Rimuovi tutte le classi di modalità
+      document.body.classList.remove('light-mode', 'base-mode', 'performance-mode');
+      
+      // Aggiungi la classe corrispondente alla modalità
+      document.body.classList.add(mode + '-mode');
+      
+      // Salva la preferenza dell'utente
+      localStorage.setItem('performanceMode', mode);
+      
+      // Aggiorna l'indicatore di modalità
+      updateModeIndicator(mode);
+      
+      // Regola il numero di particelle in base alla modalità
+      adjustParticles(mode);
+      
+      // Ottimizza il visualizzatore 3D in base alla modalità
+      optimize3DViewer(mode);
+      
+      // Mostra una notifica
+      showNotification(`Modalità ${mode === 'light' ? 'leggera' : mode === 'base' ? 'base' : 'performance'} attivata`);
+    }
+    
+    // Funzione per ottimizzare il visualizzatore 3D in base alla modalità
+    function optimize3DViewer(mode) {
+      const viewer3D = document.querySelector('.viewer-3d');
+      if (!viewer3D) return;
+      
+      switch (mode) {
+        case 'light':
+          // Riduci la risoluzione e la qualità del rendering
+          viewer3D.style.height = '300px';
+          // Disabilita o riduci gli effetti speciali
+          const canvas = document.getElementById('esp3d-canvas');
+          if (canvas) {
+            canvas.style.imageRendering = 'pixelated';
+            canvas.style.imageRendering = '-moz-crisp-edges';
+            canvas.style.imageRendering = 'crisp-edges';
           }
-        });
-      });
+          break;
+        case 'base':
+          // Usa le impostazioni predefinite
+          viewer3D.style.height = '400px';
+          break;
+        case 'performance':
+          // Usa le impostazioni predefinite
+          viewer3D.style.height = '400px';
+          break;
+      }
     }
     
-    // ANIMAZIONE MOUSEFOLLOW PER LO SFONDO
-    function initMouseEffects() {
-      const background = document.querySelector('.animated-background');
-      let mouseX = 0;
-      let mouseY = 0;
+    // Funzione per aggiornare l'indicatore di modalità
+    function updateModeIndicator(mode) {
+      const indicator = document.getElementById('performance-indicator');
+      if (indicator) {
+        indicator.textContent = mode === 'light' ? 'LEGGERA' : mode === 'base' ? 'BASE' : 'PERFORMANCE';
+      }
+    }
+    
+    // Funzione per mostrare una notifica
+    function showNotification(message) {
+      // Rimuovi notifiche esistenti
+      const existingNotification = document.querySelector('.performance-notification');
+      if (existingNotification) {
+        existingNotification.remove();
+      }
       
-      document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX / window.innerWidth;
-        mouseY = e.clientY / window.innerHeight;
-        
-        background.style.background = `
-          radial-gradient(circle at ${mouseX * 100}% ${mouseY * 100}%, rgba(255, 87, 34, 0.15) 0%, transparent 50%),
-          radial-gradient(circle at ${(1-mouseX) * 100}% ${(1-mouseY) * 100}%, rgba(255, 138, 80, 0.1) 0%, transparent 50%),
-          linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)
-        `;
-      });
-    }
-    
-    // EFFETTO TYPING ANIMATO
-    function initTypingEffect() {
-      const subtitle = document.querySelector('.subtitle-tech');
-      if (subtitle) {
-        const text = subtitle.textContent;
-        subtitle.textContent = '';
-        subtitle.style.animation = 'none';
-        
+      // Crea una nuova notifica
+      const notification = document.createElement('div');
+      notification.className = 'performance-notification';
+      notification.textContent = message;
+      notification.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 700;
+        font-size: 0.8em;
+        z-index: 10000;
+        box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      `;
+      
+      document.body.appendChild(notification);
+      
+      // Mostra la notifica
+      setTimeout(() => {
+        notification.style.opacity = '1';
+      }, 10);
+      
+      // Nascondi la notifica dopo 3 secondi
+      setTimeout(() => {
+        notification.style.opacity = '0';
         setTimeout(() => {
-          let i = 0;
-          const typeInterval = setInterval(() => {
-            subtitle.textContent = text.slice(0, i);
-            i++;
-            if (i > text.length) {
-              clearInterval(typeInterval);
-              subtitle.style.borderRight = 'none';
-            }
-          }, 50);
-        }, 800);
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      }, 3000);
+    }
+    
+    // Crea l'indicatore di modalità
+    function createModeIndicator() {
+      const indicator = document.createElement('div');
+      indicator.id = 'performance-indicator';
+      indicator.textContent = 'BASE';
+      indicator.addEventListener('click', function() {
+        const selector = document.getElementById('performance-mode-selector');
+        selector.classList.toggle('show');
+      });
+      document.body.appendChild(indicator);
+    }
+    
+    // Crea il selettore di modalità
+    function createModeSelector() {
+      const selector = document.createElement('div');
+      selector.id = 'performance-mode-selector';
+      selector.innerHTML = `
+        <h4>Modalità Visualizzazione</h4>
+        <p>Seleziona la modalità preferita per ottimizzare le prestazioni del sito</p>
+        <div class="performance-modes">
+          <div class="performance-mode" data-mode="light">Leggera</div>
+          <div class="performance-mode" data-mode="base">Base</div>
+          <div class="performance-mode" data-mode="performance">Performance</div>
+        </div>
+        <button id="save-performance-mode">Salva Preferenza</button>
+      `;
+      document.body.appendChild(selector);
+      
+      // Aggiungi event listener per i pulsanti di modalità
+      const modeButtons = selector.querySelectorAll('.performance-mode');
+      modeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Rimuovi la classe active da tutti i pulsanti
+          modeButtons.forEach(btn => btn.classList.remove('active'));
+          
+          // Aggiungi la classe active al pulsante cliccato
+          this.classList.add('active');
+          
+          // Imposta la modalità corrispondente
+          setPerformanceMode(this.getAttribute('data-mode'));
+        });
+      });
+      
+      // Aggiungi event listener per il pulsante di salvataggio
+      document.getElementById('save-performance-mode').addEventListener('click', function() {
+        selector.classList.remove('show');
+        showNotification('Preferenza salvata con successo');
+      });
+    }
+    
+    // Inizializza il sistema di modalità
+    function initPerformanceMode() {
+      // Crea l'indicatore e il selettore di modalità
+      createModeIndicator();
+      createModeSelector();
+      
+      // Controlla se l'utente ha già una preferenza salvata
+      const savedMode = localStorage.getItem('performanceMode');
+      
+      if (savedMode) {
+        // Usa la preferenza salvata
+        setPerformanceMode(savedMode);
+        
+        // Mostra il selettore per un breve periodo per permettere all'utente di cambiare
+        setTimeout(() => {
+          const selector = document.getElementById('performance-mode-selector');
+          selector.classList.add('show');
+          
+          // Imposta il pulsante corretto come attivo
+          const modeButton = selector.querySelector(`.performance-mode[data-mode="${savedMode}"]`);
+          if (modeButton) {
+            modeButton.classList.add('active');
+          }
+          
+          // Nascondi il selettore dopo 10 secondi
+          setTimeout(() => {
+            selector.classList.remove('show');
+          }, 10000);
+        }, 2000);
+      } else {
+        // Rileva automaticamente il dispositivo e imposta la modalità appropriata
+        const detectedMode = detectDevice();
+        setPerformanceMode(detectedMode);
+        
+        // Mostra il selettore per permettere all'utente di cambiare
+        setTimeout(() => {
+          const selector = document.getElementById('performance-mode-selector');
+          selector.classList.add('show');
+          
+          // Imposta il pulsante corretto come attivo
+          const modeButton = selector.querySelector(`.performance-mode[data-mode="${detectedMode}"]`);
+          if (modeButton) {
+            modeButton.classList.add('active');
+          }
+          
+          // Nascondi il selettore dopo 10 secondi
+          setTimeout(() => {
+            selector.classList.remove('show');
+          }, 10000);
+        }, 2000);
       }
-    }
-    
-    // ANIMAZIONE CARDS CON INTERSECTION OBSERVER
-    function initScrollAnimations() {
-      const cards = document.querySelectorAll('.project-card:not(.esp3d-main-card)');
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              entry.target.style.animation = 'card-enter 0.6s ease-out forwards';
-            }, index * 200);
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      });
-      
-      cards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(50px)';
-        observer.observe(card);
-      });
-    }
-    
-    // Aggiungi un effetto di transizione quando si scorre tra la descrizione e il visualizzatore
-    function initProjectTransition() {
-      const projectCard = document.querySelector('.esp3d-main-card');
-      const viewerContainer = document.querySelector('.esp3d-viewer');
-      const connector = document.querySelector('.project-connector');
-      
-      if (!projectCard || !viewerContainer || !connector) return;
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            if (entry.target === projectCard) {
-              projectCard.style.animation = 'card-enter 0.6s ease-out forwards';
-            } else if (entry.target === connector) {
-              connector.style.opacity = '1';
-              connector.style.transform = 'translateY(0)';
-            } else if (entry.target === viewerContainer) {
-              viewerContainer.style.opacity = '1';
-              viewerContainer.style.transform = 'translateY(0)';
-            }
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      });
-      
-      // Imposta stati iniziali
-      projectCard.style.opacity = '0';
-      projectCard.style.transform = 'translateY(50px)';
-      
-      connector.style.opacity = '0';
-      connector.style.transform = 'translateY(30px)';
-      connector.style.transition = 'all 0.6s ease';
-      
-      viewerContainer.style.opacity = '0';
-      viewerContainer.style.transform = 'translateY(50px)';
-      viewerContainer.style.transition = 'all 0.8s ease';
-      
-      // Osserva gli elementi
-      observer.observe(projectCard);
-      observer.observe(connector);
-      observer.observe(viewerContainer);
-    }
-    
-    // EFFETTI PULSANTI AVANZATI
-    function initButtonEffects() {
-      const buttons = document.querySelectorAll('.project-btn, .cta-primary');
-      
-      buttons.forEach(button => {
-        button.addEventListener('mouseenter', function(e) {
-          const ripple = document.createElement('div');
-          ripple.style.position = 'absolute';
-          ripple.style.width = '0';
-          ripple.style.height = '0';
-          ripple.style.background = 'rgba(255, 255, 255, 0.6)';
-          ripple.style.borderRadius = '50%';
-          ripple.style.left = '50%';
-          ripple.style.top = '50%';
-          ripple.style.transform = 'translate(-50%, -50%)';
-          ripple.style.transition = 'all 0.6s ease';
-          ripple.style.pointerEvents = 'none';
-          ripple.style.zIndex = '1';
-          
-          this.appendChild(ripple);
-          
-          setTimeout(() => {
-            ripple.style.width = '200px';
-            ripple.style.height = '200px';
-            ripple.style.opacity = '0';
-          }, 10);
-          
-          setTimeout(() => {
-            if (ripple.parentNode) {
-              ripple.parentNode.removeChild(ripple);
-            }
-          }, 600);
-        });
-      });
     }
     
     // VISUALIZZATORE 3D PER SCATOLAESP32.stl
@@ -1434,8 +1559,18 @@
     
     // INIZIALIZZAZIONE
     document.addEventListener('DOMContentLoaded', function () {
+      // Inizializza il sistema di modalità performance
+      initPerformanceMode();
+      
+      // Carica la navbar esterna
+      fetch('navbar.html')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('navbar-container').innerHTML = html;
+        })
+        .catch(error => console.error('Errore nel caricamento della navbar:', error));
+      
       // Inizializza tutte le animazioni
-      createParticles();
       initParallax();
       initMouseEffects();
       initTypingEffect();
@@ -1641,7 +1776,8 @@
             return;
           }
           
-          // Costruisci l'URL con i parametri corretti
+          // Invia i dati allo script Google
+          // Utilizziamo URLSearchParams per costruire l'URL in modo più sicuro
           const params = new URLSearchParams();
           params.append('azienda', nomeAzienda);
           params.append('progetto', progetto);
@@ -1750,21 +1886,268 @@
       });
     });
     
+    // EFFETTO PARALLASS AVANZATO
+    function initParallax() {
+      const waves = document.querySelectorAll('.wave');
+      const particles = document.querySelectorAll('.particle');
+      
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        
+        waves.forEach((wave, index) => {
+          wave.style.transform = `translateY(${rate * (index + 1) * 0.3}px) scale(${1 + scrolled * 0.0001})`;
+        });
+        
+        // Effetto parallax sulle particelle
+        particles.forEach((particle, index) => {
+          if (index % 3 === 0) {
+            particle.style.transform = `translateY(${rate * 0.2}px)`;
+          }
+        });
+      });
+    }
+    
+    // ANIMAZIONE MOUSEFOLLOW PER LO SFONDO
+    function initMouseEffects() {
+      const background = document.querySelector('.animated-background');
+      let mouseX = 0;
+      let mouseY = 0;
+      
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX / window.innerWidth;
+        mouseY = e.clientY / window.innerHeight;
+        
+        background.style.background = `
+          radial-gradient(circle at ${mouseX * 100}% ${mouseY * 100}%, rgba(255, 87, 34, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at ${(1-mouseX) * 100}% ${(1-mouseY) * 100}%, rgba(255, 138, 80, 0.1) 0%, transparent 50%),
+          linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)
+        `;
+      });
+    }
+    
+    // EFFETTO TYPING ANIMATO
+    function initTypingEffect() {
+      const subtitle = document.querySelector('.subtitle-tech');
+      if (subtitle) {
+        const text = subtitle.textContent;
+        subtitle.textContent = '';
+        subtitle.style.animation = 'none';
+        
+        setTimeout(() => {
+          let i = 0;
+          const typeInterval = setInterval(() => {
+            subtitle.textContent = text.slice(0, i);
+            i++;
+            if (i > text.length) {
+              clearInterval(typeInterval);
+              subtitle.style.borderRight = 'none';
+            }
+          }, 50);
+        }, 800);
+      }
+    }
+    
+    // ANIMAZIONE CARDS CON INTERSECTION OBSERVER
+    function initScrollAnimations() {
+      const cards = document.querySelectorAll('.project-card:not(.esp3d-main-card)');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.style.animation = 'card-enter 0.6s ease-out forwards';
+            }, index * 200);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+      
+      cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(50px)';
+        observer.observe(card);
+      });
+    }
+    
+    // Aggiungi un effetto di transizione quando si scorre tra la descrizione e il visualizzatore
+    function initProjectTransition() {
+      const projectCard = document.querySelector('.esp3d-main-card');
+      const viewerContainer = document.querySelector('.esp3d-viewer');
+      const connector = document.querySelector('.project-connector');
+      
+      if (!projectCard || !viewerContainer || !connector) return;
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            if (entry.target === projectCard) {
+              projectCard.style.animation = 'card-enter 0.6s ease-out forwards';
+            } else if (entry.target === connector) {
+              connector.style.opacity = '1';
+              connector.style.transform = 'translateY(0)';
+            } else if (entry.target === viewerContainer) {
+              viewerContainer.style.opacity = '1';
+              viewerContainer.style.transform = 'translateY(0)';
+            }
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+      
+      // Imposta stati iniziali
+      projectCard.style.opacity = '0';
+      projectCard.style.transform = 'translateY(50px)';
+      
+      connector.style.opacity = '0';
+      connector.style.transform = 'translateY(30px)';
+      connector.style.transition = 'all 0.6s ease';
+      
+      viewerContainer.style.opacity = '0';
+      viewerContainer.style.transform = 'translateY(50px)';
+      viewerContainer.style.transition = 'all 0.8s ease';
+      
+      // Osserva gli elementi
+      observer.observe(projectCard);
+      observer.observe(connector);
+      observer.observe(viewerContainer);
+    }
+    
+    // EFFETTI PULSANTI AVANZATI
+    function initButtonEffects() {
+      const buttons = document.querySelectorAll('.project-btn, .cta-primary');
+      
+      buttons.forEach(button => {
+        button.addEventListener('mouseenter', function(e) {
+          const ripple = document.createElement('div');
+          ripple.style.position = 'absolute';
+          ripple.style.width = '0';
+          ripple.style.height = '0';
+          ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+          ripple.style.borderRadius = '50%';
+          ripple.style.left = '50%';
+          ripple.style.top = '50%';
+          ripple.style.transform = 'translate(-50%, -50%)';
+          ripple.style.transition = 'all 0.6s ease';
+          ripple.style.pointerEvents = 'none';
+          ripple.style.zIndex = '1';
+          
+          this.appendChild(ripple);
+          
+          setTimeout(() => {
+            ripple.style.width = '200px';
+            ripple.style.height = '200px';
+            ripple.style.opacity = '0';
+          }, 10);
+          
+          setTimeout(() => {
+            if (ripple.parentNode) {
+              ripple.parentNode.removeChild(ripple);
+            }
+          }, 600);
+        });
+      });
+    }
+    
+    // Google Translate
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'it',
+        includedLanguages: 'en',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+    
+    function waitForTranslateWidget(callback) {
+      const interval = setInterval(() => {
+        const select = document.querySelector('.goog-te-combo');
+        if (select) {
+          clearInterval(interval);
+          callback(select);
+        }
+      }, 100);
+    }
+    
+    // INIZIALIZZAZIONE
+    document.addEventListener('DOMContentLoaded', function () {
+      // Inizializza il sistema di modalità performance
+      initPerformanceMode();
+      
+      // Carica la navbar esterna
+      fetch('navbar.html')
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('navbar-container').innerHTML = html;
+        })
+        .catch(error => console.error('Errore nel caricamento della navbar:', error));
+      
+      // Inizializza tutte le animazioni
+      initParallax();
+      initMouseEffects();
+      initTypingEffect();
+      initScrollAnimations();
+      initButtonEffects();
+      
+      // Inizializza la transizione del progetto
+      initProjectTransition();
+      
+      // Inizializza il visualizzatore 3D
+      init3DViewer();
+      
+      // Translation functionality
+      const translateButton = document.getElementById('translate-button');
+      if (translateButton) {
+        // Aggiungi effetto hover speciale
+        translateButton.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-5px) scale(1.1) rotateX(10deg)';
+        });
+        
+        translateButton.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1) rotateX(0deg)';
+        });
+        
+        translateButton.addEventListener('click', function () {
+          // Effetto click con pulse
+          this.style.transform = 'translateY(-3px) scale(1.05)';
+          setTimeout(() => {
+            this.style.transform = 'translateY(-5px) scale(1.1)';
+          }, 150);
+          
+          waitForTranslateWidget(function (select) {
+            select.value = 'en';
+            select.dispatchEvent(new Event('change'));
+          });
+        });
+      }
+      
+      // Smooth scroll per i link interni
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+    });
+    
     // Gestione resize per performance
     let resizeTimeout;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        // Rigenera particelle se necessario
-        const currentParticles = document.querySelectorAll('.particle');
-        const expectedCount = window.innerWidth > 768 ? 50 : 25;
-        
-        if (currentParticles.length !== expectedCount) {
-          document.getElementById('particles').innerHTML = '';
-          createParticles();
-        }
+        // Non rigenerare le particelle qui, verranno gestite dal sistema di modalità
       }, 250);
     });
   </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
