@@ -328,11 +328,53 @@
       font-size: 0.9em;
     }
     
+    /* STILI PER LA SEZIONE HERO SU MOBILE */
+    .hero {
+      min-height: 100vh;
+      padding-bottom: 80px; /* Spazio extra per evitare sovrapposizione */
+    }
+    
+    .hero-content {
+      z-index: 5;
+      position: relative;
+    }
+    
+    .cta-primary {
+      z-index: 10;
+      position: relative;
+    }
+    
     /* RESPONSIVE MIGLIORATO */
     @media (max-width: 968px) {
       /* Modifiche alla navbar per mobile */
       .navbar-spacer {
         height: 90px;
+      }
+      
+      /* Modifiche alla sezione hero per tablet */
+      .hero {
+        min-height: 90vh;
+        padding-bottom: 100px; /* Maggiore spazio per evitare sovrapposizione */
+      }
+      
+      .hero-content {
+        padding: 20px;
+      }
+      
+      .glitch-title {
+        font-size: 2.5em;
+        line-height: 1.1;
+      }
+      
+      .subtitle-tech {
+        font-size: 0.9em;
+        margin-bottom: 20px;
+      }
+      
+      .cta-primary {
+        padding: 15px 25px;
+        font-size: 0.9em;
+        margin-top: 20px;
       }
       
       /* Modifiche al content section */
@@ -446,6 +488,38 @@
     
     /* Ottimizzazione per telefoni - due competenze per riga */
     @media (max-width: 480px) {
+      /* Modifiche specifiche alla sezione hero per telefoni */
+      .hero {
+        min-height: 80vh;
+        padding-bottom: 120px; /* Ancora più spazio per evitare sovrapposizione */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      
+      .hero-content {
+        padding: 15px;
+        text-align: center;
+      }
+      
+      .glitch-title {
+        font-size: 2em;
+        line-height: 1.1;
+        margin-bottom: 10px;
+      }
+      
+      .subtitle-tech {
+        font-size: 0.8em;
+        margin-bottom: 15px;
+      }
+      
+      .cta-primary {
+        padding: 12px 20px;
+        font-size: 0.8em;
+        margin-top: 15px;
+        max-width: 280px;
+      }
+      
       .content-wrapper {
         margin: 10px;
       }
