@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(showVideoPopup, 1000);
 });
 
-// Function to detect if the user is on a mobile device
 function isMobileDevice() {
   return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1) || (window.innerWidth <= 768);
 }
@@ -22,7 +21,8 @@ function createVideoPopup() {
   // Create the popup element
   const popup = document.createElement('div');
   popup.id = 'meshtastic-video-popup';
-  popup.className = 'video-popup';
+  // Start in the 'tab-only' state on mobile, hidden on desktop
+  popup.className = isMobileDevice() ? 'video-popup tab-only' : 'video-popup';
   
   popup.innerHTML = `
     <div class="close-btn">×</div>
@@ -45,14 +45,13 @@ function createVideoPopup() {
     hideVideoPopup();
   });
   
-  // Event listener to open the video
-  popup.addEventListener('click', function(e) {
-    // Don't open video if clicking on the tab
-    if (!e.target.classList.contains('popup-tab')) {
-      openVideoOverlay();
-    }
+  // Event listener to open the video from the main content
+  const popupContent = popup.querySelector('.popup-content');
+  popupContent.addEventListener('click', function(e) {
+    e.stopPropagation();
+    openVideoOverlay();
   });
-  
+
   // Event listener for the tab to reopen the popup
   const tab = popup.querySelector('.popup-tab');
   tab.addEventListener('click', function(e) {
@@ -102,6 +101,8 @@ function createVideoOverlay() {
 function showVideoPopup() {
   const popup = document.getElementById('meshtastic-video-popup');
   if (popup) {
+    // Remove the 'tab-only' class and add the 'show' class
+    popup.classList.remove('tab-only');
     popup.classList.add('show');
     
     // Save that the user has seen the popup in this session
@@ -110,7 +111,10 @@ function showVideoPopup() {
     // On mobile devices, auto-hide the popup after 2 seconds
     if (isMobileDevice()) {
       setTimeout(() => {
-        hideVideoPopup();
+        // Only hide if it's not already in the 'tab-only' state
+        if (popup.classList.contains('show')) {
+          hideVideoPopup();
+        }
       }, 2000);
     }
   }
@@ -119,7 +123,13 @@ function showVideoPopup() {
 function hideVideoPopup() {
   const popup = document.getElementById('meshtastic-video-popup');
   if (popup) {
+    // Remove the 'show' class
     popup.classList.remove('show');
+    
+    // On mobile, add the 'tab-only' class to show the tab
+    if (isMobileDevice()) {
+      popup.classList.add('tab-only');
+    }
   }
 }
 
@@ -127,7 +137,6 @@ function openVideoOverlay() {
   const overlay = document.getElementById('video-overlay');
   if (overlay) {
     overlay.classList.add('show');
-    // Pause any page animations
     document.body.style.overflow = 'hidden';
   }
 }
@@ -136,7 +145,6 @@ function closeVideoOverlay() {
   const overlay = document.getElementById('video-overlay');
   if (overlay) {
     overlay.classList.remove('show');
-    // Restore page scrolling
     document.body.style.overflow = '';
     
     // Stop the video when the overlay is closed
@@ -148,9 +156,7 @@ function closeVideoOverlay() {
   }
 }
 
-// Function to check whether to show the popup based on the session
 function shouldShowPopup() {
-  // If the user has already seen the popup in this session, don't show it again
   return sessionStorage.getItem('meshtasticPopupShown') !== 'true';
 }
 
