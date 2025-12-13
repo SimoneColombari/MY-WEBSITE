@@ -22,25 +22,20 @@
   transform: translateX(0);
 }
 
-/* The close button is now hidden */
-.video-popup .close-btn {
-  display: none;
-}
+/* The close button is now completely removed from the HTML, so this rule is no longer needed */
 
 /* Tab that remains visible when popup is closed on mobile */
 .video-popup .popup-tab {
   display: none; /* Hidden by default */
-  position: absolute;
-  top: 50%;
-  /* Position it outside the popup box to the right */
-  right: -40px;
-  transform: translateY(-50%);
+  position: fixed; /* FIXED to the viewport, not the popup */
+  bottom: 30px;
+  left: 0;
   background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
   color: white;
   padding: 10px;
   width: 40px;
   height: 40px;
-  border-radius: 50%; /* Makes it a circle */
+  border-radius: 50%;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
   z-index: 999;
   cursor: pointer;
@@ -51,7 +46,7 @@
 }
 
 .video-popup .popup-tab:hover {
-  transform: translateY(-50%) scale(1.1); /* Simple scale effect on hover */
+  transform: scale(1.1); /* Simple scale effect on hover */
 }
 
 .video-popup .popup-content {
@@ -160,10 +155,10 @@
     display: flex;
   }
 
-  /* New state: only the tab is visible */
+  /* NEW state: the popup is completely hidden off-screen */
   .video-popup.tab-only {
-    /* Slide the popup left, but leave the 40px tab visible */
-    transform: translateX(calc(-100% + 40px));
+    /* Push the entire popup container completely off the left side of the screen */
+    transform: translateX(-100%);
   }
   
   .video-popup .popup-content {

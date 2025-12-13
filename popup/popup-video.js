@@ -24,7 +24,7 @@ function createVideoPopup() {
   // Start in the 'tab-only' state on mobile, hidden on desktop
   popup.className = isMobileDevice() ? 'video-popup tab-only' : 'video-popup';
   
-  // The close-btn has been removed from the HTML
+  // The close-btn has been completely removed from the HTML string
   popup.innerHTML = `
     <div class="popup-content">
       <img src="https://img.youtube.com/vi/nkp3-EzIssU/mqdefault.jpg" alt="Meshtastic video cover" class="popup-thumbnail">
@@ -37,6 +37,8 @@ function createVideoPopup() {
   
   // Add the popup to the body
   document.body.appendChild(popup);
+  
+  // The event listener for the close button has been removed
   
   // Event listener to open the video from the main content
   const popupContent = popup.querySelector('.popup-content');
