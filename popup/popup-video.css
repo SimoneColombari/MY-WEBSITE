@@ -13,15 +13,18 @@
   font-family: 'Orbitron', monospace;
   font-weight: 700;
   font-size: 0.9em;
-  /* Default state is hidden on mobile, visible on desktop */
   transform: translateX(-120%);
   transition: transform 0.5s ease;
   cursor: pointer;
 }
 
-/* State when the popup is fully visible */
 .video-popup.show {
   transform: translateX(0);
+}
+
+/* The close button is now hidden */
+.video-popup .close-btn {
+  display: none;
 }
 
 /* Tab that remains visible when popup is closed on mobile */
@@ -30,14 +33,14 @@
   position: absolute;
   top: 50%;
   /* Position it outside the popup box to the right */
-  right: -40px; 
+  right: -40px;
   transform: translateY(-50%);
   background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
   color: white;
   padding: 10px;
   width: 40px;
-  height: 60px;
-  border-radius: 0 10px 10px 0;
+  height: 40px;
+  border-radius: 50%; /* Makes it a circle */
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
   z-index: 999;
   cursor: pointer;
@@ -48,28 +51,7 @@
 }
 
 .video-popup .popup-tab:hover {
-  padding-right: 15px;
-}
-
-.video-popup .close-btn {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 20px;
-  height: 20px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 12px;
-  transition: background 0.3s ease;
-  z-index: 1;
-}
-
-.video-popup .close-btn:hover {
-  background: rgba(255, 255, 255, 0.4);
+  transform: translateY(-50%) scale(1.1); /* Simple scale effect on hover */
 }
 
 .video-popup .popup-content {
@@ -166,7 +148,7 @@
   .video-popup {
     bottom: 20px;
     top: auto;
-    left: 0; /* Position flush with the left edge */
+    left: 0;
     max-width: 300px;
     padding: 12px;
     font-size: 0.8em;
