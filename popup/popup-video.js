@@ -97,22 +97,20 @@ function showVideoPopup() {
   if (popup) {
     popup.classList.add('show');
     
-    // On mobile, hide the tab when the popup is visible
-    if (isMobileDevice() && tab) {
+    // Hide the tab when the popup is visible on all devices
+    if (tab) {
       tab.style.display = 'none';
     }
     
     sessionStorage.setItem('meshtasticPopupShown', 'true');
     
-    // On mobile, auto-hide the popup after 2 seconds
-    if (isMobileDevice()) {
-      setTimeout(() => {
-        // Only hide if it's currently shown
-        if (popup.classList.contains('show')) {
-          hideVideoPopup();
-        }
-      }, 2000);
-    }
+    // Auto-hide the popup after 3 seconds on all devices
+    setTimeout(() => {
+      // Only hide if it's currently shown
+      if (popup.classList.contains('show')) {
+        hideVideoPopup();
+      }
+    }, 3000); // 3 seconds
   }
 }
 
@@ -123,8 +121,8 @@ function hideVideoPopup() {
   if (popup) {
     popup.classList.remove('show');
     
-    // On mobile, show the tab again when the popup is hidden
-    if (isMobileDevice() && tab) {
+    // Show the tab again when the popup is hidden on all devices
+    if (tab) {
       tab.style.display = 'flex';
     }
   }

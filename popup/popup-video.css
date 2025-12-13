@@ -57,9 +57,10 @@
 
 /* The Tab - this is now a separate element */
 .popup-tab {
-  display: none; /* Hidden by default, only visible on mobile */
+  /* Visibile su tutti i dispositivi per agire come interruttore */
+  display: flex;
   position: fixed;
-  bottom: 15px; /* <-- MODIFICATO QUI: alzato da 30px a 15px */
+  bottom: 30px;
   left: 0;
   background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
   color: white;
@@ -140,11 +141,6 @@
 
 /* Responsive for mobile devices */
 @media (max-width: 768px) {
-  /* Show the tab on mobile */
-  .popup-tab {
-    display: flex;
-  }
-
   .video-popup {
     max-width: 280px;
     padding: 12px;
