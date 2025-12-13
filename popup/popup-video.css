@@ -1,4 +1,4 @@
-/* Popup per video di Meshtastic */
+/* Popup for Meshtastic video */
 .video-popup {
   position: fixed;
   top: 20px;
@@ -9,7 +9,7 @@
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   z-index: 1000;
-  max-width: 400px; /* Larghezza aumentata per contenere l'immagine */
+  max-width: 400px; /* Increased width to contain the image */
   font-family: 'Orbitron', monospace;
   font-weight: 700;
   font-size: 0.9em;
@@ -36,7 +36,7 @@
   cursor: pointer;
   font-size: 12px;
   transition: background 0.3s ease;
-  z-index: 1; /* Assicura che sia sopra il contenuto */
+  z-index: 1; /* Ensure it's above content */
 }
 
 .video-popup .close-btn:hover {
@@ -44,22 +44,22 @@
 }
 
 .video-popup .popup-content {
-  display: flex; /* Usa Flexbox per il layout */
-  align-items: center; /* Allinea verticalmente gli elementi */
+  display: flex; /* Use Flexbox for layout */
+  align-items: center; /* Vertically align elements */
 }
 
 .video-popup .popup-thumbnail {
   width: 120px;
-  height: 68px; /* Proporzioni 16:9 */
+  height: 68px; /* 16:9 aspect ratio */
   border-radius: 5px;
   margin-right: 15px;
-  object-fit: cover; /* Assicura che l'immagine copra l'area senza distorsioni */
+  object-fit: cover; /* Ensure image covers area without distortion */
   border: 2px solid rgba(255, 255, 255, 0.3);
-  flex-shrink: 0; /* Impedisce all'immagine di restringersi */
+  flex-shrink: 0; /* Prevent image from shrinking */
 }
 
 .video-popup .popup-text {
-  flex: 1; /* Permette al testo di occupare lo spazio rimanente */
+  flex: 1; /* Allow text to take remaining space */
 }
 
 .video-popup .popup-title {
@@ -73,7 +73,7 @@
   font-size: 1.2em;
 }
 
-/* Overlay per il video */
+/* Video overlay */
 .video-overlay {
   position: fixed;
   top: 0;
@@ -132,17 +132,17 @@
   border: none;
 }
 
-/* Responsive per dispositivi mobili */
+/* Responsive for mobile devices */
 @media (max-width: 768px) {
   .video-popup {
     top: 10px;
     left: 10px;
-    max-width: 300px; /* Larghezza ridotta per mobile */
+    max-width: 300px; /* Reduced width for mobile */
     padding: 12px;
     font-size: 0.8em;
   }
 
-  /* Impila gli elementi verticalmente su mobile */
+  /* Stack elements vertically on mobile */
   .video-popup .popup-content {
     flex-direction: column;
     align-items: flex-start;
@@ -150,7 +150,7 @@
 
   .video-popup .popup-thumbnail {
     width: 100%;
-    height: auto; /* Mantiene le proporzioni */
+    height: auto; /* Maintain aspect ratio */
     margin-right: 0;
     margin-bottom: 10px;
   }
@@ -166,7 +166,7 @@
 
 @media (max-width: 480px) {
   .video-popup {
-    max-width: 260px; /* Larghezza ulteriormente ridotta per piccoli schermi */
+    max-width: 260px; /* Further reduced width for small screens */
     padding: 10px;
     font-size: 0.7em;
   }

@@ -1,4 +1,4 @@
-/* STYLES.CSS - File di stile unificato per il sito di Simone Colombari */
+/* STYLES.CSS - Unified style file for Simone Colombari's website */
 
 * {
   margin: 0;
@@ -16,7 +16,7 @@ body {
 }
 
 /* ===================================================================================== */
-/* SISTEMA DI MODALITÀ PERFORMANCIA - Stili base dell'interfaccia                         */
+/* PERFORMANCE MODE SYSTEM - Base interface styles                                         */
 /* ===================================================================================== */
 .performance-mode-selector {
   position: fixed;
@@ -124,10 +124,10 @@ body {
 }
 
 /* ===================================================================================== */
-/* STILI GENERALI DEL SITO                                                              */
+/* GENERAL SITE STYLES                                                                  */
 /* ===================================================================================== */
 
-/* BACKGROUND ANIMATO FUTURISTICO */
+/* FUTURISTIC ANIMATED BACKGROUND */
 .animated-background {
   position: fixed;
   top: 0;
@@ -187,7 +187,7 @@ body {
   }
 }
 
-/* ONDE ENERGETICHE */
+/* ENERGY WAVES */
 .energy-waves {
   position: fixed;
   top: 0;
@@ -229,12 +229,12 @@ body {
   }
 }
 
-/* SPAZIO PER LA NAVBAR */
+/* SPACE FOR NAVBAR */
 .navbar-spacer {
   height: 70px;
 }
 
-/* HERO SECTION SPETTACOLARE */
+/* SPECTACULAR HERO SECTION */
 .hero {
   height: 50vh;
   display: flex;
@@ -247,7 +247,7 @@ body {
   text-align: center;
 }
 
-/* Hero speciale per index.html */
+/* Special hero for index.html */
 .hero.index-hero {
   height: 100vh;
   display: grid;
@@ -408,7 +408,7 @@ body {
   }
 }
 
-/* PULSANTE CTA SPETTACOLARE */
+/* SPECTACULAR CTA BUTTON */
 .cta-primary {
   background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
   color: white;
@@ -455,7 +455,7 @@ body {
   box-shadow: 0 10px 25px rgba(255, 87, 34, 0.8);
 }
 
-/* SEZIONI CONTENT ANIMATE */
+/* ANIMATED CONTENT SECTIONS */
 .content-wrapper {
   background: rgba(26, 26, 26, 0.8);
   backdrop-filter: blur(15px);
@@ -488,7 +488,7 @@ body {
   padding: 60px 30px;
 }
 
-/* SEZIONE PROGETTI */
+/* PROJECTS SECTION */
 .section-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -584,7 +584,7 @@ body {
   font-weight: 400;
 }
 
-/* FOOTER SPETTACOLARE */
+/* SPECTACULAR FOOTER */
 .footer-cta {
   background: linear-gradient(135deg, rgba(10,10,10,0.95) 0%, rgba(26,26,26,0.95) 100%);
   padding: 60px 20px;
@@ -649,7 +649,7 @@ body {
   font-size: 0.9em;
 }
 
-/* STILE SPECIALE PER IL PULSANTE DASHBOARD NEL FOOTER */
+/* SPECIAL STYLE FOR THE DASHBOARD BUTTON IN THE FOOTER */
 .cta-matrix .cta-dashboard {
   background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
   position: relative;
@@ -678,7 +678,7 @@ body {
   box-shadow: 0 15px 35px rgba(255, 87, 34, 0.7);
 }
 
-/* TRANSLATION WIDGET ANIMATO */
+/* ANIMATED TRANSLATION WIDGET */
 #translate-container {
   position: fixed;
   top: 80px;
@@ -722,9 +722,9 @@ body {
   box-shadow: 0 10px 25px rgba(255, 87, 34, 0.6);
 }
 
-/* RESPONSIVE MIGLIORATO */
+/* IMPROVED RESPONSIVE */
 @media (max-width: 968px) {
-  /* Modifiche alla navbar per mobile */
+  /* Navbar modifications for mobile */
   .navbar-spacer {
     height: 90px;
   }

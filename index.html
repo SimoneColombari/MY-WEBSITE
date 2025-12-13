@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,12 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
-  <!-- Includi il file di stile esterno -->
+  <!-- Include external style file -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/performance-mode.css">
   <link rel="stylesheet" href="popup/popup-video.css">
   <style>
-    /* Stili specifici per la pagina index che non sono in style.css */
+    /* Specific styles for the index page that are not in style.css */
     .content-wrapper {
       margin: 40px;
     }
@@ -21,12 +21,12 @@
       padding: 80px 50px;
     }
     
-    /* FOOTER SPETTACOLARE CON GRAFICI E TIMELINE */
+    /* SPECTACULAR FOOTER WITH GRAPHS AND TIMELINE */
     .footer-cta {
       padding: 80px 40px;
     }
     
-    /* Sezione Introduzione */
+    /* Introduction Section */
     .footer-intro {
       max-width: 800px;
       margin: 0 auto 60px;
@@ -55,7 +55,7 @@
       margin-bottom: 20px;
     }
     
-    /* Sezione Competenze con Grafici */
+    /* Skills Section with Graphs */
     .skills-section {
       margin-bottom: 60px;
       position: relative;
@@ -157,7 +157,7 @@
       text-align: center;
     }
     
-    /* Sezione Timeline Futuristica */
+    /* Futuristic Timeline Section */
     .timeline-section {
       margin-bottom: 60px;
       position: relative;
@@ -267,7 +267,7 @@
       color: #e8e8e8;
     }
     
-    /* Sezione Obiettivi */
+    /* Goals Section */
     .goals-section {
       margin-bottom: 60px;
       position: relative;
@@ -305,7 +305,7 @@
       color: #e8e8e8;
     }
     
-    /* Pulsanti CTA */
+    /* CTA Buttons */
     .cta-matrix {
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 25px;
@@ -318,7 +318,7 @@
       font-size: 1em;
     }
     
-    /* TRANSLATION WIDGET ANIMATO */
+    /* ANIMATED TRANSLATION WIDGET */
     #translate-container {
       top: 100px;
       right: 30px;
@@ -329,10 +329,10 @@
       font-size: 0.9em;
     }
     
-    /* STILI PER LA SEZIONE HERO SU MOBILE */
+    /* STYLES FOR HERO SECTION ON MOBILE */
     .hero {
       min-height: 100vh;
-      padding-bottom: 80px; /* Spazio extra per evitare sovrapposizione */
+      padding-bottom: 80px; /* Extra space to avoid overlap */
     }
     
     .hero-content {
@@ -345,17 +345,17 @@
       position: relative;
     }
     
-    /* RESPONSIVE MIGLIORATO */
+    /* IMPROVED RESPONSIVE */
     @media (max-width: 968px) {
-      /* Modifiche alla navbar per mobile */
+      /* Navbar modifications for mobile */
       .navbar-spacer {
         height: 90px;
       }
       
-      /* Modifiche alla sezione hero per tablet */
+      /* Hero section modifications for tablet */
       .hero {
         min-height: 90vh;
-        padding-bottom: 100px; /* Maggiore spazio per evitare sovrapposizione */
+        padding-bottom: 100px; /* More space to avoid overlap */
       }
       
       .hero-content {
@@ -378,7 +378,7 @@
         margin-top: 20px;
       }
       
-      /* Modifiche al content section */
+      /* Content section modifications */
       .content-wrapper {
         margin: 20px 15px;
       }
@@ -387,7 +387,7 @@
         padding: 40px 20px;
       }
       
-      /* Modifiche al footer */
+      /* Footer modifications */
       .footer-cta {
         padding: 50px 20px;
       }
@@ -401,7 +401,7 @@
         font-size: 1em;
       }
       
-      /* Modifiche alla sezione competenze per tablet */
+      /* Skills section modifications for tablet */
       .skills-container {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -475,7 +475,7 @@
         font-size: 0.9em;
       }
       
-      /* Modifiche al widget di traduzione */
+      /* Translation widget modifications */
       #translate-container {
         top: 80px;
         right: 15px;
@@ -487,12 +487,12 @@
       }
     }
     
-    /* Ottimizzazione per telefoni - due competenze per riga */
+    /* Mobile optimization - two skills per row */
     @media (max-width: 480px) {
-      /* Modifiche specifiche alla sezione hero per telefoni */
+      /* Specific modifications to hero section for phones */
       .hero {
         min-height: 80vh;
-        padding-bottom: 120px; /* Ancora più spazio per evitare sovrapposizione */
+        padding-bottom: 120px; /* Even more space to avoid overlap */
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -537,7 +537,7 @@
         font-size: 1.5em;
       }
       
-      /* Modifiche specifiche per la sezione competenze su telefoni */
+      /* Specific modifications for skills section on phones */
       .skills-container {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -586,13 +586,13 @@
   </style>
 </head>
 <body>
-  <!-- Background Animato -->
+  <!-- Animated Background -->
   <div class="animated-background"></div>
   
-  <!-- Particelle Fluttuanti -->
+  <!-- Floating Particles -->
   <div class="floating-particles" id="particles"></div>
   
-  <!-- Onde Energetiche -->
+  <!-- Energy Waves -->
   <div class="energy-waves">
     <div class="wave"></div>
     <div class="wave"></div>
@@ -602,12 +602,12 @@
   <!-- Navigation Container -->
   <div id="navbar-container"></div>
   
-  <!-- Spacer per compensare la navbar fissa -->
+  <!-- Spacer to compensate for fixed navbar -->
   <div class="navbar-spacer"></div>
   
   <!-- Translation Widget -->
   <div id="translate-container">
-    <button id="translate-button">🌐 EN</button>
+    <button id="translate-button">🌐 IT</button>
   </div>
   <div id="google_translate_element" style="display: none;"></div>
   
@@ -616,7 +616,7 @@
     <div class="hero-content">
       <h1 class="glitch-title">SIMONE<br>COLOMBARI</h1>
       <p class="subtitle-tech">ELECTRONIC ENGINEER • INNOVATOR • CREATOR</p>
-      <a href="#profilo" class="cta-primary">ENTRA NEL MIO MONDO</a>
+      <a href="#profile" class="cta-primary">ENTER MY WORLD</a>
     </div>
     <div class="hero-visual">
       <div class="profile-container">
@@ -627,36 +627,36 @@
   
   <!-- Content Section -->
   <div class="content-wrapper">
-    <section id="profilo" class="content-section">
+    <section id="profile" class="content-section">
       <div class="section-grid">
         <div class="content-card">
-          <h2>🎓 FORMAZIONE TECH</h2>
-          <p>Futuro ingegnere elettronico con una passione viscerale per l'innovazione. Diplomato come perito elettronico ed elettrotecnico (2023/2024), ho vissuto un'esperienza trasformativa nel Minnesota, USA. Ora studio Ingegneria Elettronica e Telecomunicazioni a Bologna, la mia base operativa per conquistare il futuro tecnologico.</p>
+          <h2>🎓 TECH EDUCATION</h2>
+          <p>Future electronic engineer with a visceral passion for innovation. Graduated as an electronics and electrotechnical technician (2023/2024), I had a transformative experience in Minnesota, USA. Now I study Electronic and Telecommunications Engineering in Bologna, my operational base to conquer the technological future.</p>
         </div>
         <div class="content-card">
-          <h2>🔧 PROGETTAZIONE 3.0</h2>
-          <p>La progettazione è la mia arte, la stampa 3D il mio pennello. Ogni idea prende forma attraverso un processo di perfezionamento ossessivo: test, iterazioni, ottimizzazioni continue. Non mi accontento mai del "funziona" - punto sempre all'eccellenza assoluta, dove ogni dettaglio racconta una storia di precisione ingegneristica.</p>
+          <h2>🔧 3.0 DESIGN</h2>
+          <p>Design is my art, 3D printing is my brush. Every idea takes shape through an obsessive refinement process: tests, iterations, continuous optimizations. I never settle for "it works" - I always aim for absolute excellence, where every detail tells a story of engineering precision.</p>
         </div>
         <div class="content-card">
-          <h2>🚀 MISSIONE FUTURA</h2>
-          <p>Il mio target? Entrare in un'azienda all'avanguardia nel settore elettronico e meccanico, un ecosistema dove l'innovazione è ossigeno e la crescita è costante. Voglio collaborare con team visionari, portando la mia creatività, determinazione e approccio maniacale alla qualità per creare tecnologie che cambieranno il mondo.</p>
+          <h2>🚀 FUTURE MISSION</h2>
+          <p>My target? To enter a cutting-edge company in the electronics and mechanics sector, an ecosystem where innovation is oxygen and growth is constant. I want to collaborate with visionary teams, bringing my creativity, determination, and obsessive approach to quality to create technologies that will change the world.</p>
         </div>
       </div>
     </section>
   </div>
   
-  <!-- Footer con informazioni e grafici -->
+  <!-- Footer with information and graphs -->
   <footer class="footer-cta">
-    <!-- Introduzione -->
+    <!-- Introduction -->
     <div class="footer-intro">
       <h2>👋 SIMONE COLOMBARI</h2>
-      <p>Tecnologia, elettronica e design funzionale: il mio mondo in una pagina.</p>
-      <p>Sono uno studente di Ingegneria Elettronica all'Università di Bologna, appassionato di tecnologia, elettronica e modellazione 3D. Amo costruire, automatizzare e dare forma alle idee — dai circuiti analogici ai prototipi intelligenti, dalle interfacce utente alle soluzioni che semplificano la vita.</p>
+      <p>Technology, electronics and functional design: my world in one page.</p>
+      <p>I am an Electronic Engineering student at the University of Bologna, passionate about technology, electronics and 3D modeling. I love to build, automate and give shape to ideas — from analog circuits to smart prototypes, from user interfaces to solutions that simplify life.</p>
     </div>
     
-    <!-- Competenze con grafici -->
+    <!-- Skills with graphs -->
     <div class="skills-section">
-      <h3 class="skills-title">🔧 COMPETENZE</h3>
+      <h3 class="skills-title">🔧 SKILLS</h3>
       <div class="skills-container">
         <div class="skill-item">
           <div class="skill-chart">
@@ -666,7 +666,7 @@
             </svg>
             <div class="skill-icon">⚡️</div>
           </div>
-          <div class="skill-name">Prototipazione Elettronica</div>
+          <div class="skill-name">Electronic Prototyping</div>
         </div>
         <div class="skill-item">
           <div class="skill-chart">
@@ -676,7 +676,7 @@
             </svg>
             <div class="skill-icon">🧵</div>
           </div>
-          <div class="skill-name">Modellazione 3D</div>
+          <div class="skill-name">3D Modeling</div>
         </div>
         <div class="skill-item">
           <div class="skill-chart">
@@ -686,7 +686,7 @@
             </svg>
             <div class="skill-icon">⚙️</div>
           </div>
-          <div class="skill-name">Automazione</div>
+          <div class="skill-name">Automation</div>
         </div>
         <div class="skill-item">
           <div class="skill-chart">
@@ -696,75 +696,75 @@
             </svg>
             <div class="skill-icon">💻</div>
           </div>
-          <div class="skill-name">Sistemi Embedded</div>
+          <div class="skill-name">Embedded Systems</div>
         </div>
       </div>
     </div>
     
-    <!-- Timeline Futuristica -->
+    <!-- Futuristic Timeline -->
     <div class="timeline-section">
-      <h3 class="timeline-title">🌱 FORMAZIONE & RISULTATI</h3>
+      <h3 class="timeline-title">🌱 EDUCATION & ACHIEVEMENTS</h3>
       <div class="timeline-container">
         <div class="timeline-line"></div>
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
             <div class="timeline-year">2024</div>
-            <div class="timeline-text">Vincitore del Boom Knowledge Hub Challenge 2024: app sostenibile per prenotazioni mensa, con mockup UX e animazioni 3D</div>
+            <div class="timeline-text">Winner of the Boom Knowledge Hub Challenge 2024: sustainable app for cafeteria reservations, with UX mockups and 3D animations</div>
           </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
             <div class="timeline-year">2023-2024</div>
-            <div class="timeline-text">Diploma in Elettronica ed Elettrotecnica (IIS Archimede)</div>
+            <div class="timeline-text">Diploma in Electronics and Electrotechnics (IIS Archimede)</div>
           </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
             <div class="timeline-year">2022-2023</div>
-            <div class="timeline-text">Anno accademico negli USA (Champlin Park High School, Minnesota)</div>
+            <div class="timeline-text">Academic year in the USA (Champlin Park High School, Minnesota)</div>
           </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
             <div class="timeline-year">2021</div>
-            <div class="timeline-text">Certificazione Cambridge C1 in inglese</div>
+            <div class="timeline-text">Cambridge C1 English certification</div>
           </div>
         </div>
       </div>
     </div>
     
-    <!-- Obiettivi -->
+    <!-- Goals -->
     <div class="goals-section">
-      <h3 class="goals-title">🎯 OBIETTIVO</h3>
+      <h3 class="goals-title">🎯 GOAL</h3>
       <div class="goals-content">
-        Collaborare con aziende visionarie per sviluppare strumenti smart, intuitivi e sostenibili. Porto con me un mindset globale, una forte etica del lavoro e una passione autentica per l'innovazione.
+        To collaborate with visionary companies to develop smart, intuitive, and sustainable tools. I bring with me a global mindset, a strong work ethic, and a genuine passion for innovation.
       </div>
     </div>
     
-    <!-- Pulsanti CTA -->
+    <!-- CTA Buttons -->
     <div class="cta-matrix">
-      <a href="projects.html" class="cta-primary">PROGETTI TECH</a>
+      <a href="projects.html" class="cta-primary">TECH PROJECTS</a>
       <a href="usa.html" class="cta-primary">USA EXPERIENCE</a>
       <a href="curriculum.html" class="cta-primary">CURRICULUM VITAE</a>
-      <a href="contact.html" class="cta-primary">CONNETTITI</a>
+      <a href="contact.html" class="cta-primary">CONNECT</a>
     </div>
   </footer>
   
   <!-- Scripts -->
   <script type="text/javascript">
-    // Carica la navbar
+    // Load the navbar
     fetch('navbar.html')
       .then(response => response.text())
       .then(html => {
         document.getElementById('navbar-container').innerHTML = html;
       })
-      .catch(error => console.error('Errore nel caricamento della navbar:', error));
+      .catch(error => console.error('Error loading navbar:', error));
     
-    // EFFETTO PARALLASS AVANZATO
+    // ADVANCED PARALLAX EFFECT
     function initParallax() {
       const waves = document.querySelectorAll('.wave');
       const particles = document.querySelectorAll('.particle');
@@ -777,7 +777,7 @@
           wave.style.transform = `translateY(${rate * (index + 1) * 0.3}px) scale(${1 + scrolled * 0.0001})`;
         });
         
-        // Effetto parallax sulle particelle
+        // Parallax effect on particles
         particles.forEach((particle, index) => {
           if (index % 3 === 0) {
             particle.style.transform = `translateY(${rate * 0.2}px)`;
@@ -786,7 +786,7 @@
       });
     }
     
-   /* // ANIMAZIONE MOUSEFOLLOW PER LO SFONDO
+    /*// MOUSEFOLLOW ANIMATION FOR BACKGROUND
     function initMouseEffects() {
       const background = document.querySelector('.animated-background');
       let mouseX = 0;
@@ -802,9 +802,9 @@
           linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)
         `;
       });
-    }
-    */
-    // EFFETTO TYPING ANIMATO
+    }*/
+    
+    // ANIMATED TYPING EFFECT
     function initTypingEffect() {
       const subtitle = document.querySelector('.subtitle-tech');
       if (subtitle) {
@@ -826,7 +826,7 @@
       }
     }
     
-    // ANIMAZIONE CARDS CON INTERSECTION OBSERVER
+    // CARDS ANIMATION WITH INTERSECTION OBSERVER
     function initScrollAnimations() {
       const cards = document.querySelectorAll('.content-card');
       
@@ -850,7 +850,7 @@
       });
     }
     
-    // ANIMAZIONE SKILL CHARTS
+    // SKILL CHARTS ANIMATION
     function initSkillCharts() {
       const skillCharts = document.querySelectorAll('.skill-progress');
       
@@ -870,7 +870,7 @@
       });
     }
     
-    // ANIMAZIONE TIMELINE
+    // TIMELINE ANIMATION
     function initTimelineAnimation() {
       const timelineItems = document.querySelectorAll('.timeline-item');
       
@@ -896,7 +896,7 @@
       });
     }
     
-    // EFFETTI PULSANTI AVANZATI
+    // ADVANCED BUTTON EFFECTS
     function initButtonEffects() {
       const buttons = document.querySelectorAll('.cta-primary');
       
@@ -935,8 +935,8 @@
     // Google Translate
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
-        pageLanguage: 'it',
-        includedLanguages: 'en',
+        pageLanguage: 'en',
+        includedLanguages: 'it',
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE
       }, 'google_translate_element');
     }
@@ -951,19 +951,19 @@
       }, 100);
     }
     
-    // INIZIALIZZAZIONE
+    // INITIALIZATION
     document.addEventListener('DOMContentLoaded', function () {
-      // Inizializza tutte le animazioni
+      // Initialize all animations
       initParallax();
-     // initMouseEffects();
+      //initMouseEffects();
       initTypingEffect();
       initScrollAnimations();
       initSkillCharts();
       initTimelineAnimation();
       initButtonEffects();
       
-      // Inizializza il sistema di modalità di visualizzazione
-      // Il popup verrà mostrato automaticamente se non c'è una preferenza salvata
+      // Initialize the display mode system
+      // The popup will be shown automatically if there is no saved preference
       if (typeof initPerformanceMode === 'function') {
         initPerformanceMode();
       }
@@ -971,7 +971,7 @@
       // Translation functionality
       const translateButton = document.getElementById('translate-button');
       if (translateButton) {
-        // Aggiungi effetto hover speciale
+        // Add special hover effect
         translateButton.addEventListener('mouseenter', function() {
           this.style.transform = 'translateY(-5px) scale(1.1) rotateX(10deg)';
         });
@@ -981,20 +981,20 @@
         });
         
         translateButton.addEventListener('click', function () {
-          // Effetto click con pulse
+          // Click effect with pulse
           this.style.transform = 'translateY(-3px) scale(1.05)';
           setTimeout(() => {
             this.style.transform = 'translateY(-5px) scale(1.1)';
           }, 150);
           
           waitForTranslateWidget(function (select) {
-            select.value = 'en';
+            select.value = 'it';
             select.dispatchEvent(new Event('change'));
           });
         });
       }
       
-      // Smooth scroll per i link interni
+      // Smooth scroll for internal links
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
           e.preventDefault();
@@ -1009,17 +1009,17 @@
       });
     });
     
-    // Gestione resize per performance
+    // Resize management for performance
     let resizeTimeout;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        // Non rigenerare le particelle qui, verranno gestite dal sistema di modalità
+        // Don't regenerate particles here, they will be managed by the mode system
       }, 250);
     });
   </script>
   
-  <!-- Includi il file di gestione delle modalità di visualizzazione -->
+  <!-- Include the display mode management file -->
   <script src="js/performance-mode.js"></script>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   <script src="popup/popup-video.js"></script>

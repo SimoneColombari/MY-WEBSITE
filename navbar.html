@@ -1,6 +1,6 @@
-<!-- NAVBAR COMPONENT -->
+<!-- ANIMATED NAVIGATION -->
 <style>
-  /* NAVIGATION ANIMATA */
+  /* ANIMATED NAVIGATION */
   nav {
     position: fixed;
     top: 0;
@@ -113,7 +113,7 @@
     background: rgba(255, 87, 34, 0.1);
   }
   
-  /* RESPONSIVE MIGLIORATO */
+  /* IMPROVED RESPONSIVE */
   @media (max-width: 968px) {
     nav {
       padding: 8px 0;
@@ -169,11 +169,11 @@
     <div class="nav-logo">SC</div>
     <div class="nav-links">
       <a href="index.html">HOME</a>
-      <a href="projects.html">PROGETTI</a>
-      <a href="modelli3d.html">MODELLI3D</a>
+      <a href="projects.html">PROJECTS</a>
+      <a href="modelli3d.html">3D MODELS</a>
       <a href="usa.html">USA</a>
       <a href="curriculum.html">CURRICULUM</a>
-      <a href="contact.html">CONTATTI</a>
+      <a href="contact.html">CONTACT</a>
     </div>
   </div>
 </nav>
@@ -181,25 +181,25 @@
 <script>
   /**
    * Navbar Component Script
-   * Gestisce l'evidenziazione del link attivo
+   * Manages the highlighting of the active link
    */
   
   document.addEventListener('DOMContentLoaded', function() {
-    // Funzione per evidenziare il link attivo nella navbar
+    // Function to highlight the active link in the navbar
     function setActiveNavLink() {
-      // Ottieni il percorso corrente
+      // Get the current path
       const currentPath = window.location.pathname;
       const filename = currentPath.split('/').pop() || 'index.html';
       
-      // Trova tutti i link nella navbar
+      // Find all links in the navbar
       const navLinks = document.querySelectorAll('.nav-links a');
       
-      // Rimuovi la classe active da tutti i link
+      // Remove the active class from all links
       navLinks.forEach(link => {
         link.classList.remove('active');
       });
       
-      // Aggiungi la classe active al link corrispondente alla pagina corrente
+      // Add the active class to the link corresponding to the current page
       navLinks.forEach(link => {
         const linkHref = link.getAttribute('href');
         if (linkHref === filename) {
@@ -208,7 +208,7 @@
       });
     }
 
-    // Inizializza la navbar
+    // Initialize the navbar
     setActiveNavLink();
   });
 </script>

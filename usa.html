@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -226,14 +226,14 @@
   
   <!-- Translation Widget -->
   <div id="translate-container">
-    <button id="translate-button">🌐 EN</button>
+    <button id="translate-button">🌐 IT</button>
   </div>
   <div id="google_translate_element" style="display: none;"></div>
   
   <!-- Hero Section -->
   <header class="hero">
     <h1 class="glitch-title" data-text="USA EXPERIENCE">USA EXPERIENCE</h1>
-    <p class="subtitle-tech">MINNESOTA • SCAMBIO CULTURALE • CRESCITA</p>
+    <p class="subtitle-tech">MINNESOTA • CULTURAL EXCHANGE • GROWTH</p>
   </header>
   
   <!-- Content Section -->
@@ -241,16 +241,16 @@
     <section class="content-section">
       <div class="usa-info">
         <div class="info-card">
-          <h3>🌍 DESTINAZIONE</h3>
-          <p>Minnesota, USA - Un'esperienza trasformativa nel cuore del Midwest americano, dove ho scoperto una nuova cultura e ampliato i miei orizzonti personali e professionali.</p>
+          <h3>🌍 DESTINATION</h3>
+          <p>Minnesota, USA - A transformative experience in the heart of the American Midwest, where I discovered a new culture and expanded my personal and professional horizons.</p>
         </div>
         <div class="info-card">
-          <h3>📅 PERIODO</h3>
-          <p>Anno scolastico 2022/2023 - Dieci mesi di immersione totale nella cultura americana, frequentando la locale high school e vivendo con una famiglia ospitante.</p>
+          <h3>📅 PERIOD</h3>
+          <p>School year 2022/2023 - Ten months of total immersion in American culture, attending the local high school and living with a host family.</p>
         </div>
         <div class="info-card">
-          <h3>🚀 RISULTATI</h3>
-          <p>Oltre alla padronanza della lingua inglese, ho sviluppato autonomia, adattabilità e una prospettiva globale che ha arricchito il mio percorso accademico e personale.</p>
+          <h3>🚀 RESULTS</h3>
+          <p>Beyond mastering the English language, I developed autonomy, adaptability, and a global perspective that enriched my academic and personal journey.</p>
         </div>
       </div>
       
@@ -259,7 +259,7 @@
           <iframe src="https://drive.google.com/file/d/1OAJGHCFl-ks1dhMIZY11NhxJBFPpHf2c/preview" allow="autoplay"></iframe>
         </div>
         <div class="pdf-fallback">
-          <p>📱 Se non riesci a visualizzare il PDF, <a href="https://drive.google.com/file/d/1OAJGHCFl-ks1dhMIZY11NhxJBFPpHf2c/view?usp=sharing" target="_blank">clicca qui per aprirlo</a>.</p>
+          <p>📱 If you can't view the PDF, <a href="https://drive.google.com/file/d/1OAJGHCFl-ks1dhMIZY11NhxJBFPpHf2c/view?usp=sharing" target="_blank">click here to open it</a>.</p>
         </div>
       </div>
     </section>
@@ -267,12 +267,12 @@
   
   <!-- Footer -->
   <footer class="footer-cta">
-    <h2 class="footer-title">ESPLORA IL MIO UNIVERSO</h2>
+    <h2 class="footer-title">EXPLORE MY UNIVERSE</h2>
     <div class="cta-matrix">
       <a href="index.html" class="cta-primary">HOME</a>
-      <a href="projects.html" class="cta-primary">PROGETTI TECH</a>
+      <a href="projects.html" class="cta-primary">TECH PROJECTS</a>
       <a href="curriculum.html" class="cta-primary">CURRICULUM VITAE</a>
-      <a href="contact.html" class="cta-primary">CONNETTITI</a>
+      <a href="contact.html" class="cta-primary">CONNECT</a>
     </div>
   </footer>
   
@@ -444,8 +444,8 @@
     // Google Translate
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
-        pageLanguage: 'it',
-        includedLanguages: 'en',
+        pageLanguage: 'en',
+        includedLanguages: 'it',
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE
       }, 'google_translate_element');
     }
@@ -492,7 +492,7 @@
           }, 150);
           
           waitForTranslateWidget(function (select) {
-            select.value = 'en';
+            select.value = 'it';
             select.dispatchEvent(new Event('change'));
           });
         });

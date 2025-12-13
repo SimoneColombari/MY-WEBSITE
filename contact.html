@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CONTATTI - SIMONE COLOMBARI</title>
+  <title>CONTACTS - SIMONE COLOMBARI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
@@ -323,13 +323,13 @@
   
   <!-- Translation Widget -->
   <div id="translate-container">
-    <button id="translate-button">🌐 EN</button>
+    <button id="translate-button">🌐 IT</button>
   </div>
   <div id="google_translate_element" style="display: none;"></div>
   
   <!-- Hero Section -->
   <header class="hero">
-    <h1 class="glitch-title" data-text="CONTATTI">CONTATTI</h1>
+    <h1 class="glitch-title" data-text="CONTACTS">CONTACTS</h1>
     <p class="subtitle-tech">CONNECT • COLLABORATE • INNOVATE</p>
   </header>
   
@@ -339,29 +339,29 @@
       <div class="contact-container">
         <div class="contact-grid">
           <div class="contact-card">
-            <h2>📧 CONTATTI PROFESSIONALI</h2>
-            <p>Se sei un'azienda interessata a collaborare con me, ecco come puoi contattarmi direttamente:</p>
+            <h2>📧 PROFESSIONAL CONTACTS</h2>
+            <p>If you are a company interested in collaborating with me, here is how you can contact me directly:</p>
             <div class="contact-info">
               <div class="contact-item">
                 <div class="contact-item-label">Email:</div>
                 <div class="contact-item-value">
                   <span id="email">mcsl.simone@gmail.com</span>
-                  <button class="copy-button" onclick="copyEmail()">📋 COPIA</button>
+                  <button class="copy-button" onclick="copyEmail()">📋 COPY</button>
                 </div>
               </div>
               <div class="contact-item">
-                <div class="contact-item-label">Telefono:</div>
+                <div class="contact-item-label">Phone:</div>
                 <div class="contact-item-value">
                   <a href="tel:+393921638193">392 163 8193</a>
                 </div>
               </div>
             </div>
-            <p style="margin-top: 15px;">Preferisco essere contattato via email. Se vuoi fissare una call o un incontro, scrivimi e ti risponderò entro 24 ore nei giorni lavorativi.</p>
+            <p style="margin-top: 15px;">I prefer to be contacted via email. If you want to schedule a call or a meeting, write to me and I will reply within 24 hours on business days.</p>
           </div>
           
           <div class="contact-card">
-            <h2>🌐 PRESENZA ONLINE</h2>
-            <p>Seguimi sui miei canali professionali per rimanere aggiornato sui miei progetti e attività:</p>
+            <h2>🌐 ONLINE PRESENCE</h2>
+            <p>Follow me on my professional channels to stay updated on my projects and activities:</p>
             <div class="contact-info">
               <div class="contact-item">
                 <div class="contact-item-label">GitHub:</div>
@@ -380,15 +380,15 @@
         </div>
         
         <div class="interest-section">
-          <h2>📊 IL TUO LIVELLO DI INTERESSE</h2>
-          <div class="interest-label">Nome della tua azienda:</div>
-          <input type="text" id="companyName" class="company-input" placeholder="Inserisci il nome della tua azienda" />
+          <h2>📊 YOUR LEVEL OF INTEREST</h2>
+          <div class="interest-label">Your company name:</div>
+          <input type="text" id="companyName" class="company-input" placeholder="Enter your company name" />
           
-          <div class="interest-label" style="margin-top: 20px;">Seleziona quanto sei interessato a una collaborazione:</div>
+          <div class="interest-label" style="margin-top: 20px;">Select how interested you are in a collaboration:</div>
           <input type="range" id="interestRange" class="interest-slider" min="0" max="100" value="50" />
-          <div id="interestLabel" class="interest-value">Curioso 🙂</div>
+          <div id="interestLabel" class="interest-value">Curious 🙂</div>
           
-          <button id="submitInterest" class="cta-primary" style="margin-top: 20px;">INVIA INTERESSE</button>
+          <button id="submitInterest" class="cta-primary" style="margin-top: 20px;">SEND INTEREST</button>
         </div>
       </div>
     </section>
@@ -396,10 +396,10 @@
   
   <!-- Footer -->
   <footer class="footer-cta">
-    <h2 class="footer-title">ESPLORA IL MIO UNIVERSO</h2>
+    <h2 class="footer-title">EXPLORE MY UNIVERSE</h2>
     <div class="cta-matrix">
       <a href="index.html" class="cta-primary">HOME</a>
-      <a href="projects.html" class="cta-primary">PROGETTI TECH</a>
+      <a href="projects.html" class="cta-primary">TECH PROJECTS</a>
       <a href="usa.html" class="cta-primary">USA EXPERIENCE</a>
       <a href="curriculum.html" class="cta-primary">CURRICULUM VITAE</a>
       <a href="dashboard.html" class="cta-primary cta-dashboard">DASHBOARD</a>
@@ -580,7 +580,7 @@
       navigator.clipboard.writeText(emailText).then(() => {
         // Creiamo un elemento per mostrare il feedback
         const emailFeedback = document.createElement('div');
-        emailFeedback.textContent = 'Email copiata!';
+        emailFeedback.textContent = 'Email copied!';
         emailFeedback.style.position = 'fixed';
         emailFeedback.style.bottom = '20px';
         emailFeedback.style.left = '50%';
@@ -613,15 +613,15 @@
           }, 300);
         }, 2000);
       }).catch(err => {
-        console.error('Errore durante la copia dell\'email:', err);
+        console.error('Error copying email:', err);
       });
     }
     
     // Google Translate
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
-        pageLanguage: 'it',
-        includedLanguages: 'en',
+        pageLanguage: 'en',
+        includedLanguages: 'it',
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE
       }, 'google_translate_element');
     }
@@ -668,7 +668,7 @@
           }, 150);
           
           waitForTranslateWidget(function (select) {
-            select.value = 'en';
+            select.value = 'it';
             select.dispatchEvent(new Event('change'));
           });
         });
@@ -696,16 +696,16 @@
       
       // Verifica che gli elementi esistano
       if (!range || !label || !companyNameInput || !submitButton) {
-        console.error("Uno o più elementi del form non sono stati trovati");
+        console.error("One or more form elements not found");
         return;
       }
       
       function getInteresseTestuale(value) {
-        if (value < 20) return 'Non interessato 😢';
-        else if (value < 40) return 'Distratto 😕';
-        else if (value < 60) return 'Curioso 🙂';
-        else if (value < 80) return 'Coinvolto 😃';
-        else return 'Molto interessato 🤩';
+        if (value < 20) return 'Not interested 😢';
+        else if (value < 40) return 'Distracted 😕';
+        else if (value < 60) return 'Curious 🙂';
+        else if (value < 80) return 'Involved 😃';
+        else return 'Very interested 🤩';
       }
       
       // Aggiungi un valore numerico per l'interesse per facilitare l'analisi
@@ -731,7 +731,7 @@
         if (!companyName) {
           // Mostra un messaggio di errore se il nome dell'azienda non è inserito
           const errorFeedback = document.createElement('div');
-          errorFeedback.textContent = 'Per favore, inserisci il nome della tua azienda';
+          errorFeedback.textContent = 'Please enter your company name';
           errorFeedback.style.position = 'fixed';
           errorFeedback.style.bottom = '20px';
           errorFeedback.style.left = '50%';
@@ -773,7 +773,7 @@
         
         // Mostra un messaggio di invio in corso
         const sendingFeedback = document.createElement('div');
-        sendingFeedback.textContent = 'Invio in corso...';
+        sendingFeedback.textContent = 'Sending...';
         sendingFeedback.style.position = 'fixed';
         sendingFeedback.style.bottom = '20px';
         sendingFeedback.style.left = '50%';
@@ -797,7 +797,7 @@
         
         // Verifica che SCRIPT_URL sia definita
         if (typeof SCRIPT_URL === 'undefined') {
-          console.error("SCRIPT_URL non è definita. Assicurati di aver incluso config.js");
+          console.error("SCRIPT_URL is not defined. Make sure you have included config.js");
           
           // Rimuovi il messaggio di invio in corso
           sendingFeedback.style.opacity = '0';
@@ -809,7 +809,7 @@
           
           // Mostra un messaggio di errore
           const configErrorFeedback = document.createElement('div');
-          configErrorFeedback.textContent = 'Errore di configurazione. Contatta l\'amministratore.';
+          configErrorFeedback.textContent = 'Configuration error. Contact the administrator.';
           configErrorFeedback.style.position = 'fixed';
           configErrorFeedback.style.bottom = '20px';
           configErrorFeedback.style.left = '50%';
@@ -856,7 +856,7 @@
         })
         .then(response => {
           // Con 'no-cors', non possiamo leggere la risposta, ma assumiamo successo
-          console.log("Dati inviati con successo");
+          console.log("Data sent successfully");
           
           // Rimuovi il messaggio di invio in corso
           sendingFeedback.style.opacity = '0';
@@ -868,7 +868,7 @@
           
           // Mostra un messaggio di successo
           const successFeedback = document.createElement('div');
-          successFeedback.textContent = 'Grazie! Il tuo interesse è stato registrato.';
+          successFeedback.textContent = 'Thank you! Your interest has been registered.';
           successFeedback.style.position = 'fixed';
           successFeedback.style.bottom = '20px';
           successFeedback.style.left = '50%';
@@ -905,7 +905,7 @@
           label.textContent = getInteresseTestuale(50);
         })
         .catch(error => {
-          console.error("Errore nel salvataggio:", error);
+          console.error("Error in saving:", error);
           
           // Rimuovi il messaggio di invio in corso
           sendingFeedback.style.opacity = '0';
@@ -917,7 +917,7 @@
           
           // Mostra un messaggio di errore
           const fetchErrorFeedback = document.createElement('div');
-          fetchErrorFeedback.textContent = 'Si è verificato un errore. Riprova più tardi.';
+          fetchErrorFeedback.textContent = 'An error occurred. Please try again later.';
           fetchErrorFeedback.style.position = 'fixed';
           fetchErrorFeedback.style.bottom = '20px';
           fetchErrorFeedback.style.left = '50%';

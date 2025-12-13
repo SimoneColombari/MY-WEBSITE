@@ -1,12 +1,12 @@
-// performance-mode.js - Gestione centralizzata delle modalità di visualizzazione
+// performance-mode.js - Centralized management of display modes
 
-// Funzione per rilevare il tipo di dispositivo
+// Function to detect device type
 function detectDevice() {
-  // Restituisce sempre 'light' come modalità predefinita
+  // Always returns 'light' as default mode
   return 'light';
 }
 
-// Funzione per regolare le particelle in base alla modalità
+// Function to adjust particles based on mode
 function adjustParticles(mode) {
   const particlesContainer = document.getElementById('particles');
   if (!particlesContainer) return;
@@ -14,7 +14,7 @@ function adjustParticles(mode) {
   let particleCount;
   switch (mode) {
     case 'light':
-      particleCount = 0; // Nessuna particella in modalità leggera
+      particleCount = 0; // No particles in light mode
       break;
     case 'high-performance':
       particleCount = 30;
@@ -23,10 +23,10 @@ function adjustParticles(mode) {
       particleCount = 0;
   }
   
-  // Rimuovi tutte le particelle esistenti
+  // Remove all existing particles
   particlesContainer.innerHTML = '';
   
-  // Crea nuove particelle solo se non siamo in modalità leggera
+  // Create new particles only if we're not in light mode
   if (particleCount > 0) {
     for (let i = 0; i < particleCount; i++) {
       const particle = document.createElement('div');
@@ -39,9 +39,9 @@ function adjustParticles(mode) {
   }
 }
 
-// Funzione per regolare gli effetti dinamici in base alla modalità
+// Function to adjust dynamic effects based on mode
 function adjustDynamicEffects(mode) {
-  // Gestione delle onde energetiche
+  // Energy waves management
   const wavesContainer = document.getElementById('energy-waves');
   if (wavesContainer) {
     if (mode === 'light') {
@@ -52,28 +52,28 @@ function adjustDynamicEffects(mode) {
     }
   }
   
-  // Gestione del mouse follow (se esiste)
-  // IMPORTANTE: Assicurati che l'elemento HTML del mouse follow abbia l'ID "mouse-follow"
+  // Mouse follow management (if it exists)
+  // IMPORTANT: Make sure the HTML element of mouse follow has the ID "mouse-follow"
   const mouseFollow = document.getElementById('mouse-follow');
   if (mouseFollow) {
     if (mode === 'light') {
       mouseFollow.style.display = 'none';
-      // Disabilita anche gli event listener del mouse follow se esistono
+      // Also disable mouse follow event listeners if they exist
       if (typeof disableMouseFollow === 'function') {
         disableMouseFollow();
       }
     } else {
       mouseFollow.style.display = 'block';
       mouseFollow.style.opacity = '1';
-      // Riabilita gli event listener del mouse follow se esistono
+      // Re-enable mouse follow event listeners if they exist
       if (typeof enableMouseFollow === 'function') {
         enableMouseFollow();
       }
     }
   }
   
-  // Gestione di altri effetti dinamici che potrebbero essere presenti
-  // Aggiungi la classe "dynamic-effect" a qualsiasi elemento che debba essere nascosto in modalità leggera
+  // Management of other dynamic effects that might be present
+  // Add the "dynamic-effect" class to any element that should be hidden in light mode
   const dynamicElements = document.querySelectorAll('.dynamic-effect');
   dynamicElements.forEach(element => {
     if (mode === 'light') {
@@ -85,52 +85,52 @@ function adjustDynamicEffects(mode) {
   });
 }
 
-// Funzione per impostare la modalità di performance
+// Function to set performance mode
 function setPerformanceMode(mode) {
-  // Rimuovi tutte le classi di modalità
+  // Remove all mode classes
   document.body.classList.remove('light-mode', 'high-performance-mode');
   
-  // Aggiungi la classe corrispondente alla modalità
+  // Add the class corresponding to the mode
   document.body.classList.add(mode + '-mode');
   
-  // Salva la preferenza dell'utente
+  // Save user preference
   localStorage.setItem('performanceMode', mode);
   
-  // Aggiorna l'indicatore di modalità
+  // Update mode indicator
   updateModeIndicator(mode);
   
-  // Regola il numero di particelle in base alla modalità
+  // Adjust the number of particles based on the mode
   adjustParticles(mode);
   
-  // Regola gli effetti dinamici in base alla modalità
+  // Adjust dynamic effects based on the mode
   adjustDynamicEffects(mode);
   
-  // Mostra una notifica
-  showNotification(`Modalità ${mode === 'light' ? 'leggera' : 'alta prestazione'} attivata`);
+  // Show a notification
+  showNotification(`${mode === 'light' ? 'Light' : 'High performance'} mode activated`);
   
-  // Esegui funzioni specifiche della pagina se definite
+  // Execute page-specific functions if defined
   if (typeof window.onPerformanceModeChange === 'function') {
     window.onPerformanceModeChange(mode);
   }
 }
 
-// Funzione per aggiornare l'indicatore di modalità
+// Function to update mode indicator
 function updateModeIndicator(mode) {
   const indicator = document.getElementById('performance-indicator');
   if (indicator) {
-    indicator.textContent = mode === 'light' ? 'LEGGERA' : 'ALTA PRESTAZIONE';
+    indicator.textContent = mode === 'light' ? 'LIGHT' : 'HIGH PERFORMANCE';
   }
 }
 
-// Funzione per mostrare una notifica
+// Function to show a notification
 function showNotification(message) {
-  // Rimuovi notifiche esistenti
+  // Remove existing notifications
   const existingNotification = document.querySelector('.performance-notification');
   if (existingNotification) {
     existingNotification.remove();
   }
   
-  // Crea una nuova notifica
+  // Create a new notification
   const notification = document.createElement('div');
   notification.className = 'performance-notification';
   notification.textContent = message;
@@ -154,12 +154,12 @@ function showNotification(message) {
   
   document.body.appendChild(notification);
   
-  // Mostra la notifica
+  // Show the notification
   setTimeout(() => {
     notification.style.opacity = '1';
   }, 10);
   
-  // Nascondi la notifica dopo 3 secondi
+  // Hide the notification after 3 seconds
   setTimeout(() => {
     notification.style.opacity = '0';
     setTimeout(() => {
@@ -170,16 +170,16 @@ function showNotification(message) {
   }, 3000);
 }
 
-// Crea l'indicatore di modalità
+// Create mode indicator
 function createModeIndicator() {
-  // Verifica se l'indicatore esiste già
+  // Check if the indicator already exists
   if (document.getElementById('performance-indicator')) {
     return;
   }
   
   const indicator = document.createElement('div');
   indicator.id = 'performance-indicator';
-  indicator.textContent = 'LEGGERA';
+  indicator.textContent = 'LIGHT';
   indicator.addEventListener('click', function() {
     const selector = document.getElementById('performance-mode-selector');
     if (selector) {
@@ -189,9 +189,9 @@ function createModeIndicator() {
   document.body.appendChild(indicator);
 }
 
-// Crea il popup di selezione modalità iniziale
+// Create initial mode selection popup
 function createInitialModePopup() {
-  // Verifica se il popup esiste già
+  // Check if the popup already exists
   if (document.getElementById('initial-mode-popup')) {
     return;
   }
@@ -200,40 +200,40 @@ function createInitialModePopup() {
   popup.id = 'initial-mode-popup';
   popup.innerHTML = `
     <div class="popup-content">
-      <h3>Seleziona la Modalità di Visualizzazione</h3>
-      <p>Scegli la modalità preferita per ottimizzare le prestazioni del sito</p>
+      <h3>Select Display Mode</h3>
+      <p>Choose your preferred mode to optimize site performance</p>
       <div class="performance-modes">
         <div class="performance-mode" data-mode="light">
           <div class="mode-icon">⚡</div>
-          <div class="mode-name">Leggera</div>
-          <div class="mode-desc">Nessuna animazione</div>
+          <div class="mode-name">Light</div>
+          <div class="mode-desc">No animations</div>
         </div>
         <div class="performance-mode" data-mode="high-performance">
           <div class="mode-icon">🚀</div>
-          <div class="mode-name">Alta Prestazione</div>
-          <div class="mode-desc">Animazioni complete</div>
+          <div class="mode-name">High Performance</div>
+          <div class="mode-desc">Full animations</div>
         </div>
       </div>
       <div class="popup-footer">
-        <span id="popup-timer">10</span> secondi alla selezione automatica
+        <span id="popup-timer">10</span> seconds to automatic selection
       </div>
     </div>
   `;
   document.body.appendChild(popup);
   
-  // Mostra il popup con una piccola animazione
+  // Show the popup with a small animation
   setTimeout(() => {
     popup.classList.add('show');
   }, 100);
   
-  // Aggiungi event listener per i pulsanti di modalità
+  // Add event listeners for mode buttons
   const modeButtons = popup.querySelectorAll('.performance-mode');
   modeButtons.forEach(button => {
     button.addEventListener('click', function() {
-      // Imposta la modalità corrispondente
+      // Set the corresponding mode
       setPerformanceMode(this.getAttribute('data-mode'));
       
-      // Rimuovi il popup
+      // Remove the popup
       popup.style.opacity = '0';
       setTimeout(() => {
         if (popup.parentNode) {
@@ -243,7 +243,7 @@ function createInitialModePopup() {
     });
   });
   
-  // Timer per la selezione automatica
+  // Timer for automatic selection
   let countdown = 10;
   const timerElement = document.getElementById('popup-timer');
   const countdownInterval = setInterval(() => {
@@ -255,10 +255,10 @@ function createInitialModePopup() {
     if (countdown <= 0) {
       clearInterval(countdownInterval);
       
-      // Usa sempre la modalità leggera come predefinita
+      // Always use light mode as default
       setPerformanceMode('light');
       
-      // Rimuovi il popup
+      // Remove the popup
       popup.style.opacity = '0';
       setTimeout(() => {
         if (popup.parentNode) {
@@ -269,9 +269,9 @@ function createInitialModePopup() {
   }, 1000);
 }
 
-// Crea il selettore di modalità
+// Create mode selector
 function createModeSelector() {
-  // Verifica se il selettore esiste già
+  // Check if the selector already exists
   if (document.getElementById('performance-mode-selector')) {
     return;
   }
@@ -279,54 +279,54 @@ function createModeSelector() {
   const selector = document.createElement('div');
   selector.id = 'performance-mode-selector';
   selector.innerHTML = `
-    <h4>Modalità Visualizzazione</h4>
-    <p>Seleziona la modalità preferita per ottimizzare le prestazioni del sito</p>
+    <h4>Display Mode</h4>
+    <p>Select your preferred mode to optimize site performance</p>
     <div class="performance-modes">
-      <div class="performance-mode" data-mode="light">Leggera</div>
-      <div class="performance-mode" data-mode="high-performance">Alta Prestazione</div>
+      <div class="performance-mode" data-mode="light">Light</div>
+      <div class="performance-mode" data-mode="high-performance">High Performance</div>
     </div>
-    <button id="save-performance-mode">Salva Preferenza</button>
+    <button id="save-performance-mode">Save Preference</button>
   `;
   document.body.appendChild(selector);
   
-  // Aggiungi event listener per i pulsanti di modalità
+  // Add event listeners for mode buttons
   const modeButtons = selector.querySelectorAll('.performance-mode');
   modeButtons.forEach(button => {
     button.addEventListener('click', function() {
-      // Rimuovi la classe active da tutti i pulsanti
+      // Remove active class from all buttons
       modeButtons.forEach(btn => btn.classList.remove('active'));
       
-      // Aggiungi la classe active al pulsante cliccato
+      // Add active class to the clicked button
       this.classList.add('active');
       
-      // Imposta la modalità corrispondente
+      // Set the corresponding mode
       setPerformanceMode(this.getAttribute('data-mode'));
     });
   });
   
-  // Aggiungi event listener per il pulsante di salvataggio
+  // Add event listener for save button
   document.getElementById('save-performance-mode').addEventListener('click', function() {
     selector.classList.remove('show');
-    showNotification('Preferenza salvata con successo');
+    showNotification('Preference saved successfully');
   });
 }
 
-// Inizializza il sistema di modalità
+// Initialize the mode system
 function initPerformanceMode() {
-  // Crea l'indicatore e il selettore di modalità
+  // Create the indicator and mode selector
   createModeIndicator();
   createModeSelector();
   
-  // Imposta sempre la modalità leggera come predefinita
+  // Always set light mode as default
   setPerformanceMode('light');
 }
 
-// Inizializza il sistema quando il DOM è caricato
+// Initialize the system when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
   initPerformanceMode();
 });
 
-// Esponi le funzioni globalmente per poterle utilizzare da altre parti del codice
+// Expose functions globally for use in other parts of the code
 window.PerformanceMode = {
   setMode: setPerformanceMode,
   getCurrentMode: function() {

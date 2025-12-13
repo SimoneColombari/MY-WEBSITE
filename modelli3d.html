@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MODELLI 3D - SIMONE COLOMBARI</title>
+  <title>3D MODELS - SIMONE COLOMBARI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-  <!-- Includi il file di stile esterno -->
+  <!-- Include external style file -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/performance-mode.css">
-  <!-- Configurazione globale per l'URL dello script Google Apps Script -->
+  <!-- Global configuration for Google Apps Script URL -->
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzC1iqv3mmZGzLPtl1mNQUPCCwwFtxGNqPx4u3I8LU304YlglYowcaGMEgDU2Pcfqk2/exec";
   </script>
   <style>
-    /* Stili specifici per la pagina modelli3d che non sono in style.css */
+    /* Specific styles for the 3d models page that are not in style.css */
     .content-section {
       padding: 60px 30px;
     }
@@ -62,7 +62,7 @@
       background: rgba(10, 10, 10, 0.9);
     }
     
-    /* SEZIONE PROGETTI 3D */
+    /* 3D PROJECTS SECTION */
     .projects-3d-section {
       margin-bottom: 50px;
     }
@@ -95,7 +95,7 @@
       50% { width: 250px; }
     }
     
-    /* Stili per la card principale del progetto ESP3D BOX */
+    /* Styles for the main ESP3D BOX project card */
     .esp3d-main-card {
       background: linear-gradient(135deg, rgba(255, 87, 34, 0.08) 0%, rgba(255, 138, 80, 0.05) 100%);
       border: 2px solid rgba(255, 87, 34, 0.3);
@@ -113,7 +113,7 @@
       border-width: 3px;
     }
     
-    /* Separatore visivo tra descrizione e visualizzatore */
+    /* Visual separator between description and viewer */
     .project-connector {
       display: flex;
       align-items: center;
@@ -145,7 +145,7 @@
       box-shadow: 0 0 15px rgba(255, 87, 34, 0.3);
     }
     
-    /* VISUALIZZATORE 3D */
+    /* 3D VIEWER */
     .viewer-3d-container {
       background: rgba(10, 10, 10, 0.6);
       border-radius: 20px;
@@ -173,7 +173,7 @@
       50% { opacity: 0.7; }
     }
     
-    /* Stili per il visualizzatore 3D del progetto ESP3D BOX */
+    /* Styles for the ESP3D BOX 3D viewer */
     .esp3d-viewer {
       position: relative;
       border: 2px solid rgba(255, 87, 34, 0.4);
@@ -193,7 +193,7 @@
       z-index: 1;
     }
     
-    /* Header del visualizzatore */
+    /* Viewer header */
     .viewer-header {
       position: absolute;
       top: 0;
@@ -242,7 +242,7 @@
       display: block;
     }
     
-    /* Messaggio di caricamento/errore */
+    /* Loading/error message */
     .viewer-message {
       position: absolute;
       top: 50%;
@@ -259,7 +259,7 @@
       max-width: 80%;
     }
     
-    /* Badge per il visualizzatore 3D */
+    /* Badge for the 3D viewer */
     .project-badge {
       position: absolute;
       top: 20px;
@@ -290,14 +290,14 @@
       }
     }
     
-    /* Badge per il visualizzatore 3D - posizione modificata */
+    /* Badge for the 3D viewer - modified position */
     .esp3d-viewer .project-badge {
       top: 70px;
       left: 20px;
       z-index: 11;
     }
     
-    /* CONTROLLI VISUALIZZATORE */
+    /* VIEWER CONTROLS */
     .viewer-controls {
       padding: 25px;
       background: rgba(20, 20, 20, 0.7);
@@ -397,7 +397,7 @@
       box-shadow: 0 5px 15px rgba(255, 87, 34, 0.3);
     }
     
-    /* Switch per rotazione automatica */
+    /* Switch for auto rotation */
     .switch {
       position: relative;
       display: inline-block;
@@ -507,7 +507,7 @@
       box-shadow: 0 0 10px #FF5722;
     }
     
-    /* Titolo speciale per ESP3D BOX */
+    /* Special title for ESP3D BOX */
     .esp3d-title {
       position: relative;
       display: inline-block;
@@ -525,7 +525,7 @@
       animation: title-underline 3s infinite;
     }
     
-    /* Animazione speciale per il titolo ESP3D BOX nella project card */
+    /* Special animation for ESP3D BOX title in project card */
     .esp3d-title::before {
       content: 'ESP3D BOX';
       position: absolute;
@@ -760,7 +760,7 @@
       transform: scale(1.1);
     }
     
-    /* MODALITÀ LEGGERA - MINIMO IMPATTO VISIVO */
+    /* LIGHT MODE - MINIMUM VISUAL IMPACT */
     body.light-mode .viewer-3d-container::before,
     body.light-mode .esp3d-viewer::before {
       animation: none;
@@ -771,17 +771,17 @@
     }
     
     body.light-mode .viewer-3d {
-      height: 300px; /* Riduci l'altezza in modalità leggera */
+      height: 300px; /* Reduce height in light mode */
     }
     
     body.light-mode .viewer-3d canvas {
-      /* Disabilita antialiasing in modalità leggera */
+      /* Disable antialiasing in light mode */
       image-rendering: pixelated;
       image-rendering: -moz-crisp-edges;
       image-rendering: crisp-edges;
     }
     
-    /* RESPONSIVE MIGLIORATO */
+    /* RESPONSIVE IMPROVEMENTS */
     @media (max-width: 968px) {
       .flipper-header {
         flex-direction: column;
@@ -914,13 +914,13 @@
   </style>
 </head>
 <body>
-  <!-- Background Animato -->
+  <!-- Animated Background -->
   <div class="animated-background"></div>
   
-  <!-- Particelle Fluttuanti -->
+  <!-- Floating Particles -->
   <div class="floating-particles" id="particles"></div>
   
-  <!-- Onde Energetiche -->
+  <!-- Energy Waves -->
   <div class="energy-waves">
     <div class="wave"></div>
     <div class="wave"></div>
@@ -930,51 +930,51 @@
   <!-- Navigation Container -->
   <div id="navbar-container"></div>
   
-  <!-- Spacer per compensare la navbar fissa -->
+  <!-- Spacer to compensate for fixed navbar -->
   <div class="navbar-spacer"></div>
   
   <!-- Translation Widget -->
   <div id="translate-container">
-    <button id="translate-button">🌐 EN</button>
+    <button id="translate-button">🌐 IT</button>
   </div>
   <div id="google_translate_element" style="display: none;"></div>
   
   <!-- Hero Section -->
   <header class="hero">
-    <h1 class="glitch-title" data-text="MODELLI 3D">MODELLI 3D</h1>
-    <p class="subtitle-tech">MODELLAZIONE • STAMPA 3D • PROGETTAZIONE</p>
+    <h1 class="glitch-title" data-text="3D MODELS">3D MODELS</h1>
+    <p class="subtitle-tech">MODELING • 3D PRINTING • DESIGN</p>
   </header>
   
   <!-- Content Section -->
   <div class="content-wrapper">
     <section class="content-section">
       <div class="azienda-section">
-        <label for="azienda">Nome azienda:</label>
-        <input type="text" id="azienda" placeholder="Inserisci il nome dell'azienda" />
+        <label for="azienda">Company name:</label>
+        <input type="text" id="azienda" placeholder="Enter your company name" />
       </div>
       
-      <!-- Sezione Progetti 3D -->
+      <!-- 3D Projects Section -->
       <div class="projects-3d-section">
-        <h2 class="section-title">ESP3D BOX - PROGETTI 3D INTERATTIVI</h2>
+        <h2 class="section-title">ESP3D BOX - INTERACTIVE 3D PROJECTS</h2>
         
-        <!-- Progetto ESP3D Box - Descrizione prima -->
+        <!-- ESP3D Box Project - Description first -->
         <div class="project-card esp3d-main-card">
           <div class="project-title esp3d-title">ESP3D BOX</div>
-          <div class="project-desc">Scatola personalizzata per ESP32 con display integrato e controlli per progetti elettronici avanzati.</div>
+          <div class="project-desc">Custom box for ESP32 with integrated display and controls for advanced electronic projects.</div>
           <div class="project-details">
             <details>
-              <summary>🛠️ Caratteristiche tecniche</summary>
+              <summary>🛠️ Technical features</summary>
               <ul>
-                <li>Design compatto con display OLED integrato</li>
-                <li>Alloggiamento personalizzato per ESP32</li>
-                <li>Pulsanti di controllo programmabili</li>
-                <li>Porte di accesso per connessioni esterne</li>
-                <li>Ventilation per dissipazione del calore</li>
+                <li>Compact design with integrated OLED display</li>
+                <li>Custom housing for ESP32</li>
+                <li>Programmable control buttons</li>
+                <li>Access ports for external connections</li>
+                <li>Ventilation for heat dissipation</li>
               </ul>
             </details>
           </div>
           <div class="rating-section">
-            <label>Valutazione:</label>
+            <label>Rating:</label>
             <div class="stars">
               <span data-value="1">☆</span>
               <span data-value="2">☆</span>
@@ -982,27 +982,27 @@
               <span data-value="4">☆</span>
               <span data-value="5">☆</span>
             </div>
-            <button class="project-btn">Invia valutazione</button>
+            <button class="project-btn">Submit rating</button>
           </div>
         </div>
         
-        <!-- Separatore visivo -->
+        <!-- Visual separator -->
         <div class="project-connector">
           <div class="connector-line"></div>
-          <div class="connector-text">Visualizzazione 3D</div>
+          <div class="connector-text">3D Visualization</div>
           <div class="connector-line"></div>
         </div>
         
-        <!-- Progetto ESP3D Box - Visualizzatore 3D -->
+        <!-- ESP3D Box Project - 3D Viewer -->
         <div class="viewer-3d-container esp3d-viewer">
           <div class="viewer-header">
             <div class="viewer-title">ESP3D BOX</div>
-            <div class="viewer-subtitle">Modello 3D interattivo</div>
+            <div class="viewer-subtitle">Interactive 3D model</div>
           </div>
           <div class="viewer-3d">
             <canvas id="esp3d-canvas"></canvas>
             <div class="viewer-message" id="viewer-message">
-              Caricamento modello 3D in corso...
+              Loading 3D model...
             </div>
             <div class="project-badge">ESP3D BOX</div>
           </div>
@@ -1010,7 +1010,7 @@
           <div class="viewer-controls">
             <div class="control-row">
               <div class="control-group">
-                <h3>Rotazione automatica</h3>
+                <h3>Auto rotation</h3>
                 <label class="switch">
                   <input type="checkbox" id="auto-rotate" checked>
                   <span class="slider-toggle"></span>
@@ -1023,7 +1023,7 @@
             </div>
             <div class="control-row">
               <div class="control-group">
-                <h3>Reset vista</h3>
+                <h3>Reset view</h3>
                 <button class="control-btn" id="reset-view">Reset</button>
               </div>
             </div>
@@ -1035,29 +1035,29 @@
   
   <!-- Footer -->
   <footer class="footer-cta">
-    <h2 class="footer-title">ESPLORA I MIEI MODELLI 3D</h2>
+    <h2 class="footer-title">EXPLORE MY 3D MODELS</h2>
     <div class="cta-matrix">
       <a href="index.html" class="cta-primary">HOME</a>
-      <a href="projects.html" class="cta-primary">PROGETTI</a>
+      <a href="projects.html" class="cta-primary">PROJECTS</a>
       <a href="usa.html" class="cta-primary">USA EXPERIENCE</a>
-      <a href="contact.html" class="cta-primary">CONNETTITI</a>
+      <a href="contact.html" class="cta-primary">CONNECT</a>
     </div>
   </footer>
   
   <!-- Scripts -->
   <script type="text/javascript">
-    // Funzione specifica per la pagina che viene chiamata quando cambia la modalità
+    // Specific function for the page that is called when the mode changes
     window.onPerformanceModeChange = function(mode) {
-      // Codice specifico per la pagina modelli3d.html
-      // Ottimizza il visualizzatore 3D in base alla modalità
+      // Page-specific code
+      // Optimize the 3D viewer based on the mode
       const viewer3D = document.querySelector('.viewer-3d');
       if (!viewer3D) return;
       
       switch (mode) {
         case 'light':
-          // Riduci la risoluzione e la qualità del rendering
+          // Reduce resolution and rendering quality
           viewer3D.style.height = '300px';
-          // Disabilita o riduci gli effetti speciali
+          // Disable or reduce special effects
           const canvas = document.getElementById('esp3d-canvas');
           if (canvas) {
             canvas.style.imageRendering = 'pixelated';
@@ -1066,62 +1066,62 @@
           }
           break;
         case 'base':
-          // Usa le impostazioni predefinite
+          // Use default settings
           viewer3D.style.height = '350px';
           break;
         case 'performance':
-          // Usa le impostazioni predefinite
+          // Use default settings
           viewer3D.style.height = '400px';
           break;
       }
       
-      // Adatta anche le animazioni delle card
+      // Also adapt card animations
       const projectCards = document.querySelectorAll('.project-card');
       projectCards.forEach(card => {
-        // Rimuovi le classi di transizione esistenti
+        // Remove existing transition classes
         card.style.transition = 'all 0.5s ease';
         
-        // Adatta le animazioni in base alla modalità
+        // Adapt animations based on mode
         if (mode === 'light') {
-          // Modalità leggera - animazioni minime
+          // Light mode - minimal animations
           card.style.animationDuration = '0.3s';
           card.style.animationDelay = '0s';
         } else if (mode === 'base') {
-          // Modalità base - animazioni moderate
+          // Base mode - moderate animations
           card.style.animationDuration = '0.6s';
-          // Mantieni i delay originali
+          // Keep original delays
         } else {
-          // Modalità performance - animazioni complete
+          // Performance mode - full animations
           card.style.animationDuration = '0.6s';
-          // Mantieni i delay originali
+          // Keep original delays
         }
       });
     };
     
-    // Carica la navbar
+    // Load navbar
     fetch('navbar.html')
       .then(response => response.text())
       .then(html => {
         document.getElementById('navbar-container').innerHTML = html;
       })
-      .catch(error => console.error('Errore nel caricamento della navbar:', error));
+      .catch(error => console.error('Error loading navbar:', error));
     
-    // CREAZIONE PARTICELLE DINAMICHE
+    // DYNAMIC PARTICLE CREATION
     function createParticles() {
-      // Non creare particelle qui, verranno create dalla funzione adjustParticles
-      // che viene chiamata quando si imposta la modalità di performance
+      // Don't create particles here, they will be created by the adjustParticles function
+      // which is called when setting the performance mode
     }
     
-    // VISUALIZZATORE 3D PER SCATOLAESP32.stl
+    // 3D VIEWER FOR SCATOLAESP32.stl
     function init3DViewer() {
       const canvas = document.getElementById('esp3d-canvas');
       const messageEl = document.getElementById('viewer-message');
       
       if (!canvas) return;
       
-      // Setup scena
+      // Setup scene
       const scene = new THREE.Scene();
-      scene.background = null; // Trasparente
+      scene.background = null; // Transparent
       
       // Setup camera
       const camera = new THREE.PerspectiveCamera(
@@ -1141,7 +1141,7 @@
       renderer.setSize(canvas.clientWidth, canvas.clientHeight);
       renderer.setPixelRatio(window.devicePixelRatio);
       
-      // Aggiungi luci
+      // Add lights
       const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
       scene.add(ambientLight);
       
@@ -1149,28 +1149,28 @@
       directionalLight.position.set(1, 1, 1);
       scene.add(directionalLight);
       
-      // Aggiungi controlli
+      // Add controls
       const controls = new THREE.OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
       controls.dampingFactor = 0.05;
       controls.autoRotate = true;
       controls.autoRotateSpeed = 2.0;
       
-      // Funzione per caricare il modello STL
+      // Function to load the STL model
       function loadSTLModel() {
-        // Mostra messaggio di caricamento
+        // Show loading message
         if (messageEl) {
-          messageEl.textContent = 'Caricamento modello ESP3D BOX in corso...';
+          messageEl.textContent = 'Loading ESP3D BOX model...';
           messageEl.style.display = 'block';
         }
         
         const loader = new THREE.STLLoader();
         
-        // Prova a caricare il file STL
+        // Try to load the STL file
         loader.load(
-          'SCATOLAESP32.stl', // Percorso del tuo file STL
+          'SCATOLAESP32.stl', // Path to your STL file
           (geometry) => {
-            // Modello caricato con successo
+            // Model loaded successfully
             const material = new THREE.MeshPhongMaterial({ 
               color: 0xFF5722,
               specular: 0x111111,
@@ -1178,19 +1178,19 @@
             });
             const mesh = new THREE.Mesh(geometry, material);
             
-            // Centra e scala il modello
+            // Center and scale the model
             geometry.computeBoundingBox();
             const box = new THREE.Box3().setFromObject(mesh);
             const center = box.getCenter(new THREE.Vector3());
             const size = box.getSize(new THREE.Vector3());
             const maxDim = Math.max(size.x, size.y, size.z);
-            const scale = 3 / maxDim; // Scala per adattarsi alla vista
+            const scale = 3 / maxDim; // Scale to fit the view
             mesh.scale.multiplyScalar(scale);
             mesh.position.sub(center.multiplyScalar(scale));
             
             scene.add(mesh);
             
-            // Aggiungi un piano di riferimento
+            // Add a reference plane
             const planeGeometry = new THREE.PlaneGeometry(10, 10);
             const planeMaterial = new THREE.MeshBasicMaterial({ 
               color: 0x222222, 
@@ -1203,24 +1203,24 @@
             plane.position.y = -2;
             scene.add(plane);
             
-            // Aggiungi un'etichetta 3D con il nome del progetto
+            // Add a 3D label with the project name
             const canvas = document.createElement('canvas');
             const context = canvas.getContext('2d');
             canvas.width = 256;
             canvas.height = 64;
             
-            // Sfondo trasparente
+            // Transparent background
             context.fillStyle = 'rgba(0, 0, 0, 0)';
             context.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Testo
+            // Text
             context.font = 'bold 40px Orbitron';
             context.fillStyle = '#FF5722';
             context.textAlign = 'center';
             context.textBaseline = 'middle';
             context.fillText('ESP3D BOX', canvas.width / 2, canvas.height / 2);
             
-            // Crea una texture dal canvas
+            // Create a texture from the canvas
             const texture = new THREE.CanvasTexture(canvas);
             const spriteMaterial = new THREE.SpriteMaterial({ 
               map: texture,
@@ -1228,38 +1228,38 @@
             });
             const sprite = new THREE.Sprite(spriteMaterial);
             sprite.scale.set(2, 0.5, 1);
-            sprite.position.y = 2.5; // Posiziona sopra il modello
+            sprite.position.y = 2.5; // Position above the model
             
             scene.add(sprite);
             
-            // Nascondi messaggio di caricamento
+            // Hide loading message
             if (messageEl) {
               messageEl.style.display = 'none';
             }
             
-            console.log('Modello STL caricato con successo');
+            console.log('STL model loaded successfully');
           },
           (xhr) => {
-            // Progresso del caricamento
+            // Loading progress
             const percent = Math.round((xhr.loaded / xhr.total) * 100);
             if (messageEl) {
-              messageEl.textContent = `Caricamento ESP3D BOX: ${percent}%`;
+              messageEl.textContent = `Loading ESP3D BOX: ${percent}%`;
             }
           },
           (error) => {
-            // Errore nel caricamento
-            console.error('Errore nel caricamento del modello STL:', error);
+            // Loading error
+            console.error('Error loading STL model:', error);
             
-            // Mostra messaggio di errore
+            // Show error message
             if (messageEl) {
               messageEl.innerHTML = `
-                <strong>Errore nel caricamento del file STL</strong><br>
-                Assicurati che il file "SCATOLAESP32.stl" sia nella stessa cartella del file HTML.<br>
-                Se stai aprendo il file direttamente (file://), usa un server locale.
+                <strong>Error loading STL file</strong><br>
+                Make sure the file "SCATOLAESP32.stl" is in the same folder as the HTML file.<br>
+                If you are opening the file directly (file://), use a local server.
               `;
             }
             
-            // Fallback: crea un cubo semplice
+            // Fallback: create a simple cube
             const geometry = new THREE.BoxGeometry(2, 2, 2);
             const material = new THREE.MeshPhongMaterial({ 
               color: 0xFF5722,
@@ -1268,7 +1268,7 @@
             const cube = new THREE.Mesh(geometry, material);
             scene.add(cube);
             
-            // Aggiungi un piano di riferimento
+            // Add a reference plane
             const planeGeometry = new THREE.PlaneGeometry(10, 10);
             const planeMaterial = new THREE.MeshBasicMaterial({ 
               color: 0x222222, 
@@ -1284,10 +1284,10 @@
         );
       }
       
-      // Carica il modello
+      // Load the model
       loadSTLModel();
       
-      // Gestione controlli UI
+      // UI controls management
       const autoRotateCheckbox = document.getElementById('auto-rotate');
       const zoomSlider = document.getElementById('zoom-level');
       const resetButton = document.getElementById('reset-view');
@@ -1312,7 +1312,7 @@
         });
       }
       
-      // Gestione resize
+      // Resize management
       function handleResize() {
         camera.aspect = canvas.clientWidth / canvas.clientHeight;
         camera.updateProjectionMatrix();
@@ -1321,7 +1321,7 @@
       
       window.addEventListener('resize', handleResize);
       
-      // Loop di animazione
+      // Animation loop
       function animate() {
         requestAnimationFrame(animate);
         controls.update();
@@ -1331,31 +1331,31 @@
       animate();
     }
     
-    // INIZIALIZZAZIONE
+    // INITIALIZATION
     document.addEventListener('DOMContentLoaded', function () {
-      // Carica la navbar esterna
+      // Load external navbar
       fetch('navbar.html')
         .then(response => response.text())
         .then(html => {
           document.getElementById('navbar-container').innerHTML = html;
         })
-        .catch(error => console.error('Errore nel caricamento della navbar:', error));
+        .catch(error => console.error('Error loading navbar:', error));
       
-      // Inizializza tutte le animazioni
+      // Initialize all animations
       initParallax();
       //initMouseEffects();
       initTypingEffect();
       initScrollAnimations();
       initButtonEffects();
       
-      // Inizializza la transizione del progetto
+      // Initialize project transition
       initProjectTransition();
       
-      // Inizializza il visualizzatore 3D
+      // Initialize 3D viewer
       init3DViewer();
       
-      // Inizializza il sistema di modalità di visualizzazione
-      // Il popup verrà mostrato automaticamente se non c'è una preferenza salvata
+      // Initialize performance mode system
+      // The popup will be shown automatically if there is no saved preference
       if (typeof initPerformanceMode === 'function') {
         initPerformanceMode();
       }
@@ -1363,7 +1363,7 @@
       // Translation functionality
       const translateButton = document.getElementById('translate-button');
       if (translateButton) {
-        // Aggiungi effetto hover speciale
+        // Add special hover effect
         translateButton.addEventListener('mouseenter', function() {
           this.style.transform = 'translateY(-5px) scale(1.1) rotateX(10deg)';
         });
@@ -1373,45 +1373,45 @@
         });
         
         translateButton.addEventListener('click', function () {
-          // Effetto click con pulse
+          // Click effect with pulse
           this.style.transform = 'translateY(-3px) scale(1.05)';
           setTimeout(() => {
             this.style.transform = 'translateY(-5px) scale(1.1)';
           }, 150);
           
-          // Funzione per inizializzare Google Translate
+          // Function to initialize Google Translate
           function googleTranslateElementInit() {
             new google.translate.TranslateElement({
-              pageLanguage: 'it',
-              includedLanguages: 'en',
+              pageLanguage: 'en',
+              includedLanguages: 'it',
               layout: google.translate.TranslateElement.InlineLayout.SIMPLE
             }, 'google_translate_element');
           }
           
-          // Carica dinamicamente lo script di Google Translate
+          // Dynamically load Google Translate script
           if (!window.google || !window.google.translate) {
             const script = document.createElement('script');
             script.type = 'text/javascript';
             script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
             document.head.appendChild(script);
           } else {
-            // Se già caricato, usa direttamente la funzione
+            // If already loaded, use the function directly
             googleTranslateElementInit();
           }
           
-          // Attendi che il widget sia caricato
+          // Wait for the widget to be loaded
           const interval = setInterval(() => {
             const select = document.querySelector('.goog-te-combo');
             if (select) {
               clearInterval(interval);
-              select.value = 'en';
+              select.value = 'it';
               select.dispatchEvent(new Event('change'));
             }
           }, 100);
         });
       }
       
-      // Smooth scroll per i link interni
+      // Smooth scroll for internal links
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
           e.preventDefault();
@@ -1425,29 +1425,29 @@
         });
       });
       
-      // Funzionalità di valutazione
+      // Rating functionality
       document.querySelectorAll('.project-card').forEach(card => {
         const stars = card.querySelectorAll('.stars span');
-        let valutazione = 0;
+        let rating = 0;
         
-        stars.forEach(stella => {
-          stella.addEventListener('click', () => {
-            valutazione = parseInt(stella.getAttribute('data-value'));
+        stars.forEach(star => {
+          star.addEventListener('click', () => {
+            rating = parseInt(star.getAttribute('data-value'));
             stars.forEach(s => {
-              s.textContent = parseInt(s.getAttribute('data-value')) <= valutazione ? '⭐' : '☆';
+              s.textContent = parseInt(s.getAttribute('data-value')) <= rating ? '⭐' : '☆';
             });
           });
         });
         
         const btn = card.querySelector('.project-btn');
         btn.addEventListener('click', () => {
-          const nomeAzienda = document.getElementById('azienda').value.trim();
-          const progetto = card.querySelector('.project-title').textContent.trim();
+          const companyName = document.getElementById('azienda').value.trim();
+          const project = card.querySelector('.project-title').textContent.trim();
           
-          if (!nomeAzienda || valutazione === 0) {
-            // Mostra un messaggio di errore
+          if (!companyName || rating === 0) {
+            // Show error message
             const errorFeedback = document.createElement('div');
-            errorFeedback.textContent = 'Inserisci il nome dell\'azienda e seleziona una valutazione.';
+            errorFeedback.textContent = 'Please enter the company name and select a rating.';
             errorFeedback.style.position = 'fixed';
             errorFeedback.style.bottom = '20px';
             errorFeedback.style.left = '50%';
@@ -1481,9 +1481,9 @@
             return;
           }
           
-          // Mostra un messaggio di invio in corso
+          // Show sending message
           const sendingFeedback = document.createElement('div');
-          sendingFeedback.textContent = 'Invio in corso...';
+          sendingFeedback.textContent = 'Sending...';
           sendingFeedback.style.position = 'fixed';
           sendingFeedback.style.bottom = '20px';
           sendingFeedback.style.left = '50%';
@@ -1505,11 +1505,11 @@
             sendingFeedback.style.opacity = '1';
           }, 10);
           
-          // Verifica che SCRIPT_URL sia definita
+          // Check if SCRIPT_URL is defined
           if (typeof SCRIPT_URL === 'undefined') {
-            console.error("SCRIPT_URL non è definita. Assicurati di aver incluso config.js");
+            console.error("SCRIPT_URL is not defined. Make sure you have included config.js");
             
-            // Rimuovi il messaggio di invio in corso
+            // Remove sending message
             sendingFeedback.style.opacity = '0';
             setTimeout(() => {
               if (document.body.contains(sendingFeedback)) {
@@ -1517,9 +1517,9 @@
               }
             }, 300);
             
-            // Mostra un messaggio di errore
+            // Show error message
             const configErrorFeedback = document.createElement('div');
-            configErrorFeedback.textContent = 'Errore di configurazione. Contatta l\'amministratore.';
+            configErrorFeedback.textContent = 'Configuration error. Contact the administrator.';
             configErrorFeedback.style.position = 'fixed';
             configErrorFeedback.style.bottom = '20px';
             configErrorFeedback.style.left = '50%';
@@ -1553,22 +1553,22 @@
             return;
           }
           
-          // Invia i dati allo script Google
-          // Utilizziamo URLSearchParams per costruire l'URL in modo più sicuro
+          // Send data to Google script
+          // Use URLSearchParams to build the URL more securely
           const params = new URLSearchParams();
-          params.append('azienda', nomeAzienda);
-          params.append('progetto', progetto);
-          params.append('valutazione', valutazione);
+          params.append('azienda', companyName);
+          params.append('progetto', project);
+          params.append('valutazione', rating);
           
           fetch(`${SCRIPT_URL}?${params.toString()}`, {
             method: 'GET',
-            mode: 'no-cors' // Aggiunto per problemi di CORS
+            mode: 'no-cors' // Added for CORS issues
           })
           .then(response => {
-            // Con 'no-cors', non possiamo leggere la risposta, ma assumiamo successo
-            console.log("Dati inviati con successo");
+            // With 'no-cors', we can't read the response, but we assume success
+            console.log("Data sent successfully");
             
-            // Rimuovi il messaggio di invio in corso
+            // Remove sending message
             sendingFeedback.style.opacity = '0';
             setTimeout(() => {
               if (document.body.contains(sendingFeedback)) {
@@ -1576,9 +1576,9 @@
               }
             }, 300);
             
-            // Mostra un messaggio di successo
+            // Show success message
             const successFeedback = document.createElement('div');
-            successFeedback.textContent = `Valutazione per "${progetto}" inviata con successo!`;
+            successFeedback.textContent = `Rating for "${project}" sent successfully!`;
             successFeedback.style.position = 'fixed';
             successFeedback.style.bottom = '20px';
             successFeedback.style.left = '50%';
@@ -1609,16 +1609,16 @@
               }, 300);
             }, 3000);
             
-            // Resetta le stelle dopo l'invio
+            // Reset stars after submission
             stars.forEach(s => {
               s.textContent = '☆';
             });
-            valutazione = 0;
+            rating = 0;
           })
           .catch(error => {
-            console.error("Errore nel salvataggio:", error);
+            console.error("Error saving:", error);
             
-            // Rimuovi il messaggio di invio in corso
+            // Remove sending message
             sendingFeedback.style.opacity = '0';
             setTimeout(() => {
               if (document.body.contains(sendingFeedback)) {
@@ -1626,9 +1626,9 @@
               }
             }, 300);
             
-            // Mostra un messaggio di errore
+            // Show error message
             const fetchErrorFeedback = document.createElement('div');
-            fetchErrorFeedback.textContent = 'Si è verificato un errore. Riprova più tardi.';
+            fetchErrorFeedback.textContent = 'An error occurred. Please try again later.';
             fetchErrorFeedback.style.position = 'fixed';
             fetchErrorFeedback.style.bottom = '20px';
             fetchErrorFeedback.style.left = '50%';
@@ -1663,7 +1663,7 @@
       });
     });
     
-    // EFFETTO PARALLASS AVANZATO
+    // ADVANCED PARALLAX EFFECT
     function initParallax() {
       const waves = document.querySelectorAll('.wave');
       const particles = document.querySelectorAll('.particle');
@@ -1676,7 +1676,7 @@
           wave.style.transform = `translateY(${rate * (index + 1) * 0.3}px) scale(${1 + scrolled * 0.0001})`;
         });
         
-        // Effetto parallax sulle particelle
+        // Parallax effect on particles
         particles.forEach((particle, index) => {
           if (index % 3 === 0) {
             particle.style.transform = `translateY(${rate * 0.2}px)`;
@@ -1685,7 +1685,7 @@
       });
     }
     
-    /*// ANIMAZIONE MOUSEFOLLOW PER LO SFONDO
+    /*// MOUSEFOLLOW ANIMATION FOR BACKGROUND
     function initMouseEffects() {
       const background = document.querySelector('.animated-background');
       let mouseX = 0;
@@ -1703,7 +1703,7 @@
       });
     }*/
     
-    // EFFETTO TYPING ANIMATO
+    // TYPING ANIMATED EFFECT
     function initTypingEffect() {
       const subtitle = document.querySelector('.subtitle-tech');
       if (subtitle) {
@@ -1725,7 +1725,7 @@
       }
     }
     
-    // ANIMAZIONE CARDS CON INTERSECTION OBSERVER
+    // CARDS ANIMATION WITH INTERSECTION OBSERVER
     function initScrollAnimations() {
       const cards = document.querySelectorAll('.project-card:not(.esp3d-main-card)');
       
@@ -1749,7 +1749,7 @@
       });
     }
     
-    // Aggiungi un effetto di transizione quando si scorre tra la descrizione e il visualizzatore
+    // Add transition effect when scrolling between description and viewer
     function initProjectTransition() {
       const projectCard = document.querySelector('.esp3d-main-card');
       const viewerContainer = document.querySelector('.esp3d-viewer');
@@ -1776,7 +1776,7 @@
         rootMargin: '0px 0px -50px 0px'
       });
       
-      // Imposta stati iniziali
+      // Set initial states
       projectCard.style.opacity = '0';
       projectCard.style.transform = 'translateY(50px)';
       
@@ -1788,13 +1788,13 @@
       viewerContainer.style.transform = 'translateY(50px)';
       viewerContainer.style.transition = 'all 0.8s ease';
       
-      // Osserva gli elementi
+      // Observe elements
       observer.observe(projectCard);
       observer.observe(connector);
       observer.observe(viewerContainer);
     }
     
-    // EFFETTI PULSANTI AVANZATI
+    // ADVANCED BUTTON EFFECTS
     function initButtonEffects() {
       const buttons = document.querySelectorAll('.project-btn, .cta-primary');
       
@@ -1833,8 +1833,8 @@
     // Google Translate
     function googleTranslateElementInit() {
       new google.translate.TranslateElement({
-        pageLanguage: 'it',
-        includedLanguages: 'en',
+        pageLanguage: 'en',
+        includedLanguages: 'it',
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE
       }, 'google_translate_element');
     }
@@ -1849,31 +1849,31 @@
       }, 100);
     }
     
-    // INIZIALIZZAZIONE
+    // INITIALIZATION
     document.addEventListener('DOMContentLoaded', function () {
-      // Carica la navbar esterna
+      // Load external navbar
       fetch('navbar.html')
         .then(response => response.text())
         .then(html => {
           document.getElementById('navbar-container').innerHTML = html;
         })
-        .catch(error => console.error('Errore nel caricamento della navbar:', error));
+        .catch(error => console.error('Error loading navbar:', error));
       
-      // Inizializza tutte le animazioni
+      // Initialize all animations
       initParallax();
       //initMouseEffects();
       initTypingEffect();
       initScrollAnimations();
       initButtonEffects();
       
-      // Inizializza la transizione del progetto
+      // Initialize project transition
       initProjectTransition();
       
-      // Inizializza il visualizzatore 3D
+      // Initialize 3D viewer
       init3DViewer();
       
-      // Inizializza il sistema di modalità di visualizzazione
-      // Il popup verrà mostrato automaticamente se non c'è una preferenza salvata
+      // Initialize performance mode system
+      // The popup will be shown automatically if there is no saved preference
       if (typeof initPerformanceMode === 'function') {
         initPerformanceMode();
       }
@@ -1881,7 +1881,7 @@
       // Translation functionality
       const translateButton = document.getElementById('translate-button');
       if (translateButton) {
-        // Aggiungi effetto hover speciale
+        // Add special hover effect
         translateButton.addEventListener('mouseenter', function() {
           this.style.transform = 'translateY(-5px) scale(1.1) rotateX(10deg)';
         });
@@ -1891,20 +1891,20 @@
         });
         
         translateButton.addEventListener('click', function () {
-          // Effetto click con pulse
+          // Click effect with pulse
           this.style.transform = 'translateY(-3px) scale(1.05)';
           setTimeout(() => {
             this.style.transform = 'translateY(-5px) scale(1.1)';
           }, 150);
           
           waitForTranslateWidget(function (select) {
-            select.value = 'en';
+            select.value = 'it';
             select.dispatchEvent(new Event('change'));
           });
         });
       }
       
-      // Smooth scroll per i link interni
+      // Smooth scroll for internal links
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
           e.preventDefault();
@@ -1919,17 +1919,17 @@
       });
     });
     
-    // Gestione resize per performance
+    // Resize management for performance
     let resizeTimeout;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        // Non rigenerare le particelle qui, verranno gestite dal sistema di modalità
+        // Don't regenerate particles here, they will be managed by the mode system
       }, 250);
     });
   </script>
   
-  <!-- Includi il file di gestione delle modalità di visualizzazione -->
+  <!-- Include performance mode management file -->
   <script src="js/performance-mode.js"></script>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>

@@ -1,20 +1,20 @@
-// popup-video.js - Gestione del popup per il video di Meshtastic
+// popup-video.js - Management of the popup for the Meshtastic video
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Crea il popup
+  // Create the popup
   createVideoPopup();
   
-  // Mostra il popup dopo un breve ritardo
+  // Show the popup after a short delay
   setTimeout(showVideoPopup, 1000);
 });
 
 function createVideoPopup() {
-  // Controlla se il popup esiste già
+  // Check if the popup already exists
   if (document.getElementById('meshtastic-video-popup')) {
     return;
   }
   
-  // Crea l'elemento del popup
+  // Create the popup element
   const popup = document.createElement('div');
   popup.id = 'meshtastic-video-popup';
   popup.className = 'video-popup';
@@ -22,39 +22,39 @@ function createVideoPopup() {
   popup.innerHTML = `
     <div class="close-btn">×</div>
     <div class="popup-content">
-      <img src="https://img.youtube.com/vi/nkp3-EzIssU/mqdefault.jpg" alt="Copertina video Meshtastic" class="popup-thumbnail">
+      <img src="https://img.youtube.com/vi/nkp3-EzIssU/mqdefault.jpg" alt="Meshtastic video cover" class="popup-thumbnail">
       <div class="popup-text">
-        <p class="popup-title"><span class="popup-icon">📹</span>GUARDA ORA IL MIO VIDEO SU MESHTASTIC!!!</p>
+        <p class="popup-title"><span class="popup-icon">📹</span>WATCH MY VIDEO ON MESHTASTIC NOW!!!</p>
       </div>
     </div>
   `;
   
-  // Aggiungi il popup al body
+  // Add the popup to the body
   document.body.appendChild(popup);
   
-  // Event listener per chiudere il popup
+  // Event listener to close the popup
   const closeBtn = popup.querySelector('.close-btn');
   closeBtn.addEventListener('click', function(e) {
     e.stopPropagation();
     hideVideoPopup();
   });
   
-  // Event listener per aprire il video
+  // Event listener to open the video
   popup.addEventListener('click', function() {
     openVideoOverlay();
   });
   
-  // Crea l'overlay per il video
+  // Create the video overlay
   createVideoOverlay();
 }
 
 function createVideoOverlay() {
-  // Controlla se l'overlay esiste già
+  // Check if the overlay already exists
   if (document.getElementById('video-overlay')) {
     return;
   }
   
-  // Crea l'elemento overlay
+  // Create the overlay element
   const overlay = document.createElement('div');
   overlay.id = 'video-overlay';
   overlay.className = 'video-overlay';
@@ -66,16 +66,16 @@ function createVideoOverlay() {
     </div>
   `;
   
-  // Aggiungi l'overlay al body
+  // Add the overlay to the body
   document.body.appendChild(overlay);
   
-  // Event listener per chiudere l'overlay
+  // Event listener to close the overlay
   const closeVideoBtn = overlay.querySelector('.close-video');
   closeVideoBtn.addEventListener('click', function() {
     closeVideoOverlay();
   });
   
-  // Chiudi l'overlay cliccando fuori dal video
+  // Close the overlay by clicking outside the video
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) {
       closeVideoOverlay();
@@ -88,7 +88,7 @@ function showVideoPopup() {
   if (popup) {
     popup.classList.add('show');
     
-    // Salva che l'utente ha visto il popup in questa sessione
+    // Save that the user has seen the popup in this session
     sessionStorage.setItem('meshtasticPopupShown', 'true');
   }
 }
@@ -104,7 +104,7 @@ function openVideoOverlay() {
   const overlay = document.getElementById('video-overlay');
   if (overlay) {
     overlay.classList.add('show');
-    // Metti in pausa eventuali animazioni della pagina
+    // Pause any page animations
     document.body.style.overflow = 'hidden';
   }
 }
@@ -113,25 +113,25 @@ function closeVideoOverlay() {
   const overlay = document.getElementById('video-overlay');
   if (overlay) {
     overlay.classList.remove('show');
-    // Ripristina lo scroll della pagina
+    // Restore page scrolling
     document.body.style.overflow = '';
     
-    // Ferma il video quando l'overlay viene chiuso
+    // Stop the video when the overlay is closed
     const iframe = overlay.querySelector('iframe');
     if (iframe) {
       const src = iframe.src;
-      iframe.src = src; // Ricarica l'iframe per fermare il video
+      iframe.src = src; // Reload the iframe to stop the video
     }
   }
 }
 
-// Funzione per controllare se mostrare il popup basandosi sulla sessione
+// Function to check whether to show the popup based on the session
 function shouldShowPopup() {
-  // Se l'utente ha già visto il popup in questa sessione, non mostrarlo di nuovo
+  // If the user has already seen the popup in this session, don't show it again
   return sessionStorage.getItem('meshtasticPopupShown') !== 'true';
 }
 
-// Esponi le funzioni globalmente
+// Expose functions globally
 window.MeshtasticVideoPopup = {
   show: showVideoPopup,
   hide: hideVideoPopup,

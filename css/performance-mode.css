@@ -1,28 +1,28 @@
-/* performance-mode.css - Stili per le modalità di visualizzazione */
+/* performance-mode.css - Styles for display modes */
 
 /* ===================================================================================== */
-/* STILI PER LA MODALITÀ LEGGERA - MINIMO IMPATTO VISIVO E DINAMICO                      */
+/* STYLES FOR LIGHT MODE - MINIMUM VISUAL AND DYNAMIC IMPACT                           */
 /* ===================================================================================== */
 body.light-mode {
-  /* Disabilita tutti gli elementi dinamici pesanti */
+  /* Disable all heavy dynamic elements */
 }
 body.light-mode .particle,
 body.light-mode .wave {
   display: none;
 }
 
-/* DISABILITA COMPLETAMENTE L'EFFETTO DI ILLUMINAZIONE DELLO SFONDO IN MODALITÀ LEGGERA */
+/* COMPLETELY DISABLE BACKGROUND LIGHTING EFFECT IN LIGHT MODE */
 body.light-mode .animated-background {
-  /* FORZA lo sfondo statico senza effetto dinamico */
+  /* FORCE static background without dynamic effect */
   background: 
     radial-gradient(circle at 25% 25%, rgba(255, 87, 34, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 75% 75%, rgba(255, 138, 80, 0.08) 0%, transparent 50%),
     linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%) !important;
-  /* Disabilita qualsiasi transizione che potrebbe interferire */
+  /* Disable any transition that might interfere */
   transition: none !important;
 }
 
-/* Disabilita TUTTE le animazioni e le transizioni complesse, mantenendo solo gli hover di base */
+/* Disable ALL animations and complex transitions, keeping only basic hover effects */
 body.light-mode .glitch-title,
 body.light-mode .profile-container::before,
 body.light-mode .profile-pic,
@@ -36,10 +36,10 @@ body.light-mode .footer-title,
 body.light-mode .cta-primary::before,
 body.light-mode #translate-button::before {
   animation: none !important;
-  transition: none !important; /* Disabilita anche le transizioni non essenziali */
+  transition: none !important; /* Also disable non-essential transitions */
 }
 
-/* Mantiene solo gli effetti hover di base su pulsanti e elementi interattivi */
+/* Keep only basic hover effects on buttons and interactive elements */
 body.light-mode .profile-pic:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px rgba(255, 87, 34, 0.4);
@@ -61,14 +61,14 @@ body.light-mode #translate-button:hover {
   box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
 }
 
-/* Disabilita il mouse follow in modalità leggera */
+/* Disable mouse follow in light mode */
 body.light-mode #mouse-follow {
   display: none !important;
 }
 
 
 /* ===================================================================================== */
-/* STILI PER LA MODALITÀ ALTA PRESTAZIONE - IMPATTO VISIVO COMPLETO                      */
+/* STYLES FOR HIGH PERFORMANCE MODE - COMPLETE VISUAL IMPACT                             */
 /* ===================================================================================== */
 body.high-performance-mode .particle {
   opacity: 0.7;
@@ -78,7 +78,7 @@ body.high-performance-mode .wave {
   opacity: 0.3;
 }
 
-/* Rallenta le animazioni per ridurre l'impatto visivo */
+/* Slow down animations to reduce visual impact */
 body.high-performance-mode .glitch-title {
   animation-duration: 5s;
 }
@@ -129,7 +129,7 @@ body.high-performance-mode #translate-button::before {
 
 
 /* ===================================================================================== */
-/* ACCESSIBILITÀ - Disabilita animazioni per utenti che preferiscono ridurre il movimento */
+/* ACCESSIBILITY - Disable animations for users who prefer reduced motion                  */
 /* ===================================================================================== */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -141,7 +141,7 @@ body.high-performance-mode #translate-button::before {
     scroll-behavior: auto !important;
   }
 
-  /* Mantiene solo gli effetti hover di base per l'interattività */
+  /* Keep only basic hover effects for interactivity */
   .profile-pic:hover {
     transform: scale(1.05);
   }
@@ -161,7 +161,7 @@ body.high-performance-mode #translate-button::before {
 
 
 /* ===================================================================================== */
-/* STILI PER IL POPUP INIZIALE DI SELEZIONE MODALITÀ                                    */
+/* STYLES FOR INITIAL MODE SELECTION POPUP                                               */
 /* ===================================================================================== */
 #initial-mode-popup {
   position: fixed;
@@ -266,7 +266,7 @@ body.high-performance-mode #translate-button::before {
 
 
 /* ===================================================================================== */
-/* RESPONSIVE PER IL SELETTORE DI MODALITÀ                                               */
+/* RESPONSIVE FOR MODE SELECTOR                                                         */
 /* ===================================================================================== */
 @media (max-width: 968px) {
   .performance-mode-selector {
@@ -291,7 +291,7 @@ body.high-performance-mode #translate-button::before {
     font-size: 0.6em;
   }
   
-  /* Responsive per il popup iniziale */
+  /* Responsive for initial popup */
   .popup-content {
     padding: 20px;
     border-radius: 20px 20px 0 0;
