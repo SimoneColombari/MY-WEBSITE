@@ -59,7 +59,7 @@
 .popup-tab {
   display: none; /* Hidden by default, only visible on mobile */
   position: fixed;
-  bottom: 30px;
+  bottom: 15px; /* <-- MODIFICATO QUI: alzato da 30px a 15px */
   left: 0;
   background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
   color: white;
