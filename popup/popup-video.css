@@ -1,62 +1,38 @@
-/* Popup for Meshtastic video */
+/* Main Popup Container */
 .video-popup {
   position: fixed;
-  top: 20px;
-  left: 20px;
+  bottom: 20px;
+  left: 0;
   background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
   color: white;
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 0 10px 10px 0;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   z-index: 1000;
-  max-width: 400px;
+  max-width: 300px;
   font-family: 'Orbitron', monospace;
   font-weight: 700;
-  font-size: 0.9em;
-  transform: translateX(-120%);
+  font-size: 0.8em;
+  /* Initially hidden off-screen to the left */
+  transform: translateX(-100%);
   transition: transform 0.5s ease;
   cursor: pointer;
 }
 
+/* State when the popup is fully visible */
 .video-popup.show {
   transform: translateX(0);
 }
 
-/* The close button is now completely removed from the HTML, so this rule is no longer needed */
-
-/* Tab that remains visible when popup is closed on mobile */
-.video-popup .popup-tab {
-  display: none; /* Hidden by default */
-  position: fixed; /* FIXED to the viewport, not the popup */
-  bottom: 30px;
-  left: 0;
-  background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
-  color: white;
-  padding: 10px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-  z-index: 999;
-  cursor: pointer;
-  font-size: 1.2em;
-  transition: all 0.3s ease;
-  justify-content: center;
-  align-items: center;
-}
-
-.video-popup .popup-tab:hover {
-  transform: scale(1.1); /* Simple scale effect on hover */
-}
-
+/* The popup content */
 .video-popup .popup-content {
   display: flex;
   align-items: center;
 }
 
 .video-popup .popup-thumbnail {
-  width: 120px;
-  height: 68px;
+  width: 80px;
+  height: 45px; /* 16:9 aspect ratio */
   border-radius: 5px;
   margin-right: 15px;
   object-fit: cover;
@@ -79,7 +55,31 @@
   font-size: 1.2em;
 }
 
-/* Video overlay */
+/* The Tab - this is now a separate element */
+.popup-tab {
+  display: none; /* Hidden by default, only visible on mobile */
+  position: fixed;
+  bottom: 30px;
+  left: 0;
+  background: linear-gradient(135deg, #FF5722 0%, #ff8a50 100%);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  cursor: pointer;
+  font-size: 1.2em;
+  transition: all 0.3s ease;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-tab:hover {
+  transform: scale(1.1);
+}
+
+/* Video overlay (unchanged) */
 .video-overlay {
   position: fixed;
   top: 0;
@@ -140,25 +140,15 @@
 
 /* Responsive for mobile devices */
 @media (max-width: 768px) {
-  .video-popup {
-    bottom: 20px;
-    top: auto;
-    left: 0;
-    max-width: 300px;
-    padding: 12px;
-    font-size: 0.8em;
-    border-radius: 0 10px 10px 0;
-  }
-
   /* Show the tab on mobile */
-  .video-popup .popup-tab {
+  .popup-tab {
     display: flex;
   }
 
-  /* NEW state: the popup is completely hidden off-screen */
-  .video-popup.tab-only {
-    /* Push the entire popup container completely off the left side of the screen */
-    transform: translateX(-100%);
+  .video-popup {
+    max-width: 280px;
+    padding: 12px;
+    font-size: 0.8em;
   }
   
   .video-popup .popup-content {
@@ -184,9 +174,7 @@
 
 @media (max-width: 480px) {
   .video-popup {
-    bottom: 10px;
-    left: 0;
-    max-width: 260px;
+    max-width: 250px;
     padding: 10px;
     font-size: 0.7em;
   }

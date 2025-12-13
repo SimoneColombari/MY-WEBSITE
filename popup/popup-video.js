@@ -1,30 +1,29 @@
 // popup-video.js - Management of the popup for the Meshtastic video
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Create the popup
-  createVideoPopup();
+  // Create the popup and the tab
+  createVideoPopupAndTab();
   
   // Show the popup after a short delay
   setTimeout(showVideoPopup, 1000);
 });
 
 function isMobileDevice() {
-  return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1) || (window.innerWidth <= 768);
+  // A simple check for mobile devices
+  return window.innerWidth <= 768;
 }
 
-function createVideoPopup() {
-  // Check if the popup already exists
+function createVideoPopupAndTab() {
+  // Check if the elements already exist
   if (document.getElementById('meshtastic-video-popup')) {
     return;
   }
-  
-  // Create the popup element
+
+  // 1. Create the main popup element
   const popup = document.createElement('div');
   popup.id = 'meshtastic-video-popup';
-  // Start in the 'tab-only' state on mobile, hidden on desktop
-  popup.className = isMobileDevice() ? 'video-popup tab-only' : 'video-popup';
+  popup.className = 'video-popup'; // It starts hidden
   
-  // The close-btn has been completely removed from the HTML string
   popup.innerHTML = `
     <div class="popup-content">
       <img src="https://img.youtube.com/vi/nkp3-EzIssU/mqdefault.jpg" alt="Meshtastic video cover" class="popup-thumbnail">
@@ -32,23 +31,27 @@ function createVideoPopup() {
         <p class="popup-title"><span class="popup-icon">📹</span>WATCH MY VIDEO ON MESHTASTIC NOW!!!</p>
       </div>
     </div>
-    <div class="popup-tab">📹</div>
   `;
   
   // Add the popup to the body
   document.body.appendChild(popup);
   
-  // The event listener for the close button has been removed
-  
-  // Event listener to open the video from the main content
-  const popupContent = popup.querySelector('.popup-content');
-  popupContent.addEventListener('click', function(e) {
+  // Event listener to open the video
+  popup.addEventListener('click', function(e) {
     e.stopPropagation();
     openVideoOverlay();
   });
 
+  // 2. Create the tab element (SEPARATE from the popup)
+  const tab = document.createElement('div');
+  tab.id = 'meshtastic-video-tab';
+  tab.className = 'popup-tab';
+  tab.innerHTML = '📹';
+  
+  // Add the tab to the body
+  document.body.appendChild(tab);
+
   // Event listener for the tab to reopen the popup
-  const tab = popup.querySelector('.popup-tab');
   tab.addEventListener('click', function(e) {
     e.stopPropagation();
     showVideoPopup();
@@ -64,7 +67,6 @@ function createVideoOverlay() {
     return;
   }
   
-  // Create the overlay element
   const overlay = document.createElement('div');
   overlay.id = 'video-overlay';
   overlay.className = 'video-overlay';
@@ -76,16 +78,11 @@ function createVideoOverlay() {
     </div>
   `;
   
-  // Add the overlay to the body
   document.body.appendChild(overlay);
   
-  // Event listener to close the overlay
   const closeVideoBtn = overlay.querySelector('.close-video');
-  closeVideoBtn.addEventListener('click', function() {
-    closeVideoOverlay();
-  });
+  closeVideoBtn.addEventListener('click', closeVideoOverlay);
   
-  // Close the overlay by clicking outside the video
   overlay.addEventListener('click', function(e) {
     if (e.target === overlay) {
       closeVideoOverlay();
@@ -95,18 +92,22 @@ function createVideoOverlay() {
 
 function showVideoPopup() {
   const popup = document.getElementById('meshtastic-video-popup');
+  const tab = document.getElementById('meshtastic-video-tab');
+
   if (popup) {
-    // Remove the 'tab-only' class and add the 'show' class
-    popup.classList.remove('tab-only');
     popup.classList.add('show');
     
-    // Save that the user has seen the popup in this session
+    // On mobile, hide the tab when the popup is visible
+    if (isMobileDevice() && tab) {
+      tab.style.display = 'none';
+    }
+    
     sessionStorage.setItem('meshtasticPopupShown', 'true');
     
-    // On mobile devices, auto-hide the popup after 2 seconds
+    // On mobile, auto-hide the popup after 2 seconds
     if (isMobileDevice()) {
       setTimeout(() => {
-        // Only hide if it's not already in the 'tab-only' state
+        // Only hide if it's currently shown
         if (popup.classList.contains('show')) {
           hideVideoPopup();
         }
@@ -117,13 +118,14 @@ function showVideoPopup() {
 
 function hideVideoPopup() {
   const popup = document.getElementById('meshtastic-video-popup');
+  const tab = document.getElementById('meshtastic-video-tab');
+
   if (popup) {
-    // Remove the 'show' class
     popup.classList.remove('show');
     
-    // On mobile, add the 'tab-only' class to show the tab
-    if (isMobileDevice()) {
-      popup.classList.add('tab-only');
+    // On mobile, show the tab again when the popup is hidden
+    if (isMobileDevice() && tab) {
+      tab.style.display = 'flex';
     }
   }
 }
@@ -142,11 +144,10 @@ function closeVideoOverlay() {
     overlay.classList.remove('show');
     document.body.style.overflow = '';
     
-    // Stop the video when the overlay is closed
     const iframe = overlay.querySelector('iframe');
     if (iframe) {
       const src = iframe.src;
-      iframe.src = src; // Reload the iframe to stop the video
+      iframe.src = src;
     }
   }
 }
