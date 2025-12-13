@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(showVideoPopup, 1000);
 });
 
+// Function to detect if the user is on a mobile device
+function isMobileDevice() {
+  return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1) || (window.innerWidth <= 768);
+}
+
 function createVideoPopup() {
   // Check if the popup already exists
   if (document.getElementById('meshtastic-video-popup')) {
@@ -27,6 +32,7 @@ function createVideoPopup() {
         <p class="popup-title"><span class="popup-icon">📹</span>WATCH MY VIDEO ON MESHTASTIC NOW!!!</p>
       </div>
     </div>
+    <div class="popup-tab">📹</div>
   `;
   
   // Add the popup to the body
@@ -40,8 +46,18 @@ function createVideoPopup() {
   });
   
   // Event listener to open the video
-  popup.addEventListener('click', function() {
-    openVideoOverlay();
+  popup.addEventListener('click', function(e) {
+    // Don't open video if clicking on the tab
+    if (!e.target.classList.contains('popup-tab')) {
+      openVideoOverlay();
+    }
+  });
+  
+  // Event listener for the tab to reopen the popup
+  const tab = popup.querySelector('.popup-tab');
+  tab.addEventListener('click', function(e) {
+    e.stopPropagation();
+    showVideoPopup();
   });
   
   // Create the video overlay
@@ -90,6 +106,13 @@ function showVideoPopup() {
     
     // Save that the user has seen the popup in this session
     sessionStorage.setItem('meshtasticPopupShown', 'true');
+    
+    // On mobile devices, auto-hide the popup after 2 seconds
+    if (isMobileDevice()) {
+      setTimeout(() => {
+        hideVideoPopup();
+      }, 2000);
+    }
   }
 }
 
